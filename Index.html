@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Profile - Dominic V</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --main-pink: #d9b8cc;
+            --light-pink: #fff5f9;
+            --text-color: #8e7486;
+            --border: 2px solid var(--main-pink);
+            /* รูปหัวใจ (Bullet) ใช้ลิงก์เดิมที่ใช้งานได้ปกติ */
+            --bullet-icon: url('https://lh3.googleusercontent.com/d/1PiHu2nlsIq-YI9k5XZlYq6O9-OYwvbgz');
+            /* แก้ไขรูปดอกไม้ (Flower) เป็นลิงก์รูปแบบ Direct เพื่อให้แสดงผล */
+            --flower-icon: url('https://drive.google.com/uc?id=1alCVRTvLCHXqx-yPBF5fdDPmSdLZFAWd');
+        }
+
+        * { box-sizing: border-box; font-family: 'Mali', cursive; }
+
+        body {
+            background-color: #fdfafb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .btn-close {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 45px;
+            height: 40px;
+            border: var(--border);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            color: var(--main-pink);
+            cursor: pointer;
+            background: white;
+            z-index: 10;
+        }
+
+        .char-window {
+            width: 100%;
+            max-width: 650px;
+            background: white;
+            border: 3px solid var(--main-pink);
+            padding: 25px;
+            position: relative;
+        }
+
+        .header-strip {
+            width: 85%;
+            height: 40px;
+            border: var(--border);
+            background: var(--light-pink);
+            margin: 0 auto 20px 60px;
+        }
+
+        .top-section {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .avatar-box {
+            border: var(--border);
+            padding: 10px;
+            aspect-ratio: 1/1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            color: var(--main-pink);
+        }
+        .avatar-box img { width: 100%; height: 100%; object-fit: cover; display: none; }
+
+        .ownership-info {
+            margin-top: 15px;
+            border: var(--border);
+            padding: 10px 4px; 
+            font-size: 0.85rem;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .ownership-info .stats-line {
+            width: 100%;
+            justify-content: flex-start;
+            margin-bottom: 5px;
+        }
+        
+        .ownership-info .custom-bullet {
+            margin-right: 2px;
+        }
+
+        .about-stats-box {
+            border: var(--border);
+            padding: 22px 15px 15px 15px;
+            position: relative;
+        }
+        .section-label {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 0 15px;
+            font-weight: bold;
+            color: var(--text-color);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+        .inner-stats-card {
+            border: 1px solid var(--main-pink);
+            padding: 15px;
+            min-height: 160px;
+        }
+
+        .custom-bullet {
+            display: inline-block;
+            width: 28px; 
+            height: 25px; 
+            background-image: var(--bullet-icon);
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin-right: 8px; 
+            vertical-align: middle;
+            flex-shrink: 0;
+        }
+
+        .stats-line { 
+            margin-bottom: 8px; 
+            color: var(--text-color); 
+            font-size: 0.95rem; 
+            display: flex; 
+            align-items: center; 
+            white-space: nowrap;
+        }
+
+        .tag-row-box {
+            border: var(--border);
+            height: 34px; 
+            padding: 0 20px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 0 auto 20px auto;
+            width: fit-content;
+        }
+        .tag-pill {
+            border: 1.5px solid var(--main-pink);
+            border-radius: 20px;
+            padding: 0px 12px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+            height: 22px;
+        }
+        .tag-pill .custom-bullet {
+            width: 20px;
+            height: 18px;
+            margin-right: 4px;
+        }
+
+        .tabs-row {
+            display: flex;
+            border: var(--border);
+            height: 34px; 
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            padding: 0 25px;
+            border: none;
+            background: none;
+            color: var(--text-color);
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            font-size: 0.9rem;
+        }
+        .tab-btn.active { border-right: var(--border); }
+
+        .relationship-title { text-align: center; color: var(--text-color); margin-bottom: 10px; display: flex; justify-content: center; align-items: center; }
+        .relationship-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .rel-card {
+            border: var(--border);
+            padding: 15px;
+            width: 280px;
+            font-size: 0.85rem;
+            color: var(--text-color);
+            text-align: center;
+        }
+        .portrait-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: var(--border);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            color: var(--main-pink);
+        }
+
+        .traits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .trait-box {
+            border: var(--border);
+            padding: 22px 15px 15px 15px;
+            position: relative;
+            color: var(--text-color);
+            font-size: 0.85rem;
+        }
+
+        .backstory-box {
+            border: var(--border);
+            padding: 25px 20px;
+            min-height: 120px;
+            position: relative;
+            color: var(--text-color);
+        }
+
+        .flower-label::before, .flower-label::after {
+            content: '';
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background-image: var(--flower-icon);
+            background-size: contain;
+            background-repeat: no-repeat;
+            vertical-align: middle;
+        }
+        .flower-label::before { margin-right: 6px; }
+        .flower-label::after { margin-left: 6px; }
+
+        .flower-single::before {
+            content: '';
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background-image: var(--flower-icon);
+            background-size: contain;
+            background-repeat: no-repeat;
+            vertical-align: middle;
+            margin: 0 2px;
+        }
+
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3rem;
+            color: var(--main-pink);
+            cursor: pointer;
+        }
+        .nav-prev { left: 20px; }
+        .nav-next { right: 20px; }
+
+    </style>
+</head>
+<body>
+
+    <div class="nav-arrow nav-prev">❮</div>
+    <div class="nav-arrow nav-next">❯</div>
+
+    <div class="char-window">
+        <div class="btn-close">✕</div>
+        <div class="header-strip"></div>
+
+        <div id="about-content">
+            <div class="top-section">
+                <div>
+                    <div class="avatar-box">
+                        <img src="https://drive.google.com/file/d/1PiHu2nlsIq-YI9k5XZlYq6O9-OYwvbgz/view" class="drive-img">
+                        <span>รูปตัวละคร</span>
+                    </div>
+                    <div class="ownership-info">
+                        <div class="stats-line"><span class="custom-bullet"></span>Owner<span class="flower-single"></span>Dominic</div>
+                        <div class="stats-line"><span class="custom-bullet"></span>Artist<span class="flower-single"></span>Dominic</div>
+                        <div class="stats-line"><span class="custom-bullet"></span>Value<span class="flower-single"></span>0</div>
+                    </div>
+                </div>
+
+                <div class="about-stats-box">
+                    <div class="section-label flower-label">About</div>
+                    <div class="inner-stats-card">
+                        <div class="stats-line"><span class="custom-bullet"></span>name: Dominic V</div>
+                        <div class="stats-line"><span class="custom-bullet"></span>birthday: 24/04</div>
+                        <div class="stats-line"><span class="custom-bullet"></span>age: ?</div>
+                        <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                            <span class="stats-line"><span class="custom-bullet"></span>Height: 160</span>
+                            <span class="stats-line"><span class="custom-bullet"></span>Weight: 50</span>
+                        </div>
+                        <div class="stats-line"><span class="custom-bullet"></span>Species: ?</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tag-row-box">
+                <div class="tag-pill"><span class="custom-bullet"></span> Mascot</div>
+                <div class="tag-pill"><span class="custom-bullet"></span> Oc</div>
+            </div>
+
+            <div class="tabs-row">
+                <button class="tab-btn active flower-label">About</button>
+                <button class="tab-btn flower-label">Gallery</button>
+            </div>
+
+            <div class="relationship-title flower-label">Relationship</div>
+            <div class="relationship-flex">
+                <div style="color:var(--main-pink); font-size:2rem; cursor:pointer;">❮</div>
+                <div class="rel-card">
+                    <div class="flower-label">friends</div>
+                    ไอรีน เจ้าของร้านดอกไม้เป็นหนึ่งในเพื่อนสนิทของโดมินิค
+                    <div style="letter-spacing: 2px;">***********************</div>
+                </div>
+                <div class="portrait-circle">
+                    <img src="https://drive.google.com/file/d/1PiHu2nlsIq-YI9k5XZlYq6O9-OYwvbgz/view" class="drive-img">
+                    <span>ใส่รูป</span>
+                </div>
+                <div style="color:var(--main-pink); font-size:2rem; cursor:pointer;">❯</div>
+            </div>
+
+            <div class="traits-grid">
+                <div class="trait-box">
+                    <div class="section-label flower-label">favorite thing</div>
+                    <div class="stats-line"><span class="custom-bullet"></span>แอปเปิ้ล</div>
+                    <div class="stats-line"><span class="custom-bullet"></span>อาหารรสเผ็ด</div>
+                    <div class="stats-line"><span class="custom-bullet"></span>ฤดูฝน</div>
+                </div>
+                <div class="trait-box">
+                    <div class="section-label flower-label">disliked thing</div>
+                    <div class="stats-line"><span class="custom-bullet"></span>แมงมุม</div>
+                    <div class="stats-line"><span class="custom-bullet"></span>ยุง</div>
+                    <div class="stats-line"><span class="custom-bullet"></span>ฤดูร้อน</div>
+                </div>
+            </div>
+
+            <div class="backstory-box">
+                <div class="section-label flower-label">Backstory</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function fixDriveImages() {
+            const imgs = document.querySelectorAll('.drive-img');
+            imgs.forEach(img => {
+                let src = img.getAttribute('src');
+                if (src && src.includes('drive.google.com')) {
+                    const id = src.match(/\/d\/([^/]+)/) || src.match(/id=([^&]+)/);
+                    if (id) {
+                        img.src = `https://lh3.googleusercontent.com/d/${id[1]}`;
+                        img.onload = () => {
+                            img.style.display = 'block';
+                            if(img.nextElementSibling) img.nextElementSibling.style.display = 'none';
+                        }
+                    }
+                }
+            });
+        }
+        window.onload = fixDriveImages;
+    </script>
+</body>
+</html>
