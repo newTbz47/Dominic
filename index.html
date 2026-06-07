@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1000">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Character & Commission Design</title>
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -17,33 +17,33 @@
             margin: 0; padding: 0; background-color: white;
             font-family: 'Mali', cursive; display: flex; flex-direction: column;
             align-items: center; color: var(--text-gray); min-height: 100vh;
-            min-width: 900px; overflow-y: scroll; overflow-x: hidden;
+            width: 100%; overflow-x: hidden;
         }
 
-        /* ส่วนภาพบนสุดที่กว้างเกินเว็บ */
+        /* ส่วนภาพบนสุด - แก้ไขให้กว้างเต็มหน้าจอและขยับขึ้น */
         .top-header {
             width: 100%;
             display: flex;
             justify-content: center;
-            overflow: visible;
+            overflow: hidden;
             position: relative;
-            margin-top: -80px; 
+            margin-top: -50px; /* แก้ไข: ขยับขึ้นไปด้านบนตามคำสั่ง */
             z-index: 5;
         }
         .top-header img {
-            width: 110%;
-            min-width: 1200px;
+            width: 100%; /* แก้ไข: ให้กว้างเต็มความกว้างของหน้าเว็บ */
             height: auto;
-            object-fit: contain;
-            flex-shrink: 0;
+            object-fit: cover; /* แก้ไข: ให้ภาพขยายเต็มพื้นที่ */
+            display: block;
         }
 
         /* Banner (โบว์เล็ก 7 รูป) */
         .banner {
             width: 100%; height: 60px; background-color: transparent;
             display: flex; justify-content: space-evenly; align-items: center;
-            flex-shrink: 0; padding: 0 10%; box-sizing: border-box;
-            margin-top: -60px; position: relative; z-index: 10;
+            flex-shrink: 0; padding: 0 5%; box-sizing: border-box;
+            margin-top: -30px; position: relative; z-index: 10;
+            max-width: 1000px;
         }
         .banner img {
             height: 35px; width: auto; object-fit: contain;
@@ -53,7 +53,8 @@
         .footer-bow-container {
             width: 100%; height: 60px; background-color: transparent;
             display: flex; justify-content: space-evenly; align-items: center;
-            padding: 0 10%; box-sizing: border-box; margin-top: 50px;
+            padding: 0 5%; box-sizing: border-box; margin-top: 50px;
+            max-width: 1000px;
         }
         .footer-bow-container img {
             height: 35px; width: auto; object-fit: contain;
@@ -61,7 +62,8 @@
 
         .nav-group {
             display: flex; background: white; border: 2px solid var(--border-pink);
-            border-radius: 8px; overflow: hidden; margin: 30px 0 40px 0; width: 550px; z-index: 100;
+            border-radius: 8px; overflow: hidden; margin: 30px auto; 
+            width: 90%; max-width: 550px; z-index: 100;
         }
         .nav-item {
             flex: 1; padding: 10px 20px; text-decoration: none; color: var(--text-gray);
@@ -71,7 +73,13 @@
         .nav-item:last-child { border-right: none; }
         .nav-item.active { font-weight: 600; background-color: var(--bg-light); }
 
-        .page-wrapper { position: relative; width: 850px; margin-bottom: 60px; flex-grow: 1; }
+        .page-wrapper { 
+            position: relative; 
+            width: 90%; 
+            max-width: 850px; 
+            margin: 0 auto 60px auto; 
+            flex-grow: 1; 
+        }
         .page-content { display: none; width: 100%; position: relative; }
         .page-content.active { display: block; }
 
@@ -80,8 +88,10 @@
         .ribbon-area { position: relative; width: 100%; min-height: 250px; display: flex; justify-content: center; align-items: center; margin: 10px 0; }
         
         .big-ribbon { 
-            width: 130%; max-width: 800px; position: absolute; 
-            left: 50%; top: -80px; z-index: 1; 
+            width: 100%; 
+            max-width: 800px; position: absolute; 
+            left: 50%; top: -40px; z-index: 1; 
+            transform: translateX(-50%);
             animation: floatDownUp 4.5s ease-in-out infinite; 
         }
         
@@ -114,12 +124,12 @@
 
         /* Character Gallery */
         #char-gallery-area { display: none; width: 100%; }
-        .char-tabs { display: flex; gap: 15px; margin-bottom: 30px; justify-content: flex-start; }
+        .char-tabs { display: flex; gap: 15px; margin-bottom: 30px; justify-content: center; }
         .char-tab-btn { padding: 5px 20px; border: 2px dashed var(--border-pink); border-radius: 20px; cursor: pointer; font-size: 16px; background: white; transition: 0.3s; }
         .char-tab-btn.active { background: var(--main-pink); font-weight: bold; border-style: solid; }
 
-        .char-grid-layout { display: flex; gap: 20px; align-items: start; width: 100%; }
-        .char-col { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+        .char-grid-layout { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; width: 100%; }
+        .char-col { display: flex; flex-direction: column; gap: 20px; }
         
         .char-item { border: 2px solid var(--border-pink); border-radius: 10px; overflow: hidden; background: white; cursor: pointer; height: fit-content; }
         .char-img-box { width: 100%; line-height: 0; }
@@ -202,18 +212,14 @@
                 <div class="ribbon-area">
                     <img src="https://lh3.googleusercontent.com/d/1Ca6TAv4yRx_33HTzzR2rnQzsyf9nLoMF" class="big-ribbon" onerror="repairImage(this)" referrerpolicy="no-referrer">
                     
-                    <!-- หัวใจ 10 ดวง ขยับเข้าชิดโบว์มากขึ้น ไม่ให้ห่างจนเกินไป -->
-                    <!-- ฝั่งซ้าย -->
                     <img src="https://lh3.googleusercontent.com/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="top: 10%; left: 18%; animation-delay: 0s; width: 40px;" onerror="repairImage(this)" referrerpolicy="no-referrer">
                     <img src="https://lh3.googleusercontent.com/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="top: 35%; left: 10%; animation-delay: 1.2s; width: 35px;" onerror="repairImage(this)" referrerpolicy="no-referrer">
                     <img src="https://lh3.googleusercontent.com/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="bottom: 15%; left: 22%; animation-delay: 1.8s; width: 25px;" onerror="repairImage(this)" referrerpolicy="no-referrer">
                     
-                    <!-- ฝั่งขวา (Mirror) -->
                     <img src="https://lh3.googleusercontent.com/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="top: 10%; right: 18%; animation-delay: 0.5s; width: 45px;" onerror="repairImage(this)" referrerpolicy="no-referrer">
                     <img src="https://lh3.googleusercontent.com/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="top: 35%; right: 10%; animation-delay: 0.3s; width: 60px;" onerror="repairImage(this)" referrerpolicy="no-referrer">
                     <img src="https://lh3.googleusercontent.com/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="bottom: 15%; right: 22%; animation-delay: 2.4s; width: 55px;" onerror="repairImage(this)" referrerpolicy="no-referrer">
                     
-                    <!-- ส่วนกลาง บน-ล่าง (บีบระยะเข้าหาโบว์) -->
                     <img src="https://lh3.googleusercontent.com/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="top: 0%; left: 45%; animation-delay: 0.9s; width: 30px;" onerror="repairImage(this)" referrerpolicy="no-referrer">
                     <img src="https://lh3.googleusercontent.com/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="bottom: 5%; left: 52%; animation-delay: 3.1s; width: 50px;" onerror="repairImage(this)" referrerpolicy="no-referrer">
                     <img src="https://lh3.googleusercontent.com/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="top: 25%; left: 32%; animation-delay: 1.5s; width: 38px;" onerror="repairImage(this)" referrerpolicy="no-referrer">
