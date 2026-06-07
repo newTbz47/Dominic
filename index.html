@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
@@ -20,20 +20,20 @@
             width: 100%; overflow-x: hidden;
         }
 
-        /* ส่วนภาพบนสุด - แก้ไขให้กว้างเต็มหน้าจอและขยับขึ้น */
+        /* ส่วนภาพบนสุด - ปรับค่า margin-top ให้ขยับลงมาตามคำสั่ง */
         .top-header {
             width: 100%;
             display: flex;
             justify-content: center;
             overflow: hidden;
             position: relative;
-            margin-top: -50px; /* แก้ไข: ขยับขึ้นไปด้านบนตามคำสั่ง */
+            margin-top: -100px; /* แก้ไขจาก -130px เพื่อให้ขยับลงมาเล็กน้อย */
             z-index: 5;
         }
         .top-header img {
-            width: 100%; /* แก้ไข: ให้กว้างเต็มความกว้างของหน้าเว็บ */
+            width: 100%;
             height: auto;
-            object-fit: cover; /* แก้ไข: ให้ภาพขยายเต็มพื้นที่ */
+            object-fit: cover;
             display: block;
         }
 
@@ -46,7 +46,7 @@
             max-width: 1000px;
         }
         .banner img {
-            height: 35px; width: auto; object-fit: contain;
+            height: 30px; width: auto; object-fit: contain;
         }
 
         /* ส่วนโบว์ด้านล่าง */
@@ -57,7 +57,7 @@
             max-width: 1000px;
         }
         .footer-bow-container img {
-            height: 35px; width: auto; object-fit: contain;
+            height: 30px; width: auto; object-fit: contain;
         }
 
         .nav-group {
@@ -124,8 +124,8 @@
 
         /* Character Gallery */
         #char-gallery-area { display: none; width: 100%; }
-        .char-tabs { display: flex; gap: 15px; margin-bottom: 30px; justify-content: center; }
-        .char-tab-btn { padding: 5px 20px; border: 2px dashed var(--border-pink); border-radius: 20px; cursor: pointer; font-size: 16px; background: white; transition: 0.3s; }
+        .char-tabs { display: flex; gap: 10px; margin-bottom: 30px; justify-content: center; flex-wrap: wrap; }
+        .char-tab-btn { padding: 5px 15px; border: 2px dashed var(--border-pink); border-radius: 20px; cursor: pointer; font-size: 14px; background: white; transition: 0.3s; }
         .char-tab-btn.active { background: var(--main-pink); font-weight: bold; border-style: solid; }
 
         .char-grid-layout { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; width: 100%; }
@@ -176,6 +176,16 @@
         .tos-image { width: 100%; border-radius: 15px; border: 2px solid var(--border-pink); }
 
         #char-item-pool { display: none; }
+
+        /* แก้ไข Responsive เพื่อไม่ให้บีบอัดจนแน่น และขยับรูปบนลงเล็กน้อยบนมือถือ */
+        @media (max-width: 850px) {
+            .char-grid-layout { display: flex; flex-direction: column; }
+            .comm-grid { grid-template-columns: 1fr; }
+            .nav-group { width: 95%; }
+            .nav-item { font-size: 16px; padding: 10px 5px; }
+            .top-header { margin-top: -60px; } /* ปรับให้ขยับลงมาตามสัดส่วนบนมือถือ */
+            .warning-box { padding: 10px 20px; font-size: 28px; }
+        }
     </style>
 </head>
 <body>
@@ -287,7 +297,6 @@
         </div>
     </div>
 
-    <!-- Data Pool -->
     <div id="char-item-pool">
         <div class="char-item" data-tags="oc forever">
             <div class="char-img-box"><img src="https://lh3.googleusercontent.com/d/1Ca6TAv4yRx_33HTzzR2rnQzsyf9nLoMF" onerror="repairImage(this)" referrerpolicy="no-referrer"></div>
