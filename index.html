@@ -2,8 +2,8 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=950"> <!-- ล็อคความกว้างให้เห็นขนาดที่ขยายใหญ่พอดีในมือถือ -->
-    <title>Character & Commission Design - Large Version</title>
+    <meta name="viewport" content="width=1000">
+    <title>Character & Commission Design</title>
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -14,190 +14,236 @@
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            background-color: white;
-            font-family: 'Mali', cursive;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: var(--text-gray);
-            min-height: 150vh;
-            min-width: 950px; /* ล็อคความกว้างพื้นหลัง */
-            overflow-y: auto; 
-            overflow-x: auto;
+            margin: 0; padding: 0; background-color: white;
+            font-family: 'Mali', cursive; display: flex; flex-direction: column;
+            align-items: center; color: var(--text-gray); min-height: 100vh;
+            min-width: 800px; overflow-y: scroll;
         }
 
         .banner {
-            width: 100%; height: 80px; /* หนาขึ้น */
-            background-color: var(--main-pink);
+            width: 100%; height: 60px; background-color: var(--main-pink);
             background-image: url('https://lh3.googleusercontent.com/d/1B4YTzoGfDFsiGxoqoN1rAHF7_l4e1S58');
             background-repeat: repeat-x; background-position: center; background-size: contain;
             flex-shrink: 0;
         }
 
-        /* เมนูหลัก - ขยายใหญ่ */
         .nav-group {
-            display: flex; background: white; border: 3px solid var(--border-pink);
-            border-radius: 12px; overflow: hidden; margin: 40px 0 50px 0; width: 800px; z-index: 100;
+            display: flex; background: white; border: 2px solid var(--border-pink);
+            border-radius: 8px; overflow: hidden; margin: 30px 0 40px 0; width: 550px; z-index: 100;
         }
         .nav-item {
-            flex: 1; padding: 15px 25px; text-decoration: none; color: var(--text-gray);
-            text-align: center; font-size: 26px; border-right: 3px solid var(--border-pink);
+            flex: 1; padding: 10px 20px; text-decoration: none; color: var(--text-gray);
+            text-align: center; font-size: 18px; border-right: 2px solid var(--border-pink);
             cursor: pointer; white-space: nowrap; display: flex; align-items: center; justify-content: center; transition: 0.3s;
         }
         .nav-item:last-child { border-right: none; }
         .nav-item.active { font-weight: 600; background-color: var(--bg-light); }
 
-        /* กล่องเนื้อหาหลัก - ขยายความกว้างเป็น 900px */
-        .page-wrapper {
-            position: relative;
-            width: 900px; 
-            margin-bottom: 80px;
-        }
+        .page-wrapper { position: relative; width: 700px; margin-bottom: 60px; flex-grow: 1; }
 
-        /* ปุ่ม TOS อยู่นอกกรอบ */
-        .tos-toggle-btn {
-            position: absolute;
-            top: -20px; left: -30px;
-            background: white;
-            border: 2px solid var(--border-pink);
-            padding: 8px 20px;
-            border-radius: 8px;
-            font-size: 18px;
-            cursor: pointer;
-            z-index: 1000;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .tos-toggle-btn.active { background: var(--main-pink); font-weight: bold; }
-
-        /* ตัวกล่องเนื้อหา: ขยายใหญ่และยาวขึ้น ล็อคห้ามเลื่อนแนวนอน */
-        .page-content {
-            display: none; 
-            width: 900px; 
-            height: 1100px; /* ยาวขึ้นมาก */
-            background: white;
-            border: 4px solid var(--border-pink);
-            border-radius: 20px;
-            overflow-y: auto; 
-            overflow-x: hidden; /* ล็อคการเลื่อนแนวนอน */
-            position: relative;
-            box-sizing: border-box;
-        }
+        .page-content { display: none; width: 100%; position: relative; }
         .page-content.active { display: block; }
 
-        .page-content::-webkit-scrollbar { width: 10px; }
-        .page-content::-webkit-scrollbar-thumb { background: var(--border-pink); border-radius: 10px; }
-
-        .inner-content { padding: 0 40px 60px 40px; display: flex; flex-direction: column; align-items: center; width: 100%; box-sizing: border-box; }
-
-        /* โบว์และหัวใจ - ขยายขนาดตามกล่อง (กึ่งกลาง -51%) */
-        .ribbon-area { position: relative; width: 100%; min-height: 350px; display: flex; justify-content: center; align-items: center; margin: 20px 0; }
-        .big-ribbon { width: 140%; max-width: 1200px; position: absolute; left: 50%; z-index: 1; animation: floatDownUp 4.5s ease-in-out infinite; }
-        .heart-overlay { width: 110%; max-width: 1000px; position: absolute; left: 50%; z-index: 2; pointer-events: none; animation: floatUpDown 4.5s ease-in-out infinite; }
-        
-        @keyframes floatUpDown { 0%, 100% { transform: translate(-51%, 0px); } 50% { transform: translate(-51%, -25px); } }
-        @keyframes floatDownUp { 0%, 100% { transform: translate(-51%, 0px); } 50% { transform: translate(-51%, 25px); } }
-        
-        .warning-box { display: inline-block; background: white; border: 2px solid #f2f2f2; padding: 15px 80px; font-size: 50px; font-weight: 600; border-radius: 10px; box-shadow: 0 6px 15px rgba(0,0,0,0.05); margin-bottom: 50px; margin-top: -20px; z-index: 3; }
-        
-        .rules-box { width: 100%; border: 3px dashed var(--border-pink); border-radius: 20px; padding: 40px; text-align: left; margin-bottom: 60px; line-height: 2; font-size: 24px; box-sizing: border-box; }
+        /* Character Page Styles */
+        .ribbon-area { position: relative; width: 100%; min-height: 250px; display: flex; justify-content: center; align-items: center; margin: 10px 0; }
+        .big-ribbon { width: 130%; max-width: 800px; position: absolute; left: 50%; z-index: 1; animation: floatDownUp 4.5s ease-in-out infinite; }
+        .heart-overlay { width: 100%; max-width: 650px; position: absolute; left: 50%; z-index: 2; pointer-events: none; animation: floatUpDown 4.5s ease-in-out infinite; }
+        @keyframes floatUpDown { 0%, 100% { transform: translate(-50%, 0px); } 50% { transform: translate(-50%, -20px); } }
+        @keyframes floatDownUp { 0%, 100% { transform: translate(-50%, 0px); } 50% { transform: translate(-50%, 20px); } }
+        .warning-box { display: inline-block; background: white; border: 1px solid #f2f2f2; padding: 10px 60px; font-size: 36px; border-radius: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 40px; margin-top: -10px; z-index: 3; position: relative; left: 50%; transform: translateX(-50%); }
+        .rules-box { width: 100%; border: 2px dashed var(--border-pink); border-radius: 15px; padding: 30px; text-align: left; margin-bottom: 40px; line-height: 1.8; box-sizing: border-box; background: white; }
         .rules-list { list-style: none; padding: 0; margin: 0; }
-        .rules-list li { display: flex; align-items: flex-start; margin-bottom: 15px; }
-        .rules-list li::before { content: "❀ "; color: var(--border-pink); font-weight: bold; width: 35px; flex-shrink: 0; font-size: 28px; }
+        .rules-list li { display: flex; align-items: flex-start; margin-bottom: 10px; }
+        .rules-list li::before { content: "❀ "; color: var(--border-pink); font-weight: bold; width: 25px; flex-shrink: 0; }
+        .accept-btn-container { width: 100%; background: white; border: 2px solid var(--border-pink); border-radius: 15px; padding: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); box-sizing: border-box; }
 
-        /* ปุ่มยอมรับ - ใหญ่ขึ้น */
-        .accept-btn-container { width: 100%; background: white; border: 3px solid var(--border-pink); border-radius: 15px; padding: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); box-sizing: border-box; }
-
-        /* Commission Tabs */
-        .comm-tabs { display: flex; background: white; border: 3px solid var(--border-pink); border-radius: 12px; margin: 30px auto; width: fit-content; overflow: hidden; }
-        .comm-tab-btn { padding: 12px 50px; cursor: pointer; border-right: 3px solid var(--border-pink); font-size: 24px; }
+        /* Commission Page Styles */
+        /* แก้ไข: ปรับให้ปุ่มโชว์เป็นค่าเริ่มต้นเพราะหน้า Commission เป็นหน้าแรก */
+        .tos-toggle-btn { display: block; margin: 0 auto 20px auto; background: white; border: 1.5px solid var(--border-pink); padding: 8px 20px; border-radius: 20px; font-size: 14px; cursor: pointer; width: fit-content; }
+        .tos-toggle-btn.active { background: var(--main-pink); font-weight: bold; }
+        .comm-tabs { display: flex; background: white; border: 2px solid var(--border-pink); border-radius: 8px; margin: 0 auto 30px auto; width: fit-content; overflow: hidden; }
+        .comm-tab-btn { padding: 10px 35px; cursor: pointer; border-right: 2px solid var(--border-pink); font-size: 18px; }
         .comm-tab-btn:last-child { border-right: none; }
         .comm-tab-btn.active { background: var(--main-pink); font-weight: bold; }
 
-        #tos-display { display: none; width: 100%; margin-top: 20px; }
-        .tos-image { width: 100%; border-radius: 15px; }
+        /* แก้ไข: แยกโครงสร้าง 2 คอลัมน์ให้เป็นอิสระต่อกัน */
+        .comm-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr;
+            gap: 20px; 
+            align-items: start; 
+            width: 100%; 
+        }
 
-        /* Grid คอมมิชชั่น */
-        .comm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; width: 100%; padding-top: 20px; }
-        .comm-item { border: 3px solid var(--border-pink); border-radius: 15px; overflow: hidden; background: white; cursor: pointer; height: fit-content; }
-        .comm-img-box { width: 100%; aspect-ratio: 1/1.2; background: #eee; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .comm-img-box img { width: 100%; height: 100%; object-fit: cover; }
-        .comm-details { max-height: 0; overflow: hidden; transition: 0.5s ease; padding: 0 20px; font-size: 20px; }
-        .comm-item.expanded .comm-details { max-height: 600px; padding: 25px; border-top: 2px solid var(--border-pink); }
+        .comm-col {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
 
-        .footer-banner { margin-top: auto; margin-bottom: 0; height: 80px; }
+        .comm-item { 
+            border: 2px solid var(--border-pink); 
+            border-radius: 10px; 
+            overflow: hidden; 
+            background: white; 
+            cursor: pointer; 
+            height: fit-content;
+            width: 100%;
+        }
+
+        .comm-img-box { width: 100%; line-height: 0; }
+        .comm-img-box img { width: 100%; height: auto; display: block; }
+
+        .comm-details { 
+            max-height: 0; 
+            overflow: hidden; 
+            transition: max-height 0.4s ease; 
+            padding: 0 15px; 
+            font-size: 16px;
+        }
+
+        .comm-item.expanded .comm-details { 
+            max-height: 1000px; 
+            padding: 15px; 
+            border-top: 1.5px solid var(--border-pink); 
+        }
+
+        .click-more-btn {
+            display: block; width: 100%; margin-top: 15px; padding: 8px;
+            background: white; border: 1.5px solid var(--border-pink);
+            border-radius: 8px; color: var(--text-gray); font-family: 'Mali', cursive;
+            font-size: 14px; cursor: pointer;
+        }
+
+        /* Modal Sub-Gallery */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center; padding: 20px;
+        }
+        .modal-content {
+            background: white; padding: 20px; border-radius: 15px; max-width: 600px;
+            width: 90%; max-height: 80vh; overflow-y: auto; position: relative;
+        }
+        .modal-gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .modal-gallery-grid img { width: 100%; border-radius: 8px; border: 1px solid #eee; }
+        .close-modal { display: block; width: 100%; margin-top: 20px; padding: 10px; background: var(--main-pink); border: none; border-radius: 8px; cursor: pointer; font-family: 'Mali'; }
+
+        #tos-display { display: none; width: 100%; }
+        .tos-image { width: 100%; border-radius: 15px; border: 2px solid var(--border-pink); }
+        .footer-banner { width: 100%; height: 60px; background-color: var(--main-pink); background-image: url('https://lh3.googleusercontent.com/d/1B4YTzoGfDFsiGxoqoN1rAHF7_l4e1S58'); background-repeat: repeat-x; background-position: center; background-size: contain; margin-top: 50px; }
     </style>
 </head>
 <body>
 
     <div class="banner"></div>
 
-    <!-- เมนูหลัก (ขยายใหญ่) -->
     <div class="nav-group">
         <div class="nav-item" onclick="switchPage('home', this)">Home</div>
-        <div class="nav-item active" onclick="switchPage('character', this)">❀ Character ❀</div>
-        <div class="nav-item" onclick="switchPage('commission', this)">Commission</div>
+        <div class="nav-item" onclick="switchPage('character', this)">Character</div>
+        <div class="nav-item active" onclick="switchPage('commission', this)">❀ Commission ❀</div>
     </div>
 
     <div class="page-wrapper">
-        <div id="tos-btn" class="tos-toggle-btn" style="display: none;" onclick="toggleTOS()">Terms of service</div>
+        <!-- ปุ่ม TOS แสดงผลเป็นค่าเริ่มต้น -->
+        <div id="tos-btn" class="tos-toggle-btn" onclick="toggleTOS()">Terms of service</div>
 
-        <!-- หน้า Home -->
+        <!-- หน้าแรก -->
         <div id="home" class="page-content">
-            <div class="inner-content"><h2 style="margin-top:100px; font-size: 40px;">หน้าแรก</h2></div>
+            <div style="text-align: center; margin-top: 50px;">
+                <h2 style="font-size: 32px;">Welcome</h2>
+            </div>
         </div>
 
-        <!-- หน้า Character (ขยายใหญ่ล็อคห้ามเลื่อนแนวนอน) -->
-        <div id="character" class="page-content active">
-            <div class="inner-content">
-                <div class="ribbon-area">
-                    <img src="https://lh3.googleusercontent.com/d/1Ca6TAv4yRx_33HTzzR2rnQzsyf9nLoMF" class="big-ribbon">
-                    <img src="https://lh3.googleusercontent.com/d/1rMt-0BBK8B3qIoJw_CUXsqfDBsXPOe3A" class="heart-overlay">
-                </div>
-                <div class="warning-box">! warning !</div>
-                <div class="rules-box">
-                    <p style="margin-top:0; font-weight: bold;">ข้อตกลงการรับชมเด็ก ๆ ในบ้าน</p>
-                    <ul class="rules-list">
-                        <li>ห้ามเซฟรูปภาพในเว็บไซต์นี้เป็นอันขาดกรณีสอบถามความสนใจให้แคปรูปเอาเท่านั้น</li>
-                        <li>ห้ามคัดลอกดัดแปลงดีไซน์เด็ก ๆ</li>
-                        <li>ห้ามแอบอ้างว่าเป็นของตัวเอง</li>
-                    </ul>
-                </div>
-                <div class="accept-btn-container">
-                    <img src="https://lh3.googleusercontent.com/d/1nzPzS9z-qivMyBV1X1ZpO1GxjpkdppAu" style="width:90px;">
-                    <span style="font-size:40px;">ยอมรับข้อตกลง</span>
-                </div>
+        <!-- หน้า Character -->
+        <div id="character" class="page-content">
+            <div class="ribbon-area">
+                <img src="https://lh3.googleusercontent.com/d/1Ca6TAv4yRx_33HTzzR2rnQzsyf9nLoMF" class="big-ribbon">
+                <img src="https://lh3.googleusercontent.com/d/1rMt-0BBK8B3qIoJw_CUXsqfDBsXPOe3A" class="heart-overlay">
+            </div>
+            <div class="warning-box">! warning !</div>
+            <div class="rules-box">
+                <p style="margin-top:0; font-size: 20px; font-weight: 600;">ข้อตกลงการรับชมเด็ก ๆ ในบ้าน</p>
+                <ul class="rules-list">
+                    <li>ห้ามเซฟรูปภาพในเว็บไซต์นี้เป็นอันขาดกรณีสอบถามความสนใจให้แคปรูปเอาเท่านั้น</li>
+                    <li>ห้ามคัดลอกดัดแปลงดีไซน์เด็ก ๆ</li>
+                    <li>ห้ามแอบอ้างว่าเป็นของตัวเอง</li>
+                </ul>
+            </div>
+            <div class="accept-btn-container">
+                <img src="https://lh3.googleusercontent.com/d/1nzPzS9z-qivMyBV1X1ZpO1GxjpkdppAu" style="width:60px;">
+                <span style="font-size:28px;">ยอมรับข้อตกลง</span>
             </div>
         </div>
 
         <!-- หน้า Commission -->
-        <div id="commission" class="page-content">
-            <div class="inner-content">
-                <div class="comm-tabs">
-                    <div id="tab-sample" class="comm-tab-btn active" onclick="switchCommTab('sample')">ตัวอย่าง</div>
-                    <div id="tab-queue" class="comm-tab-btn" onclick="switchCommTab('queue')">คิว อัพเดท</div>
-                </div>
-                <div id="tos-display">
-                    <img src="https://lh3.googleusercontent.com/d/14xamYl0nAxcgKQyT7iKHVuNZX06tIUil" class="tos-image">
-                </div>
-                <div id="comm-gallery">
-                    <div class="comm-grid">
+        <div id="commission" class="page-content active">
+            <div class="comm-tabs">
+                <div id="tab-sample" class="comm-tab-btn active" onclick="switchCommTab('sample')">ตัวอย่าง</div>
+                <div id="tab-queue" class="comm-tab-btn" onclick="switchCommTab('queue')">คิว อัพเดท</div>
+            </div>
+            
+            <div id="tos-display">
+                <img src="https://lh3.googleusercontent.com/d/14xamYl0nAxcgKQyT7iKHVuNZX06tIUil" class="tos-image">
+            </div>
+
+            <div id="comm-gallery">
+                <div class="comm-grid">
+                    <!-- คอลัมน์ฝั่งซ้าย -->
+                    <div class="comm-col">
+                        <!-- รายการที่ 1 -->
                         <div class="comm-item" onclick="toggleDetails(this)">
-                            <div class="comm-img-box"><img src="https://lh3.googleusercontent.com/d/1Ca6TAv4yRx_33HTzzR2rnQzsyf9nLoMF"></div>
+                            <div class="comm-img-box">
+                                <img src="https://lh3.googleusercontent.com/d/1Ca6TAv4yRx_33HTzzR2rnQzsyf9nLoMF">
+                            </div>
                             <div class="comm-details">
-                                <b>สเกล :</b> หัว-ไหล่<br><b>ราคา :</b> 150<br>
-                                รายละเอียด : (ขยายขนาดตัวอักษรให้อ่านง่ายขึ้นแล้ว)
+                                สเกล : หัว-ไหล่<br>ราคา : 150<br>รายละเอียด : มีการบวกราคาเพิ่มหากรายละเอียดเยอะเกินไป
+                                <button class="click-more-btn" onclick="openSubGallery(event, ['https://lh3.googleusercontent.com/d/1Ca6TAv4yRx_33HTzzR2rnQzsyf9nLoMF', 'https://lh3.googleusercontent.com/d/1rMt-0BBK8B3qIoJw_CUXsqfDBsXPOe3A'])">คลิกเพื่อดูรูปภาพเพิ่มเติม</button>
+                            </div>
+                        </div>
+                        <!-- รายการที่ 3 -->
+                        <div class="comm-item" onclick="toggleDetails(this)">
+                            <div class="comm-img-box">
+                                <img src="https://lh3.googleusercontent.com/d/1Ca6TAv4yRx_33HTzzR2rnQzsyf9nLoMF">
+                            </div>
+                            <div class="comm-details">
+                                สเกล : เต็มตัว<br>ราคา : 600<br>รายละเอียด : แถมฟรีพื้นหลัง
+                                <button class="click-more-btn" onclick="openSubGallery(event, [])">คลิกเพื่อดูรูปภาพเพิ่มเติม</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- คอลัมน์ฝั่งขวา -->
+                    <div class="comm-col">
+                        <!-- รายการที่ 2 -->
+                        <div class="comm-item" onclick="toggleDetails(this)">
+                            <div class="comm-img-box">
+                                <img src="https://lh3.googleusercontent.com/d/1rMt-0BBK8B3qIoJw_CUXsqfDBsXPOe3A">
+                            </div>
+                            <div class="comm-details">
+                                สเกล : ครึ่งตัว<br>ราคา : 350<br>รายละเอียด : รับงานด่วนได้
+                                <button class="click-more-btn" onclick="openSubGallery(event, ['https://lh3.googleusercontent.com/d/1rMt-0BBK8B3qIoJw_CUXsqfDBsXPOe3A'])">คลิกเพื่อดูรูปภาพเพิ่มเติม</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="comm-queue" style="display: none;"><p style="margin-top:100px; font-size: 30px; text-align: center;">ยังไม่มีข้อมูลคิวอัพเดท</p></div>
+            </div>
+
+            <div id="comm-queue" style="display: none; text-align: center; width: 100%;">
+                <div class="rules-box" style="text-align: center;">ยังไม่มีข้อมูลคิวอัพเดท</div>
             </div>
         </div>
     </div>
 
-    <div class="banner footer-banner"></div>
+    <!-- Modal Sub-Gallery -->
+    <div id="subGalleryModal" class="modal-overlay" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h3 style="text-align:center;">ตัวอย่างงานเพิ่มเติม</h3>
+            <div id="modal-images" class="modal-gallery-grid"></div>
+            <button class="close-modal" onclick="closeModal()">ปิดหน้าต่าง</button>
+        </div>
+    </div>
+
+    <div class="footer-banner"></div>
 
     <script>
         function switchPage(pageId, element) {
@@ -211,15 +257,39 @@
             element.innerHTML = `❀ ${element.innerText} ❀`;
 
             const tosBtn = document.getElementById('tos-btn');
+            // ปรับเงื่อนไขการแสดงผลปุ่ม TOS ให้คงอยู่เสมอเมื่อเข้าหน้า commission
+            tosBtn.style.display = (pageId === 'commission') ? 'block' : 'none';
             if (pageId === 'commission') {
-                tosBtn.style.display = 'block';
                 document.getElementById('tos-display').style.display = 'none';
                 document.getElementById('comm-gallery').style.display = 'block';
                 tosBtn.classList.remove('active');
-            } else {
-                tosBtn.style.display = 'none';
             }
-            window.scrollTo(0, 0);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleDetails(element) {
+            element.classList.toggle('expanded');
+        }
+
+        function openSubGallery(event, images) {
+            event.stopPropagation(); 
+            const modal = document.getElementById('subGalleryModal');
+            const container = document.getElementById('modal-images');
+            container.innerHTML = '';
+            if (images.length === 0) {
+                container.innerHTML = '<p style="grid-column: span 2; text-align:center;">ยังไม่มีรูปเพิ่มเติม</p>';
+            } else {
+                images.forEach(src => {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    container.appendChild(img);
+                });
+            }
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('subGalleryModal').style.display = 'none';
         }
 
         function toggleTOS() {
@@ -240,7 +310,6 @@
                 tosBtn.classList.remove('active');
                 document.getElementById('tab-sample').classList.add('active');
             }
-            document.getElementById('commission').scrollTop = 0;
         }
 
         function switchCommTab(tabId) {
@@ -250,10 +319,6 @@
             document.getElementById('comm-queue').style.display = (tabId === 'queue') ? 'block' : 'none';
             document.querySelectorAll('.comm-tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('tab-' + tabId).classList.add('active');
-        }
-
-        function toggleDetails(element) {
-            element.classList.toggle('expanded');
         }
     </script>
 </body>
