@@ -2,7 +2,6 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <!-- ล็อกความกว้าง viewport ไว้ที่ 1000px เพื่อให้โทรศัพท์แสดงผลเลย์เอาต์เดียวกับไอแพดและคอมพิวเตอร์ -->
     <meta name="viewport" content="width=1000">
     <title>Character & Commission Design</title>
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;500;600&display=swap" rel="stylesheet">
@@ -18,53 +17,27 @@
             margin: 0; padding: 0; background-color: white;
             font-family: 'Mali', cursive; display: flex; flex-direction: column;
             align-items: center; color: var(--text-gray); min-height: 100vh;
-            /* ล็อกความกว้างขั้นต่ำของ body เพื่อไม่ให้เลย์เอาต์ไหลหรือบีบตัว */
-            min-width: 1000px; 
-            overflow-y: scroll;
+            min-width: 1000px; overflow-y: scroll; overflow-x: hidden;
         }
 
-        /* ส่วนภาพบนสุด - ขยายเต็มความกว้างและดึงขึ้นตามระดับที่สั่งไว้ล่าสุด */
+        /* Header & Banner */
         .top-header {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-            margin-top: -100px; 
-            z-index: 5;
+            width: 100%; display: flex; justify-content: center;
+            overflow: hidden; position: relative; margin-top: -100px; z-index: 5;
         }
-        .top-header img {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-            display: block;
-        }
+        .top-header img { width: 100%; height: auto; object-fit: cover; display: block; }
 
-        /* Banner (โบว์เล็ก 7 รูป) */
         .banner {
             width: 1000px; height: 60px; background-color: transparent;
             display: flex; justify-content: space-evenly; align-items: center;
             flex-shrink: 0; padding: 0 5%; box-sizing: border-box;
             margin-top: -30px; position: relative; z-index: 10;
         }
-        .banner img {
-            height: 30px; width: auto; object-fit: contain;
-        }
-
-        /* ส่วนโบว์ด้านล่าง */
-        .footer-bow-container {
-            width: 1000px; height: 60px; background-color: transparent;
-            display: flex; justify-content: space-evenly; align-items: center;
-            padding: 0 5%; box-sizing: border-box; margin-top: 50px;
-        }
-        .footer-bow-container img {
-            height: 30px; width: auto; object-fit: contain;
-        }
+        .banner img { height: 30px; width: auto; object-fit: contain; }
 
         .nav-group {
             display: flex; background: white; border: 2px solid var(--border-pink);
-            border-radius: 8px; overflow: hidden; margin: 30px auto; 
-            width: 550px; z-index: 100;
+            border-radius: 8px; overflow: hidden; margin: 30px auto; width: 550px; z-index: 100;
         }
         .nav-item {
             flex: 1; padding: 10px 20px; text-decoration: none; color: var(--text-gray);
@@ -74,87 +47,79 @@
         .nav-item:last-child { border-right: none; }
         .nav-item.active { font-weight: 600; background-color: var(--bg-light); }
 
-        .page-wrapper { 
-            position: relative; 
-            width: 850px; 
-            margin: 0 auto 60px auto; 
-            flex-grow: 1; 
-        }
+        .page-wrapper { position: relative; width: 850px; margin: 0 auto 60px auto; flex-grow: 1; }
         .page-content { display: none; width: 100%; position: relative; }
         .page-content.active { display: block; }
+
+        /* --- Home Page Styles --- */
+        .home-grid { display: grid; grid-template-columns: 300px 1fr; gap: 30px; align-items: start; }
+        .home-col { display: flex; flex-direction: column; gap: 20px; }
+        .home-box { background: white; border: 2px solid var(--border-pink); border-radius: 15px; padding: 20px; position: relative; box-sizing: border-box; }
+        .box-note-icon { position: absolute; top: -12px; left: 10px; width: 35px; z-index: 2; }
+        .dashed-line { border-top: 2px dashed var(--border-pink); margin: 15px 0; width: 100%; }
+
+        .pfp-container { width: 220px; height: 220px; margin: 0 auto 10px auto; position: relative; display: flex; justify-content: center; align-items: center; }
+        .pfp-img { width: 90%; height: 90%; border-radius: 50%; border: 2px solid var(--border-pink); object-fit: cover; z-index: 1; }
+        .pfp-deco { position: absolute; width: 100%; height: 100%; pointer-events: none; z-index: 2; opacity: 0.4; }
+
+        .home-title { text-align: center; font-size: 18px; font-weight: 600; margin-bottom: 10px; display: block; }
+        .about-list { list-style: none; padding: 0; margin: 0; font-size: 15px; line-height: 1.8; }
+        .about-list li { display: flex; align-items: center; gap: 10px; }
+        .list-icon { width: 22px; height: 22px; object-fit: contain; }
+        .about-list li b { color: #b08bb0; min-width: 85px; }
+
+        .little-things { display: flex; gap: 15px; align-items: center; }
+        .little-avatar { width: 100px; height: auto; border-radius: 10px; }
+        .little-text { list-style: none; padding: 0; margin: 0; font-size: 14px; line-height: 1.6; }
+        .little-text li::before { content: "❀ "; color: var(--border-pink); }
+
+        .fav-grid { display: flex; justify-content: space-around; text-align: center; }
+        .fav-item img { width: 55px; height: 55px; object-fit: contain; }
+        .fav-item span { font-size: 13px; display: block; margin-top: 5px; }
+
+        .contact-section { margin-top: 40px; border: 2px solid var(--border-pink); border-radius: 50px; padding: 15px; position: relative; display: flex; justify-content: center; gap: 20px; }
+        .contact-tag { position: absolute; top: -15px; background: white; padding: 0 15px; font-weight: 600; }
+        .social-circle { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--border-pink); display: flex; align-items: center; justify-content: center; font-size: 20px; color: #b08bb0; }
 
         /* --- Character Page Styles --- */
         #char-rules-area { width: 100%; display: flex; flex-direction: column; align-items: center; }
         .ribbon-area { position: relative; width: 100%; min-height: 250px; display: flex; justify-content: center; align-items: center; margin: 10px 0; }
-        
-        .big-ribbon { 
-            width: 100%; 
-            max-width: 800px; position: absolute; 
-            left: 50%; top: -40px; z-index: 1; 
-            transform: translateX(-50%);
-            animation: floatDownUp 4.5s ease-in-out infinite; 
-        }
-        
-        .heart-scatter {
-            position: absolute;
-            z-index: 2;
-            pointer-events: none;
-            animation: floatHeartCustom 4s ease-in-out infinite;
-        }
-
-        @keyframes floatHeartCustom {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        @keyframes floatUpDown { 0%, 100% { transform: translate(-50%, 0px); } 50% { transform: translate(-50%, -20px); } }
+        .big-ribbon { width: 100%; max-width: 800px; position: absolute; left: 50%; top: -40px; z-index: 1; transform: translateX(-50%); animation: floatDownUp 4.5s ease-in-out infinite; }
+        .heart-scatter { position: absolute; z-index: 2; pointer-events: none; animation: floatHeartCustom 4s ease-in-out infinite; }
+        @keyframes floatHeartCustom { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
         @keyframes floatDownUp { 0%, 100% { transform: translate(-50%, 0px); } 50% { transform: translate(-50%, 20px); } }
-        
-        .warning-box { 
-            display: block; width: fit-content; background: white; border: 1px solid #f2f2f2; 
-            padding: 10px 60px; font-size: 36px; border-radius: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
-            margin: -20px auto 40px auto; z-index: 3; position: relative;
-        }
-        
+        .warning-box { display: block; width: fit-content; background: white; border: 1px solid #f2f2f2; padding: 10px 60px; font-size: 36px; border-radius: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin: -20px auto 40px auto; z-index: 3; position: relative; }
         .rules-box { width: 100%; border: 2px dashed var(--border-pink); border-radius: 15px; padding: 30px; text-align: left; margin-bottom: 40px; line-height: 1.8; box-sizing: border-box; background: white; }
         .rules-list { list-style: none; padding: 0; margin: 0; }
-        .rules-list li { display: flex; align-items: flex-start; margin-bottom: 10px; }
         .rules-list li::before { content: "❀ "; color: var(--border-pink); font-weight: bold; width: 25px; flex-shrink: 0; }
-        .accept-btn-container { width: 100%; background: white; border: 2px solid var(--border-pink); border-radius: 15px; padding: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); box-sizing: border-box; }
-
-        /* Character Gallery - บังคับ 3 คอลัมน์ทุกอุปกรณ์ */
+        .accept-btn-container { width: 100%; background: white; border: 2px solid var(--border-pink); border-radius: 15px; padding: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 20px; box-sizing: border-box; }
         #char-gallery-area { display: none; width: 100%; }
-        .char-tabs { display: flex; gap: 10px; margin-bottom: 30px; justify-content: center; }
+        .char-tabs { display: flex; gap: 10px; margin-bottom: 30px; justify-content: flex-start; }
         .char-tab-btn { padding: 5px 15px; border: 2px dashed var(--border-pink); border-radius: 20px; cursor: pointer; font-size: 14px; background: white; transition: 0.3s; }
         .char-tab-btn.active { background: var(--main-pink); font-weight: bold; border-style: solid; }
-
         .char-grid-layout { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; width: 100%; }
         .char-col { display: flex; flex-direction: column; gap: 20px; }
-        
         .char-item { border: 2px solid var(--border-pink); border-radius: 10px; overflow: hidden; background: white; cursor: pointer; height: fit-content; }
-        .char-img-box { width: 100%; line-height: 0; }
         .char-img-box img { width: 100%; height: auto; display: block; }
         .char-details { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; padding: 0 10px; font-size: 13px; }
         .char-item.expanded .char-details { max-height: 1000px; padding: 15px; border-top: 1.5px solid var(--border-pink); }
-        
         .char-info-text { margin-bottom: 8px; line-height: 1.6; }
         .char-btn-sub { display: inline-block; padding: 2px 10px; border: 1px solid var(--border-pink); border-radius: 5px; font-size: 11px; margin-bottom: 5px; }
         .char-btn-main { display: block; width: 100%; padding: 6px; border: 1.5px solid var(--border-pink); border-radius: 5px; background: white; font-family: 'Mali'; font-size: 12px; margin: 8px 0; cursor: pointer; }
         .char-tags { display: flex; gap: 5px; justify-content: center; flex-wrap: wrap; }
         .char-tag { font-size: 10px; border: 1px dashed var(--border-pink); padding: 1px 8px; border-radius: 10px; }
 
-        /* --- Commission Page Styles - บังคับ 2 คอลัมน์ทุกอุปกรณ์ --- */
+        /* --- Commission Page Styles --- */
         .tos-toggle-btn { display: block; margin: 0 auto 20px auto; background: white; border: 1.5px solid var(--border-pink); padding: 8px 20px; border-radius: 20px; font-size: 14px; cursor: pointer; width: fit-content; }
         .tos-toggle-btn.active { background: var(--main-pink); font-weight: bold; }
         .comm-tabs { display: flex; background: white; border: 2px solid var(--border-pink); border-radius: 8px; margin: 0 auto 30px auto; width: fit-content; overflow: hidden; }
         .comm-tab-btn { padding: 10px 35px; cursor: pointer; border-right: 2px solid var(--border-pink); font-size: 18px; }
         .comm-tab-btn:last-child { border-right: none; }
         .comm-tab-btn.active { background: var(--main-pink); font-weight: bold; }
-
         .comm-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: start; width: 100%; }
         .comm-col { display: flex; flex-direction: column; gap: 20px; }
-        .comm-item { border: 2px solid var(--border-pink); border-radius: 10px; overflow: hidden; background: white; cursor: pointer; height: fit-content; }
-        .comm-details { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; padding: 0 15px; font-size: 16px; }
+        .comm-item { border: 2px solid var(--border-pink); border-radius: 10px; overflow: hidden; background: white; cursor: pointer; }
+        .comm-details { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; padding: 0 15px; font-size: 15px; line-height: 1.6; }
         .comm-item.expanded .comm-details { max-height: 1000px; padding: 15px; border-top: 1.5px solid var(--border-pink); }
         .click-more-btn { display: block; width: 100%; margin-top: 15px; padding: 8px; background: white; border: 1.5px solid var(--border-pink); border-radius: 8px; color: var(--text-gray); font-family: 'Mali', cursive; font-size: 14px; cursor: pointer; }
 
@@ -164,70 +129,115 @@
         .modal-gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .modal-gallery-grid img { width: 100%; border-radius: 8px; border: 1px solid #eee; cursor: zoom-in; }
         .close-modal { display: block; width: 100%; margin-top: 20px; padding: 10px; background: var(--main-pink); border: none; border-radius: 8px; cursor: pointer; font-family: 'Mali'; font-weight: bold; }
-
         .viewer-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 3000; justify-content: center; align-items: center; }
         .viewer-container { position: relative; display: flex; align-items: center; justify-content: center; width: 95%; height: 95%; }
-        .viewer-img { max-width: 100%; max-height: 100%; border-radius: 5px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
-        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); color: white; border: none; font-size: 50px; padding: 20px; cursor: pointer; border-radius: 10px; z-index: 3100; font-family: cursive; line-height: 1; }
-        .arrow-left { left: 20px; }
-        .arrow-right { right: 20px; }
+        .viewer-img { max-width: 100%; max-height: 100%; border-radius: 5px; }
+        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); color: white; border: none; font-size: 50px; padding: 20px; cursor: pointer; }
+        .arrow-left { left: 20px; } .arrow-right { right: 20px; }
 
         #tos-display { display: none; width: 100%; }
         .tos-image { width: 100%; border-radius: 15px; border: 2px solid var(--border-pink); }
-
         #char-item-pool { display: none; }
+
+        .footer-bow-container { width: 1000px; height: 60px; display: flex; justify-content: space-evenly; align-items: center; margin-top: 50px; }
+        .footer-bow-container img { height: 30px; width: auto; }
     </style>
 </head>
 <body>
 
     <div class="top-header">
-        <img src="https://lh3.googleusercontent.com/d/1-4DOEMvRO-Ms9d94EsJ6f8cYCNW5xvVj" onerror="repairImage(this)" referrerpolicy="no-referrer">
+        <img src="https://lh3.googleusercontent.com/u/0/d/1-4DOEMvRO-Ms9d94EsJ6f8cYCNW5xvVj" onerror="repairImage(this)" referrerpolicy="no-referrer">
     </div>
 
     <div class="banner">
-        <img src="https://lh3.googleusercontent.com/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)" referrerpolicy="no-referrer">
-        <img src="https://lh3.googleusercontent.com/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)" referrerpolicy="no-referrer">
-        <img src="https://lh3.googleusercontent.com/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)" referrerpolicy="no-referrer">
-        <img src="https://lh3.googleusercontent.com/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)" referrerpolicy="no-referrer">
-        <img src="https://lh3.googleusercontent.com/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)" referrerpolicy="no-referrer">
-        <img src="https://lh3.googleusercontent.com/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)" referrerpolicy="no-referrer">
-        <img src="https://lh3.googleusercontent.com/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)" referrerpolicy="no-referrer">
+        <img src="https://lh3.googleusercontent.com/u/0/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)">
+        <img src="https://lh3.googleusercontent.com/u/0/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)">
+        <img src="https://lh3.googleusercontent.com/u/0/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)">
+        <img src="https://lh3.googleusercontent.com/u/0/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)">
+        <img src="https://lh3.googleusercontent.com/u/0/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)">
+        <img src="https://lh3.googleusercontent.com/u/0/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)">
+        <img src="https://lh3.googleusercontent.com/u/0/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)">
     </div>
 
     <div class="nav-group">
-        <div class="nav-item" onclick="switchPage('home', this)">Home</div>
-        <div class="nav-item active" onclick="switchPage('character', this)">❀ Character ❀</div>
+        <div class="nav-item active" onclick="switchPage('home', this)">Home</div>
+        <div class="nav-item" onclick="switchPage('character', this)">Character</div>
         <div class="nav-item" onclick="switchPage('commission', this)">Commission</div>
     </div>
 
     <div class="page-wrapper">
         <div id="tos-btn" class="tos-toggle-btn" style="display: none;" onclick="toggleTOS()">Terms of service</div>
 
-        <div id="home" class="page-content">
-            <div style="text-align: center; margin-top: 50px;"><h2 style="font-size: 32px;">Welcome Home</h2></div>
+        <!-- HOME PAGE -->
+        <div id="home" class="page-content active">
+            <div class="home-grid">
+                <div class="home-col">
+                    <div class="pfp-container">
+                        <img src="https://lh3.googleusercontent.com/u/0/d/1qg4p_-UnIa0Fpcc1DRXBmQNWkPvzL8ho" class="pfp-img" onerror="repairImage(this)">
+                        <img src="https://lh3.googleusercontent.com/u/0/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="pfp-deco">
+                    </div>
+                    <div class="home-box"><img src="https://lh3.googleusercontent.com/u/0/d/1mZ9pC0O5Ec_K4CSjIq29l9pSJcZPzHNn" class="box-note-icon" onerror="repairImage(this)"><div class="dashed-line"></div><div style="text-align:center; font-size: 30px;">☀️ 🌙</div></div>
+                    <div class="home-box"><img src="https://lh3.googleusercontent.com/u/0/d/1mZ9pC0O5Ec_K4CSjIq29l9pSJcZPzHNn" class="box-note-icon" onerror="repairImage(this)"><div class="dashed-line"></div><div style="height:40px;"></div></div>
+                    <div class="home-box"><img src="https://lh3.googleusercontent.com/u/0/d/1mZ9pC0O5Ec_K4CSjIq29l9pSJcZPzHNn" class="box-note-icon" onerror="repairImage(this)"><div class="dashed-line"></div><div style="height:150px;"></div></div>
+                </div>
+
+                <div class="home-col">
+                    <div class="home-box">
+                        <img src="https://lh3.googleusercontent.com/u/0/d/1mZ9pC0O5Ec_K4CSjIq29l9pSJcZPzHNn" class="box-note-icon" onerror="repairImage(this)">
+                        <span class="home-title">❀ about me ❀</span>
+                        <div style="text-align:center; font-size: 14px;">Hello! Nice to meet you.<br>Quick facts about me</div>
+                        <div class="dashed-line"></div>
+                        <ul class="about-list">
+                            <li><img src="https://lh3.googleusercontent.com/u/0/d/1PiHu2nlsIq-YI9k5XZlYq6O9-OYwvbgz" class="list-icon" onerror="repairImage(this)"> <b>name:</b> new</li>
+                            <li><img src="https://lh3.googleusercontent.com/u/0/d/1PiHu2nlsIq-YI9k5XZlYq6O9-OYwvbgz" class="list-icon" onerror="repairImage(this)"> <b>birthday:</b> april 24th</li>
+                            <li><img src="https://lh3.googleusercontent.com/u/0/d/1PiHu2nlsIq-YI9k5XZlYq6O9-OYwvbgz" class="list-icon" onerror="repairImage(this)"> <b>Pronouns:</b> she / her</li>
+                            <li><img src="https://lh3.googleusercontent.com/u/0/d/1PiHu2nlsIq-YI9k5XZlYq6O9-OYwvbgz" class="list-icon" onerror="repairImage(this)"> <b>alias:</b> Dominic/Velune</li>
+                            <li><img src="https://lh3.googleusercontent.com/u/0/d/1PiHu2nlsIq-YI9k5XZlYq6O9-OYwvbgz" class="list-icon" onerror="repairImage(this)"> <b>languages:</b> Thai</li>
+                        </ul>
+                    </div>
+                    <div class="home-box">
+                        <img src="https://lh3.googleusercontent.com/u/0/d/1mZ9pC0O5Ec_K4CSjIq29l9pSJcZPzHNn" class="box-note-icon" onerror="repairImage(this)">
+                        <span class="home-title">little things about me</span>
+                        <div class="little-things">
+                            <img src="https://lh3.googleusercontent.com/u/0/d/1iUnhUMNCZp6FHYzFtz2xQQP4pTpcy8O1" class="little-avatar" onerror="repairImage(this)">
+                            <ul class="little-text">
+                                <li>Low social battery.</li>
+                                <li>Drawing is what I love most.</li>
+                                <li>Love sweets, can't eat much.</li>
+                                <li>A chuunibyou at heart.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="home-box">
+                        <img src="https://lh3.googleusercontent.com/u/0/d/1mZ9pC0O5Ec_K4CSjIq29l9pSJcZPzHNn" class="box-note-icon" onerror="repairImage(this)">
+                        <span class="home-title">my favorite thing</span>
+                        <div class="fav-grid">
+                            <div class="fav-item"><img src="https://lh3.googleusercontent.com/u/0/d/1nzPzS9z-qivMyBV1X1ZpO1GxjpkdppAu" onerror="repairImage(this)"><span>Sweets</span></div>
+                            <div class="fav-item"><img src="https://lh3.googleusercontent.com/u/0/d/1-4DOEMvRO-Ms9d94EsJ6f8cYCNW5xvVj" onerror="repairImage(this)"><span>Drawing</span></div>
+                            <div class="fav-item"><img src="https://lh3.googleusercontent.com/u/0/d/1H803dxCrjxT6B2dniwRTd6SRH2pTVozu" onerror="repairImage(this)"><span>Chick</span></div>
+                        </div>
+                    </div>
+                    <div class="home-box"><img src="https://lh3.googleusercontent.com/u/0/d/1mZ9pC0O5Ec_K4CSjIq29l9pSJcZPzHNn" class="box-note-icon" onerror="repairImage(this)"><div class="dashed-line"></div><div style="height:60px;"></div></div>
+                </div>
+            </div>
+            <div class="contact-section">
+                <span class="contact-tag">✧ Contact ✧</span>
+                <div class="social-circle">𝕏</div><div class="social-circle">𝐟</div><div class="social-circle">📷</div><div class="social-circle">🎵</div><div class="social-circle">🔗</div>
+            </div>
         </div>
 
-        <div id="character" class="page-content active">
+        <!-- CHARACTER PAGE -->
+        <div id="character" class="page-content">
             <div id="char-rules-area">
                 <div class="ribbon-area">
-                    <img src="https://lh3.googleusercontent.com/d/1Ca6TAv4yRx_33HTzzR2rnQzsyf9nLoMF" class="big-ribbon" onerror="repairImage(this)" referrerpolicy="no-referrer">
-                    
-                    <img src="https://lh3.googleusercontent.com/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="top: 10%; left: 18%; animation-delay: 0s; width: 40px;" onerror="repairImage(this)" referrerpolicy="no-referrer">
-                    <img src="https://lh3.googleusercontent.com/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="top: 35%; left: 10%; animation-delay: 1.2s; width: 35px;" onerror="repairImage(this)" referrerpolicy="no-referrer">
-                    <img src="https://lh3.googleusercontent.com/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="bottom: 15%; left: 22%; animation-delay: 1.8s; width: 25px;" onerror="repairImage(this)" referrerpolicy="no-referrer">
-                    
-                    <img src="https://lh3.googleusercontent.com/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="top: 10%; right: 18%; animation-delay: 0.5s; width: 45px;" onerror="repairImage(this)" referrerpolicy="no-referrer">
-                    <img src="https://lh3.googleusercontent.com/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="top: 35%; right: 10%; animation-delay: 0.3s; width: 60px;" onerror="repairImage(this)" referrerpolicy="no-referrer">
-                    <img src="https://lh3.googleusercontent.com/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="bottom: 15%; right: 22%; animation-delay: 2.4s; width: 55px;" onerror="repairImage(this)" referrerpolicy="no-referrer">
-                    
-                    <img src="https://lh3.googleusercontent.com/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="top: 0%; left: 45%; animation-delay: 0.9s; width: 30px;" onerror="repairImage(this)" referrerpolicy="no-referrer">
-                    <img src="https://lh3.googleusercontent.com/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="bottom: 5%; left: 52%; animation-delay: 3.1s; width: 50px;" onerror="repairImage(this)" referrerpolicy="no-referrer">
-                    <img src="https://lh3.googleusercontent.com/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="top: 25%; left: 32%; animation-delay: 1.5s; width: 38px;" onerror="repairImage(this)" referrerpolicy="no-referrer">
-                    <img src="https://lh3.googleusercontent.com/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="top: 25%; right: 32%; animation-delay: 2.7s; width: 22px;" onerror="repairImage(this)" referrerpolicy="no-referrer">
+                    <img src="https://lh3.googleusercontent.com/u/0/d/1Ca6TAv4yRx_33HTzzR2rnQzsyf9nLoMF" class="big-ribbon" onerror="repairImage(this)">
+                    <img src="https://lh3.googleusercontent.com/u/0/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="top: 10%; left: 18%; width: 40px;" onerror="repairImage(this)">
+                    <img src="https://lh3.googleusercontent.com/u/0/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="top: 35%; left: 10%; width: 35px;" onerror="repairImage(this)">
+                    <img src="https://lh3.googleusercontent.com/u/0/d/1Vb3w5LgdllFGyAuMHgSK-uWDxTLHOkEx" class="heart-scatter" style="bottom: 15%; right: 22%; width: 55px;" onerror="repairImage(this)">
                 </div>
                 <div class="warning-box">! warning !</div>
                 <div class="rules-box">
-                    <p style="margin-top:0; font-size: 20px; font-weight: 600;">ข้อตกลงการรับชมเด็ก ๆ ในบ้าน</p>
+                    <p style="margin:0; font-size: 20px; font-weight: 600;">ข้อตกลงการรับชมเด็ก ๆ ในบ้าน</p>
                     <ul class="rules-list">
                         <li>ห้ามเซฟรูปภาพในเว็บไซต์นี้เป็นอันขาดกรณีสอบถามความสนใจให้แคปรูปเอาเท่านั้น</li>
                         <li>ห้ามคัดลอกดัดแปลงดีไซน์เด็ก ๆ</li>
@@ -235,11 +245,10 @@
                     </ul>
                 </div>
                 <div class="accept-btn-container" onclick="acceptCharRules()">
-                    <img src="https://lh3.googleusercontent.com/d/1nzPzS9z-qivMyBV1X1ZpO1GxjpkdppAu" style="width:60px;" onerror="repairImage(this)" referrerpolicy="no-referrer">
+                    <img src="https://lh3.googleusercontent.com/u/0/d/1nzPzS9z-qivMyBV1X1ZpO1GxjpkdppAu" style="width:60px;" onerror="repairImage(this)">
                     <span style="font-size:28px;">ยอมรับข้อตกลง</span>
                 </div>
             </div>
-
             <div id="char-gallery-area">
                 <div class="char-tabs">
                     <div class="char-tab-btn active" onclick="filterCharacters('all', this)">All</div>
@@ -247,37 +256,38 @@
                     <div class="char-tab-btn" onclick="filterCharacters('forever', this)">Forever Home</div>
                     <div class="char-tab-btn" onclick="filterCharacters('eo', this)">Eo</div>
                 </div>
-                <div class="char-grid-layout">
-                    <div id="char-col-1" class="char-col"></div>
-                    <div id="char-col-2" class="char-col"></div>
-                    <div id="char-col-3" class="char-col"></div>
-                </div>
+                <div class="char-grid-layout"><div id="char-col-1" class="char-col"></div><div id="char-col-2" class="char-col"></div><div id="char-col-3" class="char-col"></div></div>
             </div>
         </div>
 
+        <!-- COMMISSION PAGE -->
         <div id="commission" class="page-content">
             <div class="comm-tabs">
                 <div id="tab-sample" class="comm-tab-btn active" onclick="switchCommTab('sample')">ตัวอย่าง</div>
                 <div id="tab-queue" class="comm-tab-btn" onclick="switchCommTab('queue')">คิว อัพเดท</div>
             </div>
-            <div id="tos-display"><img src="https://lh3.googleusercontent.com/d/14xamYl0nAxcgKQyT7iKHVuNZX06tIUil" class="tos-image" onerror="repairImage(this)" referrerpolicy="no-referrer"></div>
+            <div id="tos-display"><img src="https://lh3.googleusercontent.com/u/0/d/14xamYl0nAxcgKQyT7iKHVuNZX06tIUil" class="tos-image" onerror="repairImage(this)"></div>
             <div id="comm-gallery">
                 <div class="comm-grid">
                     <div class="comm-col">
                         <div class="comm-item" onclick="toggleDetails(this)">
-                            <div class="char-img-box"><img src="https://lh3.googleusercontent.com/d/1Ca6TAv4yRx_33HTzzR2rnQzsyf9nLoMF" onerror="repairImage(this)" referrerpolicy="no-referrer"></div>
+                            <div class="char-img-box"><img src="https://lh3.googleusercontent.com/u/0/d/1Ca6TAv4yRx_33HTzzR2rnQzsyf9nLoMF" onerror="repairImage(this)"></div>
                             <div class="comm-details">
-                                สเกล : หัว-ไหล่<br>ราคา : 150<br>รายละเอียด : มีการบวกราคาเพิ่มหากรายละเอียดเยอะเกินไป
-                                <button class="click-more-btn" onclick="openSubGallery(event, ['https://lh3.googleusercontent.com/d/1Ca6TAv4yRx_33HTzzR2rnQzsyf9nLoMF', 'https://lh3.googleusercontent.com/d/1rMt-0BBK8B3qIoJw_CUXsqfDBsXPOe3A'])">คลิกเพื่อดูรูปภาพเพิ่มเติม</button>
+                                <b>สเกล :</b> หัว-ไหล่<br>
+                                <b>ราคา :</b> 150 บาท<br>
+                                <b>รายละเอียด :</b> งานลงสีสไตล์นุ่มนิ่ม บวกราคาเพิ่มตามความยากของดีไซน์
+                                <button class="click-more-btn" onclick="openSubGallery(event, ['https://lh3.googleusercontent.com/u/0/d/1Ca6TAv4yRx_33HTzzR2rnQzsyf9nLoMF'])">ดูรูปภาพเพิ่มเติม</button>
                             </div>
                         </div>
                     </div>
                     <div class="comm-col">
                         <div class="comm-item" onclick="toggleDetails(this)">
-                            <div class="char-img-box"><img src="https://lh3.googleusercontent.com/d/1rMt-0BBK8B3qIoJw_CUXsqfDBsXPOe3A" onerror="repairImage(this)" referrerpolicy="no-referrer"></div>
+                            <div class="char-img-box"><img src="https://lh3.googleusercontent.com/u/0/d/1rMt-0BBK8B3qIoJw_CUXsqfDBsXPOe3A" onerror="repairImage(this)"></div>
                             <div class="comm-details">
-                                สเกล : ครึ่งตัว<br>ราคา : 350<br>รายละเอียด : รับงานด่วนได้
-                                <button class="click-more-btn" onclick="openSubGallery(event, ['https://lh3.googleusercontent.com/d/1rMt-0BBK8B3qIoJw_CUXsqfDBsXPOe3A', 'https://lh3.googleusercontent.com/d/1Ca6TAv4yRx_33HTzzR2rnQzsyf9nLoMF'])">คลิกเพื่อดูรูปภาพเพิ่มเติม</button>
+                                <b>สเกล :</b> ครึ่งตัว<br>
+                                <b>ราคา :</b> 350 บาท<br>
+                                <b>รายละเอียด :</b> รับงานด่วนภายใน 24 ชม. (+100%)
+                                <button class="click-more-btn" onclick="openSubGallery(event, ['https://lh3.googleusercontent.com/u/0/d/1rMt-0BBK8B3qIoJw_CUXsqfDBsXPOe3A'])">ดูรูปภาพเพิ่มเติม</button>
                             </div>
                         </div>
                     </div>
@@ -287,9 +297,10 @@
         </div>
     </div>
 
+    <!-- POOL DATA -->
     <div id="char-item-pool">
         <div class="char-item" data-tags="oc forever">
-            <div class="char-img-box"><img src="https://lh3.googleusercontent.com/d/1Ca6TAv4yRx_33HTzzR2rnQzsyf9nLoMF" onerror="repairImage(this)" referrerpolicy="no-referrer"></div>
+            <div class="char-img-box"><img src="https://lh3.googleusercontent.com/u/0/d/1Ca6TAv4yRx_33HTzzR2rnQzsyf9nLoMF"></div>
             <div class="char-details">
                 <div class="char-info-text">Artist : Dominic<br>Owner : Dominic<br>Value : 0</div>
                 <div class="char-btn-sub">กฎการใช้งานดีไซน์</div>
@@ -298,16 +309,16 @@
             </div>
         </div>
         <div class="char-item" data-tags="oc">
-            <div class="char-img-box"><img src="https://lh3.googleusercontent.com/d/1rMt-0BBK8B3qIoJw_CUXsqfDBsXPOe3A" onerror="repairImage(this)" referrerpolicy="no-referrer"></div>
+            <div class="char-img-box"><img src="https://lh3.googleusercontent.com/u/0/d/1rMt-0BBK8B3qIoJw_CUXsqfDBsXPOe3A"></div>
             <div class="char-details">
-                <div class="char-info-text">Artist : Artist Name<br>Owner : Owner Name<br>Value : 0</div>
+                <div class="char-info-text">Artist : Artist Name<br>Owner : Owner Name<br>Value : 500</div>
                 <div class="char-btn-sub">กฎการใช้งานดีไซน์</div>
                 <button class="char-btn-main">คลิกเพื่อดูรายละเอียดตัวละคร</button>
                 <div class="char-tags"><span class="char-tag">OC</span></div>
             </div>
         </div>
         <div class="char-item" data-tags="eo">
-            <div class="char-img-box"><img src="https://lh3.googleusercontent.com/d/1Ca6TAv4yRx_33HTzzR2rnQzsyf9nLoMF" onerror="repairImage(this)" referrerpolicy="no-referrer"></div>
+            <div class="char-img-box"><img src="https://lh3.googleusercontent.com/u/0/d/1Ca6TAv4yRx_33HTzzR2rnQzsyf9nLoMF"></div>
             <div class="char-details">
                 <div class="char-info-text">Artist : Dominic<br>Owner : Dominic<br>Value : 0</div>
                 <div class="char-btn-sub">กฎการใช้งานดีไซน์</div>
@@ -315,51 +326,20 @@
                 <div class="char-tags"><span class="char-tag">Eo</span></div>
             </div>
         </div>
-        <div class="char-item" data-tags="forever">
-            <div class="char-img-box"><img src="https://lh3.googleusercontent.com/d/1rMt-0BBK8B3qIoJw_CUXsqfDBsXPOe3A" onerror="repairImage(this)" referrerpolicy="no-referrer"></div>
-            <div class="char-details">
-                <div class="char-info-text">Artist : Dominic<br>Owner : Dominic<br>Value : 0</div>
-                <div class="char-btn-sub">กฎการใช้งานดีไซน์</div>
-                <button class="char-btn-main">คลิกเพื่อดูรายละเอียดตัวละคร</button>
-                <div class="char-tags"><span class="char-tag">Forever Home</span></div>
-            </div>
-        </div>
-        <div class="char-item" data-tags="oc eo">
-            <div class="char-img-box"><img src="https://lh3.googleusercontent.com/d/1Ca6TAv4yRx_33HTzzR2rnQzsyf9nLoMF" onerror="repairImage(this)" referrerpolicy="no-referrer"></div>
-            <div class="char-details">
-                <div class="char-info-text">Artist : Dominic<br>Owner : Dominic<br>Value : 0</div>
-                <div class="char-btn-sub">กฎการใช้งานดีไซน์</div>
-                <button class="char-btn-main">คลิกเพื่อดูรายละเอียดตัวละคร</button>
-                <div class="char-tags"><span class="char-tag">OC</span><span class="char-tag">Eo</span></div>
-            </div>
-        </div>
     </div>
 
     <!-- Modal & Viewer -->
-    <div id="subGalleryModal" class="modal-overlay" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <h3 style="text-align:center;">รายละเอียดเพิ่มเติม</h3>
-            <div id="modal-images" class="modal-gallery-grid"></div>
-            <button class="close-modal" onclick="closeModal()">ปิดหน้าต่าง</button>
-        </div>
-    </div>
-
-    <div id="imageViewer" class="viewer-overlay" onclick="closeViewer()">
-        <div class="viewer-container">
-            <button class="nav-arrow arrow-left" onclick="event.stopPropagation(); changeImage(-1)">&#10094;</button>
-            <img id="viewerImg" class="viewer-img" src="" onclick="event.stopPropagation()" onerror="repairImage(this)">
-            <button class="nav-arrow arrow-right" onclick="event.stopPropagation(); changeImage(1)">&#10095;</button>
-        </div>
-    </div>
+    <div id="subGalleryModal" class="modal-overlay" onclick="closeModal()"><div class="modal-content" onclick="event.stopPropagation()"><h3 style="text-align:center;">รายละเอียดเพิ่มเติม</h3><div id="modal-images" class="modal-gallery-grid"></div><button class="close-modal" onclick="closeModal()">ปิดหน้าต่าง</button></div></div>
+    <div id="imageViewer" class="viewer-overlay" onclick="closeViewer()"><div class="viewer-container"><button class="nav-arrow arrow-left" onclick="event.stopPropagation(); changeImage(-1)">&#10094;</button><img id="viewerImg" class="viewer-img" src="" onclick="event.stopPropagation()" onerror="repairImage(this)"><button class="nav-arrow arrow-right" onclick="event.stopPropagation(); changeImage(1)">&#10095;</button></div></div>
 
     <div class="footer-bow-container">
-        <img src="https://lh3.googleusercontent.com/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)" referrerpolicy="no-referrer">
-        <img src="https://lh3.googleusercontent.com/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)" referrerpolicy="no-referrer">
-        <img src="https://lh3.googleusercontent.com/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)" referrerpolicy="no-referrer">
-        <img src="https://lh3.googleusercontent.com/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)" referrerpolicy="no-referrer">
-        <img src="https://lh3.googleusercontent.com/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)" referrerpolicy="no-referrer">
-        <img src="https://lh3.googleusercontent.com/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)" referrerpolicy="no-referrer">
-        <img src="https://lh3.googleusercontent.com/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)" referrerpolicy="no-referrer">
+        <img src="https://lh3.googleusercontent.com/u/0/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)">
+        <img src="https://lh3.googleusercontent.com/u/0/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)">
+        <img src="https://lh3.googleusercontent.com/u/0/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)">
+        <img src="https://lh3.googleusercontent.com/u/0/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)">
+        <img src="https://lh3.googleusercontent.com/u/0/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)">
+        <img src="https://lh3.googleusercontent.com/u/0/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)">
+        <img src="https://lh3.googleusercontent.com/u/0/d/1E_FKkhjfb65GkTywJ_FYhfSFE62JTbf8" onerror="repairImage(this)">
     </div>
 
     <script>
@@ -367,17 +347,18 @@
             if (!img.dataset.retry) {
                 img.dataset.retry = "1";
                 const currentSrc = img.src;
-                const fileId = currentSrc.split('/').pop().split('?')[0];
-                img.src = `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+                if (currentSrc.includes('lh3.googleusercontent.com')) {
+                    const fileId = currentSrc.split('/').pop();
+                    img.src = `https://lh3.googleusercontent.com/d/${fileId}`;
+                }
             } else if (img.dataset.retry === "1") {
                 img.dataset.retry = "2";
-                const fileId = img.src.split('id=').pop().split('&')[0];
-                img.src = `https://drive.google.com/uc?id=${fileId}`;
+                const fileId = img.src.split('/').pop();
+                img.src = `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
             }
         }
 
-        let currentImgList = [];
-        let currentIdx = 0;
+        let currentImgList = []; let currentIdx = 0;
         const allCharItems = Array.from(document.querySelectorAll('#char-item-pool .char-item'));
 
         function renderCharacterGallery(filterTag = 'all') {
@@ -431,43 +412,35 @@
             container.innerHTML = '';
             images.forEach((src, idx) => {
                 const img = document.createElement('img');
-                img.src = src;
-                img.setAttribute('onerror', 'repairImage(this)');
-                img.setAttribute('referrerpolicy', 'no-referrer');
-                img.onclick = () => openViewer(idx);
+                img.src = src; img.onclick = () => openViewer(idx);
                 container.appendChild(img);
             });
             document.getElementById('subGalleryModal').style.display = 'flex';
         }
 
         function closeModal() { document.getElementById('subGalleryModal').style.display = 'none'; }
-
         function openViewer(index) {
             currentIdx = index;
             document.getElementById('viewerImg').src = currentImgList[currentIdx];
             document.getElementById('imageViewer').style.display = 'flex';
         }
-
         function changeImage(step) {
             currentIdx += step;
             if (currentIdx >= currentImgList.length) currentIdx = 0;
             if (currentIdx < 0) currentIdx = currentImgList.length - 1;
             document.getElementById('viewerImg').src = currentImgList[currentIdx];
         }
-
         function closeViewer() { document.getElementById('imageViewer').style.display = 'none'; }
 
         function toggleTOS() {
             const tosBox = document.getElementById('tos-display');
             const galleryBox = document.getElementById('comm-gallery');
-            const queueBox = document.getElementById('comm-queue');
-            const tosBtn = document.getElementById('tos-btn');
             if (tosBox.style.display === 'none') {
-                tosBox.style.display = 'block'; galleryBox.style.display = 'none'; queueBox.style.display = 'none';
-                tosBtn.classList.add('active');
+                tosBox.style.display = 'block'; galleryBox.style.display = 'none';
+                document.getElementById('tos-btn').classList.add('active');
             } else {
                 tosBox.style.display = 'none'; galleryBox.style.display = 'block';
-                tosBtn.classList.remove('active');
+                document.getElementById('tos-btn').classList.remove('active');
             }
         }
 
