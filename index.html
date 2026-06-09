@@ -2,7 +2,8 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- บังคับให้โทรศัพท์แสดงผลขนาด 768px เท่าไอแพด เพื่อไม่ให้ตัวอักษรเคลื่อนแม้แต่นิดเดียว -->
+    <meta name="viewport" content="width=768, user-scalable=no">
     <title>Dominic Profile Site</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
@@ -26,6 +27,7 @@
             display: flex;
             justify-content: center;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .ipad-layout {
@@ -55,12 +57,50 @@
             z-index: 102;
         }
 
+        /* ปุ่มเมนูและการจัดการดอกไม้ */
+        .nav-item { 
+            height: 45px; 
+            text-align: center; 
+            color: white; 
+            padding-top: 10px; 
+            font-size: 14px; 
+            cursor: pointer; 
+            position: relative;
+        }
+        .nav-flower {
+            width: 20px;
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none; /* ซ่อนไว้ก่อน */
+        }
+        .nav-item.active .nav-flower {
+            display: block; /* แสดงเฉพาะปุ่มที่ active */
+        }
+
         .main-content {
             padding: 40px 50px 100px 50px;
             display: grid;
             grid-template-columns: 215px 1fr;
             gap: 30px;
             align-items: start;
+        }
+
+        /* คอลัมน์ซ้าย: ล็อกอยู่กับที่ */
+        .col-left { 
+            position: sticky; 
+            top: 20px; 
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        /* คอลัมน์ขวา: เลื่อนได้อิสระ */
+        .col-right {
+            display: flex;
+            flex-direction: column;
+            position: relative;
         }
 
         .heart-divider-wrap {
@@ -133,7 +173,6 @@
             z-index: 5;
         }
 
-        /* คอลัมน์ซ้าย */
         .name-tag { height: 45px; text-align: center; color: white; padding-top: 8px; font-size: 20px; }
         
         .about-box { height: 160px; }
@@ -163,7 +202,6 @@
         }
         .bar-img { height: 26px; width: auto; object-fit: contain; }
 
-        /* คอลัมน์ขวา */
         .right-large { height: 210px; }
         .right-large .inner-white {
             margin: 35px 15px 15px 15px;
@@ -213,10 +251,33 @@
             font-size: 12px;
             padding: 5px 0;
         }
+
+        .fandom-box { 
+            width: 70%; 
+            margin: 0 auto; 
+            min-height: 150px; 
+        }
+        .fandom-box .inner-white {
+            margin: 30px 10px 10px 10px;
+            min-height: 105px;
+            text-align: center;
+            font-size: 13px;
+            line-height: 1.8;
+            text-transform: lowercase; /* พิมพ์เล็กทั้งหมดตามสั่ง */
+        }
+
+        /* ปรับดอกกุหลาบแฟนด้อมให้ใหญ่ขึ้นเป็น 180px */
+        .fandom-flowers-bottom {
+            position: absolute;
+            width: 180px; 
+            bottom: -20px;
+            left: -30px;
+            z-index: 4;
+            pointer-events: none;
+        }
+
         .fav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
         .fav-img { width: 45px; height: 45px; object-fit: contain; }
-
-        .nav-item { height: 45px; text-align: center; color: white; padding-top: 10px; font-size: 14px; cursor: pointer; }
 
         .social-row { display: flex; gap: 12px; justify-content: center; margin-top: 20px; }
         .social-link { width: 35px; height: 35px; background: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; padding: 6px; }
@@ -235,6 +296,9 @@
         .box-deco-corner { position: absolute; width: 50px; top: -28px; left: -15px; z-index: 1000; }
         .footer-section { width: 100%; padding-bottom: 60px; }
 
+        /* หน้าว่างสำหรับเมนูอื่นๆ */
+        .blank-page { display: none; height: 1000px; }
+
     </style>
 </head>
 <body>
@@ -252,14 +316,28 @@
         <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
     </div>
 
+    <!-- เมนูที่มีดอกไม้เคลื่อนที่ -->
     <div class="nav-grid">
-        <div class="box-template nav-item">⌘ Home ⌘</div>
-        <div class="box-template nav-item">Character</div>
-        <div class="box-template nav-item">Commission</div>
-        <div class="box-template nav-item">Shop</div>
+        <div class="box-template nav-item" onclick="navigate('home')" id="btn-home">
+            <img class="nav-flower" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
+            ⌘ Home ⌘
+        </div>
+        <div class="box-template nav-item" onclick="navigate('character')" id="btn-character">
+            <img class="nav-flower" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
+            Character
+        </div>
+        <div class="box-template nav-item" onclick="navigate('commission')" id="btn-commission">
+            <img class="nav-flower" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
+            Commission
+        </div>
+        <div class="box-template nav-item" onclick="navigate('shop')" id="btn-shop">
+            <img class="nav-flower" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
+            Shop
+        </div>
     </div>
 
-    <div class="main-content">
+    <div id="page-home" class="main-content">
+        <!-- คอลัมน์ซ้าย (ล็อกตายตัว) -->
         <div class="col-left">
             <div class="profile-wrapper">
                 <div class="profile-bg-box"></div>
@@ -269,11 +347,9 @@
             </div>
 
             <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
-            
             <div class="box-template name-tag">Dominic</div>
-
-            <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
             
+            <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
             <div class="box-template about-box">
                 <div class="box-title">⌘ about me ⌘</div>
                 <div class="inner-white">
@@ -285,7 +361,6 @@
             </div>
 
             <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
-
             <div class="box-template small-display-box">
                 <div class="box-title">Social Battery</div>
                 <div class="inner-white">
@@ -297,8 +372,8 @@
             </div>
 
             <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
-
             <div class="box-template login-btn">Log in</div>
+            
             <div class="black-bar">
                 <img class="bar-img" src="https://lh3.googleusercontent.com/u/0/d/1Kiix_IgzBHFrL7EeLHjZLqL8V4uT1beD" onerror="fixImage(this)">
                 <img class="bar-img" src="https://lh3.googleusercontent.com/u/0/d/1yQ12nEX6p0D_GzhrV_XEO1rDh9pFlMMh" onerror="fixImage(this)">
@@ -315,6 +390,7 @@
 
         <div class="col-right">
             <div class="box-template right-large">
+                <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
                 <div class="box-title">Welcome to my website!</div>
                 <div class="inner-white">
                     <div>Feel free to explore my artwork, characters, and other little things I enjoy.</div>
@@ -323,7 +399,6 @@
             </div>
 
             <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
-
             <div class="box-template right-medium">
                 <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
                 <div class="box-title">little things about me</div>
@@ -341,7 +416,6 @@
             </div>
 
             <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
-
             <div class="box-template right-small">
                 <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
                 <div class="box-title">my favorite thing</div>
@@ -360,8 +434,26 @@
                     </div>
                 </div>
             </div>
+
+            <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
+            <div class="box-template fandom-box">
+                <div class="box-title">fandom</div>
+                <div class="inner-white">
+                    twisted wonderland<br>
+                    gachiakuta<br>
+                    madoka<br>
+                    bleach<br>
+                    mashle
+                </div>
+                <img class="fandom-flowers-bottom" src="https://lh3.googleusercontent.com/u/0/d/1F5fZbquDhMCzC2trOv1VljVdty94N_uR" onerror="fixImage(this)">
+            </div>
         </div>
     </div>
+
+    <!-- ส่วนหน้าเปล่าสำหรับปุ่มอื่นๆ -->
+    <div id="page-character" class="blank-page"></div>
+    <div id="page-commission" class="blank-page"></div>
+    <div id="page-shop" class="blank-page"></div>
 
     <div class="footer-section">
         <div class="bow-row">
@@ -377,6 +469,36 @@
 </div>
 
 <script>
+    // ฟังก์ชันจัดการหน้าและการนำทาง
+    function navigate(pageId) {
+        // ซ่อนทุกหน้า
+        document.getElementById('page-home').style.display = 'none';
+        document.getElementById('page-character').style.display = 'none';
+        document.getElementById('page-commission').style.display = 'none';
+        document.getElementById('page-shop').style.display = 'none';
+
+        // แสดงหน้าที่เลือก
+        const activePage = document.getElementById('page-' + pageId);
+        if (activePage) {
+            // หน้า Home ใช้ grid หน้าอื่นใช้ block (หน้าเปล่า)
+            activePage.style.display = (pageId === 'home') ? 'grid' : 'block';
+        }
+
+        // จัดการดอกไม้ในเมนู
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => item.classList.remove('active'));
+        document.getElementById('btn-' + pageId).classList.add('active');
+
+        // บันทึกลง localStorage เพื่อให้รีเฟรชแล้วอยู่หน้าเดิม
+        localStorage.setItem('dominic_active_page', pageId);
+    }
+
+    // เมื่อโหลดหน้าเว็บใหม่
+    window.onload = function() {
+        const savedPage = localStorage.getItem('dominic_active_page') || 'home';
+        navigate(savedPage);
+    };
+
     function fixImage(img) {
         if (img.src.includes('u/0/')) {
             img.src = img.src.replace('u/0/', '');
