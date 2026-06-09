@@ -115,61 +115,27 @@
         .char-card { width: 100%; background: var(--box-grad); border: 1.5px solid var(--box-border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--glow-soft); }
         .char-thumb { width: 100%; display: block; cursor: pointer; transition: 0.2s; border-bottom: 1.5px solid var(--box-border); }
         .char-thumb:hover { opacity: 0.9; }
+        
         .char-details { display: none; padding: 15px 15px; font-size: 11px; color: #FFFFFF; text-align: left; line-height: 1.5; }
         .char-details p { margin: 4px 0; color: #FFFFFF; }
-        .char-btn-ui { display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid #FFFFFF; padding: 4px 10px; border-radius: 4px; margin: 4px 0; color: #FFFFFF; font-size: 10px; text-align: left; }
+
+        .char-btn-ui { display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid #FFFFFF; padding: 4px 10px; border-radius: 4px; margin: 4px 0; color: #FFFFFF; font-size: 10px; cursor: pointer; text-align: left; }
         .tag-center-wrap { width: 100%; text-align: center; margin-top: 10px; }
         .char-tag-ui { display: inline-block; border: 1px dashed #FFFFFF; padding: 2px 15px; border-radius: 15px; color: #FFFFFF; font-size: 10px; }
 
-        /* --- Warning Screen Design --- */
-        #page-char-terms {
-            display: flex; flex-direction: column; align-items: center;
-            width: 100%; opacity: 1; transition: opacity 0.8s ease;
-        }
-
+        /* --- Warning Screen (เฉพาะ Character) --- */
+        #page-char-terms { display: flex; flex-direction: column; align-items: center; width: 100%; opacity: 1; transition: opacity 0.8s ease; }
         .warn-big-bow { width: 620px; height: auto; margin-bottom: -15px; position: relative; z-index: 2; }
-        
-        .warn-title-box {
-            background: linear-gradient(180deg, #62486E, #251B2B);
-            border: 2px solid #FFFFFF; border-radius: 2px;
-            padding: 8px 60px; color: white; font-size: 24px;
-            box-shadow: 0 0 15px rgba(211, 188, 230, 0.8);
-            margin-bottom: 30px; position: relative; z-index: 1;
-        }
-
-        .warn-main-box {
-            width: 530px; background: var(--box-grad);
-            border: 2px dashed #FFFFFF; border-radius: 4px;
-            padding: 25px; color: white; position: relative;
-            box-shadow: 0 0 15px rgba(255,255,255,0.2);
-        }
+        .warn-title-box { background: linear-gradient(180deg, #62486E, #251B2B); border: 2px solid #FFFFFF; border-radius: 2px; padding: 8px 60px; color: white; font-size: 24px; box-shadow: 0 0 15px rgba(211, 188, 230, 0.8); margin-bottom: 30px; position: relative; z-index: 1; }
+        .warn-main-box { width: 530px; background: var(--box-grad); border: 2px dashed #FFFFFF; border-radius: 4px; padding: 25px; color: white; position: relative; box-shadow: 0 0 15px rgba(255,255,255,0.2); }
         .warn-header { font-size: 15px; margin-bottom: 15px; display: block; font-weight: bold; text-align: left; }
         .warn-list { font-size: 13px; line-height: 1.8; list-style: none; padding: 0; margin: 0; text-align: left; }
         .warn-list li { margin-bottom: 5px; display: flex; align-items: flex-start; gap: 8px; }
         .warn-list li::before { content: "❃"; font-size: 10px; margin-top: 2px; }
-
         .accept-btn-wrap { margin-top: 100px; display: flex; justify-content: center; width: 100%; }
-        
-        .accept-btn {
-            width: 520px; height: 50px; background: #FFFFFF;
-            border-radius: 4px; border: none; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            gap: 10px; color: #666; font-size: 22px; font-weight: 500;
-            position: relative;
-        }
-        
-        /* Ripple Glow Wave Animation */
-        .accept-btn::after {
-            content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 4px; border: 2px solid #FFFFFF;
-            animation: ripple-wave 2s infinite; pointer-events: none;
-        }
-
-        @keyframes ripple-wave {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(1.1, 1.4); opacity: 0; }
-        }
-
+        .accept-btn { width: 520px; height: 50px; background: #FFFFFF; border-radius: 4px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; color: #666; font-size: 22px; font-weight: 500; position: relative; }
+        .accept-btn::after { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 4px; border: 2px solid #FFFFFF; animation: ripple-wave 2s infinite; pointer-events: none; }
+        @keyframes ripple-wave { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.1, 1.4); opacity: 0; } }
         .check-icon { width: 30px; height: auto; }
 
     </style>
@@ -177,10 +143,8 @@
 <body>
 
 <div class="ipad-layout">
-    <!-- Top Banner -->
     <img class="top-banner" src="https://lh3.googleusercontent.com/u/0/d/1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0" onerror="fixImage(this)">
 
-    <!-- Bow Row Header -->
     <div class="bow-row">
         <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
         <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
@@ -191,7 +155,7 @@
         <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
     </div>
 
-    <!-- Navigation -->
+    <!-- เมนู -->
     <div class="nav-grid">
         <div class="box-template nav-item" onclick="navigate('home')" id="btn-home">
             <img class="nav-flower" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)"> Home
@@ -207,7 +171,7 @@
         </div>
     </div>
 
-    <!-- Home Page -->
+    <!-- หน้า Home (ไม่แตะต้องเนื้อหาเดิม) -->
     <div id="page-home" class="main-content">
         <div class="col-left">
             <div class="profile-wrapper">
@@ -294,11 +258,10 @@
         </div>
     </div>
 
-    <!-- หน้า Character -->
+    <!-- หน้า Character (มีคำเตือน) -->
     <div id="page-character" class="page-container">
-        <!-- หน้าที่ 1: Warning Screen -->
         <div id="page-char-terms">
-            <img class="warn-big-bow" src="https://lh3.googleusercontent.com/u/0/d/1SW9h4ShOGQIhlsv4YkArZc0e84ivAXku" onerror="fixImage(this)">
+            <img class="warn-big-bow" src="https://lh3.googleusercontent.com/u/0/d/1rEkHzbbxsnfzxGYLdz0kFQx1eD7EoIka" onerror="fixImage(this)">
             <div class="warn-title-box">! warning !</div>
             <div class="warn-main-box">
                 <span class="warn-header">ข้อตกลงการรับชมเด็ก ๆ ในบ้าน</span>
@@ -315,9 +278,7 @@
                 </button>
             </div>
         </div>
-
-        <!-- หน้าที่ 2: Character Grid (แสดงหลังจากกดยอมรับ) -->
-        <div id="char-main-content" style="display:none; opacity: 0; transition: opacity 0.8s;">
+        <div id="char-main-list" style="display:none; opacity:0; transition:0.8s;">
             <div class="filter-bar">
                 <div class="filter-btn active" onclick="filterChars('All', this)">All</div>
                 <div class="filter-btn" onclick="filterChars('forever home', this)">forever home</div>
@@ -325,24 +286,17 @@
                 <div class="filter-btn" onclick="filterChars('sp', this)">sp</div>
                 <div class="filter-btn" onclick="filterChars('ota', this)">ota</div>
             </div>
-            <div class="char-grid">
-                <div class="display-col" id="char-col-1"></div>
-                <div class="display-col" id="char-col-2"></div>
-                <div class="display-col" id="char-col-3"></div>
-            </div>
+            <div class="char-grid"><div class="display-col" id="char-col-1"></div><div class="display-col" id="char-col-2"></div><div class="display-col" id="char-col-3"></div></div>
         </div>
     </div>
 
-    <!-- หน้า Commission -->
+    <!-- หน้า Commission (เข้าได้ทันที / 2 คอลัมน์) -->
     <div id="page-commission" class="page-container">
         <div style="height: 20px;"></div>
-        <div class="two-col-grid">
-            <div class="display-col" id="comm-col-1"></div>
-            <div class="display-col" id="comm-col-2"></div>
-        </div>
+        <div class="two-col-grid"><div class="display-col" id="comm-col-1"></div><div class="display-col" id="comm-col-2"></div></div>
     </div>
 
-    <!-- หน้า Shop -->
+    <!-- หน้า Shop (เข้าได้ทันที / 2 คอลัมน์) -->
     <div id="page-shop" class="page-container">
         <div class="filter-bar">
             <div class="filter-btn active" onclick="filterShop('All', this)">All</div>
@@ -351,13 +305,9 @@
             <div class="filter-btn" onclick="filterShop('template', this)">template</div>
             <div class="filter-btn" onclick="filterShop('toon', this)">toon</div>
         </div>
-        <div class="two-col-grid">
-            <div class="display-col" id="shop-col-1"></div>
-            <div class="display-col" id="shop-col-2"></div>
-        </div>
+        <div class="two-col-grid"><div class="display-col" id="shop-col-1"></div><div class="display-col" id="shop-col-2"></div></div>
     </div>
 
-    <!-- Footer -->
     <div class="footer-section">
         <div class="bow-row">
             <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
@@ -372,7 +322,6 @@
 </div>
 
 <script>
-    // Data Lists
     const charList = [
         { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'ota' },
         { img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'forever home' },
@@ -402,54 +351,45 @@
         { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'base', name: 'Couple Base' }
     ];
 
-    let termsAccepted = false;
+    let characterTermsAccepted = false;
 
-    // Navigation Logic
     function navigate(pageId) {
-        document.getElementById('page-home').style.display = 'none';
-        document.getElementById('page-character').style.display = 'none';
-        document.getElementById('page-commission').style.display = 'none';
-        document.getElementById('page-shop').style.display = 'none';
-
+        document.querySelectorAll('.main-content, .page-container').forEach(p => p.style.display = 'none');
         const activePage = document.getElementById('page-' + pageId);
-        if (activePage) {
-            activePage.style.display = (pageId === 'home') ? 'grid' : 'flex';
-        }
+        if (activePage) activePage.style.display = (pageId === 'home' ? 'grid' : 'flex');
 
         document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-        document.getElementById('btn-' + pageId).classList.add('active');
+        const btn = document.getElementById('btn-' + pageId);
+        if(btn) btn.classList.add('active');
 
         if (pageId === 'character') {
-            if (!termsAccepted) {
+            if (!characterTermsAccepted) {
                 document.getElementById('page-char-terms').style.display = 'flex';
-                document.getElementById('char-main-content').style.display = 'none';
+                document.getElementById('char-main-list').style.display = 'none';
             } else {
                 document.getElementById('page-char-terms').style.display = 'none';
-                document.getElementById('char-main-content').style.display = 'block';
+                document.getElementById('char-main-list').style.display = 'block';
                 filterChars('All');
             }
         }
         if (pageId === 'commission') renderCommission();
         if (pageId === 'shop') filterShop('All');
-
         localStorage.setItem('dominic_active_page', pageId);
     }
 
-    // Accept Terms Logic
     function acceptTerms() {
-        const terms = document.getElementById('page-char-terms');
-        terms.style.opacity = '0'; // Fade out
+        const warn = document.getElementById('page-char-terms');
+        warn.style.opacity = '0';
         setTimeout(() => {
-            terms.style.display = 'none';
-            termsAccepted = true;
-            const content = document.getElementById('char-main-content');
+            warn.style.display = 'none';
+            characterTermsAccepted = true;
+            const content = document.getElementById('char-main-list');
             content.style.display = 'block';
-            setTimeout(() => { content.style.opacity = '1'; }, 50); // Fade in
+            setTimeout(() => { content.style.opacity = '1'; }, 50);
             filterChars('All');
         }, 800);
     }
 
-    // Render Cards
     function createCard(imgId, tagText, customDetail) {
         const card = document.createElement('div');
         card.className = 'char-card';
@@ -461,19 +401,14 @@
                 <p>Value : 0</p>
                 <div class="char-btn-ui">กฎการใช้งาน</div><br>
                 <div class="char-btn-ui">รายละเอียดเพิ่มเติม</div>
-                <div class="tag-center-wrap">
-                    <div class="char-tag-ui">${tagText}</div>
-                </div>
+                <div class="tag-center-wrap"><div class="char-tag-ui">${tagText}</div></div>
             </div>
         `;
         return card;
     }
 
     function filterChars(tag, btn) {
-        if (btn) {
-            document.querySelectorAll('#page-character .filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        }
+        if (btn) { document.querySelectorAll('#page-character .filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
         const cols = [document.getElementById('char-col-1'), document.getElementById('char-col-2'), document.getElementById('char-col-3')];
         cols.forEach(c => c.innerHTML = '');
         const filtered = tag === 'All' ? charList : charList.filter(c => c.tag === tag);
@@ -487,31 +422,18 @@
     }
 
     function filterShop(tag, btn) {
-        if (btn) {
-            document.querySelectorAll('#page-shop .filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        }
+        if (btn) { document.querySelectorAll('#page-shop .filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
         const cols = [document.getElementById('shop-col-1'), document.getElementById('shop-col-2')];
         cols.forEach(c => c.innerHTML = '');
         const filtered = tag === 'All' ? shopList : shopList.filter(s => s.tag === tag);
         filtered.forEach((item, i) => cols[i % 2].appendChild(createCard(item.img, item.tag, item.name)));
     }
 
-    function toggleChar(img) {
-        const details = img.nextElementSibling;
-        details.style.display = (details.style.display === 'block') ? 'none' : 'block';
-    }
+    function toggleChar(img) { const details = img.nextElementSibling; details.style.display = (details.style.display === 'block' ? 'none' : 'block'); }
 
-    // Image Fixer Function
     function fixImage(img) {
-        // หากลิงก์มี u/0/ ให้ลองลบออก
         if (img.src.includes('u/0/')) {
             img.src = img.src.replace('u/0/', '');
-        } 
-        // หากยังไม่ขึ้นอีก (สำหรับ Google Drive โดยเฉพาะ) ให้เปลี่ยนรูปแบบเป็นลิงก์ดาวน์โหลดตรง
-        else if (img.src.includes('lh3.googleusercontent.com/d/')) {
-            const id = img.src.split('d/')[1];
-            img.src = `https://drive.google.com/uc?export=view&id=${id}`;
         }
     }
 
@@ -520,6 +442,5 @@
         navigate(savedPage);
     };
 </script>
-
 </body>
 </html>
