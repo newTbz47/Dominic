@@ -2,7 +2,6 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <!-- บังคับให้โทรศัพท์แสดงผลขนาด 768px เท่าไอแพด เพื่อไม่ให้ตัวอักษรเคลื่อนแม้แต่นิดเดียว -->
     <meta name="viewport" content="width=768, user-scalable=no">
     <title>Dominic Profile Site</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
@@ -16,385 +15,146 @@
             --accent-pink: #D182B5;
         }
 
-        * {
-            box-sizing: border-box;
-            font-family: 'Quicksand', sans-serif;
-        }
+        * { box-sizing: border-box; font-family: 'Quicksand', sans-serif; }
 
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background: linear-gradient(180deg, #000000 0%, #000000 50%, var(--bg-bottom) 100%) fixed;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            overflow-x: hidden;
+            display: flex; justify-content: center; min-height: 100vh; overflow-x: hidden;
         }
 
-        .ipad-layout {
-            width: 768px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-
+        .ipad-layout { width: 768px; position: relative; display: flex; flex-direction: column; }
         .top-banner { width: 100%; display: block; z-index: 100; }
 
         .bow-row {
-            display: flex;
-            justify-content: center;
-            gap: 45px;
-            margin-top: -20px;
-            margin-bottom: 50px;
-            z-index: 101;
+            display: flex; justify-content: center; gap: 45px;
+            margin-top: -20px; margin-bottom: 50px; z-index: 101;
         }
         .bow-img { width: 25px; height: auto; }
 
         .nav-grid { 
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 15px; 
-            margin: -20px 50px 0px 50px; 
-            z-index: 102;
+            display: grid; grid-template-columns: repeat(4, 1fr); 
+            gap: 15px; margin: -20px 50px 0px 50px; z-index: 102;
         }
 
         .nav-item { 
-            height: 45px; 
-            text-align: center; 
-            color: white; 
-            padding-top: 10px; 
-            font-size: 14px; 
-            cursor: pointer; 
-            position: relative;
+            height: 45px; text-align: center; color: white; padding-top: 10px; 
+            font-size: 14px; cursor: pointer; position: relative;
         }
         .nav-flower {
-            width: 20px;
-            position: absolute;
-            left: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: none;
+            width: 20px; position: absolute; left: 10px; top: 50%;
+            transform: translateY(-50%); display: none;
         }
         .nav-item.active .nav-flower { display: block; }
 
+        /* --- Home Page (คงเดิม) --- */
         .main-content {
             padding: 40px 50px 100px 50px;
-            display: grid;
-            grid-template-columns: 215px 1fr;
-            gap: 30px;
-            align-items: start;
+            display: grid; grid-template-columns: 215px 1fr;
+            gap: 30px; align-items: start;
         }
-
-        .col-left { 
-            position: sticky; 
-            top: 20px; 
-            display: flex;
-            flex-direction: column;
-            z-index: 10;
-        }
-
-        .col-right {
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        .heart-divider-wrap {
-            display: flex;
-            justify-content: center;
-            margin: -22px 0 -18px 0; 
-            position: relative;
-            z-index: 3; 
-            pointer-events: none;
-        }
+        .col-left { position: sticky; top: 20px; display: flex; flex-direction: column; z-index: 10; }
+        .col-right { display: flex; flex-direction: column; position: relative; }
+        .heart-divider-wrap { display: flex; justify-content: center; margin: -22px 0 -18px 0; position: relative; z-index: 3; pointer-events: none; }
         .heart-divider-img { width: 175px; height: auto; }
-
-        .profile-wrapper {
-            position: relative;
-            width: 215px;
-            height: 215px;
-            margin-top: 0;
-        }
-
-        .profile-bg-box {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: var(--box-grad);
-            border: 1.5px solid var(--box-border);
-            box-shadow: var(--glow-soft);
-            border-radius: 2px;
-            z-index: 1;
-        }
-
-        .character-img {
-            position: absolute;
-            width: 270px; 
-            bottom: 2px;  
-            left: -5px;   
-            z-index: 2;
-            pointer-events: none;
-        }
-
+        .profile-wrapper { position: relative; width: 215px; height: 215px; }
+        .profile-bg-box { position: absolute; width: 100%; height: 100%; background: var(--box-grad); border: 1.5px solid var(--box-border); box-shadow: var(--glow-soft); border-radius: 2px; z-index: 1; }
+        .character-img { position: absolute; width: 270px; bottom: 2px; left: -5px; z-index: 2; pointer-events: none; }
         .roses-top { position: absolute; width: 265px; top: -40px; left: -25px; z-index: 4; pointer-events: none; }
         .roses-bottom-left { position: absolute; width: 275px; bottom: -25px; left: -35px; z-index: 4; pointer-events: none; }
-
-        .box-template {
-            background: var(--box-grad);
-            border: 1.5px solid var(--box-border);
-            box-shadow: var(--glow-soft);
-            border-radius: 2px;
-            position: relative;
-            width: 100%;
-        }
-
-        .inner-white {
-            background: #FFFFFF;
-            border-radius: 15px; 
-            margin: 35px 10px 10px 10px; 
-            padding: 15px;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .box-title {
-            position: absolute;
-            top: 8px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            font-size: 14px;
-            color: white;
-            z-index: 5;
-        }
-
-        .about-icon { 
-            width: 24px; 
-            height: auto; 
-            flex-shrink: 0;
-        }
-
+        .box-template { background: var(--box-grad); border: 1.5px solid var(--box-border); box-shadow: var(--glow-soft); border-radius: 2px; position: relative; width: 100%; }
+        .inner-white { background: #FFFFFF; border-radius: 15px; margin: 35px 10px 10px 10px; padding: 15px; color: #333; display: flex; flex-direction: column; }
+        .box-title { position: absolute; top: 8px; left: 0; right: 0; text-align: center; font-size: 14px; color: white; z-index: 5; }
+        .about-icon { width: 24px; height: auto; flex-shrink: 0; }
         .name-tag { height: 45px; text-align: center; color: white; padding-top: 8px; font-size: 20px; }
-        
         .about-box { height: 160px; }
-        .about-box .inner-white {
-            margin: 30px 12px 12px 12px;
-            height: 115px;
-            font-size: 11.5px;
-            line-height: 1.6;
-            justify-content: center;
-            padding-left: 5px;
-        }
+        .about-box .inner-white { margin: 30px 12px 12px 12px; height: 115px; font-size: 11.5px; line-height: 1.6; justify-content: center; padding-left: 5px; }
         .about-box .line { display: flex; align-items: center; gap: 8px; margin-bottom: 2px; }
-
         .small-display-box { height: 95px; }
-        .small-display-box .inner-white {
-            margin: 30px 12px 12px 12px;
-            height: 50px;
-            justify-content: center;
-            padding: 0 15px;
-        }
-
+        .small-display-box .inner-white { margin: 30px 12px 12px 12px; height: 50px; justify-content: center; padding: 0 15px; }
         .login-btn { height: 40px; text-align: center; color: white; padding-top: 8px; font-size: 16px; }
-
-        .black-bar { 
-            background: #000; height: 38px; border-radius: 2px; border: 1.5px solid #333; 
-            margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 25px;
-        }
-        .bar-img { height: 35px; width: auto; object-fit: contain; }
-
+        .black-bar { background: #000; height: 38px; border-radius: 2px; border: 1.5px solid #333; margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 25px; }
+        .bar-img { height: 26px; width: auto; object-fit: contain; }
         .right-large { height: 210px; }
-        .right-large .inner-white {
-            margin: 35px 15px 15px 15px;
-            height: 155px;
-            text-align: center;
-            justify-content: center;
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
+        .right-large .inner-white { margin: 35px 15px 15px 15px; height: 155px; text-align: center; justify-content: center; font-size: 13px; line-height: 1.6; }
         .right-medium { height: 185px; }
-        .right-medium .inner-white {
-            margin: 35px 15px 15px 15px;
-            height: 130px;
-            flex-direction: row; 
-            padding: 10px;
-            align-items: center;
-        }
-        .image-placeholder {
-            width: 105px; 
-            height: 100%;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .right-medium .inner-white { margin: 35px 15px 15px 15px; height: 130px; flex-direction: row; padding: 10px; align-items: center; }
+        .image-placeholder { width: 105px; height: 100%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
         .image-placeholder img { width: 100%; height: auto; object-fit: contain; }
-
-        .text-content {
-            flex-grow: 1;
-            font-size: 12px;
-            line-height: 1.4;
-            padding-left: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 8px;
-        }
+        .text-content { flex-grow: 1; font-size: 12px; line-height: 1.4; padding-left: 10px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
         .list-item { display: flex; align-items: center; gap: 8px; }
-
         .right-small { height: 135px; }
-        .right-small .inner-white {
-            margin: 35px 15px 15px 15px;
-            height: 85px;
-            flex-direction: row;
-            justify-content: space-around;
-            align-items: center;
-            text-align: center;
-            font-size: 12px;
-            padding: 5px 0;
-        }
-
-        .fandom-box { 
-            width: 70%; 
-            margin: 0 auto; 
-            min-height: 150px; 
-        }
-        .fandom-box .inner-white {
-            margin: 30px 10px 10px 10px;
-            min-height: 105px;
-            text-align: center;
-            font-size: 13px;
-            line-height: 1.8;
-            text-transform: lowercase;
-        }
-        .fandom-flowers-bottom {
-            position: absolute;
-            width: 180px; 
-            bottom: -20px;
-            left: -30px;
-            z-index: 4;
-            pointer-events: none;
-        }
-
+        .right-small .inner-white { margin: 35px 15px 15px 15px; height: 85px; flex-direction: row; justify-content: space-around; align-items: center; text-align: center; font-size: 12px; padding: 5px 0; }
+        .fandom-box { width: 70%; margin: 0 auto; min-height: 150px; }
+        .fandom-box .inner-white { margin: 30px 10px 10px 10px; min-height: 105px; text-align: center; font-size: 13px; line-height: 1.8; text-transform: lowercase; }
+        .fandom-flowers-bottom { position: absolute; width: 180px; bottom: -20px; left: -30px; z-index: 4; pointer-events: none; }
         .fav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
         .fav-img { width: 45px; height: 45px; object-fit: contain; }
-
         .social-row { display: flex; gap: 12px; justify-content: center; margin-top: 20px; }
         .social-link { width: 35px; height: 35px; background: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; padding: 6px; cursor: pointer; transition: transform 0.2s; }
         .social-link:hover { transform: scale(1.1); }
         .social-img { width: 100%; height: 100%; object-fit: contain; }
-
         .battery-container { display: flex; align-items: center; gap: 10px; width: 100%; }
-        .battery-bar { 
-            flex-grow: 1; height: 25px; border: 1.5px solid #D3BCE6; border-radius: 4px; 
-            background: #fff; position: relative; overflow: hidden; 
-        }
-        .battery-fill { 
-            width: 20%; height: 100%; 
-            background: repeating-linear-gradient(90deg, #5D4364, #5D4364 4px, transparent 4px, transparent 6px); 
-        }
-
+        .battery-bar { flex-grow: 1; height: 25px; border: 1.5px solid #D3BCE6; border-radius: 4px; background: #fff; position: relative; overflow: hidden; }
+        .battery-fill { width: 20%; height: 100%; background: repeating-linear-gradient(90deg, #5D4364, #5D4364 4px, transparent 4px, transparent 6px); }
         .box-deco-corner { position: absolute; width: 50px; top: -28px; left: -15px; z-index: 1000; }
         .footer-section { width: 100%; padding-bottom: 60px; }
-        .blank-page { display: none; min-height: 600px; text-align: center; color: white; padding-top: 100px; }
 
-        /* --- หน้าคาร์แรคเตอร์ --- */
-        #page-character {
-            padding: 20px 50px 100px 50px;
-            display: none;
-            flex-direction: column;
-            width: 100%;
-        }
+        /* --- Content Pages (Character, Commission, Shop) --- */
+        .page-container { padding: 40px 60px 100px 60px; display: none; flex-direction: column; width: 100%; }
+        .filter-bar { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
+        .filter-btn { background: rgba(0,0,0,0.5); border: 1.5px dashed var(--box-border); color: white; padding: 5px 20px; border-radius: 20px; cursor: pointer; font-size: 13px; transition: 0.3s; }
+        .filter-btn.active { background: var(--box-border); color: #000; border-style: solid; box-shadow: 0 0 10px var(--box-border); }
 
-        .filter-bar {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 35px;
-        }
+        /* Grids */
+        .char-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; align-items: start; }
+        .two-col-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: start; }
+        .display-col { display: flex; flex-direction: column; gap: 20px; }
 
-        .filter-btn {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1.5px dashed var(--box-border);
-            color: white;
-            padding: 6px 18px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 13px;
-            transition: 0.3s;
-        }
-
-        .filter-btn.active {
-            background: var(--box-border);
-            color: #000;
-            border-style: solid;
-            box-shadow: 0 0 8px var(--box-border);
-        }
-
-        .char-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            align-items: start;
-        }
-
-        .char-col {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .char-card {
-            width: 100%;
-            position: relative;
-        }
-
-        .char-thumb {
-            width: 100%;
-            display: block;
-            border: 2.5px solid white;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .char-thumb:hover { transform: scale(1.02); }
-
-        .char-info {
-            display: none;
-            background: #FFFFFF;
-            margin-top: 8px;
-            border-radius: 6px;
-            padding: 12px;
-            color: #333;
-            font-size: 12px;
-            line-height: 1.5;
-            border-top: 5px solid var(--accent-pink);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        .char-info p { margin: 4px 0; font-weight: 500; }
+        /* Card Design - Integrated Frame */
+        .char-card { width: 100%; background: var(--box-grad); border: 1.5px solid var(--box-border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--glow-soft); }
+        .char-thumb { width: 100%; display: block; cursor: pointer; transition: 0.2s; border-bottom: 1.5px solid var(--box-border); }
+        .char-thumb:hover { opacity: 0.9; }
         
-        .char-action-btn {
-            display: inline-block;
-            background: #f1f1f1;
-            padding: 3px 10px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            margin: 5px 0;
-            font-size: 11px;
+        /* รายละเอียดใน Card (3 หน้า) */
+        .char-details {
+            display: none; 
+            padding: 15px 15px; 
+            font-size: 11px; 
+            color: #FFFFFF; /* ตัวอักษรสีขาวทั้งหมด */
+            text-align: left; /* ชิดซ้ายทั้งหมด */
+            line-height: 1.5;
+        }
+        .char-details p { margin: 4px 0; color: #FFFFFF; }
+
+        /* ปุ่ม/กรอบย่อยในรายละเอียด */
+        .char-btn-ui { 
+            display: inline-block; 
+            background: rgba(255,255,255,0.1); 
+            border: 1px solid #FFFFFF; /* กรอบสีขาว */
+            padding: 4px 10px; 
+            border-radius: 4px; 
+            margin: 4px 0; 
+            color: #FFFFFF; /* ตัวอักษรสีขาว */
+            font-size: 10px;
+            cursor: pointer;
+            text-align: left;
         }
 
-        .char-tag-pill {
-            display: inline-block;
-            border: 1px dashed #777;
-            padding: 2px 12px;
-            border-radius: 12px;
-            margin-top: 8px;
-            font-size: 11px;
-            color: #555;
+        /* ส่วนจัดวางแท็กหมวดหมู่ล่างสุด (กึ่งกลาง) */
+        .tag-center-wrap {
+            width: 100%;
+            text-align: center; /* กึ่งกลางตามข้อยกเว้น */
+            margin-top: 10px;
+        }
+
+        .char-tag-ui { 
+            display: inline-block; 
+            border: 1px dashed #FFFFFF; /* เปลี่ยนแท็กหมวดหมู่เป็นสีขาว */
+            padding: 2px 15px; 
+            border-radius: 15px; 
+            color: #FFFFFF; /* เปลี่ยนข้อความแท็กเป็นสีขาว */
+            font-size: 10px;
         }
 
     </style>
@@ -414,26 +174,23 @@
         <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
     </div>
 
+    <!-- เมนู -->
     <div class="nav-grid">
         <div class="box-template nav-item" onclick="navigate('home')" id="btn-home">
-            <img class="nav-flower" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
-            Home
+            <img class="nav-flower" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)"> Home
         </div>
         <div class="box-template nav-item" onclick="navigate('character')" id="btn-character">
-            <img class="nav-flower" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
-            Character
+            <img class="nav-flower" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)"> Character
         </div>
         <div class="box-template nav-item" onclick="navigate('commission')" id="btn-commission">
-            <img class="nav-flower" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
-            Commission
+            <img class="nav-flower" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)"> Commission
         </div>
         <div class="box-template nav-item" onclick="navigate('shop')" id="btn-shop">
-            <img class="nav-flower" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
-            Shop
+            <img class="nav-flower" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)"> Shop
         </div>
     </div>
 
-    <!-- หน้า Home -->
+    <!-- หน้า Home (ไม่แตะต้อง) -->
     <div id="page-home" class="main-content">
         <div class="col-left">
             <div class="profile-wrapper">
@@ -492,9 +249,7 @@
                 <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
                 <div class="box-title">little things about me</div>
                 <div class="inner-white">
-                    <div class="image-placeholder">
-                        <img src="https://lh3.googleusercontent.com/u/0/d/14S7hZwuiR3ap3NNkbBwkdNfkH18xsomQ" onerror="fixImage(this)">
-                    </div>
+                    <div class="image-placeholder"><img src="https://lh3.googleusercontent.com/u/0/d/14S7hZwuiR3ap3NNkbBwkdNfkH18xsomQ" onerror="fixImage(this)"></div>
                     <div class="text-content">
                         <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> <span>Low social battery.</span></div>
                         <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> <span>Drawing is what I love most. It's my whole life.</span></div>
@@ -508,18 +263,9 @@
                 <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
                 <div class="box-title">my favorite thing</div>
                 <div class="inner-white">
-                    <div class="fav-item">
-                        <img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/1-FC3qEExhJC77hp1HH440U9yuMPvweCl" onerror="fixImage(this)">
-                        <span>Sweets</span>
-                    </div>
-                    <div class="fav-item">
-                        <img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/1D4KnlxHNjZv5BF77rBaLJ2HEFmUNg5LK" onerror="fixImage(this)">
-                        <span>Drawing</span>
-                    </div>
-                    <div class="fav-item">
-                        <img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/11Ymi1RyrIo4VY90Wo-vzNlU3eyEX4HiW" onerror="fixImage(this)">
-                        <span>Chick</span>
-                    </div>
+                    <div class="fav-item"><img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/1-FC3qEExhJC77hp1HH440U9yuMPvweCl" onerror="fixImage(this)"><span>Sweets</span></div>
+                    <div class="fav-item"><img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/1D4KnlxHNjZv5BF77rBaLJ2HEFmUNg5LK" onerror="fixImage(this)"><span>Drawing</span></div>
+                    <div class="fav-item"><img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/11Ymi1RyrIo4VY90Wo-vzNlU3eyEX4HiW" onerror="fixImage(this)"><span>Chick</span></div>
                 </div>
             </div>
             <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
@@ -532,25 +278,44 @@
     </div>
 
     <!-- หน้า Character -->
-    <div id="page-character">
+    <div id="page-character" class="page-container">
         <div class="filter-bar">
-            <div class="filter-btn active" onclick="filterChar('All', this)">All</div>
-            <div class="filter-btn" onclick="filterChar('forever home', this)">forever home</div>
-            <div class="filter-btn" onclick="filterChar('eo', this)">eo</div>
-            <div class="filter-btn" onclick="filterChar('sp', this)">sp</div>
-            <div class="filter-btn" onclick="filterChar('ota', this)">ota</div>
+            <div class="filter-btn active" onclick="filterChars('All', this)">All</div>
+            <div class="filter-btn" onclick="filterChars('forever home', this)">forever home</div>
+            <div class="filter-btn" onclick="filterChars('eo', this)">eo</div>
+            <div class="filter-btn" onclick="filterChars('sp', this)">sp</div>
+            <div class="filter-btn" onclick="filterChars('ota', this)">ota</div>
         </div>
-
         <div class="char-grid">
-            <div class="char-col" id="col-1"></div>
-            <div class="char-col" id="col-2"></div>
-            <div class="char-col" id="col-3"></div>
+            <div class="display-col" id="char-col-1"></div>
+            <div class="display-col" id="char-col-2"></div>
+            <div class="display-col" id="char-col-3"></div>
         </div>
     </div>
 
-    <!-- หน้าอื่นๆ -->
-    <div id="page-commission" class="blank-page">Commission Page Area</div>
-    <div id="page-shop" class="blank-page">Shop Page Area</div>
+    <!-- หน้า Commission -->
+    <div id="page-commission" class="page-container">
+        <div style="height: 20px;"></div>
+        <div class="two-col-grid">
+            <div class="display-col" id="comm-col-1"></div>
+            <div class="display-col" id="comm-col-2"></div>
+        </div>
+    </div>
+
+    <!-- หน้า Shop -->
+    <div id="page-shop" class="page-container">
+        <div class="filter-bar">
+            <div class="filter-btn active" onclick="filterShop('All', this)">All</div>
+            <div class="filter-btn" onclick="filterShop('base', this)">base</div>
+            <div class="filter-btn" onclick="filterShop('brush', this)">brush</div>
+            <div class="filter-btn" onclick="filterShop('template', this)">template</div>
+            <div class="filter-btn" onclick="filterShop('toon', this)">toon</div>
+        </div>
+        <div class="two-col-grid">
+            <div class="display-col" id="shop-col-1"></div>
+            <div class="display-col" id="shop-col-2"></div>
+        </div>
+    </div>
 
     <div class="footer-section">
         <div class="bow-row">
@@ -566,81 +331,119 @@
 </div>
 
 <script>
-    // ข้อมูลตัวอย่างคาร์แรคเตอร์ 10 รูป
-    const charData = [
-        { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'forever home', artist: 'Dominic', owner: 'Dominic', val: '0' },
-        { img: '14S7hZwuiR3ap3NNkbBwkdNfkH18xsomQ', tag: 'ota', artist: 'Dominic', owner: 'Dominic', val: '0' },
-        { img: '1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ', tag: 'sp', artist: 'Dominic', owner: 'Dominic', val: '0' },
-        { img: '1Kiix_IgzBHFrL7EeLHjZLqL8V4uT1beD', tag: 'eo', artist: 'Dominic', owner: 'Dominic', val: '0' },
-        { img: '1yQ12nEX6p0D_GzhrV_XEO1rDh9pFlMMh', tag: 'ota', artist: 'Dominic', owner: 'Dominic', val: '0' },
-        { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'forever home', artist: 'Dominic', owner: 'Dominic', val: '0' },
-        { img: '14S7hZwuiR3ap3NNkbBwkdNfkH18xsomQ', tag: 'sp', artist: 'Dominic', owner: 'Dominic', val: '0' },
-        { img: '1Kiix_IgzBHFrL7EeLHjZLqL8V4uT1beD', tag: 'ota', artist: 'Dominic', owner: 'Dominic', val: '0' },
-        { img: '1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ', tag: 'eo', artist: 'Dominic', owner: 'Dominic', val: '0' },
-        { img: '1yQ12nEX6p0D_GzhrV_XEO1rDh9pFlMMh', tag: 'sp', artist: 'Dominic', owner: 'Dominic', val: '0' }
+    const charList = [
+        { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'ota' },
+        { img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'forever home' },
+        { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'eo' },
+        { img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'sp' },
+        { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'ota' },
+        { img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'forever home' },
+        { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'eo' },
+        { img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'sp' },
+        { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'ota' },
+        { img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'ota' }
+    ];
+
+    const commList = [
+        { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', detail: 'Full Scale Commission' },
+        { img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', detail: 'Chibi Style' },
+        { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', detail: 'Headshot' },
+        { img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', detail: 'Custom Design' },
+        { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', detail: 'Commercial Work' }
+    ];
+
+    const shopList = [
+        { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'base', name: 'YCH Base 01' },
+        { img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'brush', name: 'Dominic Pencil' },
+        { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'template', name: 'Profile Template' },
+        { img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'toon', name: 'Toon Asset' },
+        { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'base', name: 'Couple Base' }
     ];
 
     function navigate(pageId) {
-        const pages = ['page-home', 'page-character', 'page-commission', 'page-shop'];
-        pages.forEach(p => document.getElementById(p).style.display = 'none');
-        
+        document.getElementById('page-home').style.display = 'none';
+        document.getElementById('page-character').style.display = 'none';
+        document.getElementById('page-commission').style.display = 'none';
+        document.getElementById('page-shop').style.display = 'none';
+
         const activePage = document.getElementById('page-' + pageId);
-        if (pageId === 'home') activePage.style.display = 'grid';
-        else activePage.style.display = 'flex';
+        if (activePage) {
+            activePage.style.display = (pageId === 'home') ? 'grid' : 'flex';
+        }
 
         document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
         document.getElementById('btn-' + pageId).classList.add('active');
 
         localStorage.setItem('dominic_active_page', pageId);
-        if (pageId === 'character') filterChar('All');
+        
+        if (pageId === 'character') filterChars('All');
+        if (pageId === 'commission') renderCommission();
+        if (pageId === 'shop') filterShop('All');
     }
 
-    function filterChar(tag, btn) {
+    // สร้าง Card แบบชิดซ้าย (แท็กกึ่งกลางและเป็นสีขาว)
+    function createCard(imgId, tagText, customDetail) {
+        const card = document.createElement('div');
+        card.className = 'char-card';
+        card.innerHTML = `
+            <img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${imgId}" onclick="toggleChar(this)" onerror="fixImage(this)">
+            <div class="char-details">
+                <p>Artist : Dominic</p>
+                <p>${customDetail || 'Owner : Dominic'}</p>
+                <p>Value : 0</p>
+                <div class="char-btn-ui">กฎการใช้งาน</div><br>
+                <div class="char-btn-ui">รายละเอียดเพิ่มเติม</div>
+                <div class="tag-center-wrap">
+                    <div class="char-tag-ui">${tagText}</div>
+                </div>
+            </div>
+        `;
+        return card;
+    }
+
+    function filterChars(tag, btn) {
         if (btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('#page-character .filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
         }
-
-        const cols = [document.getElementById('col-1'), document.getElementById('col-2'), document.getElementById('col-3')];
+        const cols = [document.getElementById('char-col-1'), document.getElementById('char-col-2'), document.getElementById('char-col-3')];
         cols.forEach(c => c.innerHTML = '');
-
-        const filtered = tag === 'All' ? charData : charData.filter(c => c.tag === tag);
-
-        filtered.forEach((data, index) => {
-            const card = document.createElement('div');
-            card.className = 'char-card';
-            card.innerHTML = `
-                <img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${data.img}" onclick="toggleDetails(this)" onerror="fixImage(this)">
-                <div class="char-info">
-                    <p>Artist : ${data.artist}</p>
-                    <p>Owner : ${data.owner}</p>
-                    <p>value : ${data.val}</p>
-                    <div class="char-action-btn">กฎการใช้งานดีไซน์</div><br>
-                    <div class="char-action-btn">คลิกเพื่อดูรายละเอียดตัวละคร</div><br>
-                    <div class="char-tag-pill">${data.tag}</div>
-                </div>
-            `;
-            // กระจายลงคอลัมน์ 1, 2, 3 สลับกันเพื่อให้ไม่เกิดช่องว่าง
-            cols[index % 3].appendChild(card);
-        });
+        const filtered = tag === 'All' ? charList : charList.filter(c => c.tag === tag);
+        filtered.forEach((item, i) => cols[i % 3].appendChild(createCard(item.img, item.tag)));
     }
 
-    function toggleDetails(imgElement) {
-        const infoBox = imgElement.nextElementSibling;
-        const isVisible = infoBox.style.display === 'block';
-        infoBox.style.display = isVisible ? 'none' : 'block';
+    function renderCommission() {
+        const cols = [document.getElementById('comm-col-1'), document.getElementById('comm-col-2')];
+        cols.forEach(c => c.innerHTML = '');
+        commList.forEach((item, i) => cols[i % 2].appendChild(createCard(item.img, 'Commission', item.detail)));
     }
 
-    window.onload = function() {
-        const savedPage = localStorage.getItem('dominic_active_page') || 'home';
-        navigate(savedPage);
-    };
+    function filterShop(tag, btn) {
+        if (btn) {
+            document.querySelectorAll('#page-shop .filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+        const cols = [document.getElementById('shop-col-1'), document.getElementById('shop-col-2')];
+        cols.forEach(c => c.innerHTML = '');
+        const filtered = tag === 'All' ? shopList : shopList.filter(s => s.tag === tag);
+        filtered.forEach((item, i) => cols[i % 2].appendChild(createCard(item.img, item.tag, item.name)));
+    }
+
+    function toggleChar(img) {
+        const details = img.nextElementSibling;
+        details.style.display = (details.style.display === 'block') ? 'none' : 'block';
+    }
 
     function fixImage(img) {
         if (img.src.includes('u/0/')) {
             img.src = img.src.replace('u/0/', '');
         }
     }
+
+    window.onload = function() {
+        const savedPage = localStorage.getItem('dominic_active_page') || 'home';
+        navigate(savedPage);
+    };
 </script>
 
 </body>
