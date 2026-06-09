@@ -13,6 +13,7 @@
             --box-border: #D3BCE6;
             --box-grad: linear-gradient(180deg, #000000 0%, #35233D 70%, #D3BCE6 100%);
             --glow-soft: 0 0 5px rgba(211, 188, 230, 0.3);
+            --accent-pink: #D182B5;
         }
 
         * {
@@ -168,7 +169,6 @@
             z-index: 5;
         }
 
-        /* หัวใจประดับ: ขนาดเท่ากัน 24px */
         .about-icon { 
             width: 24px; 
             height: auto; 
@@ -202,7 +202,7 @@
             background: #000; height: 38px; border-radius: 2px; border: 1.5px solid #333; 
             margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 25px;
         }
-        .bar-img { height: 26px; width: auto; object-fit: contain; }
+        .bar-img { height: 35px; width: auto; object-fit: contain; }
 
         .right-large { height: 210px; }
         .right-large .inner-white {
@@ -232,7 +232,6 @@
         }
         .image-placeholder img { width: 100%; height: auto; object-fit: contain; }
 
-        /* การจัดวางรายการใน Little things: หัวใจอยู่หน้าข้อความ */
         .text-content {
             flex-grow: 1;
             font-size: 12px;
@@ -299,7 +298,104 @@
 
         .box-deco-corner { position: absolute; width: 50px; top: -28px; left: -15px; z-index: 1000; }
         .footer-section { width: 100%; padding-bottom: 60px; }
-        .blank-page { display: none; height: 1000px; }
+        .blank-page { display: none; min-height: 600px; text-align: center; color: white; padding-top: 100px; }
+
+        /* --- หน้าคาร์แรคเตอร์ --- */
+        #page-character {
+            padding: 20px 50px 100px 50px;
+            display: none;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .filter-bar {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        .filter-btn {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1.5px dashed var(--box-border);
+            color: white;
+            padding: 6px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: 0.3s;
+        }
+
+        .filter-btn.active {
+            background: var(--box-border);
+            color: #000;
+            border-style: solid;
+            box-shadow: 0 0 8px var(--box-border);
+        }
+
+        .char-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            align-items: start;
+        }
+
+        .char-col {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .char-card {
+            width: 100%;
+            position: relative;
+        }
+
+        .char-thumb {
+            width: 100%;
+            display: block;
+            border: 2.5px solid white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .char-thumb:hover { transform: scale(1.02); }
+
+        .char-info {
+            display: none;
+            background: #FFFFFF;
+            margin-top: 8px;
+            border-radius: 6px;
+            padding: 12px;
+            color: #333;
+            font-size: 12px;
+            line-height: 1.5;
+            border-top: 5px solid var(--accent-pink);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .char-info p { margin: 4px 0; font-weight: 500; }
+        
+        .char-action-btn {
+            display: inline-block;
+            background: #f1f1f1;
+            padding: 3px 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            margin: 5px 0;
+            font-size: 11px;
+        }
+
+        .char-tag-pill {
+            display: inline-block;
+            border: 1px dashed #777;
+            padding: 2px 12px;
+            border-radius: 12px;
+            margin-top: 8px;
+            font-size: 11px;
+            color: #555;
+        }
 
     </style>
 </head>
@@ -318,7 +414,6 @@
         <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
     </div>
 
-    <!-- เมนู: ลบสัญลักษณ์ ⌘ ออกแล้ว -->
     <div class="nav-grid">
         <div class="box-template nav-item" onclick="navigate('home')" id="btn-home">
             <img class="nav-flower" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
@@ -338,8 +433,8 @@
         </div>
     </div>
 
+    <!-- หน้า Home -->
     <div id="page-home" class="main-content">
-        <!-- คอลัมน์ซ้าย (ล็อกตายตัว) -->
         <div class="col-left">
             <div class="profile-wrapper">
                 <div class="profile-bg-box"></div>
@@ -347,10 +442,8 @@
                 <img class="roses-top" src="https://lh3.googleusercontent.com/u/0/d/1JFCylDLvmXTBD0PHbIpH-qsRev2fVHOI" onerror="fixImage(this)">
                 <img class="roses-bottom-left" src="https://lh3.googleusercontent.com/u/0/d/1F5fZbquDhMCzC2trOv1VljVdty94N_uR" onerror="fixImage(this)">
             </div>
-
             <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
             <div class="box-template name-tag">Dominic</div>
-            
             <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
             <div class="box-template about-box">
                 <div class="box-title">about me</div>
@@ -361,7 +454,6 @@
                     <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> alias: Dominic/Velune</div>
                 </div>
             </div>
-
             <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
             <div class="box-template small-display-box">
                 <div class="box-title">Social Battery</div>
@@ -372,15 +464,12 @@
                     </div>
                 </div>
             </div>
-
             <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
             <div class="box-template login-btn">Log in</div>
-            
             <div class="black-bar">
                 <img class="bar-img" src="https://lh3.googleusercontent.com/u/0/d/1Kiix_IgzBHFrL7EeLHjZLqL8V4uT1beD" onerror="fixImage(this)">
                 <img class="bar-img" src="https://lh3.googleusercontent.com/u/0/d/1yQ12nEX6p0D_GzhrV_XEO1rDh9pFlMMh" onerror="fixImage(this)">
             </div>
-
             <div class="social-row">
                 <a href="https://x.com/domi_nic_yn?s=11" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xCdSND3K6s2xk9u7rrCctjyBx-rdZmHd" onerror="fixImage(this)"></a>
                 <a href="https://www.facebook.com/profile.php?id=61580195536012" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1PmSfbZDawN7PRJOOwMCX0DX6l4DlXO5T" onerror="fixImage(this)"></a>
@@ -389,7 +478,6 @@
                 <a href="https://vgen.co/DominicYn" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xEQbYxXsu7SYvBbn66JpjhtqL3JHqoMB" onerror="fixImage(this)"></a>
             </div>
         </div>
-
         <div class="col-right">
             <div class="box-template right-large">
                 <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
@@ -399,7 +487,6 @@
                     <div style="margin-top: 20px;">I hope you have a lovely day. ♡</div>
                 </div>
             </div>
-
             <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
             <div class="box-template right-medium">
                 <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
@@ -409,7 +496,6 @@
                         <img src="https://lh3.googleusercontent.com/u/0/d/14S7hZwuiR3ap3NNkbBwkdNfkH18xsomQ" onerror="fixImage(this)">
                     </div>
                     <div class="text-content">
-                        <!-- เปลี่ยนจาก ⌘ เป็นรูปหัวใจขนาด 24px วางไว้ข้างหน้าข้อความ -->
                         <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> <span>Low social battery.</span></div>
                         <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> <span>Drawing is what I love most. It's my whole life.</span></div>
                         <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> <span>Love sweets, can't eat much.</span></div>
@@ -417,7 +503,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
             <div class="box-template right-small">
                 <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
@@ -437,26 +522,35 @@
                     </div>
                 </div>
             </div>
-
             <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
             <div class="box-template fandom-box">
                 <div class="box-title">fandom</div>
-                <div class="inner-white">
-                    twisted wonderland<br>
-                    gachiakuta<br>
-                    madoka<br>
-                    bleach<br>
-                    mashle
-                </div>
+                <div class="inner-white">twisted wonderland<br>gachiakuta<br>madoka<br>bleach<br>mashle</div>
                 <img class="fandom-flowers-bottom" src="https://lh3.googleusercontent.com/u/0/d/1F5fZbquDhMCzC2trOv1VljVdty94N_uR" onerror="fixImage(this)">
             </div>
         </div>
     </div>
 
-    <!-- ส่วนหน้าเปล่าสำหรับปุ่มอื่นๆ -->
-    <div id="page-character" class="blank-page"></div>
-    <div id="page-commission" class="blank-page"></div>
-    <div id="page-shop" class="blank-page"></div>
+    <!-- หน้า Character -->
+    <div id="page-character">
+        <div class="filter-bar">
+            <div class="filter-btn active" onclick="filterChar('All', this)">All</div>
+            <div class="filter-btn" onclick="filterChar('forever home', this)">forever home</div>
+            <div class="filter-btn" onclick="filterChar('eo', this)">eo</div>
+            <div class="filter-btn" onclick="filterChar('sp', this)">sp</div>
+            <div class="filter-btn" onclick="filterChar('ota', this)">ota</div>
+        </div>
+
+        <div class="char-grid">
+            <div class="char-col" id="col-1"></div>
+            <div class="char-col" id="col-2"></div>
+            <div class="char-col" id="col-3"></div>
+        </div>
+    </div>
+
+    <!-- หน้าอื่นๆ -->
+    <div id="page-commission" class="blank-page">Commission Page Area</div>
+    <div id="page-shop" class="blank-page">Shop Page Area</div>
 
     <div class="footer-section">
         <div class="bow-row">
@@ -472,22 +566,69 @@
 </div>
 
 <script>
+    // ข้อมูลตัวอย่างคาร์แรคเตอร์ 10 รูป
+    const charData = [
+        { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'forever home', artist: 'Dominic', owner: 'Dominic', val: '0' },
+        { img: '14S7hZwuiR3ap3NNkbBwkdNfkH18xsomQ', tag: 'ota', artist: 'Dominic', owner: 'Dominic', val: '0' },
+        { img: '1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ', tag: 'sp', artist: 'Dominic', owner: 'Dominic', val: '0' },
+        { img: '1Kiix_IgzBHFrL7EeLHjZLqL8V4uT1beD', tag: 'eo', artist: 'Dominic', owner: 'Dominic', val: '0' },
+        { img: '1yQ12nEX6p0D_GzhrV_XEO1rDh9pFlMMh', tag: 'ota', artist: 'Dominic', owner: 'Dominic', val: '0' },
+        { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'forever home', artist: 'Dominic', owner: 'Dominic', val: '0' },
+        { img: '14S7hZwuiR3ap3NNkbBwkdNfkH18xsomQ', tag: 'sp', artist: 'Dominic', owner: 'Dominic', val: '0' },
+        { img: '1Kiix_IgzBHFrL7EeLHjZLqL8V4uT1beD', tag: 'ota', artist: 'Dominic', owner: 'Dominic', val: '0' },
+        { img: '1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ', tag: 'eo', artist: 'Dominic', owner: 'Dominic', val: '0' },
+        { img: '1yQ12nEX6p0D_GzhrV_XEO1rDh9pFlMMh', tag: 'sp', artist: 'Dominic', owner: 'Dominic', val: '0' }
+    ];
+
     function navigate(pageId) {
-        document.getElementById('page-home').style.display = 'none';
-        document.getElementById('page-character').style.display = 'none';
-        document.getElementById('page-commission').style.display = 'none';
-        document.getElementById('page-shop').style.display = 'none';
-
+        const pages = ['page-home', 'page-character', 'page-commission', 'page-shop'];
+        pages.forEach(p => document.getElementById(p).style.display = 'none');
+        
         const activePage = document.getElementById('page-' + pageId);
-        if (activePage) {
-            activePage.style.display = (pageId === 'home') ? 'grid' : 'block';
-        }
+        if (pageId === 'home') activePage.style.display = 'grid';
+        else activePage.style.display = 'flex';
 
-        const navItems = document.querySelectorAll('.nav-item');
-        navItems.forEach(item => item.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
         document.getElementById('btn-' + pageId).classList.add('active');
 
         localStorage.setItem('dominic_active_page', pageId);
+        if (pageId === 'character') filterChar('All');
+    }
+
+    function filterChar(tag, btn) {
+        if (btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        const cols = [document.getElementById('col-1'), document.getElementById('col-2'), document.getElementById('col-3')];
+        cols.forEach(c => c.innerHTML = '');
+
+        const filtered = tag === 'All' ? charData : charData.filter(c => c.tag === tag);
+
+        filtered.forEach((data, index) => {
+            const card = document.createElement('div');
+            card.className = 'char-card';
+            card.innerHTML = `
+                <img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${data.img}" onclick="toggleDetails(this)" onerror="fixImage(this)">
+                <div class="char-info">
+                    <p>Artist : ${data.artist}</p>
+                    <p>Owner : ${data.owner}</p>
+                    <p>value : ${data.val}</p>
+                    <div class="char-action-btn">กฎการใช้งานดีไซน์</div><br>
+                    <div class="char-action-btn">คลิกเพื่อดูรายละเอียดตัวละคร</div><br>
+                    <div class="char-tag-pill">${data.tag}</div>
+                </div>
+            `;
+            // กระจายลงคอลัมน์ 1, 2, 3 สลับกันเพื่อให้ไม่เกิดช่องว่าง
+            cols[index % 3].appendChild(card);
+        });
+    }
+
+    function toggleDetails(imgElement) {
+        const infoBox = imgElement.nextElementSibling;
+        const isVisible = infoBox.style.display === 'block';
+        infoBox.style.display = isVisible ? 'none' : 'block';
     }
 
     window.onload = function() {
