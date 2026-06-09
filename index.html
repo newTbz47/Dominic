@@ -57,7 +57,6 @@
             z-index: 102;
         }
 
-        /* ปุ่มเมนูและการจัดการดอกไม้ */
         .nav-item { 
             height: 45px; 
             text-align: center; 
@@ -73,11 +72,9 @@
             left: 10px;
             top: 50%;
             transform: translateY(-50%);
-            display: none; /* ซ่อนไว้ก่อน */
+            display: none;
         }
-        .nav-item.active .nav-flower {
-            display: block; /* แสดงเฉพาะปุ่มที่ active */
-        }
+        .nav-item.active .nav-flower { display: block; }
 
         .main-content {
             padding: 40px 50px 100px 50px;
@@ -87,7 +84,6 @@
             align-items: start;
         }
 
-        /* คอลัมน์ซ้าย: ล็อกอยู่กับที่ */
         .col-left { 
             position: sticky; 
             top: 20px; 
@@ -96,7 +92,6 @@
             z-index: 10;
         }
 
-        /* คอลัมน์ขวา: เลื่อนได้อิสระ */
         .col-right {
             display: flex;
             flex-direction: column;
@@ -173,6 +168,13 @@
             z-index: 5;
         }
 
+        /* หัวใจประดับ: ขนาดเท่ากัน 24px */
+        .about-icon { 
+            width: 24px; 
+            height: auto; 
+            flex-shrink: 0;
+        }
+
         .name-tag { height: 45px; text-align: center; color: white; padding-top: 8px; font-size: 20px; }
         
         .about-box { height: 160px; }
@@ -180,11 +182,11 @@
             margin: 30px 12px 12px 12px;
             height: 115px;
             font-size: 11.5px;
-            line-height: 1.9;
+            line-height: 1.6;
             justify-content: center;
-            padding-left: 10px;
+            padding-left: 5px;
         }
-        .about-icon { width: 18px; height: auto; vertical-align: middle; margin-right: 5px; }
+        .about-box .line { display: flex; align-items: center; gap: 8px; margin-bottom: 2px; }
 
         .small-display-box { height: 95px; }
         .small-display-box .inner-white {
@@ -230,15 +232,18 @@
         }
         .image-placeholder img { width: 100%; height: auto; object-fit: contain; }
 
+        /* การจัดวางรายการใน Little things: หัวใจอยู่หน้าข้อความ */
         .text-content {
             flex-grow: 1;
             font-size: 12px;
-            line-height: 1.8;
+            line-height: 1.4;
             padding-left: 10px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            gap: 8px;
         }
+        .list-item { display: flex; align-items: center; gap: 8px; }
 
         .right-small { height: 135px; }
         .right-small .inner-white {
@@ -263,10 +268,8 @@
             text-align: center;
             font-size: 13px;
             line-height: 1.8;
-            text-transform: lowercase; /* พิมพ์เล็กทั้งหมดตามสั่ง */
+            text-transform: lowercase;
         }
-
-        /* ปรับดอกกุหลาบแฟนด้อมให้ใหญ่ขึ้นเป็น 180px */
         .fandom-flowers-bottom {
             position: absolute;
             width: 180px; 
@@ -280,7 +283,8 @@
         .fav-img { width: 45px; height: 45px; object-fit: contain; }
 
         .social-row { display: flex; gap: 12px; justify-content: center; margin-top: 20px; }
-        .social-link { width: 35px; height: 35px; background: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; padding: 6px; }
+        .social-link { width: 35px; height: 35px; background: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; padding: 6px; cursor: pointer; transition: transform 0.2s; }
+        .social-link:hover { transform: scale(1.1); }
         .social-img { width: 100%; height: 100%; object-fit: contain; }
 
         .battery-container { display: flex; align-items: center; gap: 10px; width: 100%; }
@@ -295,8 +299,6 @@
 
         .box-deco-corner { position: absolute; width: 50px; top: -28px; left: -15px; z-index: 1000; }
         .footer-section { width: 100%; padding-bottom: 60px; }
-
-        /* หน้าว่างสำหรับเมนูอื่นๆ */
         .blank-page { display: none; height: 1000px; }
 
     </style>
@@ -316,11 +318,11 @@
         <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
     </div>
 
-    <!-- เมนูที่มีดอกไม้เคลื่อนที่ -->
+    <!-- เมนู: ลบสัญลักษณ์ ⌘ ออกแล้ว -->
     <div class="nav-grid">
         <div class="box-template nav-item" onclick="navigate('home')" id="btn-home">
             <img class="nav-flower" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
-            ⌘ Home ⌘
+            Home
         </div>
         <div class="box-template nav-item" onclick="navigate('character')" id="btn-character">
             <img class="nav-flower" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
@@ -351,12 +353,12 @@
             
             <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
             <div class="box-template about-box">
-                <div class="box-title">⌘ about me ⌘</div>
+                <div class="box-title">about me</div>
                 <div class="inner-white">
-                    <div><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> name: new</div>
-                    <div><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> birthday: april 24th</div>
-                    <div><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> Pronouns: she / her</div>
-                    <div><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> alias: Dominic/Velune</div>
+                    <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> name: new</div>
+                    <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> birthday: april 24th</div>
+                    <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> Pronouns: she / her</div>
+                    <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> alias: Dominic/Velune</div>
                 </div>
             </div>
 
@@ -380,11 +382,11 @@
             </div>
 
             <div class="social-row">
-                <div class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xCdSND3K6s2xk9u7rrCctjyBx-rdZmHd" onerror="fixImage(this)"></div>
-                <div class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1PmSfbZDawN7PRJOOwMCX0DX6l4DlXO5T" onerror="fixImage(this)"></div>
-                <div class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1mhNFjn3Qy5YC3DLUvQWGUkez43DOvneQ" onerror="fixImage(this)"></div>
-                <div class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1i4IFdXQEAhaX15F5IUbsbJjFO2GC6RWa" onerror="fixImage(this)"></div>
-                <div class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xEQbYxXsu7SYvBbn66JpjhtqL3JHqoMB" onerror="fixImage(this)"></div>
+                <a href="https://x.com/domi_nic_yn?s=11" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xCdSND3K6s2xk9u7rrCctjyBx-rdZmHd" onerror="fixImage(this)"></a>
+                <a href="https://www.facebook.com/profile.php?id=61580195536012" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1PmSfbZDawN7PRJOOwMCX0DX6l4DlXO5T" onerror="fixImage(this)"></a>
+                <a href="https://www.instagram.com/_dominic_yn?igsh=MTBkN3VucXVkNDAwZQ%3D%3D&utm_source=qr" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1mhNFjn3Qy5YC3DLUvQWGUkez43DOvneQ" onerror="fixImage(this)"></a>
+                <a href="https://www.tiktok.com/@dominic_yn?_r=1&_t=ZS-9730o90ehkb" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1i4IFdXQEAhaX15F5IUbsbJjFO2GC6RWa" onerror="fixImage(this)"></a>
+                <a href="https://vgen.co/DominicYn" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xEQbYxXsu7SYvBbn66JpjhtqL3JHqoMB" onerror="fixImage(this)"></a>
             </div>
         </div>
 
@@ -407,10 +409,11 @@
                         <img src="https://lh3.googleusercontent.com/u/0/d/14S7hZwuiR3ap3NNkbBwkdNfkH18xsomQ" onerror="fixImage(this)">
                     </div>
                     <div class="text-content">
-                        <div>⌘ Low social battery.</div>
-                        <div>⌘ Drawing is what I love most. It's my whole life.</div>
-                        <div>⌘ Love sweets, can't eat much.</div>
-                        <div>⌘ A chuunibyou at heart.</div>
+                        <!-- เปลี่ยนจาก ⌘ เป็นรูปหัวใจขนาด 24px วางไว้ข้างหน้าข้อความ -->
+                        <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> <span>Low social battery.</span></div>
+                        <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> <span>Drawing is what I love most. It's my whole life.</span></div>
+                        <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> <span>Love sweets, can't eat much.</span></div>
+                        <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> <span>A chuunibyou at heart.</span></div>
                     </div>
                 </div>
             </div>
@@ -469,31 +472,24 @@
 </div>
 
 <script>
-    // ฟังก์ชันจัดการหน้าและการนำทาง
     function navigate(pageId) {
-        // ซ่อนทุกหน้า
         document.getElementById('page-home').style.display = 'none';
         document.getElementById('page-character').style.display = 'none';
         document.getElementById('page-commission').style.display = 'none';
         document.getElementById('page-shop').style.display = 'none';
 
-        // แสดงหน้าที่เลือก
         const activePage = document.getElementById('page-' + pageId);
         if (activePage) {
-            // หน้า Home ใช้ grid หน้าอื่นใช้ block (หน้าเปล่า)
             activePage.style.display = (pageId === 'home') ? 'grid' : 'block';
         }
 
-        // จัดการดอกไม้ในเมนู
         const navItems = document.querySelectorAll('.nav-item');
         navItems.forEach(item => item.classList.remove('active'));
         document.getElementById('btn-' + pageId).classList.add('active');
 
-        // บันทึกลง localStorage เพื่อให้รีเฟรชแล้วอยู่หน้าเดิม
         localStorage.setItem('dominic_active_page', pageId);
     }
 
-    // เมื่อโหลดหน้าเว็บใหม่
     window.onload = function() {
         const savedPage = localStorage.getItem('dominic_active_page') || 'home';
         navigate(savedPage);
