@@ -12,7 +12,6 @@
             --box-border: #D3BCE6;
             --box-grad: linear-gradient(180deg, #000000 0%, #35233D 70%, #D3BCE6 100%);
             --glow-soft: 0 0 5px rgba(211, 188, 230, 0.3);
-            --accent-pink: #D182B5;
         }
 
         * {
@@ -34,29 +33,26 @@
             position: relative;
             display: flex;
             flex-direction: column;
-            background: transparent;
         }
 
-        .top-banner {
-            width: 100%;
-            display: block;
-            z-index: 100;
-        }
+        .top-banner { width: 100%; display: block; z-index: 100; }
 
         .bow-row {
             display: flex;
             justify-content: center;
-            align-items: center;
             gap: 45px;
-            padding: 0;
             margin-top: -20px;
             margin-bottom: 50px;
             z-index: 101;
         }
+        .bow-img { width: 25px; height: auto; }
 
-        .bow-img {
-            width: 25px;
-            height: auto;
+        .nav-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 15px; 
+            margin: -20px 50px 0px 50px; 
+            z-index: 102;
         }
 
         .main-content {
@@ -64,16 +60,24 @@
             display: grid;
             grid-template-columns: 215px 1fr;
             gap: 30px;
+            align-items: start;
         }
 
-        .col-left { position: relative; }
+        .heart-divider-wrap {
+            display: flex;
+            justify-content: center;
+            margin: -22px 0 -18px 0; 
+            position: relative;
+            z-index: 3; 
+            pointer-events: none;
+        }
+        .heart-divider-img { width: 175px; height: auto; }
 
         .profile-wrapper {
             position: relative;
             width: 215px;
             height: 215px;
-            margin-bottom: 25px;
-            margin-top: -35px;
+            margin-top: 0;
         }
 
         .profile-bg-box {
@@ -96,29 +100,8 @@
             pointer-events: none;
         }
 
-        /* รูปภาพแปะทับ */
-        .overlay-img-1 { position: absolute; width: 175px; top: 158px; left: 50%; transform: translateX(-50%); z-index: 3; pointer-events: none; }
-        .overlay-img-2 { position: absolute; width: 175px; top: 225px; left: 50%; transform: translateX(-50%); z-index: 10; pointer-events: none; }
-        .overlay-img-3 { position: absolute; width: 175px; top: 373px; left: 50%; transform: translateX(-50%); z-index: 10; pointer-events: none; }
-        .overlay-img-4 { position: absolute; width: 175px; top: 480px; left: 50%; transform: translateX(-50%); z-index: 10; pointer-events: none; }
-
         .roses-top { position: absolute; width: 265px; top: -40px; left: -25px; z-index: 4; pointer-events: none; }
         .roses-bottom-left { position: absolute; width: 275px; bottom: -25px; left: -35px; z-index: 4; pointer-events: none; }
-
-        .col-right { position: relative; }
-
-        .overlay-img-right-1 { position: absolute; width: 175px; top: 270px; left: 50%; transform: translateX(-50%); z-index: 10; pointer-events: none; }
-        .overlay-img-right-2 { position: absolute; width: 175px; top: 470px; left: 50%; transform: translateX(-50%); z-index: 10; pointer-events: none; }
-
-        /* รูปตกแต่งกรอบข้อความ 3 อันด้านขวา */
-        .box-deco-corner {
-            position: absolute;
-            width: 50px;
-            top: -12px;
-            left: -15px;
-            z-index: 15;
-            pointer-events: none;
-        }
 
         .box-template {
             background: var(--box-grad);
@@ -126,17 +109,15 @@
             box-shadow: var(--glow-soft);
             border-radius: 2px;
             position: relative;
-            overflow: hidden;
+            width: 100%;
         }
 
         .inner-white {
             background: #FFFFFF;
-            border-radius: 10px;
+            border-radius: 15px; 
             margin: 35px 10px 10px 10px; 
-            height: calc(100% - 45px);
-            padding: 12px;
+            padding: 15px;
             color: #333;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
         }
@@ -152,38 +133,107 @@
             z-index: 5;
         }
 
-        .name-tag { height: 45px; margin-bottom: 20px; text-align: center; color: white; padding-top: 8px; font-size: 20px; }
-        .about-box { height: 130px; margin-bottom: 15px; position: relative; }
+        /* คอลัมน์ซ้าย */
+        .name-tag { height: 45px; text-align: center; color: white; padding-top: 8px; font-size: 20px; }
         
-        /* ไอคอนใหม่ใน About Me */
-        .about-icon {
-            width: 14px;
-            height: auto;
-            vertical-align: middle;
-            margin-right: 4px;
+        .about-box { height: 160px; }
+        .about-box .inner-white {
+            margin: 30px 12px 12px 12px;
+            height: 115px;
+            font-size: 11.5px;
+            line-height: 1.9;
+            justify-content: center;
+            padding-left: 10px;
+        }
+        .about-icon { width: 18px; height: auto; vertical-align: middle; margin-right: 5px; }
+
+        .small-display-box { height: 95px; }
+        .small-display-box .inner-white {
+            margin: 30px 12px 12px 12px;
+            height: 50px;
+            justify-content: center;
+            padding: 0 15px;
         }
 
-        .small-display-box { height: 90px; margin-bottom: 15px; position: relative; }
-        .login-btn { height: 40px; margin-bottom: 10px; text-align: center; color: white; padding-top: 8px; font-size: 16px; text-transform: lowercase; }
-        .black-bar { background: #000; height: 35px; border-radius: 2px; border: 1.5px solid #333; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; gap: 20px; color: white; }
+        .login-btn { height: 40px; text-align: center; color: white; padding-top: 8px; font-size: 16px; }
 
-        .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; }
+        .black-bar { 
+            background: #000; height: 38px; border-radius: 2px; border: 1.5px solid #333; 
+            margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 25px;
+        }
+        .bar-img { height: 26px; width: auto; object-fit: contain; }
+
+        /* คอลัมน์ขวา */
+        .right-large { height: 210px; }
+        .right-large .inner-white {
+            margin: 35px 15px 15px 15px;
+            height: 155px;
+            text-align: center;
+            justify-content: center;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .right-medium { height: 185px; }
+        .right-medium .inner-white {
+            margin: 35px 15px 15px 15px;
+            height: 130px;
+            flex-direction: row; 
+            padding: 10px;
+            align-items: center;
+        }
+        .image-placeholder {
+            width: 105px; 
+            height: 100%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .image-placeholder img { width: 100%; height: auto; object-fit: contain; }
+
+        .text-content {
+            flex-grow: 1;
+            font-size: 12px;
+            line-height: 1.8;
+            padding-left: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .right-small { height: 135px; }
+        .right-small .inner-white {
+            margin: 35px 15px 15px 15px;
+            height: 85px;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            text-align: center;
+            font-size: 12px;
+            padding: 5px 0;
+        }
+        .fav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .fav-img { width: 45px; height: 45px; object-fit: contain; }
+
         .nav-item { height: 45px; text-align: center; color: white; padding-top: 10px; font-size: 14px; cursor: pointer; }
-        
-        .right-large { height: 170px; margin-bottom: 20px; position: relative; }
-        .right-medium { height: 180px; margin-bottom: 20px; position: relative; }
-        .right-small { height: 110px; position: relative; }
 
-        .social-row { display: flex; gap: 12px; justify-content: center; margin-top: 15px; }
-        .social-link { display: flex; justify-content: center; align-items: center; width: 35px; height: 35px; background-color: #FFFFFF; border: 2px solid var(--box-border); border-radius: 50%; transition: transform 0.2s; padding: 6px; }
+        .social-row { display: flex; gap: 12px; justify-content: center; margin-top: 20px; }
+        .social-link { width: 35px; height: 35px; background: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; padding: 6px; }
         .social-img { width: 100%; height: 100%; object-fit: contain; }
 
-        .footer-section { width: 100%; padding-bottom: 60px; }
-        .footer-section .bow-row { margin-top: 20px; margin-bottom: 0; gap: 45px; }
+        .battery-container { display: flex; align-items: center; gap: 10px; width: 100%; }
+        .battery-bar { 
+            flex-grow: 1; height: 25px; border: 1.5px solid #D3BCE6; border-radius: 4px; 
+            background: #fff; position: relative; overflow: hidden; 
+        }
+        .battery-fill { 
+            width: 20%; height: 100%; 
+            background: repeating-linear-gradient(90deg, #5D4364, #5D4364 4px, transparent 4px, transparent 6px); 
+        }
 
-        .battery-container { display: flex; align-items: center; gap: 8px; margin: auto 0; }
-        .battery-bar { flex-grow: 1; height: 22px; border: 1.2px solid #D3BCE6; background: #fff; border-radius: 3px; position: relative; overflow: hidden; }
-        .battery-fill { width: 20%; height: 100%; background: repeating-linear-gradient(90deg, #5D4364, #5D4364 4px, transparent 4px, transparent 6px); }
+        .box-deco-corner { position: absolute; width: 50px; top: -28px; left: -15px; z-index: 1000; }
+        .footer-section { width: 100%; padding-bottom: 60px; }
 
     </style>
 </head>
@@ -202,6 +252,13 @@
         <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
     </div>
 
+    <div class="nav-grid">
+        <div class="box-template nav-item">⌘ Home ⌘</div>
+        <div class="box-template nav-item">Character</div>
+        <div class="box-template nav-item">Commission</div>
+        <div class="box-template nav-item">Shop</div>
+    </div>
+
     <div class="main-content">
         <div class="col-left">
             <div class="profile-wrapper">
@@ -211,91 +268,96 @@
                 <img class="roses-bottom-left" src="https://lh3.googleusercontent.com/u/0/d/1F5fZbquDhMCzC2trOv1VljVdty94N_uR" onerror="fixImage(this)">
             </div>
 
-            <img class="overlay-img-1" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)">
+            <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
+            
             <div class="box-template name-tag">Dominic</div>
-            <img class="overlay-img-2" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)">
+
+            <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
             
             <div class="box-template about-box">
                 <div class="box-title">⌘ about me ⌘</div>
-                <div class="inner-white" style="font-size: 12px; line-height: 1.6; padding-left: 15px; justify-content: center;">
-                    <span><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> name: new</span>
-                    <span><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> birthday: april 24th</span>
-                    <span><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> pronouns: she / her</span>
-                    <span><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> alias: Dominic/Velune</span>
+                <div class="inner-white">
+                    <div><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> name: new</div>
+                    <div><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> birthday: april 24th</div>
+                    <div><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> Pronouns: she / her</div>
+                    <div><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> alias: Dominic/Velune</div>
                 </div>
             </div>
 
-            <img class="overlay-img-3" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)">
+            <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
+
             <div class="box-template small-display-box">
-                <div class="box-title">social battery</div>
-                <div class="inner-white" style="padding: 0 15px; justify-content: center;">
+                <div class="box-title">Social Battery</div>
+                <div class="inner-white">
                     <div class="battery-container">
-                        <div class="battery-bar">
-                            <div class="battery-fill"></div>
-                        </div>
+                        <div class="battery-bar"><div class="battery-fill"></div></div>
                         <span style="font-size: 13px; font-weight: bold; color: #5D4364;">20%</span>
                     </div>
                 </div>
             </div>
 
-            <img class="overlay-img-4" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)">
-            <div class="box-template login-btn">log in</div>
+            <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
+
+            <div class="box-template login-btn">Log in</div>
             <div class="black-bar">
-                <span>☀</span>
-                <span>🌙</span>
+                <img class="bar-img" src="https://lh3.googleusercontent.com/u/0/d/1Kiix_IgzBHFrL7EeLHjZLqL8V4uT1beD" onerror="fixImage(this)">
+                <img class="bar-img" src="https://lh3.googleusercontent.com/u/0/d/1yQ12nEX6p0D_GzhrV_XEO1rDh9pFlMMh" onerror="fixImage(this)">
             </div>
 
             <div class="social-row">
-                <a href="https://x.com/domi_nic_yn?s=11" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xCdSND3K6s2xk9u7rrCctjyBx-rdZmHd" onerror="fixImage(this)"></a>
-                <a href="https://www.facebook.com/profile.php?id=61580195536012" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1PmSfbZDawN7PRJOOwMCX0DX6l4DlXO5T" onerror="fixImage(this)"></a>
-                <a href="https://www.instagram.com/_dominic_yn?igsh=MTBkN3VucXVkNDAwZQ%3D%3D&utm_source=qr" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1mhNFjn3Qy5YC3DLUvQWGUkez43DOvneQ" onerror="fixImage(this)"></a>
-                <a href="https://www.tiktok.com/@dominic_yn?_r=1&_t=ZS-9730o90ehkb" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1i4IFdXQEAhaX15F5IUbsbJjFO2GC6RWa" onerror="fixImage(this)"></a>
-                <a href="https://vgen.co/DominicYn" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xEQbYxXsu7SYvBbn66JpjhtqL3JHqoMB" onerror="fixImage(this)"></a>
+                <div class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xCdSND3K6s2xk9u7rrCctjyBx-rdZmHd" onerror="fixImage(this)"></div>
+                <div class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1PmSfbZDawN7PRJOOwMCX0DX6l4DlXO5T" onerror="fixImage(this)"></div>
+                <div class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1mhNFjn3Qy5YC3DLUvQWGUkez43DOvneQ" onerror="fixImage(this)"></div>
+                <div class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1i4IFdXQEAhaX15F5IUbsbJjFO2GC6RWa" onerror="fixImage(this)"></div>
+                <div class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xEQbYxXsu7SYvBbn66JpjhtqL3JHqoMB" onerror="fixImage(this)"></div>
             </div>
         </div>
 
         <div class="col-right">
-            <div class="nav-grid">
-                <div class="box-template nav-item" style="padding-top: 12px;">⌘ Home ⌘</div>
-                <div class="box-template nav-item">Character</div>
-                <div class="box-template nav-item">Commission</div>
-                <div class="box-template nav-item">Shop</div>
-            </div>
-
             <div class="box-template right-large">
-                <!-- รูปตกแต่งมุมซ้ายบน -->
-                <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
-                <div class="box-title">welcome to my website!</div>
-                <div class="inner-white" style="text-align: center; font-size: 13px; justify-content: space-between; padding: 20px 15px;">
-                    <div>feel free to explore my artwork, characters, and other little things i enjoy.</div>
-                    <div style="margin-top: 10px;">i hope you have a lovely day. ♡</div>
+                <div class="box-title">Welcome to my website!</div>
+                <div class="inner-white">
+                    <div>Feel free to explore my artwork, characters, and other little things I enjoy.</div>
+                    <div style="margin-top: 20px;">I hope you have a lovely day. ♡</div>
                 </div>
             </div>
 
-            <img class="overlay-img-right-1" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)">
+            <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
 
             <div class="box-template right-medium">
-                <!-- รูปตกแต่งมุมซ้ายบน -->
                 <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
                 <div class="box-title">little things about me</div>
-                <div class="inner-white" style="font-size: 12px; line-height: 1.8; padding-left: 100px; justify-content: center;">
-                    <div>⌘ low social battery.</div>
-                    <div>⌘ drawing is what i love most. it's my whole life.</div>
-                    <div>⌘ love sweets, can't eat much.</div>
-                    <div>⌘ a chuunibyou at heart.</div>
+                <div class="inner-white">
+                    <div class="image-placeholder">
+                        <img src="https://lh3.googleusercontent.com/u/0/d/14S7hZwuiR3ap3NNkbBwkdNfkH18xsomQ" onerror="fixImage(this)">
+                    </div>
+                    <div class="text-content">
+                        <div>⌘ Low social battery.</div>
+                        <div>⌘ Drawing is what I love most. It's my whole life.</div>
+                        <div>⌘ Love sweets, can't eat much.</div>
+                        <div>⌘ A chuunibyou at heart.</div>
+                    </div>
                 </div>
             </div>
 
-            <img class="overlay-img-right-2" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)">
+            <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
 
             <div class="box-template right-small">
-                <!-- รูปตกแต่งมุมซ้ายบน -->
                 <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
                 <div class="box-title">my favorite thing</div>
-                <div class="inner-white" style="display: flex; flex-direction: row; justify-content: space-around; align-items: center; text-align: center; font-size: 12px;">
-                    <div>🍰<br>sweets</div>
-                    <div>🎨<br>drawing</div>
-                    <div>🐥<br>chick</div>
+                <div class="inner-white">
+                    <div class="fav-item">
+                        <img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/1-FC3qEExhJC77hp1HH440U9yuMPvweCl" onerror="fixImage(this)">
+                        <span>Sweets</span>
+                    </div>
+                    <div class="fav-item">
+                        <img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/1D4KnlxHNjZv5BF77rBaLJ2HEFmUNg5LK" onerror="fixImage(this)">
+                        <span>Drawing</span>
+                    </div>
+                    <div class="fav-item">
+                        <img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/11Ymi1RyrIo4VY90Wo-vzNlU3eyEX4HiW" onerror="fixImage(this)">
+                        <span>Chick</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -316,12 +378,8 @@
 
 <script>
     function fixImage(img) {
-        console.error("Image failed to load: " + img.src);
-        img.onerror = null; 
         if (img.src.includes('u/0/')) {
             img.src = img.src.replace('u/0/', '');
-        } else {
-            img.style.opacity = "0.5";
         }
     }
 </script>
