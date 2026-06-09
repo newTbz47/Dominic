@@ -11,7 +11,7 @@
             --bg-bottom: #9073A0;
             --box-border: #D3BCE6;
             --box-grad: linear-gradient(180deg, #000000 0%, #35233D 70%, #D3BCE6 100%);
-            --glow-soft: 0 0 5px rgba(211, 188, 230, 0.3);
+            --glow-soft: 0 0 10px rgba(211, 188, 230, 0.5);
             --accent-pink: #D182B5;
         }
 
@@ -47,7 +47,7 @@
         }
         .nav-item.active .nav-flower { display: block; }
 
-        /* --- Home Page (คงเดิม) --- */
+        /* --- Home Page --- */
         .main-content {
             padding: 40px 50px 100px 50px;
             display: grid; grid-template-columns: 215px 1fr;
@@ -111,59 +111,76 @@
         .two-col-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: start; }
         .display-col { display: flex; flex-direction: column; gap: 20px; }
 
-        /* Card Design - Integrated Frame */
+        /* Card Design */
         .char-card { width: 100%; background: var(--box-grad); border: 1.5px solid var(--box-border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--glow-soft); }
         .char-thumb { width: 100%; display: block; cursor: pointer; transition: 0.2s; border-bottom: 1.5px solid var(--box-border); }
         .char-thumb:hover { opacity: 0.9; }
-        
-        /* รายละเอียดใน Card (3 หน้า) */
-        .char-details {
-            display: none; 
-            padding: 15px 15px; 
-            font-size: 11px; 
-            color: #FFFFFF; /* ตัวอักษรสีขาวทั้งหมด */
-            text-align: left; /* ชิดซ้ายทั้งหมด */
-            line-height: 1.5;
-        }
+        .char-details { display: none; padding: 15px 15px; font-size: 11px; color: #FFFFFF; text-align: left; line-height: 1.5; }
         .char-details p { margin: 4px 0; color: #FFFFFF; }
+        .char-btn-ui { display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid #FFFFFF; padding: 4px 10px; border-radius: 4px; margin: 4px 0; color: #FFFFFF; font-size: 10px; text-align: left; }
+        .tag-center-wrap { width: 100%; text-align: center; margin-top: 10px; }
+        .char-tag-ui { display: inline-block; border: 1px dashed #FFFFFF; padding: 2px 15px; border-radius: 15px; color: #FFFFFF; font-size: 10px; }
 
-        /* ปุ่ม/กรอบย่อยในรายละเอียด */
-        .char-btn-ui { 
-            display: inline-block; 
-            background: rgba(255,255,255,0.1); 
-            border: 1px solid #FFFFFF; /* กรอบสีขาว */
-            padding: 4px 10px; 
-            border-radius: 4px; 
-            margin: 4px 0; 
-            color: #FFFFFF; /* ตัวอักษรสีขาว */
-            font-size: 10px;
-            cursor: pointer;
-            text-align: left;
+        /* --- Warning Screen Design --- */
+        #page-char-terms {
+            display: flex; flex-direction: column; align-items: center;
+            width: 100%; opacity: 1; transition: opacity 0.8s ease;
         }
 
-        /* ส่วนจัดวางแท็กหมวดหมู่ล่างสุด (กึ่งกลาง) */
-        .tag-center-wrap {
-            width: 100%;
-            text-align: center; /* กึ่งกลางตามข้อยกเว้น */
-            margin-top: 10px;
+        .warn-big-bow { width: 620px; height: auto; margin-bottom: -15px; position: relative; z-index: 2; }
+        
+        .warn-title-box {
+            background: linear-gradient(180deg, #62486E, #251B2B);
+            border: 2px solid #FFFFFF; border-radius: 2px;
+            padding: 8px 60px; color: white; font-size: 24px;
+            box-shadow: 0 0 15px rgba(211, 188, 230, 0.8);
+            margin-bottom: 30px; position: relative; z-index: 1;
         }
 
-        .char-tag-ui { 
-            display: inline-block; 
-            border: 1px dashed #FFFFFF; /* เปลี่ยนแท็กหมวดหมู่เป็นสีขาว */
-            padding: 2px 15px; 
-            border-radius: 15px; 
-            color: #FFFFFF; /* เปลี่ยนข้อความแท็กเป็นสีขาว */
-            font-size: 10px;
+        .warn-main-box {
+            width: 530px; background: var(--box-grad);
+            border: 2px dashed #FFFFFF; border-radius: 4px;
+            padding: 25px; color: white; position: relative;
+            box-shadow: 0 0 15px rgba(255,255,255,0.2);
         }
+        .warn-header { font-size: 15px; margin-bottom: 15px; display: block; font-weight: bold; text-align: left; }
+        .warn-list { font-size: 13px; line-height: 1.8; list-style: none; padding: 0; margin: 0; text-align: left; }
+        .warn-list li { margin-bottom: 5px; display: flex; align-items: flex-start; gap: 8px; }
+        .warn-list li::before { content: "❃"; font-size: 10px; margin-top: 2px; }
+
+        .accept-btn-wrap { margin-top: 100px; display: flex; justify-content: center; width: 100%; }
+        
+        .accept-btn {
+            width: 520px; height: 50px; background: #FFFFFF;
+            border-radius: 4px; border: none; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            gap: 10px; color: #666; font-size: 22px; font-weight: 500;
+            position: relative;
+        }
+        
+        /* Ripple Glow Wave Animation */
+        .accept-btn::after {
+            content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 4px; border: 2px solid #FFFFFF;
+            animation: ripple-wave 2s infinite; pointer-events: none;
+        }
+
+        @keyframes ripple-wave {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.1, 1.4); opacity: 0; }
+        }
+
+        .check-icon { width: 30px; height: auto; }
 
     </style>
 </head>
 <body>
 
 <div class="ipad-layout">
+    <!-- Top Banner -->
     <img class="top-banner" src="https://lh3.googleusercontent.com/u/0/d/1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0" onerror="fixImage(this)">
 
+    <!-- Bow Row Header -->
     <div class="bow-row">
         <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
         <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
@@ -174,7 +191,7 @@
         <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
     </div>
 
-    <!-- เมนู -->
+    <!-- Navigation -->
     <div class="nav-grid">
         <div class="box-template nav-item" onclick="navigate('home')" id="btn-home">
             <img class="nav-flower" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)"> Home
@@ -190,7 +207,7 @@
         </div>
     </div>
 
-    <!-- หน้า Home (ไม่แตะต้อง) -->
+    <!-- Home Page -->
     <div id="page-home" class="main-content">
         <div class="col-left">
             <div class="profile-wrapper">
@@ -279,17 +296,40 @@
 
     <!-- หน้า Character -->
     <div id="page-character" class="page-container">
-        <div class="filter-bar">
-            <div class="filter-btn active" onclick="filterChars('All', this)">All</div>
-            <div class="filter-btn" onclick="filterChars('forever home', this)">forever home</div>
-            <div class="filter-btn" onclick="filterChars('eo', this)">eo</div>
-            <div class="filter-btn" onclick="filterChars('sp', this)">sp</div>
-            <div class="filter-btn" onclick="filterChars('ota', this)">ota</div>
+        <!-- หน้าที่ 1: Warning Screen -->
+        <div id="page-char-terms">
+            <img class="warn-big-bow" src="https://lh3.googleusercontent.com/u/0/d/1SW9h4ShOGQIhlsv4YkArZc0e84ivAXku" onerror="fixImage(this)">
+            <div class="warn-title-box">! warning !</div>
+            <div class="warn-main-box">
+                <span class="warn-header">ข้อตกลงการรับชมเด็ก ๆ ในบ้าน</span>
+                <ul class="warn-list">
+                    <li>ห้ามเซฟรูปภาพในเว็บไซต์นี้เป็นอันขาดกรณีสอบถามความสนใจให้แคปรูปเอาเท่านั้น</li>
+                    <li>ห้ามคัดลอกดัดแปลงดีไซน์เด็ก ๆ</li>
+                    <li>ห้ามแอบอ้างว่าเป็นของตัวเอง</li>
+                </ul>
+            </div>
+            <div class="accept-btn-wrap">
+                <button class="accept-btn" onclick="acceptTerms()">
+                    <img class="check-icon" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNCAxMkw5IDE3TDIwIDciIHN0cm9rZT0iIzY2NiIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48L3N2Zz4=">
+                    ยอมรับข้อตกลง
+                </button>
+            </div>
         </div>
-        <div class="char-grid">
-            <div class="display-col" id="char-col-1"></div>
-            <div class="display-col" id="char-col-2"></div>
-            <div class="display-col" id="char-col-3"></div>
+
+        <!-- หน้าที่ 2: Character Grid (แสดงหลังจากกดยอมรับ) -->
+        <div id="char-main-content" style="display:none; opacity: 0; transition: opacity 0.8s;">
+            <div class="filter-bar">
+                <div class="filter-btn active" onclick="filterChars('All', this)">All</div>
+                <div class="filter-btn" onclick="filterChars('forever home', this)">forever home</div>
+                <div class="filter-btn" onclick="filterChars('eo', this)">eo</div>
+                <div class="filter-btn" onclick="filterChars('sp', this)">sp</div>
+                <div class="filter-btn" onclick="filterChars('ota', this)">ota</div>
+            </div>
+            <div class="char-grid">
+                <div class="display-col" id="char-col-1"></div>
+                <div class="display-col" id="char-col-2"></div>
+                <div class="display-col" id="char-col-3"></div>
+            </div>
         </div>
     </div>
 
@@ -317,6 +357,7 @@
         </div>
     </div>
 
+    <!-- Footer -->
     <div class="footer-section">
         <div class="bow-row">
             <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
@@ -331,6 +372,7 @@
 </div>
 
 <script>
+    // Data Lists
     const charList = [
         { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'ota' },
         { img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'forever home' },
@@ -360,6 +402,9 @@
         { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'base', name: 'Couple Base' }
     ];
 
+    let termsAccepted = false;
+
+    // Navigation Logic
     function navigate(pageId) {
         document.getElementById('page-home').style.display = 'none';
         document.getElementById('page-character').style.display = 'none';
@@ -374,14 +419,37 @@
         document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
         document.getElementById('btn-' + pageId).classList.add('active');
 
-        localStorage.setItem('dominic_active_page', pageId);
-        
-        if (pageId === 'character') filterChars('All');
+        if (pageId === 'character') {
+            if (!termsAccepted) {
+                document.getElementById('page-char-terms').style.display = 'flex';
+                document.getElementById('char-main-content').style.display = 'none';
+            } else {
+                document.getElementById('page-char-terms').style.display = 'none';
+                document.getElementById('char-main-content').style.display = 'block';
+                filterChars('All');
+            }
+        }
         if (pageId === 'commission') renderCommission();
         if (pageId === 'shop') filterShop('All');
+
+        localStorage.setItem('dominic_active_page', pageId);
     }
 
-    // สร้าง Card แบบชิดซ้าย (แท็กกึ่งกลางและเป็นสีขาว)
+    // Accept Terms Logic
+    function acceptTerms() {
+        const terms = document.getElementById('page-char-terms');
+        terms.style.opacity = '0'; // Fade out
+        setTimeout(() => {
+            terms.style.display = 'none';
+            termsAccepted = true;
+            const content = document.getElementById('char-main-content');
+            content.style.display = 'block';
+            setTimeout(() => { content.style.opacity = '1'; }, 50); // Fade in
+            filterChars('All');
+        }, 800);
+    }
+
+    // Render Cards
     function createCard(imgId, tagText, customDetail) {
         const card = document.createElement('div');
         card.className = 'char-card';
@@ -434,9 +502,16 @@
         details.style.display = (details.style.display === 'block') ? 'none' : 'block';
     }
 
+    // Image Fixer Function
     function fixImage(img) {
+        // หากลิงก์มี u/0/ ให้ลองลบออก
         if (img.src.includes('u/0/')) {
             img.src = img.src.replace('u/0/', '');
+        } 
+        // หากยังไม่ขึ้นอีก (สำหรับ Google Drive โดยเฉพาะ) ให้เปลี่ยนรูปแบบเป็นลิงก์ดาวน์โหลดตรง
+        else if (img.src.includes('lh3.googleusercontent.com/d/')) {
+            const id = img.src.split('d/')[1];
+            img.src = `https://drive.google.com/uc?export=view&id=${id}`;
         }
     }
 
