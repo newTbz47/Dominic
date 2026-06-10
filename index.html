@@ -2,8 +2,8 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <!-- แก้ไข Viewport เพื่อล็อคอัตราส่วน ไม่ให้ขยายเวลายกหรือหมุนจอ -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- ล็อค Viewport ให้คงที่ที่ความกว้าง 768px เพื่อให้การแสดงผลบนอุปกรณ์เคลื่อนที่คงที่เหมือนแนวตั้ง -->
+    <meta name="viewport" content="width=768, user-scalable=no">
     <title>Dominic Profile Site</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
@@ -22,27 +22,28 @@
             margin: 0; padding: 0;
             background: linear-gradient(180deg, #000000 0%, #000000 50%, var(--bg-bottom) 100%) fixed;
             display: flex; 
-            justify-content: center; /* จัดกึ่งกลางหน้าจอเสมอ */
+            justify-content: center; /* จัดกึ่งกลางในแนวนอน */
             min-height: 100vh; 
-            overflow-x: auto; /* หากจอน้อยกว่า 768px จะให้เลื่อนข้างแทนการบีบภาพ */
+            overflow-x: auto; /* อนุญาตให้ scroll แนวนอนได้หากจอกว้างไม่พอ */
         }
 
+        /* ล็อคขนาดความกว้างให้คงที่ที่ 768px ไม่ขยายตามหน้าจอแนวนอน */
         .ipad-layout { 
-            /* ล็อคขนาดให้คงที่ที่ 768px เท่ากับแนวตั้งของไอแพด */
             width: 768px; 
-            min-width: 768px; 
-            max-width: 768px;
-            flex-shrink: 0; /* ป้องกันการหดตัวในหน้าจอเล็ก */
+            min-width: 768px; /* ป้องกันการหดตัว */
+            max-width: 768px; /* ป้องกันการขยายตัว */
             position: relative; 
             display: flex; 
             flex-direction: column; 
+            background: transparent;
         }
         
         .top-banner { width: 100%; display: block; z-index: 100; }
 
         .bow-row {
-            display: flex; justify-content: center; gap: 45px;
+            display: flex; justify: center; gap: 45px;
             margin-top: -20px; margin-bottom: 50px; z-index: 101;
+            justify-content: center;
         }
         .bow-img { width: 25px; height: auto; }
 
@@ -274,7 +275,6 @@
                     </div>
                 </div>
                 <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
-                <!-- Box Favorite Thing -->
                 <div class="box-template right-small">
                     <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT">
                     <div class="box-title">my favorite thing</div>
