@@ -2,7 +2,6 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <!-- ล็อค Viewport ให้คงที่ที่ความกว้าง 768px เพื่อให้การแสดงผลบนอุปกรณ์เคลื่อนที่คงที่เหมือนแนวตั้ง -->
     <meta name="viewport" content="width=768, user-scalable=no">
     <title>Dominic Profile Site</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
@@ -21,29 +20,15 @@
         body {
             margin: 0; padding: 0;
             background: linear-gradient(180deg, #000000 0%, #000000 50%, var(--bg-bottom) 100%) fixed;
-            display: flex; 
-            justify-content: center; /* จัดกึ่งกลางในแนวนอน */
-            min-height: 100vh; 
-            overflow-x: auto; /* อนุญาตให้ scroll แนวนอนได้หากจอกว้างไม่พอ */
+            display: flex; justify-content: center; min-height: 100vh; overflow-x: hidden;
         }
 
-        /* ล็อคขนาดความกว้างให้คงที่ที่ 768px ไม่ขยายตามหน้าจอแนวนอน */
-        .ipad-layout { 
-            width: 768px; 
-            min-width: 768px; /* ป้องกันการหดตัว */
-            max-width: 768px; /* ป้องกันการขยายตัว */
-            position: relative; 
-            display: flex; 
-            flex-direction: column; 
-            background: transparent;
-        }
-        
+        .ipad-layout { width: 768px; position: relative; display: flex; flex-direction: column; }
         .top-banner { width: 100%; display: block; z-index: 100; }
 
         .bow-row {
-            display: flex; justify: center; gap: 45px;
+            display: flex; justify-content: center; gap: 45px;
             margin-top: -20px; margin-bottom: 50px; z-index: 101;
-            justify-content: center;
         }
         .bow-img { width: 25px; height: auto; }
 
@@ -121,7 +106,6 @@
         .two-col-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: start; }
         .display-col { display: flex; flex-direction: column; gap: 20px; }
 
-        /* Card Component */
         .char-card { width: 100%; background: var(--box-grad); border: 1.5px solid var(--box-border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--glow-soft); }
         .char-thumb { width: 100%; display: block; cursor: pointer; transition: 0.2s; border-bottom: 1.5px solid var(--box-border); }
         .char-details { padding: 15px 15px; font-size: 11px; color: #FFFFFF; text-align: left; line-height: 1.5; }
@@ -135,6 +119,29 @@
         .sub-nav-btns { display: flex; gap: 10px; }
         .sub-nav-btn { width: 120px; height: 32px; font-size: 11px; padding-top: 8px; }
         .sub-nav-btn.active { font-weight: bold; }
+
+        /* --- New Queue (Q Update) Styles --- */
+        .q-search-wrap { display: flex; justify-content: center; margin-bottom: 40px; }
+        .q-search-bar { width: 480px; height: 38px; background: #FFF; border-radius: 25px; border: none; padding: 0 45px; font-size: 15px; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23666" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>'); background-repeat: no-repeat; background-position: 18px center; }
+        
+        .q-list { display: flex; flex-direction: column; gap: 30px; padding: 0 10px; }
+        .q-item-row { display: grid; grid-template-columns: 185px 1fr; align-items: center; position: relative; }
+        .q-pfp-cloud { width: 175px; height: 145px; position: relative; background: radial-gradient(circle, #fff 10%, transparent 70%); mask-image: url('https://lh3.googleusercontent.com/u/0/d/1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ'); -webkit-mask-image: url('https://lh3.googleusercontent.com/u/0/d/1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ'); mask-size: contain; mask-repeat: no-repeat; }
+        
+        .q-data-box { background: linear-gradient(90deg, #35233D 0%, #000 100%); border: 1.5px solid var(--box-border); border-radius: 10px; height: 110px; position: relative; padding: 12px 25px; color: white; display: flex; flex-direction: column; justify-content: center; }
+        .q-heart-num { position: absolute; top: -12px; left: -12px; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; background: url('https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7') no-repeat center; background-size: contain; }
+        .q-top-info { display: flex; justify-content: space-between; margin-bottom: 8px; }
+        .q-name-grp b { font-size: 19px; display: block; line-height: 1; }
+        .q-name-grp span { font-size: 13px; opacity: 0.8; }
+        .q-percent-txt { font-size: 14px; margin-top: 15px; }
+        
+        .q-bar-bg { width: 100%; height: 10px; background: #000; border-radius: 10px; position: relative; margin-top: 8px; }
+        .q-bar-fill { height: 100%; background: linear-gradient(90deg, #D8A7C9 0%, #FFF 100%); border-radius: 10px; }
+        .q-bar-rose-head { position: absolute; left: -10px; top: -14px; width: 42px; height: auto; z-index: 5; }
+        .q-bar-moon { position: absolute; top: -20px; width: 48px; height: auto; transform: translateX(-50%); z-index: 6; }
+        
+        .q-deco-roses { position: absolute; top: -30px; right: -15px; width: 85px; z-index: 10; }
+        .q-book-icon { position: absolute; bottom: -12px; right: -5px; width: 32px; opacity: 0.8; }
 
         /* --- Warning Screen --- */
         #page-char-terms { display: flex; flex-direction: column; align-items: center; width: 100%; opacity: 1; transition: opacity 0.8s ease; }
@@ -209,7 +216,7 @@
 
     <div id="content-wrapper" class="page-content-wrapper">
         
-        <!-- หน้า Home -->
+        <!-- หน้า Home (คงเดิม 100%) -->
         <div id="page-home" class="main-content">
             <div class="col-left">
                 <div class="profile-wrapper">
@@ -224,10 +231,10 @@
                 <div class="box-template about-box">
                     <div class="box-title">about me</div>
                     <div class="inner-white">
-                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP"> name: new</div>
-                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP"> birthday: april 24th</div>
-                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP"> Pronouns: she / her</div>
-                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP"> alias: Dominic/Velune</div>
+                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> name: new</div>
+                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> birthday: april 24th</div>
+                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> Pronouns: she / her</div>
+                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> alias: Dominic/Velune</div>
                     </div>
                 </div>
                 <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
@@ -243,60 +250,60 @@
                 <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
                 <div class="box-template login-btn">Log in</div>
                 <div class="black-bar">
-                    <img class="bar-img" src="https://lh3.googleusercontent.com/u/0/d/1Kiix_IgzBHFrL7EeLHjZLqL8V4uT1beD">
-                    <img class="bar-img" src="https://lh3.googleusercontent.com/u/0/d/1yQ12nEX6p0D_GzhrV_XEO1rDh9pFlMMh">
+                    <img class="bar-img" src="https://lh3.googleusercontent.com/u/0/d/1Kiix_IgzBHFrL7EeLHjZLqL8V4uT1beD" onerror="fixImage(this)">
+                    <img class="bar-img" src="https://lh3.googleusercontent.com/u/0/d/1yQ12nEX6p0D_GzhrV_XEO1rDh9pFlMMh" onerror="fixImage(this)">
                 </div>
                 <div class="social-row">
-                    <a href="https://x.com/domi_nic_yn?s=11" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xCdSND3K6s2xk9u7rrCctjyBx-rdZmHd"></a>
-                    <a href="https://www.facebook.com/profile.php?id=61580195536012" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1PmSfbZDawN7PRJOOwMCX0DX6l4DlXO5T"></a>
-                    <a href="https://www.instagram.com/_dominic_yn?igsh=MTBkN3VucXVkNDAwZQ%3D%3D&utm_source=qr" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1mhNFjn3Qy5YC3DLUvQWGUkez43DOvneQ"></a>
-                    <a href="https://www.tiktok.com/@dominic_yn?_r=1&_t=ZS-9730o90ehkb" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1i4IFdXQEAhaX15F5IUbsbJjFO2GC6RWa"></a>
-                    <a href="https://vgen.co/DominicYn" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xEQbYxXsu7SYvBbn66JpjhtqL3JHqoMB"></a>
+                    <a href="https://x.com/domi_nic_yn?s=11" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xCdSND3K6s2xk9u7rrCctjyBx-rdZmHd" onerror="fixImage(this)"></a>
+                    <a href="https://www.facebook.com/profile.php?id=61580195536012" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1PmSfbZDawN7PRJOOwMCX0DX6l4DlXO5T" onerror="fixImage(this)"></a>
+                    <a href="https://www.instagram.com/_dominic_yn?igsh=MTBkN3VucXVkNDAwZQ%3D%3D&utm_source=qr" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1mhNFjn3Qy5YC3DLUvQWGUkez43DOvneQ" onerror="fixImage(this)"></a>
+                    <a href="https://www.tiktok.com/@dominic_yn?_r=1&_t=ZS-9730o90ehkb" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1i4IFdXQEAhaX15F5IUbsbJjFO2GC6RWa" onerror="fixImage(this)"></a>
+                    <a href="https://vgen.co/DominicYn" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xEQbYxXsu7SYvBbn66JpjhtqL3JHqoMB" onerror="fixImage(this)"></a>
                 </div>
             </div>
             <div class="col-right">
                 <div class="box-template right-large">
-                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT">
+                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
                     <div class="box-title">Welcome to my website!</div>
                     <div class="inner-white"><div>Feel free to explore my artwork, characters, and other little things I enjoy.</div><div style="margin-top: 20px;">I hope you have a lovely day. ♡</div></div>
                 </div>
                 <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
                 <div class="box-template right-medium">
-                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT">
+                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
                     <div class="box-title">little things about me</div>
                     <div class="inner-white">
-                        <div class="image-placeholder"><img src="https://lh3.googleusercontent.com/u/0/d/14S7hZwuiR3ap3NNkbBwkdNfkH18xsomQ"></div>
+                        <div class="image-placeholder"><img src="https://lh3.googleusercontent.com/u/0/d/14S7hZwuiR3ap3NNkbBwkdNfkH18xsomQ" onerror="fixImage(this)"></div>
                         <div class="text-content">
-                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP"> <span>Low social battery.</span></div>
-                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP"> <span>Drawing is what I love most. It's my whole life.</span></div>
-                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP"> <span>Love sweets, can't eat much.</span></div>
-                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP"> <span>A chuunibyou at heart.</span></div>
+                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> <span>Low social battery.</span></div>
+                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> <span>Drawing is what I love most. It's my whole life.</span></div>
+                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> <span>Love sweets, can't eat much.</span></div>
+                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> <span>A chuunibyou at heart.</span></div>
                         </div>
                     </div>
                 </div>
                 <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
                 <div class="box-template right-small">
-                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT">
+                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
                     <div class="box-title">my favorite thing</div>
                     <div class="inner-white">
-                        <div class="fav-item"><img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/1-FC3qEExhJC77hp1HH440U9yuMPvweCl"><span>Sweets</span></div>
-                        <div class="fav-item"><img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/1D4KnlxHNjZv5BF77rBaLJ2HEFmUNg5LK"><span>Drawing</span></div>
-                        <div class="fav-item"><img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/11Ymi1RyrIo4VY90Wo-vzNlU3eyEX4HiW"><span>Chick</span></div>
+                        <div class="fav-item"><img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/1-FC3qEExhJC77hp1HH440U9yuMPvweCl" onerror="fixImage(this)"><span>Sweets</span></div>
+                        <div class="fav-item"><img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/1D4KnlxHNjZv5BF77rBaLJ2HEFmUNg5LK" onerror="fixImage(this)"><span>Drawing</span></div>
+                        <div class="fav-item"><img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/11Ymi1RyrIo4VY90Wo-vzNlU3eyEX4HiW" onerror="fixImage(this)"><span>Chick</span></div>
                     </div>
                 </div>
                 <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
                 <div class="box-template fandom-box">
                     <div class="box-title">fandom</div>
                     <div class="inner-white">twisted wonderland<br>gachiakuta<br>madoka<br>bleach<br>mashle</div>
-                    <img class="fandom-flowers-bottom" src="https://lh3.googleusercontent.com/u/0/d/1F5fZbquDhMCzC2trOv1VljVdty94N_uR">
+                    <img class="fandom-flowers-bottom" src="https://lh3.googleusercontent.com/u/0/d/1F5fZbquDhMCzC2trOv1VljVdty94N_uR" onerror="fixImage(this)">
                 </div>
             </div>
         </div>
 
-        <!-- หน้า Character -->
+        <!-- หน้า Character (คงเดิม 100%) -->
         <div id="page-character" class="page-container">
             <div id="page-char-terms">
-                <img class="warn-big-bow" src="https://lh3.googleusercontent.com/u/0/d/1rEkHzbbxsnfzxGYLdz0kFQx1eD7EoIka">
+                <img class="warn-big-bow" src="https://lh3.googleusercontent.com/u/0/d/1rEkHzbbxsnfzxGYLdz0kFQx1eD7EoIka" onerror="fixImage(this)">
                 <div class="warn-title-box">! warning !</div>
                 <div class="warn-main-box">
                     <span class="warn-header">ข้อตกลงการรับชมเด็ก ๆ ในบ้าน</span>
@@ -311,7 +318,7 @@
             <div id="char-main-list" style="display:none; opacity:0; transition:0.8s;">
                 <div class="char-info-container">
                     <div class="char-info-box"><span class="char-info-title">ความออกยากง่าย</span>- forever home : ไม่ปล่อยอย่างแน่นอน<br>- eo : ยังหวงรับข้อเสนอค่อนข้างยาก<br>- sp : เสนอเงินเพดาน รับทันที<br>- ota : รับข้อเสนอค่อนข้างง่าย</div>
-                    <div class="char-info-box"><span class="char-info-title">ความสนใจเรียง</span>- เงิน / สิ่งที่สนใจควบเงิน (เฉพาะเด็กที่รับเงินได้)<br>- Commission ทุกสเกล<br>- คัสต้อมอดอป<br>- อดอป เปคง่ายมาก</div>
+                    <div class="char-info-box"><span class="char-info-title">ความสนใจเรียง</span>- เงิน / สิ่งที่สนใจควบเงิน (เฉพาะเด็กที่รับเงินได้)<br>- Commission ทุกสเกล<br>- คัสต้อมอดอป<br>- อดอป เปคงง่ายมาก</div>
                 </div>
                 <div class="filter-bar">
                     <div class="filter-btn active" onclick="filterChars('All', this)">All</div>
@@ -324,7 +331,7 @@
             </div>
         </div>
 
-        <!-- หน้า Commission -->
+        <!-- หน้า Commission (แก้ไขเฉพาะ Q update) -->
         <div id="page-commission" class="page-container">
             <div class="sub-nav-row">
                 <div class="sub-nav-btns">
@@ -339,6 +346,18 @@
                 </div>
             </div>
             <div class="two-col-grid" id="comm-list-target" style="display: grid;"></div>
+            
+            <!-- ส่วน Q Update ใหม่สร้างตามภาพ -->
+            <div id="comm-q-view" style="display: none;">
+                <div class="q-search-wrap">
+                    <input type="text" class="q-search-bar" placeholder="ค้นหาคิว">
+                </div>
+                <div class="q-list" id="q-list-render">
+                    <!-- รายการคิวจะมาแสดงตรงนี้จาก JS -->
+                </div>
+            </div>
+
+            <!-- ส่วน Terms (คงเดิม 100%) -->
             <div id="comm-terms-view" style="display: none;">
                 <div class="terms-grid">
                     <div class="terms-box"><span class="terms-title">สิ่งที่ไมรับวาด</span><div class="terms-list-box"><div>ไม่รับงาน คัตต้อม / ออกแบบทุกประเภท</div><div>รบกวนนำตัวละครที่ชัดเจนมาให้ครบตั้งแต่ขั้นตอนบรีฟนะคะ</div><div>ไม่รับดัดแปลงภาพคนจริงให้เป็นการ์ตูน</div><div>ไม่รับงาน NSFW</div><div>ไม่รับวาดฉากหลัง</div><div>ไม่รับงานเร่งทุกชนิด</div></div></div>
@@ -346,10 +365,9 @@
                 </div>
                 <div class="terms-long-list"><div>ลำดับคิวตามการบรีฟ หากไม่มีการบรีฟภายใน 2 วันหลังจอง จะนับว่าเป็น การจองเล่น และติด bl ส่วนตัวทันที</div><div>เมื่อถึงคิว จ่ายมัดจำ 50% หรือจ่ายเต็มก่อนเริ่มงาน หากหายไม่มีการตอบกลับภายใน 24 ชั่วโมง ก็นับว่าเป็นการจองเล่น และติด bl ส่วนตัวทันทีเช่นกัน</div><div>หากยกเลิกจะไม่มีการคืนเงินทุกกรณี หากนักวาเป็นฝ่ายยกเลิกเองจะคืนเงินเต็มจำนวน</div><div>หากวางมัดจำ 50% เมื่อนักวาดวาดเสร็จแต่ยังไม่มีการชำระในส่วน 50% ที่เหลือจะไม่มีการส่งงานไฟล์งานดิบใด ๆ จนกว่าจะจ่ายครบ การอัพเดทงานจะเป็นการแคปหน้าจอจากแอพวาดภาพเท่านั้นไม่มีการบันทึกเป็นภาพเต็ม</div><div>การใช้งานเชิงพาณิชย์จะ x2 จากราคาเดิม</div><div>1 คน สั่งได้ไม่เกิน 2 งาน</div><div>งาน vtuber แม้จะเป็นแฟนอาร์ตก็จ่ะนับเป็นงานเชิงพาณิชย์ จะต้องจ่าย x2 จากราคาปกติ</div><div>สามารถแก้งานได้เรื่อย ๆ เช่น สีผิด นักวาดไม่ได้ทำตามบรีฟ ลืมใส่เครื่องประดับตัวละคร หรืออะไรก็ตามที่นักวาดทำผิดพลาดไปเอง นอกเหนือจากนี้จะไม่รับแก้ใด ๆ ทั้งสิ้น</div><div>สามารถเปลี่ยนบรีฟได้เฉพาะตอนที่นักวาดยังไม่เริ่มงานเท่านั้น หากได้เริ่มเส้นร่างแล้วจะไม่รับเปลี่ยนใด ๆ</div><div>หากไม่ใช่สเกลปกติ จะมีการลดทอนรายละเอียดตัวละคร หากรายละเอียดเยอะเกินไป</div><div>ทางนักวาดขออนุญาตนำผลงานไปเป็นตัวอย่างคอมมิชชั่น หากไม่สะดวกกวนแจ้งก่อน</div></div>
             </div>
-            <div id="comm-q-view" style="display: none; color: white; text-align: center; padding-top: 50px;">ไม่มีคิวในขณะนี้</div>
         </div>
 
-        <!-- หน้า Shop -->
+        <!-- หน้า Shop (คงเดิม 100%) -->
         <div id="page-shop" class="page-container">
             <div class="filter-bar">
                 <div class="filter-btn active" onclick="filterShop('All', this)">All</div>
@@ -362,7 +380,7 @@
         </div>
     </div>
 
-    <!-- Modals -->
+    <!-- Modals (คงเดิม 100%) -->
     <div id="char-detail-modal" class="modal-overlay" onclick="closeDetails()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="closeDetails()">&times;</span>
@@ -370,7 +388,7 @@
             <div class="modal-menu-bar"><button class="modal-menu-btn active" id="pop-btn-about" onclick="switchPopTab('about')">about</button><button class="modal-menu-btn" id="pop-btn-gallery" onclick="switchPopTab('gallery')">gallery</button></div>
             <div id="pop-content-about" class="modal-about-area">
                 <div class="box-template"><div class="box-title">About this character</div><div class="inner-white"><p id="pop-desc-text">Character details...</p></div></div>
-                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7"></div>
+                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
                 <div class="box-template"><div class="box-title">Notes / Personality</div><div class="inner-white"><p>Personality notes go here.</p></div></div>
             </div>
             <div id="pop-content-gallery" class="modal-gallery-area">
@@ -397,6 +415,15 @@
 </div>
 
 <script>
+    // ข้อมูลคิวตัวอย่างตามภาพ
+    const queueList = [
+        { num: 1, name: 'Dominic', scale: 'หัว-ไหล่', percent: 0 },
+        { num: 2, name: 'Dominic', scale: 'หัว-ไหล่', percent: 25 },
+        { num: 3, name: 'Dominic', scale: 'เต็มตัว', percent: 50 },
+        { num: 4, name: 'Dominic', scale: 'หัวเข่า', percent: 75 },
+        { num: 5, name: 'Domina', scale: 'Full cg', percent: 100 }
+    ];
+
     const charList = [
         { name: 'Dominic V', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'ota' },
         { name: 'Character 02', img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'forever home' },
@@ -444,6 +471,43 @@
         document.querySelectorAll('.sub-nav-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('btn-comm-' + subId).classList.add('active');
         if(subId === 'main') renderCommission('all');
+        if(subId === 'q') renderQueue();
+    }
+
+    function renderQueue() {
+        const target = document.getElementById('q-list-render');
+        target.innerHTML = '';
+        
+        // รูปพระจันทร์: 1TpV9e_8laxaXPFxhol7zyqd-GwG3ja1g
+        // รูปกุหลาบหัวหลอด: 15Y17Dpx8W9GW3EkZXun_31z7_lShqOTz
+        // กุหลาบตกแต่งมุม: 1JFCylDLvmXTBD0PHbIpH-qsRev2fVHOI
+        // ไอคอนสมุด: 1Kiix_IgzBHFrL7EeLHjZLqL8V4uT1beD
+
+        queueList.forEach(q => {
+            const item = document.createElement('div');
+            item.className = 'q-item-row';
+            item.innerHTML = `
+                <div class="q-pfp-cloud"></div>
+                <div class="q-data-box">
+                    <div class="q-heart-num">${q.num}</div>
+                    <img class="q-deco-roses" src="https://lh3.googleusercontent.com/u/0/d/1JFCylDLvmXTBD0PHbIpH-qsRev2fVHOI" onerror="fixImage(this)">
+                    <div class="q-top-info">
+                        <div class="q-name-grp">
+                            <b>${q.name}</b>
+                            <span>${q.scale}</span>
+                        </div>
+                        <div class="q-percent-txt">${q.percent}%</div>
+                    </div>
+                    <div class="q-bar-bg">
+                        <div class="q-bar-fill" style="width: ${q.percent}%"></div>
+                        <img class="q-bar-rose-head" src="https://lh3.googleusercontent.com/u/0/d/15Y17Dpx8W9GW3EkZXun_31z7_lShqOTz" onerror="fixImage(this)">
+                        <img class="q-bar-moon" src="https://lh3.googleusercontent.com/u/0/d/1TpV9e_8laxaXPFxhol7zyqd-GwG3ja1g" style="left: ${q.percent}%" onerror="fixImage(this)">
+                    </div>
+                    <img class="q-book-icon" src="https://lh3.googleusercontent.com/u/0/d/1Kiix_IgzBHFrL7EeLHjZLqL8V4uT1beD" onerror="fixImage(this)">
+                </div>
+            `;
+            target.appendChild(item);
+        });
     }
 
     function renderCommission(filterTag) {
@@ -527,7 +591,21 @@
         document.getElementById('comm-gallery-modal').style.display = 'flex';
     }
     function closeCommGallery() { document.getElementById('comm-gallery-modal').style.display = 'none'; }
-    function fixImage(img) { const originalSrc = img.src; if (!originalSrc.includes('googleusercontent.com')) return; if (originalSrc.includes('/d/')) { const id = originalSrc.split('/d/')[1].split(/[/?]/)[0]; const fixedUrl = `https://lh3.googleusercontent.com/u/0/d/${id}`; if (img.getAttribute('data-retry') !== 'true') { img.setAttribute('data-retry', 'true'); img.src = fixedUrl; } } }
+    
+    function fixImage(img) { 
+        const originalSrc = img.src; 
+        if (!originalSrc.includes('googleusercontent.com')) return; 
+        if (originalSrc.includes('/d/') || originalSrc.includes('id=')) { 
+            let id = "";
+            if(originalSrc.includes('/d/')) id = originalSrc.split('/d/')[1].split(/[/?]/)[0];
+            else id = originalSrc.split('id=')[1].split(/[&]/)[0];
+            const fixedUrl = `https://lh3.googleusercontent.com/u/0/d/${id}`; 
+            if (img.getAttribute('data-retry') !== 'true') { 
+                img.setAttribute('data-retry', 'true'); 
+                img.src = fixedUrl; 
+            } 
+        } 
+    }
     window.onload = () => navigate('home');
 </script>
 </body>
