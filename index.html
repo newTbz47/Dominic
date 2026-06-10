@@ -32,7 +32,6 @@
         }
         .bow-img { width: 25px; height: auto; }
 
-        /* --- Navigation Grid --- */
         .nav-grid { 
             display: grid; grid-template-columns: repeat(4, 1fr); 
             gap: 15px; margin: -20px 50px 0px 50px; z-index: 102;
@@ -53,7 +52,7 @@
         .heart-divider-wrap { display: flex; justify-content: center; margin: -22px 0 -18px 0; position: relative; z-index: 3; pointer-events: none; }
         .heart-divider-img { width: 175px; height: auto; }
 
-        /* --- Home Page (Restored 100%) --- */
+        /* --- Home Page --- */
         .main-content { padding: 40px 50px 100px 50px; display: grid; grid-template-columns: 215px 1fr; gap: 30px; align-items: start; }
         .col-left { position: sticky; top: 20px; display: flex; flex-direction: column; z-index: 10; }
         .col-right { display: flex; flex-direction: column; position: relative; }
@@ -73,12 +72,10 @@
         .black-bar { background: #000; height: 38px; border-radius: 2px; border: 1.5px solid #333; margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 25px; }
         .bar-img { height: 26px; width: auto; object-fit: contain; }
         
-        /* App Icons Fix */
         .social-row { display: flex; gap: 12px; justify-content: center; margin-top: 20px; }
         .social-link { width: 35px; height: 35px; background: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; padding: 6px; cursor: pointer; transition: transform 0.2s; }
         .social-img { width: 100%; height: 100%; object-fit: contain; }
         
-        /* Battery Bar Fix */
         .battery-container { display: flex; align-items: center; gap: 10px; width: 100%; }
         .battery-bar { flex-grow: 1; height: 25px; border: 1.5px solid #D3BCE6; border-radius: 4px; background: #fff; position: relative; overflow: hidden; }
         .battery-fill { width: 20%; height: 100%; background: repeating-linear-gradient(90deg, #5D4364, #5D4364 4px, transparent 4px, transparent 6px); }
@@ -93,6 +90,8 @@
         .list-item { display: flex; align-items: center; gap: 8px; }
         .right-small { height: 135px; }
         .right-small .inner-white { margin: 35px 15px 15px 15px; height: 85px; flex-direction: row; justify-content: space-around; align-items: center; text-align: center; font-size: 12px; padding: 5px 0; }
+        .fav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .fav-img { width: 45px; height: 45px; object-fit: contain; }
         .fandom-box { width: 70%; margin: 0 auto; min-height: 150px; }
         .fandom-box .inner-white { margin: 30px 10px 10px 10px; min-height: 105px; text-align: center; font-size: 13px; line-height: 1.8; text-transform: lowercase; }
         .fandom-flowers-bottom { position: absolute; width: 180px; bottom: -20px; left: -30px; z-index: 4; pointer-events: none; }
@@ -116,21 +115,13 @@
         .tag-center-wrap { width: 100%; text-align: center; margin-top: 10px; }
         .char-tag-ui { display: inline-block; border: 1px dashed #FFFFFF; padding: 2px 15px; border-radius: 15px; color: #FFFFFF; font-size: 10px; }
 
-        /* --- Commission & Shop Layouts --- */
+        /* --- Commission Layout --- */
         .sub-nav-row { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; margin-bottom: 25px; }
         .sub-nav-btns { display: flex; gap: 10px; }
         .sub-nav-btn { width: 120px; height: 32px; font-size: 11px; padding-top: 8px; }
         .sub-nav-btn.active { font-weight: bold; }
 
-        /* Terms content */
-        .terms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
-        .terms-box { background: var(--box-grad); border: 1.5px solid var(--box-border); border-radius: 2px; padding: 20px; color: white; min-height: 220px; }
-        .terms-title { font-size: 20px; font-weight: bold; border-bottom: 1px solid white; padding-bottom: 8px; margin-bottom: 12px; display: block; }
-        .terms-long-list { color: white; font-size: 13.5px; line-height: 1.9; padding: 0 10px; }
-        .terms-long-list div { position: relative; padding-left: 15px; margin-bottom: 8px; }
-        .terms-long-list div::before { content: "-"; position: absolute; left: 0; }
-
-        /* --- Character Agreement Section --- */
+        /* --- Warning Screen --- */
         #page-char-terms { display: flex; flex-direction: column; align-items: center; width: 100%; opacity: 1; transition: opacity 0.8s ease; }
         .warn-big-bow { width: 620px; height: auto; margin-bottom: -15px; position: relative; z-index: 2; }
         .warn-title-box { background: linear-gradient(180deg, #62486E, #251B2B); border: 2px solid #FFFFFF; border-radius: 2px; padding: 8px 60px; color: white; font-size: 24px; box-shadow: 0 0 15px rgba(211, 188, 230, 0.8); margin-bottom: 30px; position: relative; z-index: 1; }
@@ -144,20 +135,26 @@
         .accept-btn::after { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 4px; border: 2px solid #FFFFFF; animation: ripple-wave 2s infinite; pointer-events: none; }
         @keyframes ripple-wave { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.1, 1.4); opacity: 0; } }
 
-        /* Info Boxes */
+        /* Character Info Boxes */
         .char-info-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; margin-bottom: 30px; }
         .char-info-box { background: var(--box-grad); border: 1.5px solid var(--box-border); border-radius: 5px; padding: 8px 20px; color: white; font-size: 13px; line-height: 1.6; box-shadow: var(--glow-soft); }
         .char-info-title { font-size: 15px; margin-bottom: 5px; font-weight: bold; display: block; }
 
-        /* --- Modals (Detailed) --- */
+        /* Terms content */
+        .terms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
+        .terms-box { background: var(--box-grad); border: 1.5px solid var(--box-border); border-radius: 2px; padding: 20px; color: white; min-height: 220px; }
+        .terms-title { font-size: 20px; font-weight: bold; border-bottom: 1px solid white; padding-bottom: 8px; margin-bottom: 12px; display: block; }
+        .terms-long-list { color: white; font-size: 13.5px; line-height: 1.9; padding: 0 10px; }
+        .terms-long-list div { position: relative; padding-left: 15px; margin-bottom: 8px; }
+        .terms-long-list div::before { content: "-"; position: absolute; left: 0; }
+
+        /* --- Modals --- */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; display: none; justify-content: center; align-items: center; padding: 20px; }
         .modal-content { background: #000; border: 2px solid var(--box-border); border-radius: 4px; width: 620px; max-height: 90vh; position: relative; overflow-y: auto; padding: 40px; color: white; box-shadow: 0 0 20px rgba(211, 188, 230, 0.4); }
         .modal-close { position: absolute; top: 10px; right: 15px; font-size: 28px; cursor: pointer; color: white; }
         .modal-header-section { margin-bottom: 30px; text-align: center; }
         .modal-char-name-big { font-size: 28px; font-weight: bold; margin-bottom: 25px; display: block; }
-        
-        .modal-top-row { display: grid; grid-template-columns: 210px 1fr; gap: 30px; text-align: left; margin-bottom: 30px; } /* Fixed Spacing */
-        
+        .modal-top-row { display: grid; grid-template-columns: 210px 1fr; gap: 30px; text-align: left; margin-bottom: 30px; }
         .modal-pfp-box { width: 210px; height: 210px; border: 1.5px solid var(--box-border); background: linear-gradient(180deg, #35233D, #000); overflow: hidden; }
         .modal-pfp-box img { width: 100%; height: 100%; object-fit: cover; }
         .modal-stats { font-size: 16px; line-height: 1.8; }
@@ -168,7 +165,6 @@
         .folder-title { font-size: 16px; border-bottom: 1.5px solid white; width: fit-content; padding-bottom: 3px; margin: 25px 0 15px 0; font-weight: 500; }
         .gallery-grid-inner { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
         .gallery-img-item { width: 100%; height: 210px; border: 1.5px solid var(--box-border); background: #111; object-fit: cover; }
-        
         .modal-about-area { display: flex; flex-direction: column; width: 100%; }
         .modal-about-area .box-template { min-height: 120px; }
         .modal-about-area .inner-white { font-size: 13px; line-height: 1.6; min-height: 80px; }
@@ -198,7 +194,7 @@
 
     <div id="content-wrapper" class="page-content-wrapper">
         
-        <!-- หน้า Home (100% ต้นฉบับ) -->
+        <!-- หน้า Home (Restored 100%) -->
         <div id="page-home" class="main-content">
             <div class="col-left">
                 <div class="profile-wrapper">
@@ -247,10 +243,7 @@
                 <div class="box-template right-large">
                     <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT">
                     <div class="box-title">Welcome to my website!</div>
-                    <div class="inner-white">
-                        <div>Feel free to explore my artwork, characters, and other little things I enjoy.</div>
-                        <div style="margin-top: 20px;">I hope you have a lovely day. ♡</div>
-                    </div>
+                    <div class="inner-white"><div>Feel free to explore my artwork, characters, and other little things I enjoy.</div><div style="margin-top: 20px;">I hope you have a lovely day. ♡</div></div>
                 </div>
                 <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
                 <div class="box-template right-medium">
@@ -264,6 +257,17 @@
                             <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP"> <span>Love sweets, can't eat much.</span></div>
                             <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP"> <span>A chuunibyou at heart.</span></div>
                         </div>
+                    </div>
+                </div>
+                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
+                <!-- Box Favorite Thing (Restored) -->
+                <div class="box-template right-small">
+                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT">
+                    <div class="box-title">my favorite thing</div>
+                    <div class="inner-white">
+                        <div class="fav-item"><img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/1-FC3qEExhJC77hp1HH440U9yuMPvweCl"><span>Sweets</span></div>
+                        <div class="fav-item"><img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/1D4KnlxHNjZv5BF77rBaLJ2HEFmUNg5LK"><span>Drawing</span></div>
+                        <div class="fav-item"><img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/11Ymi1RyrIo4VY90Wo-vzNlU3eyEX4HiW"><span>Chick</span></div>
                     </div>
                 </div>
                 <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
@@ -306,7 +310,7 @@
             </div>
         </div>
 
-        <!-- หน้า Commission -->
+        <!-- หน้า Commission (Center categories, Small sub-btns, bold text) -->
         <div id="page-commission" class="page-container">
             <div class="sub-nav-row">
                 <div class="sub-nav-btns">
@@ -321,17 +325,18 @@
                 </div>
             </div>
             <div class="two-col-grid" id="comm-list-target" style="display: grid;"></div>
+            <!-- Terms Page (เป๊ะทุกข้อความ) -->
             <div id="comm-terms-view" style="display: none;">
                 <div class="terms-grid">
                     <div class="terms-box"><span class="terms-title">สิ่งที่ไมรับวาด</span><div class="terms-list-box"><div>ไม่รับงาน คัตต้อม / ออกแบบทุกประเภท</div><div>รบกวนนำตัวละครที่ชัดเจนมาให้ครบตั้งแต่ขั้นตอนบรีฟนะคะ</div><div>ไม่รับดัดแปลงภาพคนจริงให้เป็นการ์ตูน</div><div>ไม่รับงาน NSFW</div><div>ไม่รับวาดฉากหลัง</div><div>ไม่รับงานเร่งทุกชนิด</div></div></div>
                     <div class="terms-box"><span class="terms-title">การบรีฟ</span><div class="terms-list-box"><div>- บรีฟ ท่าทาง สีหน้า ตัวละคร ชุด พร็อพเล็ก ๆ น้อย ๆ สามารถเพิ่มได้ตามความเหมาะสม ไม่มีบวกเพิ่ม</div><div>- ของานแบบ โอมากาเสะได้ค่ะ บอกนิสัยตัวละครเฉย ๆ ได้ค่ะ</div></div></div>
                 </div>
-                <div class="terms-long-list"><div>ลำดับคิวตามการบรีฟ หากไม่มีการบรีฟภายใน 2 วันหลังจอง จะนับว่าเป็น การจองเล่น และติด bl ส่วนตัวทันที</div><div>เมื่อถึงคิว จ่ายมัดจำ 50% หรือจ่ายเต็มก่อนเริ่มงาน หากหายไม่มีการตอบกลับภายใน 24 ชั่วโมง ก็นับว่าเป็นการจองเล่น และติด bl ส่วนตัวทันทีเช่นกัน</div><div>หากยกเลิกจะไม่มีการคืนเงินทุกกรณี หากนักวาดเป็นฝ่ายยกเลิกเองจะคืนเงินเต็มจำนวน</div><div>หากวางมัดจำ 50% เมื่อนักวาดวาดเสร็จแต่ยังไม่มีการชำระในส่วน 50% ที่เหลือจะไม่มีการส่งงานไฟล์งานดิบใด ๆ จนกว่าจะจ่ายครบ การอัพเดทงานจะเป็นการแคปหน้าจอจากแอพวาดภาพเท่านั้นไม่มีการบันทึกเป็นภาพเต็ม</div><div>การใช้งานเชิงพาณิชย์จะ x2 จากราคาเดิม</div><div>1 คน สั่งได้ไม่เกิน 2 งาน</div><div>งาน vtuber แม้จะเป็นแฟนอาร์ตก็จ่ะนับเป็นงานเชิงพาณิชย์ จะต้องจ่าย x2 จากราคาปกติ</div><div>สามารถแก้งานได้เรื่อย ๆ เช่น สีผิด นักวาดไม่ได้ทำตามบรีฟ ลืมใส่เครื่องประดับตัวละคร หรืออะไรก็ตามที่นักวาดทำผิดพลาดไปเอง นอกเหนือจากนี้จะไม่รับแก้ใด ๆ ทั้งสิ้น</div><div>สามารถเปลี่ยนบรีฟได้เฉพาะตอนที่นักวาดยังไม่เริ่มงานเท่านั้น หากได้เริ่มเส้นร่างแล้วจะไม่รับเปลี่ยนใด ๆ</div><div>หากไม่ใช่สเกลปกติ จะมีการลดทอนรายละเอียดตัวละคร หากรายละเอียดเยอะเกินไป</div><div>ทางนักวาดขออนุญาตนำผลงานไปเป็นตัวอย่างคอมมิชชั่น หากไม่สะดวกกวนแจ้งก่อน</div></div>
+                <div class="terms-long-list"><div>ลำดับคิวตามการบรีฟ หากไม่มีการบรีฟภายใน 2 วันหลังจอง จะนับว่าเป็น การจองเล่น และติด bl ส่วนตัวทันที</div><div>เมื่อถึงคิว จ่ายมัดจำ 50% หรือจ่ายเต็มก่อนเริ่มงาน หากหายไม่มีการตอบกลับภายใน 24 ชั่วโมง ก็นับว่าเป็นการจองเล่น และติด bl ส่วนตัวทันทีเช่นกัน</div><div>หากยกเลิกจะไม่มีการคืนเงินทุกกรณี หากนักวาเป็นฝ่ายยกเลิกเองจะคืนเงินเต็มจำนวน</div><div>หากวางมัดจำ 50% เมื่อนักวาดวาดเสร็จแต่ยังไม่มีการชำระในส่วน 50% ที่เหลือจะไม่มีการส่งงานไฟล์งานดิบใด ๆ จนกว่าจะจ่ายครบ การอัพเดทงานจะเป็นการแคปหน้าจอจากแอพวาดภาพเท่านั้นไม่มีการบันทึกเป็นภาพเต็ม</div><div>การใช้งานเชิงพาณิชย์จะ x2 จากราคาเดิม</div><div>1 คน สั่งได้ไม่เกิน 2 งาน</div><div>งาน vtuber แม้จะเป็นแฟนอาร์ตก็จ่ะนับเป็นงานเชิงพาณิชย์ จะต้องจ่าย x2 จากราคาปกติ</div><div>สามารถแก้งานได้เรื่อย ๆ เช่น สีผิด นักวาดไม่ได้ทำตามบรีฟ ลืมใส่เครื่องประดับตัวละคร หรืออะไรก็ตามที่นักวาดทำผิดพลาดไปเอง นอกเหนือจากนี้จะไม่รับแก้ใด ๆ ทั้งสิ้น</div><div>สามารถเปลี่ยนบรีฟได้เฉพาะตอนที่นักวาดยังไม่เริ่มงานเท่านั้น หากได้เริ่มเส้นร่างแล้วจะไม่รับเปลี่ยนใด ๆ</div><div>หากไม่ใช่สเกลปกติ จะมีการลดทอนรายละเอียดตัวละคร หากรายละเอียดเยอะเกินไป</div><div>ทางนักวาดขออนุญาตนำผลงานไปเป็นตัวอย่างคอมมิชชั่น หากไม่สะดวกกวนแจ้งก่อน</div></div>
             </div>
             <div id="comm-q-view" style="display: none; color: white; text-align: center; padding-top: 50px;">ไม่มีคิวในขณะนี้</div>
         </div>
 
-        <!-- หน้า Shop -->
+        <!-- หน้า Shop (Categories base, brush, template, toon + Commission Style Card) -->
         <div id="page-shop" class="page-container">
             <div class="filter-bar">
                 <div class="filter-btn active" onclick="filterShop('All', this)">All</div>
@@ -344,16 +349,16 @@
         </div>
     </div>
 
-    <!-- Modals (Detailed & 3 Folders) -->
+    <!-- Modals (Detailed Character Modal with 3 folders + rules) -->
     <div id="char-detail-modal" class="modal-overlay" onclick="closeDetails()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="closeDetails()">&times;</span>
             <div class="modal-header-section"><span class="modal-char-name-big" id="pop-title-name">-</span><div class="modal-top-row"><div class="modal-pfp-box"><img id="pop-main-pfp" src=""></div><div class="modal-stats">name : <span id="pop-stat-name">-</span><br>birthday : april 24th<br>age : Unknown<br>height : -<br>weight : -<br>species : -</div></div></div>
             <div class="modal-menu-bar"><button class="modal-menu-btn active" id="pop-btn-about" onclick="switchPopTab('about')">about</button><button class="modal-menu-btn" id="pop-btn-gallery" onclick="switchPopTab('gallery')">gallery</button></div>
             <div id="pop-content-about" class="modal-about-area">
-                <div class="box-template"><div class="box-title">About this character</div><div class="inner-white"><p id="pop-desc-text">Details...</p></div></div>
+                <div class="box-template"><div class="box-title">About this character</div><div class="inner-white"><p id="pop-desc-text">Character details...</p></div></div>
                 <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7"></div>
-                <div class="box-template"><div class="box-title">Notes / Personality</div><div class="inner-white"><p>Personality text here.</p></div></div>
+                <div class="box-template"><div class="box-title">Notes / Personality</div><div class="inner-white"><p>Personality notes go here.</p></div></div>
             </div>
             <div id="pop-content-gallery" class="modal-gallery-area">
                 <div class="folder-title">Original design</div><div class="gallery-grid-inner" id="gallery-folder-1"></div>
@@ -381,11 +386,14 @@
 <script>
     const charList = [
         { name: 'Dominic V', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'ota' },
-        { name: 'Char 02', img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'forever home' }
+        { name: 'Character 02', img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'forever home' },
+        { name: 'Character 03', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'eo' },
+        { name: 'Character 04', img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'sp' },
+        { name: 'Character 05', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'ota' }
     ];
     const shopList = [
         { name: 'YCH Base 01', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'base', status: 'open' },
-        { name: 'Brush Set', img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'brush', status: 'closed' }
+        { name: 'Pencil Brush', img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'brush', status: 'closed' }
     ];
     const commissionItems = [
         { title: 'สเกล หัว-ไหล่', price: '150', time: '1-3 วัน', detail: '-', status: 'open', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ' },
