@@ -32,20 +32,16 @@
         }
         .bow-img { width: 25px; height: auto; }
 
+        /* --- Navigation Grid --- */
         .nav-grid { 
             display: grid; grid-template-columns: repeat(4, 1fr); 
             gap: 15px; margin: -20px 50px 0px 50px; z-index: 102;
         }
-
         .nav-item { 
             height: 45px; text-align: center; color: white; padding-top: 10px; 
             font-size: 14px; cursor: pointer; position: relative;
         }
-        .nav-flower {
-            width: 20px; position: absolute; left: 10px; top: 50%;
-            transform: translateY(-50%); display: none;
-        }
-        .nav-item.active .nav-flower { display: block; }
+        .nav-item.active { font-weight: bold; } /* ตัวหนาแทนโบว์ */
 
         .page-content-wrapper { transition: opacity 0.4s ease; opacity: 1; }
 
@@ -57,12 +53,8 @@
         .heart-divider-wrap { display: flex; justify-content: center; margin: -22px 0 -18px 0; position: relative; z-index: 3; pointer-events: none; }
         .heart-divider-img { width: 175px; height: auto; }
 
-        /* --- Home Page --- */
-        .main-content {
-            padding: 40px 50px 100px 50px;
-            display: grid; grid-template-columns: 215px 1fr;
-            gap: 30px; align-items: start;
-        }
+        /* --- Home Page (Restored 100%) --- */
+        .main-content { padding: 40px 50px 100px 50px; display: grid; grid-template-columns: 215px 1fr; gap: 30px; align-items: start; }
         .col-left { position: sticky; top: 20px; display: flex; flex-direction: column; z-index: 10; }
         .col-right { display: flex; flex-direction: column; position: relative; }
         .profile-wrapper { position: relative; width: 215px; height: 215px; }
@@ -70,7 +62,6 @@
         .character-img { position: absolute; width: 270px; bottom: 2px; left: -5px; z-index: 2; pointer-events: none; }
         .roses-top { position: absolute; width: 265px; top: -40px; left: -25px; z-index: 4; pointer-events: none; }
         .roses-bottom-left { position: absolute; width: 275px; bottom: -25px; left: -35px; z-index: 4; pointer-events: none; }
-        
         .about-icon { width: 24px; height: auto; flex-shrink: 0; }
         .name-tag { height: 45px; text-align: center; color: white; padding-top: 8px; font-size: 20px; }
         .about-box { height: 160px; }
@@ -82,6 +73,16 @@
         .black-bar { background: #000; height: 38px; border-radius: 2px; border: 1.5px solid #333; margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 25px; }
         .bar-img { height: 26px; width: auto; object-fit: contain; }
         
+        /* App Icons Fix */
+        .social-row { display: flex; gap: 12px; justify-content: center; margin-top: 20px; }
+        .social-link { width: 35px; height: 35px; background: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; padding: 6px; cursor: pointer; transition: transform 0.2s; }
+        .social-img { width: 100%; height: 100%; object-fit: contain; }
+        
+        /* Battery Bar Fix */
+        .battery-container { display: flex; align-items: center; gap: 10px; width: 100%; }
+        .battery-bar { flex-grow: 1; height: 25px; border: 1.5px solid #D3BCE6; border-radius: 4px; background: #fff; position: relative; overflow: hidden; }
+        .battery-fill { width: 20%; height: 100%; background: repeating-linear-gradient(90deg, #5D4364, #5D4364 4px, transparent 4px, transparent 6px); }
+
         .right-large { height: 210px; }
         .right-large .inner-white { margin: 35px 15px 15px 15px; height: 155px; text-align: center; justify-content: center; font-size: 13px; line-height: 1.6; }
         .right-medium { height: 185px; }
@@ -95,17 +96,8 @@
         .fandom-box { width: 70%; margin: 0 auto; min-height: 150px; }
         .fandom-box .inner-white { margin: 30px 10px 10px 10px; min-height: 105px; text-align: center; font-size: 13px; line-height: 1.8; text-transform: lowercase; }
         .fandom-flowers-bottom { position: absolute; width: 180px; bottom: -20px; left: -30px; z-index: 4; pointer-events: none; }
-        .fav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-        .fav-img { width: 45px; height: 45px; object-fit: contain; }
-        .social-row { display: flex; gap: 12px; justify-content: center; margin-top: 20px; }
-        .social-link { width: 35px; height: 35px; background: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; padding: 6px; cursor: pointer; transition: transform 0.2s; }
-        .social-link:hover { transform: scale(1.1); }
-        .social-img { width: 100%; height: 100%; object-fit: contain; }
-        .battery-container { display: flex; align-items: center; gap: 10px; width: 100%; }
-        .battery-bar { flex-grow: 1; height: 25px; border: 1.5px solid #D3BCE6; border-radius: 4px; background: #fff; position: relative; overflow: hidden; }
-        .battery-fill { width: 20%; height: 100%; background: repeating-linear-gradient(90deg, #5D4364, #5D4364 4px, transparent 4px, transparent 6px); }
 
-        /* --- Content Pages --- */
+        /* --- Content Layouts --- */
         .page-container { padding: 40px 60px 100px 60px; display: none; flex-direction: column; width: 100%; }
         .filter-bar { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
         .filter-btn { background: rgba(0,0,0,0.5); border: 1.5px dashed var(--box-border); color: white; padding: 5px 20px; border-radius: 20px; cursor: pointer; font-size: 13px; transition: 0.3s; }
@@ -115,16 +107,30 @@
         .two-col-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: start; }
         .display-col { display: flex; flex-direction: column; gap: 20px; }
 
-        /* Card Design */
+        /* Card Component */
         .char-card { width: 100%; background: var(--box-grad); border: 1.5px solid var(--box-border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--glow-soft); }
         .char-thumb { width: 100%; display: block; cursor: pointer; transition: 0.2s; border-bottom: 1.5px solid var(--box-border); }
-        .char-details { display: none; padding: 15px 15px; font-size: 11px; color: #FFFFFF; text-align: left; line-height: 1.5; }
+        .char-details { padding: 15px 15px; font-size: 11px; color: #FFFFFF; text-align: left; line-height: 1.5; }
         .char-details p { margin: 4px 0; color: #FFFFFF; }
-        .char-btn-ui { display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid #FFFFFF; padding: 4px 10px; border-radius: 4px; margin: 4px 0; color: #FFFFFF; font-size: 10px; cursor: pointer; text-align: left; }
+        .char-btn-ui { display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid #FFFFFF; padding: 4px 10px; border-radius: 4px; margin: 4px 0; color: #FFFFFF; font-size: 10px; cursor: pointer; text-align: center; width: 100%; }
         .tag-center-wrap { width: 100%; text-align: center; margin-top: 10px; }
         .char-tag-ui { display: inline-block; border: 1px dashed #FFFFFF; padding: 2px 15px; border-radius: 15px; color: #FFFFFF; font-size: 10px; }
 
-        /* --- Warning Screen --- */
+        /* --- Commission & Shop Layouts --- */
+        .sub-nav-row { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; margin-bottom: 25px; }
+        .sub-nav-btns { display: flex; gap: 10px; }
+        .sub-nav-btn { width: 120px; height: 32px; font-size: 11px; padding-top: 8px; }
+        .sub-nav-btn.active { font-weight: bold; }
+
+        /* Terms content */
+        .terms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
+        .terms-box { background: var(--box-grad); border: 1.5px solid var(--box-border); border-radius: 2px; padding: 20px; color: white; min-height: 220px; }
+        .terms-title { font-size: 20px; font-weight: bold; border-bottom: 1px solid white; padding-bottom: 8px; margin-bottom: 12px; display: block; }
+        .terms-long-list { color: white; font-size: 13.5px; line-height: 1.9; padding: 0 10px; }
+        .terms-long-list div { position: relative; padding-left: 15px; margin-bottom: 8px; }
+        .terms-long-list div::before { content: "-"; position: absolute; left: 0; }
+
+        /* --- Character Agreement Section --- */
         #page-char-terms { display: flex; flex-direction: column; align-items: center; width: 100%; opacity: 1; transition: opacity 0.8s ease; }
         .warn-big-bow { width: 620px; height: auto; margin-bottom: -15px; position: relative; z-index: 2; }
         .warn-title-box { background: linear-gradient(180deg, #62486E, #251B2B); border: 2px solid #FFFFFF; border-radius: 2px; padding: 8px 60px; color: white; font-size: 24px; box-shadow: 0 0 15px rgba(211, 188, 230, 0.8); margin-bottom: 30px; position: relative; z-index: 1; }
@@ -138,65 +144,40 @@
         .accept-btn::after { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 4px; border: 2px solid #FFFFFF; animation: ripple-wave 2s infinite; pointer-events: none; }
         @keyframes ripple-wave { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.1, 1.4); opacity: 0; } }
 
-        /* --- Character Info Boxes --- */
+        /* Info Boxes */
         .char-info-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; margin-bottom: 30px; }
         .char-info-box { background: var(--box-grad); border: 1.5px solid var(--box-border); border-radius: 5px; padding: 8px 20px; color: white; font-size: 13px; line-height: 1.6; box-shadow: var(--glow-soft); }
         .char-info-title { font-size: 15px; margin-bottom: 5px; font-weight: bold; display: block; }
 
-        /* --- Modal System (Pop-up) --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 2000;
-            display: none; justify-content: center; align-items: center;
-            padding: 20px;
-        }
-        .modal-content {
-            background: #000; 
-            border: 2px solid var(--box-border);
-            border-radius: 4px; width: 620px; max-height: 90vh;
-            position: relative; overflow-y: auto; padding: 40px;
-            color: white; box-shadow: 0 0 20px rgba(211, 188, 230, 0.4);
-        }
-        .modal-close {
-            position: absolute; top: 10px; right: 15px;
-            font-size: 28px; cursor: pointer; color: white;
-        }
-
+        /* --- Modals (Detailed) --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; display: none; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background: #000; border: 2px solid var(--box-border); border-radius: 4px; width: 620px; max-height: 90vh; position: relative; overflow-y: auto; padding: 40px; color: white; box-shadow: 0 0 20px rgba(211, 188, 230, 0.4); }
+        .modal-close { position: absolute; top: 10px; right: 15px; font-size: 28px; cursor: pointer; color: white; }
         .modal-header-section { margin-bottom: 30px; text-align: center; }
         .modal-char-name-big { font-size: 28px; font-weight: bold; margin-bottom: 25px; display: block; }
-        .modal-top-row { display: grid; grid-template-columns: 210px 1fr; gap: 30px; text-align: left; }
         
-        .modal-pfp-box { 
-            width: 210px; height: 210px; 
-            border: 1.5px solid var(--box-border); 
-            background: linear-gradient(180deg, #35233D, #000);
-            overflow: hidden;
-        }
+        .modal-top-row { display: grid; grid-template-columns: 210px 1fr; gap: 30px; text-align: left; margin-bottom: 30px; } /* Fixed Spacing */
+        
+        .modal-pfp-box { width: 210px; height: 210px; border: 1.5px solid var(--box-border); background: linear-gradient(180deg, #35233D, #000); overflow: hidden; }
         .modal-pfp-box img { width: 100%; height: 100%; object-fit: cover; }
         .modal-stats { font-size: 16px; line-height: 1.8; }
-
         .modal-menu-bar { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
-        .modal-menu-btn {
-            width: 170px; height: 38px; border: 2.5px solid var(--box-border); border-radius: 2px;
-            background: linear-gradient(180deg, #35233D, #000); color: white;
-            cursor: pointer; font-size: 15px; transition: 0.3s; text-transform: lowercase;
-        }
+        .modal-menu-btn { width: 170px; height: 38px; border: 2.5px solid var(--box-border); border-radius: 2px; background: linear-gradient(180deg, #35233D, #000); color: white; cursor: pointer; font-size: 15px; transition: 0.3s; text-transform: lowercase; }
         .modal-menu-btn.active { background: #fff; color: #000; border-color: #fff; }
-
-        /* Gallery Sections */
         .modal-gallery-area { display: none; }
         .folder-title { font-size: 16px; border-bottom: 1.5px solid white; width: fit-content; padding-bottom: 3px; margin: 25px 0 15px 0; font-weight: 500; }
         .gallery-grid-inner { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
         .gallery-img-item { width: 100%; height: 210px; border: 1.5px solid var(--box-border); background: #111; object-fit: cover; }
-
-        /* Modal About Area (แก้ตามสั่ง: ใส่กรอบและหัวใจเหมือนคอลัมน์ขวาหน้าโฮม) */
+        
         .modal-about-area { display: flex; flex-direction: column; width: 100%; }
         .modal-about-area .box-template { min-height: 120px; }
         .modal-about-area .inner-white { font-size: 13px; line-height: 1.6; min-height: 80px; }
 
-        .modal-img-full { width: 100%; border: 1.5px solid #fff; border-radius: 2px; }
-        .footer-section { width: 100%; padding-bottom: 60px; }
+        .gallery-2cols { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .gal-img-item { width: 100%; height: auto; border: 1.5px solid var(--box-border); object-fit: cover; }
+        .modal-img-full { width: 100%; height: auto; display: block; border: 1.5px solid #fff; border-radius: 2px; margin: 0 auto; }
 
+        .footer-section { width: 100%; padding-bottom: 60px; }
     </style>
 </head>
 <body>
@@ -205,32 +186,19 @@
     <img class="top-banner" src="https://lh3.googleusercontent.com/u/0/d/1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0" onerror="fixImage(this)">
 
     <div class="bow-row">
-        <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
-        <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
-        <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
-        <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
-        <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
-        <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
-        <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
+        <script>for(let i=0; i<7; i++) document.write('<img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">');</script>
     </div>
 
     <div class="nav-grid">
-        <div class="box-template nav-item" onclick="navigate('home')" id="btn-home">
-            <img class="nav-flower" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)"> Home
-        </div>
-        <div class="box-template nav-item" onclick="navigate('character')" id="btn-character">
-            <img class="nav-flower" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)"> Character
-        </div>
-        <div class="box-template nav-item" onclick="navigate('commission')" id="btn-commission">
-            <img class="nav-flower" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)"> Commission
-        </div>
-        <div class="box-template nav-item" onclick="navigate('shop')" id="btn-shop">
-            <img class="nav-flower" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)"> Shop
-        </div>
+        <div class="box-template nav-item" onclick="navigate('home')" id="btn-home">Home</div>
+        <div class="box-template nav-item" onclick="navigate('character')" id="btn-character">Character</div>
+        <div class="box-template nav-item" onclick="navigate('commission')" id="btn-commission">Commission</div>
+        <div class="box-template nav-item" onclick="navigate('shop')" id="btn-shop">Shop</div>
     </div>
 
     <div id="content-wrapper" class="page-content-wrapper">
-        <!-- หน้า Home -->
+        
+        <!-- หน้า Home (100% ต้นฉบับ) -->
         <div id="page-home" class="main-content">
             <div class="col-left">
                 <div class="profile-wrapper">
@@ -245,10 +213,10 @@
                 <div class="box-template about-box">
                     <div class="box-title">about me</div>
                     <div class="inner-white">
-                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> name: new</div>
-                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> birthday: april 24th</div>
-                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> Pronouns: she / her</div>
-                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> alias: Dominic/Velune</div>
+                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP"> name: new</div>
+                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP"> birthday: april 24th</div>
+                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP"> Pronouns: she / her</div>
+                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP"> alias: Dominic/Velune</div>
                     </div>
                 </div>
                 <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
@@ -264,20 +232,20 @@
                 <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
                 <div class="box-template login-btn">Log in</div>
                 <div class="black-bar">
-                    <img class="bar-img" src="https://lh3.googleusercontent.com/u/0/d/1Kiix_IgzBHFrL7EeLHjZLqL8V4uT1beD" onerror="fixImage(this)">
-                    <img class="bar-img" src="https://lh3.googleusercontent.com/u/0/d/1yQ12nEX6p0D_GzhrV_XEO1rDh9pFlMMh" onerror="fixImage(this)">
+                    <img class="bar-img" src="https://lh3.googleusercontent.com/u/0/d/1Kiix_IgzBHFrL7EeLHjZLqL8V4uT1beD">
+                    <img class="bar-img" src="https://lh3.googleusercontent.com/u/0/d/1yQ12nEX6p0D_GzhrV_XEO1rDh9pFlMMh">
                 </div>
                 <div class="social-row">
-                    <a href="https://x.com/domi_nic_yn?s=11" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xCdSND3K6s2xk9u7rrCctjyBx-rdZmHd" onerror="fixImage(this)"></a>
-                    <a href="https://www.facebook.com/profile.php?id=61580195536012" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1PmSfbZDawN7PRJOOwMCX0DX6l4DlXO5T" onerror="fixImage(this)"></a>
-                    <a href="https://www.instagram.com/_dominic_yn?igsh=MTBkN3VucXVkNDAwZQ%3D%3D&utm_source=qr" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1mhNFjn3Qy5YC3DLUvQWGUkez43DOvneQ" onerror="fixImage(this)"></a>
-                    <a href="https://www.tiktok.com/@dominic_yn?_r=1&_t=ZS-9730o90ehkb" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1i4IFdXQEAhaX15F5IUbsbJjFO2GC6RWa" onerror="fixImage(this)"></a>
-                    <a href="https://vgen.co/DominicYn" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xEQbYxXsu7SYvBbn66JpjhtqL3JHqoMB" onerror="fixImage(this)"></a>
+                    <a href="https://x.com/domi_nic_yn?s=11" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xCdSND3K6s2xk9u7rrCctjyBx-rdZmHd"></a>
+                    <a href="https://www.facebook.com/profile.php?id=61580195536012" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1PmSfbZDawN7PRJOOwMCX0DX6l4DlXO5T"></a>
+                    <a href="https://www.instagram.com/_dominic_yn?igsh=MTBkN3VucXVkNDAwZQ%3D%3D&utm_source=qr" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1mhNFjn3Qy5YC3DLUvQWGUkez43DOvneQ"></a>
+                    <a href="https://www.tiktok.com/@dominic_yn?_r=1&_t=ZS-9730o90ehkb" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1i4IFdXQEAhaX15F5IUbsbJjFO2GC6RWa"></a>
+                    <a href="https://vgen.co/DominicYn" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xEQbYxXsu7SYvBbn66JpjhtqL3JHqoMB"></a>
                 </div>
             </div>
             <div class="col-right">
                 <div class="box-template right-large">
-                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
+                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT">
                     <div class="box-title">Welcome to my website!</div>
                     <div class="inner-white">
                         <div>Feel free to explore my artwork, characters, and other little things I enjoy.</div>
@@ -286,41 +254,31 @@
                 </div>
                 <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
                 <div class="box-template right-medium">
-                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
+                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT">
                     <div class="box-title">little things about me</div>
                     <div class="inner-white">
-                        <div class="image-placeholder"><img src="https://lh3.googleusercontent.com/u/0/d/14S7hZwuiR3ap3NNkbBwkdNfkH18xsomQ" onerror="fixImage(this)"></div>
+                        <div class="image-placeholder"><img src="https://lh3.googleusercontent.com/u/0/d/14S7hZwuiR3ap3NNkbBwkdNfkH18xsomQ"></div>
                         <div class="text-content">
-                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> <span>Low social battery.</span></div>
-                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> <span>Drawing is what I love most. It's my whole life.</span></div>
-                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> <span>Love sweets, can't eat much.</span></div>
-                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> <span>A chuunibyou at heart.</span></div>
+                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP"> <span>Low social battery.</span></div>
+                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP"> <span>Drawing is what I love most. It's my whole life.</span></div>
+                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP"> <span>Love sweets, can't eat much.</span></div>
+                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP"> <span>A chuunibyou at heart.</span></div>
                         </div>
-                    </div>
-                </div>
-                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
-                <div class="box-template right-small">
-                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
-                    <div class="box-title">my favorite thing</div>
-                    <div class="inner-white">
-                        <div class="fav-item"><img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/1-FC3qEExhJC77hp1HH440U9yuMPvweCl" onerror="fixImage(this)"><span>Sweets</span></div>
-                        <div class="fav-item"><img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/1D4KnlxHNjZv5BF77rBaLJ2HEFmUNg5LK" onerror="fixImage(this)"><span>Drawing</span></div>
-                        <div class="fav-item"><img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/11Ymi1RyrIo4VY90Wo-vzNlU3eyEX4HiW" onerror="fixImage(this)"><span>Chick</span></div>
                     </div>
                 </div>
                 <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
                 <div class="box-template fandom-box">
                     <div class="box-title">fandom</div>
                     <div class="inner-white">twisted wonderland<br>gachiakuta<br>madoka<br>bleach<br>mashle</div>
-                    <img class="fandom-flowers-bottom" src="https://lh3.googleusercontent.com/u/0/d/1F5fZbquDhMCzC2trOv1VljVdty94N_uR" onerror="fixImage(this)">
+                    <img class="fandom-flowers-bottom" src="https://lh3.googleusercontent.com/u/0/d/1F5fZbquDhMCzC2trOv1VljVdty94N_uR">
                 </div>
             </div>
         </div>
 
-        <!-- หน้า Character -->
+        <!-- หน้า Character (100% ต้นฉบับ) -->
         <div id="page-character" class="page-container">
             <div id="page-char-terms">
-                <img class="warn-big-bow" src="https://lh3.googleusercontent.com/u/0/d/1rEkHzbbxsnfzxGYLdz0kFQx1eD7EoIka" onerror="fixImage(this)">
+                <img class="warn-big-bow" src="https://lh3.googleusercontent.com/u/0/d/1rEkHzbbxsnfzxGYLdz0kFQx1eD7EoIka">
                 <div class="warn-title-box">! warning !</div>
                 <div class="warn-main-box">
                     <span class="warn-header">ข้อตกลงการรับชมเด็ก ๆ ในบ้าน</span>
@@ -330,32 +288,13 @@
                         <li>ห้ามแอบอ้างว่าเป็นของตัวเอง</li>
                     </ul>
                 </div>
-                <div class="accept-btn-wrap">
-                    <button class="accept-btn" onclick="acceptTerms()">
-                        <img class="check-icon" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNCAxMkw5IDE3TDIwIDciIHN0cm9rZT0iIzY2NiIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48L3N2Zz4=">
-                        ยอมรับข้อตกลง
-                    </button>
-                </div>
+                <div class="accept-btn-wrap"><button class="accept-btn" onclick="acceptTerms()">ยอมรับข้อตกลง</button></div>
             </div>
-
             <div id="char-main-list" style="display:none; opacity:0; transition:0.8s;">
                 <div class="char-info-container">
-                    <div class="char-info-box">
-                        <span class="char-info-title">ความออกยากง่าย</span>
-                        - forever home : ไม่ปล่อยอย่างแน่นอน<br>
-                        - eo : ยังหวงรับข้อเสนอค่อนข้างยาก<br>
-                        - sp : เสนอเงินเพดาน รับทันที<br>
-                        - ota : รับข้อเสนอค่อนข้างง่าย
-                    </div>
-                    <div class="char-info-box">
-                        <span class="char-info-title">ความสนใจเรียง</span>
-                        - เงิน / สิ่งที่สนใจควบเงิน (เฉพาะเด็กที่รับเงินได้)<br>
-                        - Commission ทุกสเกล<br>
-                        - คัสต้อมอดอป<br>
-                        - อดอป เปคง่ายมาก ไม่มีนักวาดในลิสต์
-                    </div>
+                    <div class="char-info-box"><span class="char-info-title">ความออกยากง่าย</span>- forever home : ไม่ปล่อยอย่างแน่นอน<br>- eo : ยังหวงรับข้อเสนอค่อนข้างยาก<br>- sp : เสนอเงินเพดาน รับทันที<br>- ota : รับข้อเสนอค่อนข้างง่าย</div>
+                    <div class="char-info-box"><span class="char-info-title">ความสนใจเรียง</span>- เงิน / สิ่งที่สนใจควบเงิน (เฉพาะเด็กที่รับเงินได้)<br>- Commission ทุกสเกล<br>- คัสต้อมอดอป<br>- อดอป เปคง่ายมาก</div>
                 </div>
-
                 <div class="filter-bar">
                     <div class="filter-btn active" onclick="filterChars('All', this)">All</div>
                     <div class="filter-btn" onclick="filterChars('forever home', this)">forever home</div>
@@ -363,21 +302,33 @@
                     <div class="filter-btn" onclick="filterChars('sp', this)">sp</div>
                     <div class="filter-btn" onclick="filterChars('ota', this)">ota</div>
                 </div>
-                <div class="char-grid">
-                    <div class="display-col" id="char-col-1"></div>
-                    <div class="display-col" id="char-col-2"></div>
-                    <div class="display-col" id="char-col-3"></div>
-                </div>
+                <div class="char-grid"><div class="display-col" id="char-col-1"></div><div class="display-col" id="char-col-2"></div><div class="display-col" id="char-col-3"></div></div>
             </div>
         </div>
 
         <!-- หน้า Commission -->
         <div id="page-commission" class="page-container">
-            <div style="height: 20px;"></div>
-            <div class="two-col-grid">
-                <div class="display-col" id="comm-col-1"></div>
-                <div class="display-col" id="comm-col-2"></div>
+            <div class="sub-nav-row">
+                <div class="sub-nav-btns">
+                    <div class="box-template nav-item sub-nav-btn" id="btn-comm-main" onclick="navigateCommSub('main')">Commission</div>
+                    <div class="box-template nav-item sub-nav-btn" id="btn-comm-q" onclick="navigateCommSub('q')">Q update</div>
+                    <div class="box-template nav-item sub-nav-btn" id="btn-comm-terms" onclick="navigateCommSub('terms')">Terms of service</div>
+                </div>
+                <div class="filter-bar" id="comm-filter-area" style="width: 100%; margin-top: 15px;">
+                    <div class="filter-btn active" onclick="filterComm('all', this)">all</div>
+                    <div class="filter-btn" onclick="filterComm('open', this)">open</div>
+                    <div class="filter-btn" onclick="filterComm('closed', this)">closed</div>
+                </div>
             </div>
+            <div class="two-col-grid" id="comm-list-target" style="display: grid;"></div>
+            <div id="comm-terms-view" style="display: none;">
+                <div class="terms-grid">
+                    <div class="terms-box"><span class="terms-title">สิ่งที่ไมรับวาด</span><div class="terms-list-box"><div>ไม่รับงาน คัตต้อม / ออกแบบทุกประเภท</div><div>รบกวนนำตัวละครที่ชัดเจนมาให้ครบตั้งแต่ขั้นตอนบรีฟนะคะ</div><div>ไม่รับดัดแปลงภาพคนจริงให้เป็นการ์ตูน</div><div>ไม่รับงาน NSFW</div><div>ไม่รับวาดฉากหลัง</div><div>ไม่รับงานเร่งทุกชนิด</div></div></div>
+                    <div class="terms-box"><span class="terms-title">การบรีฟ</span><div class="terms-list-box"><div>- บรีฟ ท่าทาง สีหน้า ตัวละคร ชุด พร็อพเล็ก ๆ น้อย ๆ สามารถเพิ่มได้ตามความเหมาะสม ไม่มีบวกเพิ่ม</div><div>- ของานแบบ โอมากาเสะได้ค่ะ บอกนิสัยตัวละครเฉย ๆ ได้ค่ะ</div></div></div>
+                </div>
+                <div class="terms-long-list"><div>ลำดับคิวตามการบรีฟ หากไม่มีการบรีฟภายใน 2 วันหลังจอง จะนับว่าเป็น การจองเล่น และติด bl ส่วนตัวทันที</div><div>เมื่อถึงคิว จ่ายมัดจำ 50% หรือจ่ายเต็มก่อนเริ่มงาน หากหายไม่มีการตอบกลับภายใน 24 ชั่วโมง ก็นับว่าเป็นการจองเล่น และติด bl ส่วนตัวทันทีเช่นกัน</div><div>หากยกเลิกจะไม่มีการคืนเงินทุกกรณี หากนักวาดเป็นฝ่ายยกเลิกเองจะคืนเงินเต็มจำนวน</div><div>หากวางมัดจำ 50% เมื่อนักวาดวาดเสร็จแต่ยังไม่มีการชำระในส่วน 50% ที่เหลือจะไม่มีการส่งงานไฟล์งานดิบใด ๆ จนกว่าจะจ่ายครบ การอัพเดทงานจะเป็นการแคปหน้าจอจากแอพวาดภาพเท่านั้นไม่มีการบันทึกเป็นภาพเต็ม</div><div>การใช้งานเชิงพาณิชย์จะ x2 จากราคาเดิม</div><div>1 คน สั่งได้ไม่เกิน 2 งาน</div><div>งาน vtuber แม้จะเป็นแฟนอาร์ตก็จ่ะนับเป็นงานเชิงพาณิชย์ จะต้องจ่าย x2 จากราคาปกติ</div><div>สามารถแก้งานได้เรื่อย ๆ เช่น สีผิด นักวาดไม่ได้ทำตามบรีฟ ลืมใส่เครื่องประดับตัวละคร หรืออะไรก็ตามที่นักวาดทำผิดพลาดไปเอง นอกเหนือจากนี้จะไม่รับแก้ใด ๆ ทั้งสิ้น</div><div>สามารถเปลี่ยนบรีฟได้เฉพาะตอนที่นักวาดยังไม่เริ่มงานเท่านั้น หากได้เริ่มเส้นร่างแล้วจะไม่รับเปลี่ยนใด ๆ</div><div>หากไม่ใช่สเกลปกติ จะมีการลดทอนรายละเอียดตัวละคร หากรายละเอียดเยอะเกินไป</div><div>ทางนักวาดขออนุญาตนำผลงานไปเป็นตัวอย่างคอมมิชชั่น หากไม่สะดวกกวนแจ้งก่อน</div></div>
+            </div>
+            <div id="comm-q-view" style="display: none; color: white; text-align: center; padding-top: 50px;">ไม่มีคิวในขณะนี้</div>
         </div>
 
         <!-- หน้า Shop -->
@@ -389,119 +340,56 @@
                 <div class="filter-btn" onclick="filterShop('template', this)">template</div>
                 <div class="filter-btn" onclick="filterShop('toon', this)">toon</div>
             </div>
-            <div class="two-col-grid">
-                <div class="display-col" id="shop-col-1"></div>
-                <div class="display-col" id="shop-col-2"></div>
-            </div>
+            <div class="two-col-grid" id="shop-list-target"></div>
         </div>
     </div>
 
-    <!-- Modals (Pop-up รายละเอียดตัวละคร) -->
+    <!-- Modals (Detailed & 3 Folders) -->
     <div id="char-detail-modal" class="modal-overlay" onclick="closeDetails()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="closeDetails()">&times;</span>
-            
-            <div class="modal-header-section">
-                <span class="modal-char-name-big" id="pop-title-name">Character Name</span>
-                <div class="modal-top-row">
-                    <div class="modal-pfp-box">
-                        <img id="pop-main-pfp" src="" onerror="fixImage(this)">
-                    </div>
-                    <div class="modal-stats">
-                        name : <span id="pop-stat-name">-</span><br>
-                        birthday : april 24th<br>
-                        age : Unknown<br>
-                        height : -<br>
-                        weight : -<br>
-                        species : -
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-menu-bar">
-                <button class="modal-menu-btn active" id="pop-btn-about" onclick="switchPopTab('about')">about</button>
-                <button class="modal-menu-btn" id="pop-btn-gallery" onclick="switchPopTab('gallery')">gallery</button>
-            </div>
-
-            <!-- ส่วนเนื้อหา About (แก้ตามสั่ง: ใส่กล่องและหัวใจเหมือนคอลัมน์ขวาหน้าโฮม) -->
+            <div class="modal-header-section"><span class="modal-char-name-big" id="pop-title-name">-</span><div class="modal-top-row"><div class="modal-pfp-box"><img id="pop-main-pfp" src=""></div><div class="modal-stats">name : <span id="pop-stat-name">-</span><br>birthday : april 24th<br>age : Unknown<br>height : -<br>weight : -<br>species : -</div></div></div>
+            <div class="modal-menu-bar"><button class="modal-menu-btn active" id="pop-btn-about" onclick="switchPopTab('about')">about</button><button class="modal-menu-btn" id="pop-btn-gallery" onclick="switchPopTab('gallery')">gallery</button></div>
             <div id="pop-content-about" class="modal-about-area">
-                <div class="box-template">
-                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
-                    <div class="box-title">About this character</div>
-                    <div class="inner-white">
-                        <p id="pop-desc-text">Character details go here...</p>
-                    </div>
-                </div>
-                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
-                <div class="box-template">
-                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
-                    <div class="box-title">Notes / Personality</div>
-                    <div class="inner-white">
-                        <p>เพิ่มเติมข้อมูลเกี่ยวกับนิสัยหรือจุดเด่นอื่นๆ ของตัวละคร</p>
-                    </div>
-                </div>
+                <div class="box-template"><div class="box-title">About this character</div><div class="inner-white"><p id="pop-desc-text">Details...</p></div></div>
+                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7"></div>
+                <div class="box-template"><div class="box-title">Notes / Personality</div><div class="inner-white"><p>Personality text here.</p></div></div>
             </div>
-
-            <!-- ส่วนเนื้อหา Gallery (หน้าแกเลอรี่โอเคแล้ว ยึดตามเดิม) -->
             <div id="pop-content-gallery" class="modal-gallery-area">
-                <div class="folder-title">Original design</div>
-                <div class="gallery-grid-inner" id="gallery-folder-1"></div>
-
-                <div class="folder-title">Commission</div>
-                <div class="gallery-grid-inner" id="gallery-folder-2"></div>
-
-                <div class="folder-title">My art</div>
-                <div class="gallery-grid-inner" id="gallery-folder-3"></div>
+                <div class="folder-title">Original design</div><div class="gallery-grid-inner" id="gallery-folder-1"></div>
+                <div class="folder-title">Commission</div><div class="gallery-grid-inner" id="gallery-folder-2"></div>
+                <div class="folder-title">My art</div><div class="gallery-grid-inner" id="gallery-folder-3"></div>
             </div>
         </div>
     </div>
 
-    <!-- Modal กฎการใช้งานดีไซน์ -->
     <div id="pop-rules-modal" class="modal-overlay" onclick="closePopRules()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <span class="modal-close" onclick="closePopRules()">&times;</span>
-            <div class="modal-header-section"><span class="modal-char-name-big">กฎการใช้งานดีไซน์</span></div>
-            <img id="rules-img-view" src="" class="modal-img-full" onerror="fixImage(this)">
-        </div>
+        <div class="modal-content" onclick="event.stopPropagation()"><span class="modal-close" onclick="closePopRules()">&times;</span><div class="modal-header-section"><span class="modal-char-name-big">กฎการใช้งานดีไซน์</span></div><img id="rules-img-view" src="" class="modal-img-full" onerror="fixImage(this)"></div>
+    </div>
+
+    <div id="comm-gallery-modal" class="modal-overlay" onclick="closeCommGallery()">
+        <div class="modal-content" onclick="event.stopPropagation()"><span class="modal-close" onclick="closeCommGallery()">&times;</span><div style="text-align:center; font-size:18px; margin-bottom:20px;">ดูรูปภาพเพิ่มเติม</div><div class="gallery-2cols" id="comm-gal-target"></div></div>
     </div>
 
     <div class="footer-section">
         <div class="bow-row">
-            <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
-            <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
-            <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
-            <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
-            <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
-            <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
-            <img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">
+            <script>for(let i=0; i<7; i++) document.write('<img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">');</script>
         </div>
     </div>
 </div>
 
 <script>
-    // ข้อมูลตัวละคร: ลดเหลือ 5 ตัวตามสั่ง (ลบ Character 06-10 ออก)
     const charList = [
         { name: 'Dominic V', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'ota' },
-        { name: 'Character 02', img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'forever home' },
-        { name: 'Character 03', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'eo' },
-        { name: 'Character 04', img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'sp' },
-        { name: 'Character 05', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'ota' }
+        { name: 'Char 02', img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'forever home' }
     ];
-
-    const commList = [
-        { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', detail: 'Full Scale Commission' },
-        { img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', detail: 'Chibi Style' },
-        { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', detail: 'Headshot' },
-        { img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', detail: 'Custom Design' },
-        { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', detail: 'Commercial Work' }
-    ];
-
     const shopList = [
-        { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'base', name: 'YCH Base 01' },
-        { img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'brush', name: 'Dominic Pencil' },
-        { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'template', name: 'Profile Template' },
-        { img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'toon', name: 'Toon Asset' },
-        { img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'base', name: 'Couple Base' }
+        { name: 'YCH Base 01', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'base', status: 'open' },
+        { name: 'Brush Set', img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'brush', status: 'closed' }
+    ];
+    const commissionItems = [
+        { title: 'สเกล หัว-ไหล่', price: '150', time: '1-3 วัน', detail: '-', status: 'open', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ' },
+        { title: 'Full Scale', price: '500', time: '7-14 วัน', detail: '-', status: 'closed', img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0' }
     ];
 
     let characterTermsAccepted = false;
@@ -516,103 +404,73 @@
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             const btn = document.getElementById('btn-' + pageId);
             if(btn) btn.classList.add('active');
-            
+
             if (pageId === 'character') {
-                if (!characterTermsAccepted) {
-                    document.getElementById('page-char-terms').style.display = 'flex';
-                    document.getElementById('char-main-list').style.display = 'none';
-                } else {
-                    document.getElementById('page-char-terms').style.display = 'none';
-                    document.getElementById('char-main-list').style.display = 'block';
-                    filterChars('All');
-                }
+                if (!characterTermsAccepted) { document.getElementById('page-char-terms').style.display = 'flex'; document.getElementById('char-main-list').style.display = 'none'; } 
+                else { document.getElementById('page-char-terms').style.display = 'none'; document.getElementById('char-main-list').style.display = 'block'; filterChars('All'); }
             }
-            if (pageId === 'commission') renderCommission();
+            if (pageId === 'commission') navigateCommSub('main');
             if (pageId === 'shop') filterShop('All');
-            
-            localStorage.setItem('dominic_active_page', pageId);
             wrapper.style.opacity = '1';
         }, 300);
     }
 
-    function acceptTerms() {
-        const warn = document.getElementById('page-char-terms');
-        warn.style.opacity = '0';
-        setTimeout(() => {
-            warn.style.display = 'none';
-            characterTermsAccepted = true;
-            const content = document.getElementById('char-main-list');
-            content.style.display = 'block';
-            setTimeout(() => { content.style.opacity = '1'; }, 50);
-            filterChars('All');
-        }, 800);
+    function navigateCommSub(subId) {
+        document.getElementById('comm-list-target').style.display = subId === 'main' ? 'grid' : 'none';
+        document.getElementById('comm-filter-area').style.display = subId === 'main' ? 'flex' : 'none';
+        document.getElementById('comm-terms-view').style.display = subId === 'terms' ? 'block' : 'none';
+        document.getElementById('comm-q-view').style.display = subId === 'q' ? 'block' : 'none';
+        document.querySelectorAll('.comm-sub-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('btn-comm-' + subId).classList.add('active');
+        if(subId === 'main') renderCommission('all');
     }
 
-    function createCard(charObj, type) {
-        const card = document.createElement('div');
-        card.className = 'char-card';
-        const imgPath = `https://lh3.googleusercontent.com/u/0/d/${charObj.img}`;
-        
+    function renderCommission(filterTag) {
+        const target = document.getElementById('comm-list-target'); target.innerHTML = '';
+        const filtered = filterTag === 'all' ? commissionItems : commissionItems.filter(i => i.status === filterTag);
+        filtered.forEach(item => {
+            const card = document.createElement('div'); card.className = 'char-card';
+            card.innerHTML = `<img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onerror="fixImage(this)">
+                <div class="char-details" style="display:block;"><p><strong>${item.title}</strong></p><p>ราคา : ${item.price}</p><p>ระยะเวลา : ${item.time}</p><p>รายละเอียด : ${item.detail}</p>
+                <div class="char-btn-ui" onclick="openCommGallery('${item.img}')">ดูรูปภาพเพิ่มเติม</div>
+                <div class="tag-center-wrap"><div class="char-tag-ui">${item.status}</div></div></div>`;
+            target.appendChild(card);
+        });
+    }
+
+    function filterComm(tag, btn) {
+        document.querySelectorAll('#comm-filter-area .filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderCommission(tag);
+    }
+
+    function filterShop(tag, btn) {
+        if (btn) { document.querySelectorAll('#page-shop .filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
+        const target = document.getElementById('shop-list-target'); target.innerHTML = '';
+        const filtered = tag === 'All' ? shopList : shopList.filter(s => s.tag === tag);
+        filtered.forEach(item => {
+            const card = document.createElement('div'); card.className = 'char-card';
+            card.innerHTML = `<img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onerror="fixImage(this)">
+                <div class="char-details" style="display:block;"><p><strong>${item.name}</strong></p><p>Artist : Dominic</p>
+                <div class="char-btn-ui" onclick="openCommGallery('${item.img}')">ดูรูปภาพเพิ่มเติม</div>
+                <div class="tag-center-wrap"><div class="char-tag-ui">${item.status}</div></div></div>`;
+            target.appendChild(card);
+        });
+    }
+
+    function acceptTerms() { document.getElementById('page-char-terms').style.display = 'none'; characterTermsAccepted = true; const m = document.getElementById('char-main-list'); m.style.display = 'block'; setTimeout(() => m.style.opacity = '1', 50); filterChars('All'); }
+    
+    function createCard(obj, type) {
+        const card = document.createElement('div'); card.className = 'char-card';
+        const imgPath = `https://lh3.googleusercontent.com/u/0/d/${obj.img}`;
         if (type === 'character') {
-            card.innerHTML = `
-                <img class="char-thumb" src="${imgPath}" onclick="toggleChar(this)" onerror="fixImage(this)">
-                <div class="char-details">
-                    <p><strong>${charObj.name}</strong></p>
-                    <p>Artist : Dominic</p>
-                    <p>Owner : Dominic</p>
-                    <p>Value : 0</p>
-                    <div class="char-btn-ui" onclick="openPopRules('${charObj.img}')">กฎการใช้งานดีไซน์</div><br>
-                    <div class="char-btn-ui" onclick="openPopDetails('${charObj.name}', '${charObj.img}')">คลิกเพื่อดูรายละเอียดตัวละคร</div>
-                    <div class="tag-center-wrap"><div class="char-tag-ui">${charObj.tag}</div></div>
-                </div>
-            `;
-        } else {
-            card.innerHTML = `
-                <img class="char-thumb" src="${imgPath}" onclick="toggleChar(this)" onerror="fixImage(this)">
-                <div class="char-details">
-                    <p>Artist : Dominic</p>
-                    <p>${charObj.detail || charObj.name}</p>
-                    <div class="tag-center-wrap"><div class="char-tag-ui">${charObj.tag || 'item'}</div></div>
-                </div>
-            `;
+            card.innerHTML = `<img class="char-thumb" src="${imgPath}" onclick="toggleChar(this)" onerror="fixImage(this)">
+                <div class="char-details" style="display:none;"><p><strong>${obj.name}</strong></p><p>Artist : Dominic</p><p>Owner : Dominic</p><p>Value : 0</p>
+                <div class="char-btn-ui" onclick="openPopRules('${obj.img}')">กฎการใช้งานดีไซน์</div>
+                <div class="char-btn-ui" onclick="openPopDetails('${obj.name}', '${obj.img}')">ดูรายละเอียดตัวละคร</div>
+                <div class="tag-center-wrap"><div class="char-tag-ui">${obj.tag}</div></div></div>`;
         }
         return card;
-    }
-
-    function openPopRules(imgId) {
-        document.getElementById('rules-img-view').src = `https://lh3.googleusercontent.com/u/0/d/${imgId}`;
-        document.getElementById('pop-rules-modal').style.display = 'flex';
-    }
-    function closePopRules() { document.getElementById('pop-rules-modal').style.display = 'none'; }
-
-    function openPopDetails(name, imgId) {
-        document.getElementById('pop-title-name').innerText = name;
-        document.getElementById('pop-stat-name').innerText = name;
-        document.getElementById('pop-main-pfp').src = `https://lh3.googleusercontent.com/u/0/d/${imgId}`;
-        
-        // เติมรูปใน Gallery (ใช้รูปตัวอย่างเดียวกัน)
-        const imgUrl = `https://lh3.googleusercontent.com/u/0/d/${imgId}`;
-        document.getElementById('gallery-folder-1').innerHTML = `<img class="gallery-img-item" src="${imgUrl}" onerror="fixImage(this)">`;
-        document.getElementById('gallery-folder-2').innerHTML = `<img class="gallery-img-item" src="${imgUrl}" onerror="fixImage(this)">`;
-        document.getElementById('gallery-folder-3').innerHTML = `<img class="gallery-img-item" src="${imgUrl}" onerror="fixImage(this)">`;
-
-        document.getElementById('char-detail-modal').style.display = 'flex';
-        switchPopTab('about');
-    }
-    function closeDetails() { document.getElementById('char-detail-modal').style.display = 'none'; }
-
-    function switchPopTab(tab) {
-        const about = document.getElementById('pop-content-about');
-        const gallery = document.getElementById('pop-content-gallery');
-        const btnAbout = document.getElementById('pop-btn-about');
-        const btnGallery = document.getElementById('pop-btn-gallery');
-        if (tab === 'about') {
-            about.style.display = 'flex'; gallery.style.display = 'none';
-            btnAbout.classList.add('active'); btnGallery.classList.remove('active');
-        } else {
-            about.style.display = 'none'; gallery.style.display = 'block';
-            btnAbout.classList.remove('active'); btnGallery.classList.add('active');
-        }
     }
 
     function filterChars(tag, btn) {
@@ -623,41 +481,33 @@
         filtered.forEach((item, i) => cols[i % 3].appendChild(createCard(item, 'character')));
     }
 
-    function renderCommission() {
-        const cols = [document.getElementById('comm-col-1'), document.getElementById('comm-col-2')];
-        cols.forEach(c => c.innerHTML = '');
-        commList.forEach((item, i) => cols[i % 2].appendChild(createCard(item, 'commission')));
-    }
-
-    function filterShop(tag, btn) {
-        if (btn) { document.querySelectorAll('#page-shop .filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
-        const cols = [document.getElementById('shop-col-1'), document.getElementById('shop-col-2')];
-        cols.forEach(c => c.innerHTML = '');
-        const filtered = tag === 'All' ? shopList : shopList.filter(s => s.tag === tag);
-        filtered.forEach((item, i) => cols[i % 2].appendChild(createCard(item, 'shop')));
-    }
-
     function toggleChar(img) { const details = img.nextElementSibling; details.style.display = (details.style.display === 'block' ? 'none' : 'block'); }
-
-    function fixImage(img) {
-        const originalSrc = img.src;
-        if (!originalSrc.includes('googleusercontent.com')) return;
-        if (originalSrc.includes('/d/')) {
-            const parts = originalSrc.split('/d/');
-            const id = parts[1].split(/[/?]/)[0];
-            const fixedUrl = `https://lh3.googleusercontent.com/u/0/d/${id}`;
-            if (img.getAttribute('data-retry') !== 'true') {
-                img.setAttribute('data-retry', 'true');
-                img.src = fixedUrl;
-            }
-        }
+    function openPopRules(id) { document.getElementById('rules-img-view').src = `https://lh3.googleusercontent.com/u/0/d/${id}`; document.getElementById('pop-rules-modal').style.display = 'flex'; }
+    function closePopRules() { document.getElementById('pop-rules-modal').style.display = 'none'; }
+    function openPopDetails(name, id) { 
+        document.getElementById('pop-title-name').innerText = name; document.getElementById('pop-stat-name').innerText = name; 
+        document.getElementById('pop-main-pfp').src = `https://lh3.googleusercontent.com/u/0/d/${id}`;
+        const p = `https://lh3.googleusercontent.com/u/0/d/${id}`;
+        document.getElementById('gallery-folder-1').innerHTML = `<img class="gallery-img-item" src="${p}">`;
+        document.getElementById('gallery-folder-2').innerHTML = `<img class="gallery-img-item" src="${p}">`;
+        document.getElementById('gallery-folder-3').innerHTML = `<img class="gallery-img-item" src="${p}">`;
+        document.getElementById('char-detail-modal').style.display = 'flex'; switchPopTab('about'); 
     }
-
-    window.onload = function() {
-        const savedPage = localStorage.getItem('dominic_active_page') || 'home';
-        navigate(savedPage);
-    };
+    function closeDetails() { document.getElementById('char-detail-modal').style.display = 'none'; }
+    function switchPopTab(t) {
+        document.getElementById('pop-content-about').style.display = t === 'about' ? 'flex' : 'none';
+        document.getElementById('pop-content-gallery').style.display = t === 'gallery' ? 'block' : 'none';
+        document.getElementById('pop-btn-about').classList.toggle('active', t === 'about');
+        document.getElementById('pop-btn-gallery').classList.toggle('active', t === 'gallery');
+    }
+    function openCommGallery(imgId) {
+        const target = document.getElementById('comm-gal-target'); target.innerHTML = '';
+        for(let i=0; i<4; i++) { const img = document.createElement('img'); img.className = 'gal-img-item'; img.src = `https://lh3.googleusercontent.com/u/0/d/${imgId}`; img.onerror = function(){ fixImage(this); }; target.appendChild(img); }
+        document.getElementById('comm-gallery-modal').style.display = 'flex';
+    }
+    function closeCommGallery() { document.getElementById('comm-gallery-modal').style.display = 'none'; }
+    function fixImage(img) { const originalSrc = img.src; if (!originalSrc.includes('googleusercontent.com')) return; if (originalSrc.includes('/d/')) { const id = originalSrc.split('/d/')[1].split(/[/?]/)[0]; const fixedUrl = `https://lh3.googleusercontent.com/u/0/d/${id}`; if (img.getAttribute('data-retry') !== 'true') { img.setAttribute('data-retry', 'true'); img.src = fixedUrl; } } }
+    window.onload = () => navigate('home');
 </script>
-
 </body>
 </html>
