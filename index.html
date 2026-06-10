@@ -2,7 +2,8 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=768, user-scalable=no">
+    <!-- แก้ไข Viewport เพื่อล็อคอัตราส่วน ไม่ให้ขยายเวลายกหรือหมุนจอ -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Dominic Profile Site</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
@@ -20,10 +21,23 @@
         body {
             margin: 0; padding: 0;
             background: linear-gradient(180deg, #000000 0%, #000000 50%, var(--bg-bottom) 100%) fixed;
-            display: flex; justify-content: center; min-height: 100vh; overflow-x: hidden;
+            display: flex; 
+            justify-content: center; /* จัดกึ่งกลางหน้าจอเสมอ */
+            min-height: 100vh; 
+            overflow-x: auto; /* หากจอน้อยกว่า 768px จะให้เลื่อนข้างแทนการบีบภาพ */
         }
 
-        .ipad-layout { width: 768px; position: relative; display: flex; flex-direction: column; }
+        .ipad-layout { 
+            /* ล็อคขนาดให้คงที่ที่ 768px เท่ากับแนวตั้งของไอแพด */
+            width: 768px; 
+            min-width: 768px; 
+            max-width: 768px;
+            flex-shrink: 0; /* ป้องกันการหดตัวในหน้าจอเล็ก */
+            position: relative; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        
         .top-banner { width: 100%; display: block; z-index: 100; }
 
         .bow-row {
@@ -40,7 +54,7 @@
             height: 45px; text-align: center; color: white; padding-top: 10px; 
             font-size: 14px; cursor: pointer; position: relative;
         }
-        .nav-item.active { font-weight: bold; } /* ตัวหนาแทนโบว์ */
+        .nav-item.active { font-weight: bold; }
 
         .page-content-wrapper { transition: opacity 0.4s ease; opacity: 1; }
 
@@ -194,7 +208,7 @@
 
     <div id="content-wrapper" class="page-content-wrapper">
         
-        <!-- หน้า Home (Restored 100%) -->
+        <!-- หน้า Home -->
         <div id="page-home" class="main-content">
             <div class="col-left">
                 <div class="profile-wrapper">
@@ -260,7 +274,7 @@
                     </div>
                 </div>
                 <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
-                <!-- Box Favorite Thing (Restored) -->
+                <!-- Box Favorite Thing -->
                 <div class="box-template right-small">
                     <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT">
                     <div class="box-title">my favorite thing</div>
@@ -279,7 +293,7 @@
             </div>
         </div>
 
-        <!-- หน้า Character (100% ต้นฉบับ) -->
+        <!-- หน้า Character -->
         <div id="page-character" class="page-container">
             <div id="page-char-terms">
                 <img class="warn-big-bow" src="https://lh3.googleusercontent.com/u/0/d/1rEkHzbbxsnfzxGYLdz0kFQx1eD7EoIka">
@@ -310,7 +324,7 @@
             </div>
         </div>
 
-        <!-- หน้า Commission (Center categories, Small sub-btns, bold text) -->
+        <!-- หน้า Commission -->
         <div id="page-commission" class="page-container">
             <div class="sub-nav-row">
                 <div class="sub-nav-btns">
@@ -325,7 +339,6 @@
                 </div>
             </div>
             <div class="two-col-grid" id="comm-list-target" style="display: grid;"></div>
-            <!-- Terms Page (เป๊ะทุกข้อความ) -->
             <div id="comm-terms-view" style="display: none;">
                 <div class="terms-grid">
                     <div class="terms-box"><span class="terms-title">สิ่งที่ไมรับวาด</span><div class="terms-list-box"><div>ไม่รับงาน คัตต้อม / ออกแบบทุกประเภท</div><div>รบกวนนำตัวละครที่ชัดเจนมาให้ครบตั้งแต่ขั้นตอนบรีฟนะคะ</div><div>ไม่รับดัดแปลงภาพคนจริงให้เป็นการ์ตูน</div><div>ไม่รับงาน NSFW</div><div>ไม่รับวาดฉากหลัง</div><div>ไม่รับงานเร่งทุกชนิด</div></div></div>
@@ -336,7 +349,7 @@
             <div id="comm-q-view" style="display: none; color: white; text-align: center; padding-top: 50px;">ไม่มีคิวในขณะนี้</div>
         </div>
 
-        <!-- หน้า Shop (Categories base, brush, template, toon + Commission Style Card) -->
+        <!-- หน้า Shop -->
         <div id="page-shop" class="page-container">
             <div class="filter-bar">
                 <div class="filter-btn active" onclick="filterShop('All', this)">All</div>
@@ -349,7 +362,7 @@
         </div>
     </div>
 
-    <!-- Modals (Detailed Character Modal with 3 folders + rules) -->
+    <!-- Modals -->
     <div id="char-detail-modal" class="modal-overlay" onclick="closeDetails()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="closeDetails()">&times;</span>
@@ -428,7 +441,7 @@
         document.getElementById('comm-filter-area').style.display = subId === 'main' ? 'flex' : 'none';
         document.getElementById('comm-terms-view').style.display = subId === 'terms' ? 'block' : 'none';
         document.getElementById('comm-q-view').style.display = subId === 'q' ? 'block' : 'none';
-        document.querySelectorAll('.comm-sub-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.sub-nav-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('btn-comm-' + subId).classList.add('active');
         if(subId === 'main') renderCommission('all');
     }
