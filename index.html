@@ -68,7 +68,18 @@
         .about-box .line { display: flex; align-items: center; gap: 8px; margin-bottom: 2px; }
         .small-display-box { height: 95px; }
         .small-display-box .inner-white { margin: 30px 12px 12px 12px; height: 50px; justify-content: center; padding: 0 15px; }
-        .login-btn { height: 40px; text-align: center; color: white; padding-top: 8px; font-size: 16px; }
+        
+        .login-btn { height: 40px; text-align: center; color: white; padding-top: 8px; font-size: 16px; cursor: pointer; transition: 0.3s; }
+        .login-btn.is-admin {
+            background: linear-gradient(180deg, #A16A93 0%, #4E344D 100%);
+            border: 2px solid #FFFFFF;
+            border-radius: 4px;
+            padding-top: 6px;
+            font-weight: 500;
+            box-shadow: 0 0 15px rgba(211, 188, 230, 0.4);
+            cursor: default;
+        }
+
         .black-bar { background: #000; height: 38px; border-radius: 2px; border: 1.5px solid #333; margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 25px; }
         .bar-img { height: 26px; width: auto; object-fit: contain; }
         
@@ -98,7 +109,7 @@
 
         /* --- Content Layouts --- */
         .page-container { padding: 40px 60px 100px 60px; display: none; flex-direction: column; width: 100%; }
-        .filter-bar { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
+        .filter-bar { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; position: relative; }
         .filter-btn { background: rgba(0,0,0,0.5); border: 1.5px dashed var(--box-border); color: white; padding: 5px 20px; border-radius: 20px; cursor: pointer; font-size: 13px; transition: 0.3s; }
         .filter-btn.active { background: var(--box-border); color: #000; border-style: solid; box-shadow: 0 0 10px var(--box-border); }
 
@@ -106,7 +117,7 @@
         .two-col-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: start; }
         .display-col { display: flex; flex-direction: column; gap: 20px; }
 
-        .char-card { width: 100%; background: var(--box-grad); border: 1.5px solid var(--box-border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--glow-soft); }
+        .char-card { width: 100%; background: var(--box-grad); border: 1.5px solid var(--box-border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--glow-soft); position: relative; }
         .char-thumb { width: 100%; display: block; cursor: pointer; transition: 0.2s; border-bottom: 1.5px solid var(--box-border); }
         .char-details { padding: 15px 15px; font-size: 11px; color: #FFFFFF; text-align: left; line-height: 1.5; }
         .char-details p { margin: 4px 0; color: #FFFFFF; }
@@ -119,29 +130,6 @@
         .sub-nav-btns { display: flex; gap: 10px; }
         .sub-nav-btn { width: 120px; height: 32px; font-size: 11px; padding-top: 8px; }
         .sub-nav-btn.active { font-weight: bold; }
-
-        /* --- New Queue (Q Update) Styles --- */
-        .q-search-wrap { display: flex; justify-content: center; margin-bottom: 40px; }
-        .q-search-bar { width: 480px; height: 38px; background: #FFF; border-radius: 25px; border: none; padding: 0 45px; font-size: 15px; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23666" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>'); background-repeat: no-repeat; background-position: 18px center; }
-        
-        .q-list { display: flex; flex-direction: column; gap: 30px; padding: 0 10px; }
-        .q-item-row { display: grid; grid-template-columns: 185px 1fr; align-items: center; position: relative; }
-        .q-pfp-cloud { width: 175px; height: 145px; position: relative; background: radial-gradient(circle, #fff 10%, transparent 70%); mask-image: url('https://lh3.googleusercontent.com/u/0/d/1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ'); -webkit-mask-image: url('https://lh3.googleusercontent.com/u/0/d/1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ'); mask-size: contain; mask-repeat: no-repeat; }
-        
-        .q-data-box { background: linear-gradient(90deg, #35233D 0%, #000 100%); border: 1.5px solid var(--box-border); border-radius: 10px; height: 110px; position: relative; padding: 12px 25px; color: white; display: flex; flex-direction: column; justify-content: center; }
-        .q-heart-num { position: absolute; top: -12px; left: -12px; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; background: url('https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7') no-repeat center; background-size: contain; }
-        .q-top-info { display: flex; justify-content: space-between; margin-bottom: 8px; }
-        .q-name-grp b { font-size: 19px; display: block; line-height: 1; }
-        .q-name-grp span { font-size: 13px; opacity: 0.8; }
-        .q-percent-txt { font-size: 14px; margin-top: 15px; }
-        
-        .q-bar-bg { width: 100%; height: 10px; background: #000; border-radius: 10px; position: relative; margin-top: 8px; }
-        .q-bar-fill { height: 100%; background: linear-gradient(90deg, #D8A7C9 0%, #FFF 100%); border-radius: 10px; }
-        .q-bar-rose-head { position: absolute; left: -10px; top: -14px; width: 42px; height: auto; z-index: 5; }
-        .q-bar-moon { position: absolute; top: -20px; width: 48px; height: auto; transform: translateX(-50%); z-index: 6; }
-        
-        .q-deco-roses { position: absolute; top: -30px; right: -15px; width: 85px; z-index: 10; }
-        .q-book-icon { position: absolute; bottom: -12px; right: -5px; width: 32px; opacity: 0.8; }
 
         /* --- Warning Screen --- */
         #page-char-terms { display: flex; flex-direction: column; align-items: center; width: 100%; opacity: 1; transition: opacity 0.8s ease; }
@@ -184,7 +172,14 @@
         .modal-menu-btn { width: 170px; height: 38px; border: 2.5px solid var(--box-border); border-radius: 2px; background: linear-gradient(180deg, #35233D, #000); color: white; cursor: pointer; font-size: 15px; transition: 0.3s; text-transform: lowercase; }
         .modal-menu-btn.active { background: #fff; color: #000; border-color: #fff; }
         .modal-gallery-area { display: none; }
-        .folder-title { font-size: 16px; border-bottom: 1.5px solid white; width: fit-content; padding-bottom: 3px; margin: 25px 0 15px 0; font-weight: 500; }
+        
+        /* Dynamic Gallery Styles */
+        .folder-row-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid white; margin: 25px 0 15px 0; padding-bottom: 3px; }
+        .folder-title { font-size: 16px; font-weight: 500; margin: 0; }
+        .folder-admin-btns { display: flex; gap: 10px; }
+        .f-btn { font-size: 10px; padding: 2px 8px; border: 1px solid white; cursor: pointer; background: transparent; color: white; border-radius: 4px; }
+        .f-btn.del { color: #ff9d9d; border-color: #ff9d9d; }
+        
         .gallery-grid-inner { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
         .gallery-img-item { width: 100%; height: 210px; border: 1.5px solid var(--box-border); background: #111; object-fit: cover; }
         .modal-about-area { display: flex; flex-direction: column; width: 100%; }
@@ -196,6 +191,26 @@
         .modal-img-full { width: 100%; height: auto; display: block; border: 1.5px solid #fff; border-radius: 2px; margin: 0 auto; }
 
         .footer-section { width: 100%; padding-bottom: 60px; }
+
+        /* --- Admin Specific Style --- */
+        #admin-add-area { width: 100%; display: flex; justify-content: flex-end; margin: -15px 0 15px 0; }
+        .add-char-btn { font-size: 10px; padding: 4px 12px; background: var(--box-border); color: black; border-radius: 15px; cursor: pointer; border: none; font-weight: bold; }
+        .form-row { margin-bottom: 15px; }
+        .form-row label { display: block; font-size: 14px; margin-bottom: 5px; color: var(--box-border); }
+        .form-row input, .form-row select { width: 100%; padding: 10px; background: #222; border: 1.5px solid var(--box-border); color: white; border-radius: 4px; }
+        
+        .tag-selection { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: #111; padding: 15px; border-radius: 4px; border: 1px dashed var(--box-border); }
+        .tag-selection label { font-size: 12px; color: white; display: flex !important; align-items: center !important; gap: 8px !important; cursor: pointer; margin: 0 !important; white-space: nowrap; }
+        .tag-selection input[type="checkbox"] { width: 16px !important; height: 16px !important; margin: 0 !important; flex-shrink: 0; }
+
+        .save-btn { width: 100%; padding: 12px; background: #fff; color: #000; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+
+        .admin-controls { display: flex; gap: 5px; margin-top: 10px; }
+        .admin-btn { flex: 1; font-size: 9px; padding: 4px; border: 1px solid #fff; border-radius: 4px; cursor: pointer; background: rgba(255,255,255,0.1); color: #fff; text-align: center; }
+        .admin-btn.del { color: #ff9d9d; border-color: #ff9d9d; }
+
+        .gallery-main-header { font-size: 24px; font-weight: bold; text-align: center; color: white; letter-spacing: 2px; margin-bottom: 10px; border-bottom: 1.5px solid var(--box-border); padding-bottom: 10px; }
+        .admin-gallery-tools { text-align: right; margin-bottom: 15px; }
     </style>
 </head>
 <body>
@@ -216,7 +231,7 @@
 
     <div id="content-wrapper" class="page-content-wrapper">
         
-        <!-- หน้า Home (คงเดิม 100%) -->
+        <!-- หน้า Home -->
         <div id="page-home" class="main-content">
             <div class="col-left">
                 <div class="profile-wrapper">
@@ -248,7 +263,7 @@
                     </div>
                 </div>
                 <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
-                <div class="box-template login-btn">Log in</div>
+                <div class="box-template login-btn" onclick="triggerAdminLogin()">Log in</div>
                 <div class="black-bar">
                     <img class="bar-img" src="https://lh3.googleusercontent.com/u/0/d/1Kiix_IgzBHFrL7EeLHjZLqL8V4uT1beD" onerror="fixImage(this)">
                     <img class="bar-img" src="https://lh3.googleusercontent.com/u/0/d/1yQ12nEX6p0D_GzhrV_XEO1rDh9pFlMMh" onerror="fixImage(this)">
@@ -269,7 +284,7 @@
                 </div>
                 <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
                 <div class="box-template right-medium">
-                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
+                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14S7hZwuiR3ap3NNkbBwkdNfkH18xsomQ" onerror="fixImage(this)">
                     <div class="box-title">little things about me</div>
                     <div class="inner-white">
                         <div class="image-placeholder"><img src="https://lh3.googleusercontent.com/u/0/d/14S7hZwuiR3ap3NNkbBwkdNfkH18xsomQ" onerror="fixImage(this)"></div>
@@ -300,7 +315,7 @@
             </div>
         </div>
 
-        <!-- หน้า Character (คงเดิม 100%) -->
+        <!-- หน้า Character -->
         <div id="page-character" class="page-container">
             <div id="page-char-terms">
                 <img class="warn-big-bow" src="https://lh3.googleusercontent.com/u/0/d/1rEkHzbbxsnfzxGYLdz0kFQx1eD7EoIka" onerror="fixImage(this)">
@@ -327,16 +342,20 @@
                     <div class="filter-btn" onclick="filterChars('sp', this)">sp</div>
                     <div class="filter-btn" onclick="filterChars('ota', this)">ota</div>
                 </div>
+
+                <div id="admin-add-area" style="display: none;">
+                    <button class="add-char-btn" onclick="openAddModal()">+ Add Character</button>
+                </div>
+
                 <div class="char-grid"><div class="display-col" id="char-col-1"></div><div class="display-col" id="char-col-2"></div><div class="display-col" id="char-col-3"></div></div>
             </div>
         </div>
 
-        <!-- หน้า Commission (แก้ไขเฉพาะ Q update) -->
+        <!-- หน้า Commission -->
         <div id="page-commission" class="page-container">
             <div class="sub-nav-row">
                 <div class="sub-nav-btns">
                     <div class="box-template nav-item sub-nav-btn" id="btn-comm-main" onclick="navigateCommSub('main')">Commission</div>
-                    <div class="box-template nav-item sub-nav-btn" id="btn-comm-q" onclick="navigateCommSub('q')">Q update</div>
                     <div class="box-template nav-item sub-nav-btn" id="btn-comm-terms" onclick="navigateCommSub('terms')">Terms of service</div>
                 </div>
                 <div class="filter-bar" id="comm-filter-area" style="width: 100%; margin-top: 15px;">
@@ -346,18 +365,7 @@
                 </div>
             </div>
             <div class="two-col-grid" id="comm-list-target" style="display: grid;"></div>
-            
-            <!-- ส่วน Q Update ใหม่สร้างตามภาพ -->
-            <div id="comm-q-view" style="display: none;">
-                <div class="q-search-wrap">
-                    <input type="text" class="q-search-bar" placeholder="ค้นหาคิว">
-                </div>
-                <div class="q-list" id="q-list-render">
-                    <!-- รายการคิวจะมาแสดงตรงนี้จาก JS -->
-                </div>
-            </div>
 
-            <!-- ส่วน Terms (คงเดิม 100%) -->
             <div id="comm-terms-view" style="display: none;">
                 <div class="terms-grid">
                     <div class="terms-box"><span class="terms-title">สิ่งที่ไมรับวาด</span><div class="terms-list-box"><div>ไม่รับงาน คัตต้อม / ออกแบบทุกประเภท</div><div>รบกวนนำตัวละครที่ชัดเจนมาให้ครบตั้งแต่ขั้นตอนบรีฟนะคะ</div><div>ไม่รับดัดแปลงภาพคนจริงให้เป็นการ์ตูน</div><div>ไม่รับงาน NSFW</div><div>ไม่รับวาดฉากหลัง</div><div>ไม่รับงานเร่งทุกชนิด</div></div></div>
@@ -367,7 +375,7 @@
             </div>
         </div>
 
-        <!-- หน้า Shop (คงเดิม 100%) -->
+        <!-- หน้า Shop -->
         <div id="page-shop" class="page-container">
             <div class="filter-bar">
                 <div class="filter-btn active" onclick="filterShop('All', this)">All</div>
@@ -380,22 +388,65 @@
         </div>
     </div>
 
-    <!-- Modals (คงเดิม 100%) -->
+    <!-- Modals -->
     <div id="char-detail-modal" class="modal-overlay" onclick="closeDetails()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="closeDetails()">&times;</span>
-            <div class="modal-header-section"><span class="modal-char-name-big" id="pop-title-name">-</span><div class="modal-top-row"><div class="modal-pfp-box"><img id="pop-main-pfp" src=""></div><div class="modal-stats">name : <span id="pop-stat-name">-</span><br>birthday : april 24th<br>age : Unknown<br>height : -<br>weight : -<br>species : -</div></div></div>
-            <div class="modal-menu-bar"><button class="modal-menu-btn active" id="pop-btn-about" onclick="switchPopTab('about')">about</button><button class="modal-menu-btn" id="pop-btn-gallery" onclick="switchPopTab('gallery')">gallery</button></div>
-            <div id="pop-content-about" class="modal-about-area">
+            <div class="modal-header-section" style="display:none;"><span class="modal-char-name-big" id="pop-title-name">-</span><div class="modal-top-row"><div class="modal-pfp-box"><img id="pop-main-pfp" src=""></div><div class="modal-stats">name : <span id="pop-stat-name">-</span><br>birthday : april 24th<br>age : Unknown<br>height : -<br>weight : -<br>species : -</div></div></div>
+            <div class="modal-menu-bar" style="display:none;"><button class="modal-menu-btn" id="pop-btn-about" onclick="switchPopTab('about')">about</button><button class="modal-menu-btn" id="pop-btn-gallery" onclick="switchPopTab('gallery')">gallery</button></div>
+            <div id="pop-content-about" class="modal-about-area" style="display:none;">
                 <div class="box-template"><div class="box-title">About this character</div><div class="inner-white"><p id="pop-desc-text">Character details...</p></div></div>
                 <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
                 <div class="box-template"><div class="box-title">Notes / Personality</div><div class="inner-white"><p>Personality notes go here.</p></div></div>
             </div>
-            <div id="pop-content-gallery" class="modal-gallery-area">
-                <div class="folder-title">Original design</div><div class="gallery-grid-inner" id="gallery-folder-1"></div>
-                <div class="folder-title">Commission</div><div class="gallery-grid-inner" id="gallery-folder-2"></div>
-                <div class="folder-title">My art</div><div class="gallery-grid-inner" id="gallery-folder-3"></div>
+            <!-- Dynamic Gallery Area -->
+            <div id="pop-content-gallery" class="modal-gallery-area" style="display:block; padding-top:20px;">
+                <div class="gallery-main-header">GALLERY</div>
+                <div id="admin-gallery-ctrl" class="admin-gallery-tools" style="display:none;">
+                    <button class="add-char-btn" onclick="adminCreateFolder()">+ Create Folder</button>
+                </div>
+                <div id="dynamic-gallery-container"></div>
             </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Character Modal -->
+    <div id="add-char-modal" class="modal-overlay" onclick="closeAddModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeAddModal()">&times;</span>
+            <div class="modal-header-section">
+                <span class="modal-char-name-big" id="modal-form-title">เพิ่มตัวละครใหม่</span>
+            </div>
+            <div class="form-row">
+                <label>ชื่อตัวละคร (Name)</label>
+                <input type="text" id="add-name" placeholder="ใส่ชื่อ...">
+            </div>
+            <div class="form-row">
+                <label>ผู้วาด (Artist)</label>
+                <input type="text" id="add-artist" placeholder="Dominic">
+            </div>
+            <div class="form-row">
+                <label>เจ้าของ (Owner)</label>
+                <input type="text" id="add-owner" placeholder="Dominic">
+            </div>
+            <div class="form-row">
+                <label>ราคา/มูลค่า (Value)</label>
+                <input type="text" id="add-value" placeholder="0">
+            </div>
+            <div class="form-row">
+                <label>Image ID (Google Drive)</label>
+                <input type="text" id="add-img-id" placeholder="รหัสรูปภาพ">
+            </div>
+            <div class="form-row">
+                <label>แท็กหมวดหมู่ (Tags)</label>
+                <div class="tag-selection">
+                    <label><input type="checkbox" name="tag-multi" value="forever home"> forever home</label>
+                    <label><input type="checkbox" name="tag-multi" value="eo"> eo</label>
+                    <label><input type="checkbox" name="tag-multi" value="sp"> sp</label>
+                    <label><input type="checkbox" name="tag-multi" value="ota"> ota</label>
+                </div>
+            </div>
+            <button class="save-btn" id="save-form-btn" onclick="saveCharacter()">บันทึกข้อมูล</button>
         </div>
     </div>
 
@@ -415,22 +466,22 @@
 </div>
 
 <script>
-    // ข้อมูลคิวตัวอย่างตามภาพ
-    const queueList = [
-        { num: 1, name: 'Dominic', scale: 'หัว-ไหล่', percent: 0 },
-        { num: 2, name: 'Dominic', scale: 'หัว-ไหล่', percent: 25 },
-        { num: 3, name: 'Dominic', scale: 'เต็มตัว', percent: 50 },
-        { num: 4, name: 'Dominic', scale: 'หัวเข่า', percent: 75 },
-        { num: 5, name: 'Domina', scale: 'Full cg', percent: 100 }
+    // Updated charList to support dynamic folders
+    let charList = [
+        { 
+            name: 'Dominic V', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'ota', artist: 'Dominic', owner: 'Dominic', value: '0',
+            folders: [
+                { name: 'Original design', images: ['1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ'] },
+                { name: 'Commission', images: ['1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ'] },
+                { name: 'My art', images: ['1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ'] }
+            ]
+        },
+        { 
+            name: 'Character 02', img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'forever home', artist: 'Dominic', owner: 'Dominic', value: '0',
+            folders: [{ name: 'Original design', images: ['1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0'] }]
+        }
     ];
-
-    const charList = [
-        { name: 'Dominic V', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'ota' },
-        { name: 'Character 02', img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'forever home' },
-        { name: 'Character 03', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'eo' },
-        { name: 'Character 04', img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'sp' },
-        { name: 'Character 05', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'ota' }
-    ];
+    
     const shopList = [
         { name: 'YCH Base 01', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'base', status: 'open' },
         { name: 'Pencil Brush', img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'brush', status: 'closed' }
@@ -441,6 +492,27 @@
     ];
 
     let characterTermsAccepted = false;
+    let isAdmin = false;
+    let currentEditIndex = -1;
+    let currentViewingCharIndex = -1;
+
+    function triggerAdminLogin() {
+        if(isAdmin) return;
+        const pass = prompt("กรุณาใส่รหัสผ่านแอดมิน:");
+        if (pass === "1234") {
+            isAdmin = true;
+            const loginBtn = document.querySelector('.login-btn');
+            loginBtn.innerText = "Admin Active";
+            loginBtn.classList.add('is-admin');
+            alert("เข้าสู่ระบบแอดมินสำเร็จ");
+            if (document.getElementById('page-character').style.display !== 'none') {
+                document.getElementById('admin-add-area').style.display = 'flex';
+                filterChars('All'); 
+            }
+        } else {
+            alert("รหัสผ่านไม่ถูกต้อง");
+        }
+    }
 
     function navigate(pageId) {
         const wrapper = document.getElementById('content-wrapper');
@@ -455,7 +527,14 @@
 
             if (pageId === 'character') {
                 if (!characterTermsAccepted) { document.getElementById('page-char-terms').style.display = 'flex'; document.getElementById('char-main-list').style.display = 'none'; } 
-                else { document.getElementById('page-char-terms').style.display = 'none'; document.getElementById('char-main-list').style.display = 'block'; filterChars('All'); }
+                else { 
+                    document.getElementById('page-char-terms').style.display = 'none'; 
+                    document.getElementById('char-main-list').style.display = 'block'; 
+                    if(isAdmin) document.getElementById('admin-add-area').style.display = 'flex';
+                    filterChars('All'); 
+                }
+            } else {
+                document.getElementById('admin-add-area').style.display = 'none';
             }
             if (pageId === 'commission') navigateCommSub('main');
             if (pageId === 'shop') filterShop('All');
@@ -467,47 +546,9 @@
         document.getElementById('comm-list-target').style.display = subId === 'main' ? 'grid' : 'none';
         document.getElementById('comm-filter-area').style.display = subId === 'main' ? 'flex' : 'none';
         document.getElementById('comm-terms-view').style.display = subId === 'terms' ? 'block' : 'none';
-        document.getElementById('comm-q-view').style.display = subId === 'q' ? 'block' : 'none';
         document.querySelectorAll('.sub-nav-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('btn-comm-' + subId).classList.add('active');
         if(subId === 'main') renderCommission('all');
-        if(subId === 'q') renderQueue();
-    }
-
-    function renderQueue() {
-        const target = document.getElementById('q-list-render');
-        target.innerHTML = '';
-        
-        // รูปพระจันทร์: 1TpV9e_8laxaXPFxhol7zyqd-GwG3ja1g
-        // รูปกุหลาบหัวหลอด: 15Y17Dpx8W9GW3EkZXun_31z7_lShqOTz
-        // กุหลาบตกแต่งมุม: 1JFCylDLvmXTBD0PHbIpH-qsRev2fVHOI
-        // ไอคอนสมุด: 1Kiix_IgzBHFrL7EeLHjZLqL8V4uT1beD
-
-        queueList.forEach(q => {
-            const item = document.createElement('div');
-            item.className = 'q-item-row';
-            item.innerHTML = `
-                <div class="q-pfp-cloud"></div>
-                <div class="q-data-box">
-                    <div class="q-heart-num">${q.num}</div>
-                    <img class="q-deco-roses" src="https://lh3.googleusercontent.com/u/0/d/1JFCylDLvmXTBD0PHbIpH-qsRev2fVHOI" onerror="fixImage(this)">
-                    <div class="q-top-info">
-                        <div class="q-name-grp">
-                            <b>${q.name}</b>
-                            <span>${q.scale}</span>
-                        </div>
-                        <div class="q-percent-txt">${q.percent}%</div>
-                    </div>
-                    <div class="q-bar-bg">
-                        <div class="q-bar-fill" style="width: ${q.percent}%"></div>
-                        <img class="q-bar-rose-head" src="https://lh3.googleusercontent.com/u/0/d/15Y17Dpx8W9GW3EkZXun_31z7_lShqOTz" onerror="fixImage(this)">
-                        <img class="q-bar-moon" src="https://lh3.googleusercontent.com/u/0/d/1TpV9e_8laxaXPFxhol7zyqd-GwG3ja1g" style="left: ${q.percent}%" onerror="fixImage(this)">
-                    </div>
-                    <img class="q-book-icon" src="https://lh3.googleusercontent.com/u/0/d/1Kiix_IgzBHFrL7EeLHjZLqL8V4uT1beD" onerror="fixImage(this)">
-                </div>
-            `;
-            target.appendChild(item);
-        });
     }
 
     function renderCommission(filterTag) {
@@ -543,18 +584,21 @@
         });
     }
 
-    function acceptTerms() { document.getElementById('page-char-terms').style.display = 'none'; characterTermsAccepted = true; const m = document.getElementById('char-main-list'); m.style.display = 'block'; setTimeout(() => m.style.opacity = '1', 50); filterChars('All'); }
+    function acceptTerms() { document.getElementById('page-char-terms').style.display = 'none'; characterTermsAccepted = true; const m = document.getElementById('char-main-list'); m.style.display = 'block'; if(isAdmin) document.getElementById('admin-add-area').style.display = 'flex'; setTimeout(() => m.style.opacity = '1', 50); filterChars('All'); }
     
-    function createCard(obj, type) {
+    function createCard(obj, realIndex) {
         const card = document.createElement('div'); card.className = 'char-card';
         const imgPath = `https://lh3.googleusercontent.com/u/0/d/${obj.img}`;
-        if (type === 'character') {
-            card.innerHTML = `<img class="char-thumb" src="${imgPath}" onclick="toggleChar(this)" onerror="fixImage(this)">
-                <div class="char-details" style="display:none;"><p><strong>${obj.name}</strong></p><p>Artist : Dominic</p><p>Owner : Dominic</p><p>Value : 0</p>
-                <div class="char-btn-ui" onclick="openPopRules('${obj.img}')">กฎการใช้งานดีไซน์</div>
-                <div class="char-btn-ui" onclick="openPopDetails('${obj.name}', '${obj.img}')">ดูรายละเอียดตัวละคร</div>
-                <div class="tag-center-wrap"><div class="char-tag-ui">${obj.tag}</div></div></div>`;
+        
+        let adminHtml = "";
+        if(isAdmin) {
+            adminHtml = `<div class="admin-controls"><div class="admin-btn" onclick="openEditModal(${realIndex})">Edit</div><div class="admin-btn del" onclick="deleteCharacter(${realIndex})">Delete</div></div>`;
         }
+
+        card.innerHTML = `<img class="char-thumb" src="${imgPath}" onclick="toggleChar(this)" onerror="fixImage(this)">
+            <div class="char-details" style="display:none;"><p><strong>${obj.name}</strong></p><p>Artist : ${obj.artist || 'Dominic'}</p><p>Owner : ${obj.owner || 'Dominic'}</p><p>Value : ${obj.value || '0'}</p>
+            <div class="char-btn-ui" onclick="openPopDetails(${realIndex})">gallery</div>
+            <div class="tag-center-wrap"><div class="char-tag-ui">${obj.tag}</div></div>${adminHtml}</div>`;
         return card;
     }
 
@@ -562,28 +606,66 @@
         if (btn) { document.querySelectorAll('#page-character .filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
         const cols = [document.getElementById('char-col-1'), document.getElementById('char-col-2'), document.getElementById('char-col-3')];
         cols.forEach(c => c.innerHTML = '');
-        const filtered = tag === 'All' ? charList : charList.filter(c => c.tag === tag);
-        filtered.forEach((item, i) => cols[i % 3].appendChild(createCard(item, 'character')));
+        charList.forEach((item, index) => {
+            if (tag === 'All' || item.tag.includes(tag)) {
+                const cardCount = cols[0].childElementCount + cols[1].childElementCount + cols[2].childElementCount;
+                cols[cardCount % 3].appendChild(createCard(item, index));
+            }
+        });
     }
 
     function toggleChar(img) { const details = img.nextElementSibling; details.style.display = (details.style.display === 'block' ? 'none' : 'block'); }
     function openPopRules(id) { document.getElementById('rules-img-view').src = `https://lh3.googleusercontent.com/u/0/d/${id}`; document.getElementById('pop-rules-modal').style.display = 'flex'; }
     function closePopRules() { document.getElementById('pop-rules-modal').style.display = 'none'; }
-    function openPopDetails(name, id) { 
-        document.getElementById('pop-title-name').innerText = name; document.getElementById('pop-stat-name').innerText = name; 
-        document.getElementById('pop-main-pfp').src = `https://lh3.googleusercontent.com/u/0/d/${id}`;
-        const p = `https://lh3.googleusercontent.com/u/0/d/${id}`;
-        document.getElementById('gallery-folder-1').innerHTML = `<img class="gallery-img-item" src="${p}">`;
-        document.getElementById('gallery-folder-2').innerHTML = `<img class="gallery-img-item" src="${p}">`;
-        document.getElementById('gallery-folder-3').innerHTML = `<img class="gallery-img-item" src="${p}">`;
-        document.getElementById('char-detail-modal').style.display = 'flex'; switchPopTab('about'); 
+
+    function openPopDetails(index) { 
+        currentViewingCharIndex = index;
+        const char = charList[index];
+        document.getElementById('pop-title-name').innerText = char.name; 
+        document.getElementById('pop-stat-name').innerText = char.name; 
+        document.getElementById('pop-main-pfp').src = `https://lh3.googleusercontent.com/u/0/d/${char.img}`;
+        
+        document.getElementById('char-detail-modal').style.display = 'flex'; 
+        document.getElementById('admin-gallery-ctrl').style.display = isAdmin ? 'block' : 'none';
+        renderDynamicGallery();
+        switchPopTab('gallery');
     }
+
+    function renderDynamicGallery() {
+        const container = document.getElementById('dynamic-gallery-container');
+        container.innerHTML = '';
+        const char = charList[currentViewingCharIndex];
+        
+        if (!char.folders) char.folders = [];
+        
+        char.folders.forEach((folder, fIndex) => {
+            const folderWrap = document.createElement('div');
+            
+            let adminFolderBtns = "";
+            if(isAdmin) {
+                adminFolderBtns = `<div class="folder-admin-btns">
+                    <button class="f-btn del" onclick="adminDeleteFolder(${fIndex})">Del Folder</button>
+                    <button class="f-btn" onclick="adminAddImage(${fIndex})">+ Add Image</button>
+                </div>`;
+            }
+
+            folderWrap.innerHTML = `
+                <div class="folder-row-header">
+                    <h3 class="folder-title">${folder.name}</h3>
+                    ${adminFolderBtns}
+                </div>
+                <div class="gallery-grid-inner">
+                    ${folder.images.map(imgId => `<img class="gallery-img-item" src="https://lh3.googleusercontent.com/u/0/d/${imgId}" onerror="fixImage(this)">`).join('')}
+                </div>
+            `;
+            container.appendChild(folderWrap);
+        });
+    }
+
     function closeDetails() { document.getElementById('char-detail-modal').style.display = 'none'; }
     function switchPopTab(t) {
-        document.getElementById('pop-content-about').style.display = t === 'about' ? 'flex' : 'none';
-        document.getElementById('pop-content-gallery').style.display = t === 'gallery' ? 'block' : 'none';
-        document.getElementById('pop-btn-about').classList.toggle('active', t === 'about');
-        document.getElementById('pop-btn-gallery').classList.toggle('active', t === 'gallery');
+        document.getElementById('pop-content-about').style.display = 'none';
+        document.getElementById('pop-content-gallery').style.display = 'block';
     }
     function openCommGallery(imgId) {
         const target = document.getElementById('comm-gal-target'); target.innerHTML = '';
@@ -591,6 +673,90 @@
         document.getElementById('comm-gallery-modal').style.display = 'flex';
     }
     function closeCommGallery() { document.getElementById('comm-gallery-modal').style.display = 'none'; }
+
+    /* --- Admin Gallery Functions --- */
+    function adminCreateFolder() {
+        const folderName = prompt("ใส่ชื่อโฟลเดอร์ใหม่:");
+        if (folderName) {
+            if (!charList[currentViewingCharIndex].folders) charList[currentViewingCharIndex].folders = [];
+            charList[currentViewingCharIndex].folders.push({ name: folderName, images: [] });
+            renderDynamicGallery();
+        }
+    }
+
+    function adminDeleteFolder(fIndex) {
+        if (confirm("คุณต้องการลบโฟลเดอร์นี้และรูปภาพทั้งหมดในนี้ใช่หรือไม่?")) {
+            charList[currentViewingCharIndex].folders.splice(fIndex, 1);
+            renderDynamicGallery();
+        }
+    }
+
+    function adminAddImage(fIndex) {
+        const imgId = prompt("ใส่ Image ID (Google Drive) สำหรับรูปภาพใหม่:");
+        if (imgId) {
+            charList[currentViewingCharIndex].folders[fIndex].images.push(imgId);
+            renderDynamicGallery();
+        }
+    }
+
+    /* --- Add/Edit/Delete Functions --- */
+    function openAddModal() { 
+        currentEditIndex = -1;
+        document.getElementById('modal-form-title').innerText = "เพิ่มตัวละครใหม่";
+        document.getElementById('add-name').value = '';
+        document.getElementById('add-img-id').value = '';
+        document.getElementById('add-artist').value = '';
+        document.getElementById('add-owner').value = '';
+        document.getElementById('add-value').value = '';
+        document.querySelectorAll('input[name="tag-multi"]').forEach(cb => cb.checked = false);
+        document.getElementById('add-char-modal').style.display = 'flex'; 
+    }
+
+    function openEditModal(index) {
+        currentEditIndex = index;
+        const char = charList[index];
+        document.getElementById('modal-form-title').innerText = "แก้ไขข้อมูลตัวละคร";
+        document.getElementById('add-name').value = char.name;
+        document.getElementById('add-img-id').value = char.img;
+        document.getElementById('add-artist').value = char.artist || '';
+        document.getElementById('add-owner').value = char.owner || '';
+        document.getElementById('add-value').value = char.value || '';
+        document.querySelectorAll('input[name="tag-multi"]').forEach(cb => cb.checked = char.tag.includes(cb.value));
+        document.getElementById('add-char-modal').style.display = 'flex';
+    }
+
+    function closeAddModal() { document.getElementById('add-char-modal').style.display = 'none'; }
+
+    function saveCharacter() {
+        const name = document.getElementById('add-name').value;
+        const artist = document.getElementById('add-artist').value || 'Dominic';
+        const owner = document.getElementById('add-owner').value || 'Dominic';
+        const value = document.getElementById('add-value').value || '0';
+        const img = document.getElementById('add-img-id').value;
+        const selectedTags = [];
+        document.querySelectorAll('input[name="tag-multi"]:checked').forEach(cb => selectedTags.push(cb.value));
+        const tagString = selectedTags.length > 0 ? selectedTags.join(', ') : 'ota';
+
+        if (!name || !img) { alert("กรุณากรอกชื่อและ Image ID"); return; }
+
+        if(currentEditIndex === -1) {
+            charList.push({ name, img, tag: tagString, artist, owner, value, folders: [{ name: 'Original design', images: [img] }] });
+            alert("เพิ่มข้อมูลสำเร็จ");
+        } else {
+            const oldFolders = charList[currentEditIndex].folders;
+            charList[currentEditIndex] = { name, img, tag: tagString, artist, owner, value, folders: oldFolders };
+            alert("แก้ไขข้อมูลสำเร็จ");
+        }
+        filterChars('All');
+        closeAddModal();
+    }
+
+    function deleteCharacter(index) {
+        if(confirm("คุณต้องการลบตัวละครนี้ใช่หรือไม่?")) {
+            charList.splice(index, 1);
+            filterChars('All');
+        }
+    }
     
     function fixImage(img) { 
         const originalSrc = img.src; 
