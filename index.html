@@ -193,11 +193,11 @@
         .footer-section { width: 100%; padding-bottom: 60px; }
 
         /* --- Admin Specific Style --- */
-        #admin-add-area { width: 100%; display: flex; justify-content: flex-end; margin: -15px 0 15px 0; }
+        #admin-add-area, #admin-comm-area, #admin-shop-area { width: 100%; display: flex; justify-content: flex-end; margin: -15px 0 15px 0; }
         .add-char-btn { font-size: 10px; padding: 4px 12px; background: var(--box-border); color: black; border-radius: 15px; cursor: pointer; border: none; font-weight: bold; }
         .form-row { margin-bottom: 15px; }
         .form-row label { display: block; font-size: 14px; margin-bottom: 5px; color: var(--box-border); }
-        .form-row input, .form-row select { width: 100%; padding: 10px; background: #111; border: 1.5px solid var(--box-border); color: white; border-radius: 4px; }
+        .form-row input, .form-row select, .form-row textarea { width: 100%; padding: 10px; background: #111; border: 1.5px solid var(--box-border); color: white; border-radius: 4px; font-family: inherit; }
         
         .tag-selection { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: #111; padding: 15px; border-radius: 4px; border: 1px dashed var(--box-border); }
         .tag-selection label { font-size: 12px; color: white; display: flex !important; align-items: center !important; gap: 8px !important; cursor: pointer; margin: 0 !important; white-space: nowrap; }
@@ -210,6 +210,7 @@
         .admin-btn.del { color: #ff9d9d; border-color: #ff9d9d; }
 
         /* --- NEW Modal Styles for Manage Gallery (ตามรูปเป๊ะๆ) --- */
+        #mgmt-image-modal { z-index: 3000 !important; } /* ปรับให้อยู่หน้าสุด */
         .mgmt-dashed-box { border: 1.5px dashed #555; padding: 25px; border-radius: 4px; margin: 20px 0; }
         .mgmt-label { display: block; font-size: 20px; margin-bottom: 15px; color: white; font-weight: 500; text-align: left; }
         .mgmt-row { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; }
@@ -370,6 +371,11 @@
                     <div class="filter-btn" onclick="filterComm('closed', this)">closed</div>
                 </div>
             </div>
+            
+            <div id="admin-comm-area" style="display: none;">
+                <button class="add-char-btn" onclick="openAddCommModal()">+ Add Commission</button>
+            </div>
+
             <div class="two-col-grid" id="comm-list-target" style="display: grid;"></div>
 
             <div id="comm-terms-view" style="display: none;">
@@ -390,6 +396,11 @@
                 <div class="filter-btn" onclick="filterShop('template', this)">template</div>
                 <div class="filter-btn" onclick="filterShop('toon', this)">toon</div>
             </div>
+
+            <div id="admin-shop-area" style="display: none;">
+                <button class="add-char-btn" onclick="openAddShopModal()">+ Add Item</button>
+            </div>
+
             <div class="two-col-grid" id="shop-list-target"></div>
         </div>
     </div>
@@ -470,12 +481,40 @@
         </div>
     </div>
 
+    <!-- Add/Edit Commission Modal -->
+    <div id="add-comm-modal" class="modal-overlay" onclick="closeAddCommModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeAddCommModal()">&times;</span>
+            <div class="modal-header-section"><span class="modal-char-name-big" id="comm-form-title">เพิ่มคอมมิชชั่น</span></div>
+            <div class="form-row"><label>หัวข้อ (Title)</label><input type="text" id="comm-name"></div>
+            <div class="form-row"><label>ราคา (Price)</label><input type="text" id="comm-price"></div>
+            <div class="form-row"><label>ระยะเวลา (Time)</label><input type="text" id="comm-time"></div>
+            <div class="form-row"><label>รายละเอียด (Detail)</label><textarea id="comm-detail"></textarea></div>
+            <div class="form-row"><label>Image ID</label><input type="text" id="comm-img"></div>
+            <div class="form-row"><label>สถานะ (Status)</label><select id="comm-status"><option value="open">open</option><option value="closed">closed</option></select></div>
+            <button class="save-btn" onclick="saveComm()">บันทึกข้อมูล</button>
+        </div>
+    </div>
+
+    <!-- Add/Edit Shop Modal -->
+    <div id="add-shop-modal" class="modal-overlay" onclick="closeAddShopModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeAddShopModal()">&times;</span>
+            <div class="modal-header-section"><span class="modal-char-name-big" id="shop-form-title">เพิ่มสินค้า</span></div>
+            <div class="form-row"><label>ชื่อสินค้า (Name)</label><input type="text" id="shop-name"></div>
+            <div class="form-row"><label>หมวดหมู่ (Tag)</label><select id="shop-tag"><option value="base">base</option><option value="brush">brush</option><option value="template">template</option><option value="toon">toon</option></select></div>
+            <div class="form-row"><label>Image ID</label><input type="text" id="shop-img"></div>
+            <div class="form-row"><label>สถานะ (Status)</label><select id="shop-status"><option value="open">open</option><option value="closed">closed</option></select></div>
+            <button class="save-btn" onclick="saveShop()">บันทึกข้อมูล</button>
+        </div>
+    </div>
+
     <div id="pop-rules-modal" class="modal-overlay" onclick="closePopRules()">
         <div class="modal-content" onclick="event.stopPropagation()"><span class="modal-close" onclick="closePopRules()">&times;</span><div class="modal-header-section"><span class="modal-char-name-big">กฎการใช้งานดีไซน์</span></div><img id="rules-img-view" src="" class="modal-img-full" onload="fixImage(this)"></div>
     </div>
 
     <div id="comm-gallery-modal" class="modal-overlay" onclick="closeCommGallery()">
-        <div class="modal-content" onclick="event.stopPropagation()"><span class="modal-close" onclick="closeCommGallery()">&times;</span><div style="text-align:center; font-size:18px; margin-bottom:20px;">ดูรูปภาพเพิ่มเติม</div><div class="gallery-2cols" id="comm-gal-target"></div></div>
+        <div class="modal-content" onclick="event.stopPropagation()"><span class="modal-close" onclick="closeCommGallery()">&times;</span><div style="text-align:center; font-size:24px; margin-bottom:20px;">ดูรูปภาพเพิ่มเติม</div><div id="comm-admin-btn-wrap"></div><div class="gallery-2cols" id="comm-gal-target"></div></div>
     </div>
 
     <div class="footer-section">
@@ -494,20 +533,15 @@
                 { name: 'Commission', images: ['1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ'] },
                 { name: 'My art', images: ['1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ'] }
             ]
-        },
-        { 
-            name: 'Character 02', img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'forever home', artist: 'Dominic', owner: 'Dominic', value: '0',
-            folders: [{ name: 'Original design', images: ['1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0'] }]
         }
     ];
     
-    const shopList = [
-        { name: 'YCH Base 01', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'base', status: 'open' },
-        { name: 'Pencil Brush', img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0', tag: 'brush', status: 'closed' }
+    let shopList = [
+        { name: 'YCH Base 01', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'base', status: 'open', gallery: [] }
     ];
-    const commissionItems = [
-        { title: 'สเกล หัว-ไหล่', price: '150', time: '1-3 วัน', detail: '-', status: 'open', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ' },
-        { title: 'Full Scale', price: '500', time: '7-14 วัน', detail: '-', status: 'closed', img: '1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0' }
+
+    let commissionItems = [
+        { title: 'สเกล หัว-ไหล่', price: '150', time: '1-3 วัน', detail: '-', status: 'open', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', gallery: [] }
     ];
 
     let characterTermsAccepted = false;
@@ -516,8 +550,8 @@
     let currentViewingCharIndex = -1;
     let activeFolderIdx = -1;
     let tempImages = [];
+    let activeMgmtType = ""; // 'char', 'comm', 'shop'
 
-    // ฟังก์ชันช่วยดึง ID จากลิงก์ Google Drive
     function extractId(input) {
         if (!input) return "";
         const match = input.match(/(?:id=|\/d\/|u\/0\/d\/)([\w-]+)/);
@@ -529,17 +563,12 @@
         const pass = prompt("กรุณาใส่รหัสผ่านแอดมิน:");
         if (pass === "1234") {
             isAdmin = true;
-            const loginBtn = document.querySelector('.login-btn');
-            loginBtn.innerText = "Admin Active";
-            loginBtn.classList.add('is-admin');
+            document.querySelector('.login-btn').innerText = "Admin Active";
+            document.querySelector('.login-btn').classList.add('is-admin');
             alert("เข้าสู่ระบบแอดมินสำเร็จ");
-            if (document.getElementById('page-character').style.display !== 'none') {
-                document.getElementById('admin-add-area').style.display = 'flex';
-                filterChars('All'); 
-            }
-        } else {
-            alert("รหัสผ่านไม่ถูกต้อง");
-        }
+            const currentTab = document.querySelector('.nav-item.active').innerText.toLowerCase();
+            navigate(currentTab);
+        } else { alert("รหัสผ่านไม่ถูกต้อง"); }
     }
 
     function navigate(pageId) {
@@ -553,16 +582,13 @@
             const btn = document.getElementById('btn-' + pageId);
             if(btn) btn.classList.add('active');
 
+            document.getElementById('admin-add-area').style.display = (isAdmin && pageId === 'character') ? 'flex' : 'none';
+            document.getElementById('admin-comm-area').style.display = (isAdmin && pageId === 'commission') ? 'flex' : 'none';
+            document.getElementById('admin-shop-area').style.display = (isAdmin && pageId === 'shop') ? 'flex' : 'none';
+
             if (pageId === 'character') {
                 if (!characterTermsAccepted) { document.getElementById('page-char-terms').style.display = 'flex'; document.getElementById('char-main-list').style.display = 'none'; } 
-                else { 
-                    document.getElementById('page-char-terms').style.display = 'none'; 
-                    document.getElementById('char-main-list').style.display = 'block'; 
-                    if(isAdmin) document.getElementById('admin-add-area').style.display = 'flex';
-                    filterChars('All'); 
-                }
-            } else {
-                document.getElementById('admin-add-area').style.display = 'none';
+                else { document.getElementById('page-char-terms').style.display = 'none'; document.getElementById('char-main-list').style.display = 'block'; filterChars('All'); }
             }
             if (pageId === 'commission') navigateCommSub('main');
             if (pageId === 'shop') filterShop('All');
@@ -574,6 +600,7 @@
         document.getElementById('comm-list-target').style.display = subId === 'main' ? 'grid' : 'none';
         document.getElementById('comm-filter-area').style.display = subId === 'main' ? 'flex' : 'none';
         document.getElementById('comm-terms-view').style.display = subId === 'terms' ? 'block' : 'none';
+        if (isAdmin) document.getElementById('admin-comm-area').style.display = subId === 'main' ? 'flex' : 'none';
         document.querySelectorAll('.sub-nav-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('btn-comm-' + subId).classList.add('active');
         if(subId === 'main') renderCommission('all');
@@ -581,14 +608,16 @@
 
     function renderCommission(filterTag) {
         const target = document.getElementById('comm-list-target'); target.innerHTML = '';
-        const filtered = filterTag === 'all' ? commissionItems : commissionItems.filter(i => i.status === filterTag);
-        filtered.forEach(item => {
-            const card = document.createElement('div'); card.className = 'char-card';
-            card.innerHTML = `<img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onload="fixImage(this)">
-                <div class="char-details" style="display:block;"><p><strong>${item.title}</strong></p><p>ราคา : ${item.price}</p><p>ระยะเวลา : ${item.time}</p><p>รายละเอียด : ${item.detail}</p>
-                <div class="char-btn-ui" onclick="openCommGallery('${item.img}')">ดูรูปภาพเพิ่มเติม</div>
-                <div class="tag-center-wrap"><div class="char-tag-ui">${item.status}</div></div></div>`;
-            target.appendChild(card);
+        commissionItems.forEach((item, index) => {
+            if (filterTag === 'all' || item.status === filterTag) {
+                const card = document.createElement('div'); card.className = 'char-card';
+                let adminHtml = isAdmin ? `<div class="admin-controls"><div class="admin-btn" onclick="openEditComm(${index})">Edit</div><div class="admin-btn del" onclick="deleteComm(${index})">Delete</div></div>` : "";
+                card.innerHTML = `<img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onload="fixImage(this)">
+                    <div class="char-details" style="display:block;"><p><strong>${item.title}</strong></p><p>ราคา : ${item.price}</p><p>ระยะเวลา : ${item.time}</p><p>รายละเอียด : ${item.detail}</p>
+                    <div class="char-btn-ui" onclick="openSubGallery('comm', ${index})">ดูรูปภาพเพิ่มเติม</div>
+                    <div class="tag-center-wrap"><div class="char-tag-ui">${item.status}</div></div>${adminHtml}</div>`;
+                target.appendChild(card);
+            }
         });
     }
 
@@ -601,14 +630,16 @@
     function filterShop(tag, btn) {
         if (btn) { document.querySelectorAll('#page-shop .filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
         const target = document.getElementById('shop-list-target'); target.innerHTML = '';
-        const filtered = tag === 'All' ? shopList : shopList.filter(s => s.tag === tag);
-        filtered.forEach(item => {
-            const card = document.createElement('div'); card.className = 'char-card';
-            card.innerHTML = `<img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onload="fixImage(this)">
-                <div class="char-details" style="display:block;"><p><strong>${item.name}</strong></p><p>Artist : Dominic</p>
-                <div class="char-btn-ui" onclick="openCommGallery('${item.img}')">ดูรูปภาพเพิ่มเติม</div>
-                <div class="tag-center-wrap"><div class="char-tag-ui">${item.status}</div></div></div>`;
-            target.appendChild(card);
+        shopList.forEach((item, index) => {
+            if (tag === 'All' || item.tag === tag) {
+                const card = document.createElement('div'); card.className = 'char-card';
+                let adminHtml = isAdmin ? `<div class="admin-controls"><div class="admin-btn" onclick="openEditShop(${index})">Edit</div><div class="admin-btn del" onclick="deleteShop(${index})">Delete</div></div>` : "";
+                card.innerHTML = `<img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onload="fixImage(this)">
+                    <div class="char-details" style="display:block;"><p><strong>${item.name}</strong></p><p>Artist : Dominic</p>
+                    <div class="char-btn-ui" onclick="openSubGallery('shop', ${index})">ดูรูปภาพเพิ่มเติม</div>
+                    <div class="tag-center-wrap"><div class="char-tag-ui">${item.status}</div></div>${adminHtml}</div>`;
+                target.appendChild(card);
+            }
         });
     }
 
@@ -616,14 +647,8 @@
     
     function createCard(obj, realIndex) {
         const card = document.createElement('div'); card.className = 'char-card';
-        const imgPath = `https://lh3.googleusercontent.com/u/0/d/${obj.img}`;
-        
-        let adminHtml = "";
-        if(isAdmin) {
-            adminHtml = `<div class="admin-controls"><div class="admin-btn" onclick="openEditModal(${realIndex})">Edit</div><div class="admin-btn del" onclick="deleteCharacter(${realIndex})">Delete</div></div>`;
-        }
-
-        card.innerHTML = `<img class="char-thumb" src="${imgPath}" onclick="toggleChar(this)" onload="fixImage(this)">
+        let adminHtml = isAdmin ? `<div class="admin-controls"><div class="admin-btn" onclick="openEditModal(${realIndex})">Edit</div><div class="admin-btn del" onclick="deleteCharacter(${realIndex})">Delete</div></div>` : "";
+        card.innerHTML = `<img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${obj.img}" onclick="toggleChar(this)" onload="fixImage(this)">
             <div class="char-details" style="display:none;"><p><strong>${obj.name}</strong></p><p>Artist : ${obj.artist || 'Dominic'}</p><p>Owner : ${obj.owner || 'Dominic'}</p><p>Value : ${obj.value || '0'}</p>
             <div class="char-btn-ui" onclick="openPopDetails(${realIndex})">gallery</div>
             <div class="tag-center-wrap"><div class="char-tag-ui">${obj.tag}</div></div>${adminHtml}</div>`;
@@ -643,183 +668,146 @@
     }
 
     function toggleChar(img) { const details = img.nextElementSibling; details.style.display = (details.style.display === 'block' ? 'none' : 'block'); }
-    function openPopRules(id) { document.getElementById('rules-img-view').src = `https://lh3.googleusercontent.com/u/0/d/${id}`; document.getElementById('pop-rules-modal').style.display = 'flex'; }
-    function closePopRules() { document.getElementById('pop-rules-modal').style.display = 'none'; }
-
+    
     function openPopDetails(index) { 
         currentViewingCharIndex = index;
         const char = charList[index];
         document.getElementById('pop-title-name').innerText = char.name; 
         document.getElementById('pop-stat-name').innerText = char.name; 
         document.getElementById('pop-main-pfp').src = `https://lh3.googleusercontent.com/u/0/d/${char.img}`;
-        
         document.getElementById('char-detail-modal').style.display = 'flex'; 
         document.getElementById('admin-gallery-ctrl').style.display = isAdmin ? 'block' : 'none';
         renderDynamicGallery();
-        switchPopTab('gallery');
     }
 
     function renderDynamicGallery() {
-        const container = document.getElementById('dynamic-gallery-container');
-        container.innerHTML = '';
+        const container = document.getElementById('dynamic-gallery-container'); container.innerHTML = '';
         const char = charList[currentViewingCharIndex];
-        
         if (!char.folders) char.folders = [];
-        
         char.folders.forEach((folder, fIndex) => {
-            const folderWrap = document.createElement('div');
-            let adminFolderBtns = "";
-            if(isAdmin) {
-                adminFolderBtns = `<div class="folder-admin-btns">
-                    <button class="f-btn del" onclick="adminDeleteFolder(${fIndex})">Del Folder</button>
-                    <button class="f-btn" onclick="adminAddImage(${fIndex})">+ Add Image</button>
-                </div>`;
-            }
-            folderWrap.innerHTML = `
-                <div class="folder-row-header">
-                    <h3 class="folder-title">${folder.name}</h3>
-                    ${adminFolderBtns}
-                </div>
-                <div class="gallery-grid-inner">
-                    ${folder.images.map(imgId => `<img class="gallery-img-item" src="https://lh3.googleusercontent.com/u/0/d/${imgId}" onload="fixImage(this)">`).join('')}
-                </div>
-            `;
-            container.appendChild(folderWrap);
+            const wrap = document.createElement('div');
+            let adminBtn = isAdmin ? `<div class="folder-admin-btns"><button class="f-btn del" onclick="adminDeleteFolder(${fIndex})">Del Folder</button><button class="f-btn" onclick="openMgmtModal('char', ${fIndex})">+ Add Image</button></div>` : "";
+            wrap.innerHTML = `<div class="folder-row-header"><h3 class="folder-title">${folder.name}</h3>${adminBtn}</div><div class="gallery-grid-inner">${folder.images.map(id => `<img class="gallery-img-item" src="https://lh3.googleusercontent.com/u/0/d/${id}" onload="fixImage(this)">`).join('')}</div>`;
+            container.appendChild(wrap);
         });
     }
 
     function closeDetails() { document.getElementById('char-detail-modal').style.display = 'none'; }
-    function switchPopTab(t) {
-        document.getElementById('pop-content-about').style.display = 'none';
-        document.getElementById('pop-content-gallery').style.display = 'block';
-    }
-    function openCommGallery(imgId) {
-        const target = document.getElementById('comm-gal-target'); target.innerHTML = '';
-        for(let i=0; i<4; i++) { const img = document.createElement('img'); img.className = 'gal-img-item'; img.src = `https://lh3.googleusercontent.com/u/0/d/${imgId}`; img.onload = function(){ fixImage(this); }; target.appendChild(img); }
+
+    function openSubGallery(type, index) {
+        currentViewingCharIndex = index;
+        activeMgmtType = type;
+        const item = (type === 'comm' ? commissionItems : shopList)[index];
+        
+        const btnWrap = document.getElementById('comm-admin-btn-wrap');
+        btnWrap.innerHTML = '';
+        if(isAdmin) {
+            const btn = document.createElement('div');
+            btn.className = 'char-btn-ui';
+            btn.style.marginBottom = "15px";
+            btn.innerText = "จัดการรูปภาพ";
+            btn.onclick = () => openMgmtModal(type, index);
+            btnWrap.appendChild(btn);
+        }
+
+        const target = document.getElementById('comm-gal-target'); 
+        target.innerHTML = '';
+        const images = (item.gallery && item.gallery.length > 0) ? item.gallery : [item.img];
+        images.forEach(id => {
+            const img = document.createElement('img'); 
+            img.className = 'gal-img-item'; 
+            img.src = `https://lh3.googleusercontent.com/u/0/d/${id}`; 
+            img.onload = function(){ fixImage(this); };
+            target.appendChild(img);
+        });
+        
         document.getElementById('comm-gallery-modal').style.display = 'flex';
     }
     function closeCommGallery() { document.getElementById('comm-gallery-modal').style.display = 'none'; }
 
-    /* --- Folder Functions --- */
-    function adminCreateFolder() {
-        const folderName = prompt("ใส่ชื่อโฟลเดอร์ใหม่:");
-        if (folderName) {
-            if (!charList[currentViewingCharIndex].folders) charList[currentViewingCharIndex].folders = [];
-            charList[currentViewingCharIndex].folders.push({ name: folderName, images: [] });
-            renderDynamicGallery();
-        }
-    }
+    function openMgmtModal(type, index) {
+        activeMgmtType = type;
+        currentEditIndex = index;
+        let images = [];
+        if (type === 'char') images = charList[currentViewingCharIndex].folders[index].images;
+        else if (type === 'comm') images = commissionItems[index].gallery || [];
+        else if (type === 'shop') images = shopList[index].gallery || [];
 
-    function adminDeleteFolder(fIndex) {
-        if (confirm("คุณต้องการลบโฟลเดอร์นี้และรูปภาพทั้งหมดในนี้ใช่หรือไม่?")) {
-            charList[currentViewingCharIndex].folders.splice(fIndex, 1);
-            renderDynamicGallery();
-        }
-    }
-
-    /* --- ระบบจัดการ Gallery Modal (ตามรูป) --- */
-    function adminAddImage(fIndex) {
-        activeFolderIdx = fIndex;
-        const currentFolder = charList[currentViewingCharIndex].folders[fIndex];
-        tempImages = currentFolder.images && currentFolder.images.length > 0 ? [...currentFolder.images] : [""];
+        tempImages = images.length > 0 ? [...images] : [""];
         renderMgmtLines();
         document.getElementById('mgmt-image-modal').style.display = 'flex';
     }
 
     function closeMgmtModal() { document.getElementById('mgmt-image-modal').style.display = 'none'; }
-
     function renderMgmtLines() {
-        const target = document.getElementById('mgmt-lines-target');
-        target.innerHTML = '';
+        const target = document.getElementById('mgmt-lines-target'); target.innerHTML = '';
         tempImages.forEach((id, idx) => {
-            const row = document.createElement('div');
-            row.className = 'mgmt-row';
-            row.innerHTML = `
-                <input type="text" class="mgmt-input" value="${id}" onchange="updateTempImg(${idx}, this.value)" placeholder="วาง ID หรือลิงก์รูป...">
-                <button class="mgmt-del-line" onclick="mgmtRemoveLine(${idx})">x</button>
-            `;
+            const row = document.createElement('div'); row.className = 'mgmt-row';
+            row.innerHTML = `<input type="text" class="mgmt-input" value="${id}" onchange="tempImages[${idx}]=this.value" placeholder="ID หรือลิงก์รูป..."><button class="mgmt-del-line" onclick="tempImages.splice(${idx},1); renderMgmtLines();">x</button>`;
             target.appendChild(row);
         });
     }
-
     function mgmtAddLine() { tempImages.push(""); renderMgmtLines(); }
-    function mgmtRemoveLine(idx) { tempImages.splice(idx, 1); if(tempImages.length === 0) tempImages.push(""); renderMgmtLines(); }
-    function updateTempImg(idx, val) { tempImages[idx] = val.trim(); }
-
     function mgmtSave() {
-        // คลีนค่า ดึงเฉพาะ ID มาบันทึก
         const cleaned = tempImages.map(id => extractId(id)).filter(id => id !== "");
-        charList[currentViewingCharIndex].folders[activeFolderIdx].images = cleaned;
-        renderDynamicGallery();
+        if (activeMgmtType === 'char') charList[currentViewingCharIndex].folders[currentEditIndex].images = cleaned;
+        else if (activeMgmtType === 'comm') commissionItems[currentEditIndex].gallery = cleaned;
+        else if (activeMgmtType === 'shop') shopList[currentEditIndex].gallery = cleaned;
+        
+        alert("บันทึกสำเร็จ");
         closeMgmtModal();
-        alert("บันทึกรูปภาพเรียบร้อยแล้ว");
-    }
-
-    /* --- General Form Functions --- */
-    function openAddModal() { 
-        currentEditIndex = -1;
-        document.getElementById('modal-form-title').innerText = "เพิ่มตัวละครใหม่";
-        document.getElementById('add-name').value = '';
-        document.getElementById('add-img-id').value = '';
-        document.getElementById('add-artist').value = '';
-        document.getElementById('add-owner').value = '';
-        document.getElementById('add-value').value = '';
-        document.querySelectorAll('input[name="tag-multi"]').forEach(cb => cb.checked = false);
-        document.getElementById('add-char-modal').style.display = 'flex'; 
-    }
-
-    function openEditModal(index) {
-        currentEditIndex = index;
-        const char = charList[index];
-        document.getElementById('modal-form-title').innerText = "แก้ไขข้อมูลตัวละคร";
-        document.getElementById('add-name').value = char.name;
-        document.getElementById('add-img-id').value = char.img;
-        document.getElementById('add-artist').value = char.artist || '';
-        document.getElementById('add-owner').value = char.owner || '';
-        document.getElementById('add-value').value = char.value || '';
-        document.querySelectorAll('input[name="tag-multi"]').forEach(cb => cb.checked = char.tag.includes(cb.value));
-        document.getElementById('add-char-modal').style.display = 'flex';
-    }
-
-    function closeAddModal() { document.getElementById('add-char-modal').style.display = 'none'; }
-
-    function saveCharacter() {
-        const name = document.getElementById('add-name').value;
-        const artist = document.getElementById('add-artist').value || 'Dominic';
-        const owner = document.getElementById('add-owner').value || 'Dominic';
-        const value = document.getElementById('add-value').value || '0';
-        const imgInput = document.getElementById('add-img-id').value;
-        const img = extractId(imgInput);
-        const selectedTags = [];
-        document.querySelectorAll('input[name="tag-multi"]:checked').forEach(cb => selectedTags.push(cb.value));
-        const tagString = selectedTags.length > 0 ? selectedTags.join(', ') : 'ota';
-
-        if (!name || !img) { alert("กรุณากรอกชื่อและรูปภาพ"); return; }
-
-        if(currentEditIndex === -1) {
-            charList.push({ name, img, tag: tagString, artist, owner, value, folders: [{ name: 'Original design', images: [img] }] });
-        } else {
-            const oldFolders = charList[currentEditIndex].folders;
-            charList[currentEditIndex] = { name, img, tag: tagString, artist, owner, value, folders: oldFolders };
+        if (activeMgmtType === 'char') renderDynamicGallery();
+        else {
+            closeCommGallery();
+            const tab = activeMgmtType === 'comm' ? 'commission' : 'shop';
+            navigate(tab);
         }
-        filterChars('All');
-        closeAddModal();
     }
 
-    function deleteCharacter(index) {
-        if(confirm("คุณต้องการลบตัวละครนี้ใช่หรือไม่?")) { charList.splice(index, 1); filterChars('All'); }
+    function openAddCommModal() { currentEditIndex = -1; document.getElementById('comm-form-title').innerText = "เพิ่มคอมมิชชั่น"; document.getElementById('comm-name').value = ""; document.getElementById('comm-price').value = ""; document.getElementById('comm-time').value = ""; document.getElementById('comm-detail').value = ""; document.getElementById('comm-img').value = ""; document.getElementById('add-comm-modal').style.display = 'flex'; }
+    function openEditComm(index) { currentEditIndex = index; const i = commissionItems[index]; document.getElementById('comm-form-title').innerText = "แก้ไขคอมมิชชั่น"; document.getElementById('comm-name').value = i.title; document.getElementById('comm-price').value = i.price; document.getElementById('comm-time').value = i.time; document.getElementById('comm-detail').value = i.detail; document.getElementById('comm-img').value = i.img; document.getElementById('comm-status').value = i.status; document.getElementById('add-comm-modal').style.display = 'flex'; }
+    function closeAddCommModal() { document.getElementById('add-comm-modal').style.display = 'none'; }
+    function saveComm() {
+        const data = { title: document.getElementById('comm-name').value, price: document.getElementById('comm-price').value, time: document.getElementById('comm-time').value, detail: document.getElementById('comm-detail').value, img: extractId(document.getElementById('comm-img').value), status: document.getElementById('comm-status').value, gallery: [] };
+        if(currentEditIndex === -1) commissionItems.push(data); else { data.gallery = commissionItems[currentEditIndex].gallery; commissionItems[currentEditIndex] = data; }
+        navigateCommSub('main'); closeAddCommModal();
     }
-    
+    function deleteComm(index) { if(confirm("ลบใช่หรือไม่?")) { commissionItems.splice(index,1); navigateCommSub('main'); } }
+
+    function openAddShopModal() { currentEditIndex = -1; document.getElementById('shop-form-title').innerText = "เพิ่มสินค้า"; document.getElementById('shop-name').value = ""; document.getElementById('shop-img').value = ""; document.getElementById('add-shop-modal').style.display = 'flex'; }
+    function openEditShop(index) { currentEditIndex = index; const i = shopList[index]; document.getElementById('shop-form-title').innerText = "แก้ไขสินค้า"; document.getElementById('shop-name').value = i.name; document.getElementById('shop-tag').value = i.tag; document.getElementById('shop-img').value = i.img; document.getElementById('shop-status').value = i.status; document.getElementById('add-shop-modal').style.display = 'flex'; }
+    function closeAddShopModal() { document.getElementById('add-shop-modal').style.display = 'none'; }
+    function saveShop() {
+        const data = { name: document.getElementById('shop-name').value, tag: document.getElementById('shop-tag').value, img: extractId(document.getElementById('shop-img').value), status: document.getElementById('shop-status').value, gallery: [] };
+        if(currentEditIndex === -1) shopList.push(data); else { data.gallery = shopList[currentEditIndex].gallery; shopList[currentEditIndex] = data; }
+        filterShop('All'); closeAddShopModal();
+    }
+    function deleteShop(index) { if(confirm("ลบใช่หรือไม่?")) { shopList.splice(index,1); filterShop('All'); } }
+
+    function openAddModal() { currentEditIndex = -1; document.getElementById('modal-form-title').innerText = "เพิ่มตัวละครใหม่"; document.getElementById('add-name').value = ''; document.getElementById('add-img-id').value = ''; document.getElementById('add-artist').value = ''; document.getElementById('add-owner').value = ''; document.getElementById('add-value').value = ''; document.querySelectorAll('input[name="tag-multi"]').forEach(cb => cb.checked = false); document.getElementById('add-char-modal').style.display = 'flex'; }
+    function openEditModal(index) { currentEditIndex = index; const char = charList[index]; document.getElementById('modal-form-title').innerText = "แก้ไขข้อมูลตัวละคร"; document.getElementById('add-name').value = char.name; document.getElementById('add-img-id').value = char.img; document.getElementById('add-artist').value = char.artist || ''; document.getElementById('add-owner').value = char.owner || ''; document.getElementById('add-value').value = char.value || ''; document.querySelectorAll('input[name="tag-multi"]').forEach(cb => cb.checked = char.tag.includes(cb.value)); document.getElementById('add-char-modal').style.display = 'flex'; }
+    function closeAddModal() { document.getElementById('add-char-modal').style.display = 'none'; }
+    function saveCharacter() {
+        const name = document.getElementById('add-name').value, artist = document.getElementById('add-artist').value || 'Dominic', owner = document.getElementById('add-owner').value || 'Dominic', value = document.getElementById('add-value').value || '0', img = extractId(document.getElementById('add-img-id').value);
+        const selectedTags = []; document.querySelectorAll('input[name="tag-multi"]:checked').forEach(cb => selectedTags.push(cb.value));
+        const tagString = selectedTags.length > 0 ? selectedTags.join(', ') : 'ota';
+        if (!name || !img) { alert("กรุณากรอกชื่อและรูปภาพ"); return; }
+        if(currentEditIndex === -1) charList.push({ name, img, tag: tagString, artist, owner, value, folders: [{ name: 'Original design', images: [img] }] });
+        else charList[currentEditIndex] = { ...charList[currentEditIndex], name, img, tag: tagString, artist, owner, value };
+        filterChars('All'); closeAddModal();
+    }
+    function deleteCharacter(index) { if(confirm("คุณต้องการลบตัวละครนี้ใช่หรือไม่?")) { charList.splice(index, 1); filterChars('All'); } }
+
+    function adminCreateFolder() { const n = prompt("ชื่อโฟลเดอร์ใหม่:"); if (n) { charList[currentViewingCharIndex].folders.push({ name: n, images: [] }); renderDynamicGallery(); } }
+    function adminDeleteFolder(idx) { if (confirm("ลบโฟลเดอร์?")) { charList[currentViewingCharIndex].folders.splice(idx, 1); renderDynamicGallery(); } }
+
     function fixImage(img) { 
         const originalSrc = img.src; 
         if (!originalSrc.includes('googleusercontent.com') && !originalSrc.includes('drive.google.com')) return; 
         const id = extractId(originalSrc);
         if(id) {
             const fixedUrl = `https://lh3.googleusercontent.com/u/0/d/${id}`; 
-            if (img.getAttribute('data-retry') !== 'true' || img.src !== fixedUrl) { 
-                img.setAttribute('data-retry', 'true'); 
-                img.src = fixedUrl; 
-            } 
+            if (img.getAttribute('data-retry') !== 'true' || img.src !== fixedUrl) { img.setAttribute('data-retry', 'true'); img.src = fixedUrl; } 
         }
     }
     window.onload = () => navigate('home');
