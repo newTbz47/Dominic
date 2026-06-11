@@ -113,14 +113,14 @@
         .filter-btn { background: rgba(0,0,0,0.5); border: 1.5px dashed var(--box-border); color: white; padding: 5px 20px; border-radius: 20px; cursor: pointer; font-size: 13px; transition: 0.3s; }
         .filter-btn.active { background: var(--box-border); color: #000; border-style: solid; box-shadow: 0 0 10px var(--box-border); }
 
-        .char-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; align-items: start; }
+        .char-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; align-items: start; width: 100%; }
         .two-col-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: start; }
-        .display-col { display: flex; flex-direction: column; gap: 20px; }
+        .display-col { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
 
         .char-card { width: 100%; background: var(--box-grad); border: 1.5px solid var(--box-border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--glow-soft); position: relative; }
-        .char-thumb { width: 100%; display: block; cursor: pointer; transition: 0.2s; border-bottom: 1.5px solid var(--box-border); }
-        .char-details { padding: 15px 15px; font-size: 11px; color: #FFFFFF; text-align: left; line-height: 1.5; }
-        .char-details p { margin: 4px 0; color: #FFFFFF; }
+        .char-thumb { width: 100%; display: block; cursor: pointer; transition: 0.2s; border-bottom: 1.5px solid var(--box-border); background: #111; min-height: 100px; }
+        .char-details { padding: 15px 15px; font-size: 11px; color: #FFFFFF; text-align: left; line-height: 1.5; overflow: hidden; }
+        .char-details p { margin: 4px 0; color: #FFFFFF; word-break: break-all; }
         .char-btn-ui { display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid #FFFFFF; padding: 4px 10px; border-radius: 4px; margin: 4px 0; color: #FFFFFF; font-size: 10px; cursor: pointer; text-align: center; width: 100%; }
         .tag-center-wrap { width: 100%; text-align: center; margin-top: 10px; }
         .char-tag-ui { display: inline-block; border: 1px dashed #FFFFFF; padding: 2px 15px; border-radius: 15px; color: #FFFFFF; font-size: 10px; }
@@ -197,7 +197,7 @@
         .add-char-btn { font-size: 10px; padding: 4px 12px; background: var(--box-border); color: black; border-radius: 15px; cursor: pointer; border: none; font-weight: bold; }
         .form-row { margin-bottom: 15px; }
         .form-row label { display: block; font-size: 14px; margin-bottom: 5px; color: var(--box-border); }
-        .form-row input, .form-row select { width: 100%; padding: 10px; background: #222; border: 1.5px solid var(--box-border); color: white; border-radius: 4px; }
+        .form-row input, .form-row select { width: 100%; padding: 10px; background: #111; border: 1.5px solid var(--box-border); color: white; border-radius: 4px; }
         
         .tag-selection { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: #111; padding: 15px; border-radius: 4px; border: 1px dashed var(--box-border); }
         .tag-selection label { font-size: 12px; color: white; display: flex !important; align-items: center !important; gap: 8px !important; cursor: pointer; margin: 0 !important; white-space: nowrap; }
@@ -209,17 +209,23 @@
         .admin-btn { flex: 1; font-size: 9px; padding: 4px; border: 1px solid #fff; border-radius: 4px; cursor: pointer; background: rgba(255,255,255,0.1); color: #fff; text-align: center; }
         .admin-btn.del { color: #ff9d9d; border-color: #ff9d9d; }
 
-        .gallery-main-header { font-size: 24px; font-weight: bold; text-align: center; color: white; letter-spacing: 2px; margin-bottom: 10px; border-bottom: 1.5px solid var(--box-border); padding-bottom: 10px; }
-        .admin-gallery-tools { text-align: right; margin-bottom: 15px; }
+        /* --- NEW Modal Styles for Manage Gallery (ตามรูปเป๊ะๆ) --- */
+        .mgmt-dashed-box { border: 1.5px dashed #555; padding: 25px; border-radius: 4px; margin: 20px 0; }
+        .mgmt-label { display: block; font-size: 20px; margin-bottom: 15px; color: white; font-weight: 500; text-align: left; }
+        .mgmt-row { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; }
+        .mgmt-input { flex-grow: 1; padding: 12px; background: #111; border: 1.5px solid #333; color: white; border-radius: 4px; font-size: 14px; }
+        .mgmt-del-line { width: 35px; height: 35px; border: 1.5px solid #555; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 4px; font-size: 14px; }
+        .mgmt-pink-plus { width: 45px; height: 38px; background: #D8A7C9; border: none; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: bold; color: black; margin-top: 5px; }
+        .mgmt-save-big { width: 100%; height: 55px; background: #FFFFFF; color: #000; border: none; border-radius: 0; font-size: 24px; font-weight: bold; cursor: pointer; margin-top: 20px; }
     </style>
 </head>
 <body>
 
 <div class="ipad-layout">
-    <img class="top-banner" src="https://lh3.googleusercontent.com/u/0/d/1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0" onerror="fixImage(this)">
+    <img class="top-banner" src="https://lh3.googleusercontent.com/u/0/d/1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0" onload="fixImage(this)">
 
     <div class="bow-row">
-        <script>for(let i=0; i<7; i++) document.write('<img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">');</script>
+        <script>for(let i=0; i<7; i++) document.write('<img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onload="fixImage(this)">');</script>
     </div>
 
     <div class="nav-grid">
@@ -236,23 +242,23 @@
             <div class="col-left">
                 <div class="profile-wrapper">
                     <div class="profile-bg-box"></div>
-                    <img class="character-img" src="https://lh3.googleusercontent.com/u/0/d/1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ" onerror="fixImage(this)">
-                    <img class="roses-top" src="https://lh3.googleusercontent.com/u/0/d/1JFCylDLvmXTBD0PHbIpH-qsRev2fVHOI" onerror="fixImage(this)">
-                    <img class="roses-bottom-left" src="https://lh3.googleusercontent.com/u/0/d/1F5fZbquDhMCzC2trOv1VljVdty94N_uR" onerror="fixImage(this)">
+                    <img class="character-img" src="https://lh3.googleusercontent.com/u/0/d/1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ" onload="fixImage(this)">
+                    <img class="roses-top" src="https://lh3.googleusercontent.com/u/0/d/1JFCylDLvmXTBD0PHbIpH-qsRev2fVHOI" onload="fixImage(this)">
+                    <img class="roses-bottom-left" src="https://lh3.googleusercontent.com/u/0/d/1F5fZbquDhMCzC2trOv1VljVdty94N_uR" onload="fixImage(this)">
                 </div>
-                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
+                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onload="fixImage(this)"></div>
                 <div class="box-template name-tag">Dominic</div>
-                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
+                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onload="fixImage(this)"></div>
                 <div class="box-template about-box">
                     <div class="box-title">about me</div>
                     <div class="inner-white">
-                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> name: new</div>
-                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> birthday: april 24th</div>
-                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> Pronouns: she / her</div>
-                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> alias: Dominic/Velune</div>
+                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onload="fixImage(this)"> name: new</div>
+                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onload="fixImage(this)"> birthday: april 24th</div>
+                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onload="fixImage(this)"> Pronouns: she / her</div>
+                        <div class="line"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onload="fixImage(this)"> alias: Dominic/Velune</div>
                     </div>
                 </div>
-                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
+                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onload="fixImage(this)"></div>
                 <div class="box-template small-display-box">
                     <div class="box-title">Social Battery</div>
                     <div class="inner-white">
@@ -262,55 +268,55 @@
                         </div>
                     </div>
                 </div>
-                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
+                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onload="fixImage(this)"></div>
                 <div class="box-template login-btn" onclick="triggerAdminLogin()">Log in</div>
                 <div class="black-bar">
-                    <img class="bar-img" src="https://lh3.googleusercontent.com/u/0/d/1Kiix_IgzBHFrL7EeLHjZLqL8V4uT1beD" onerror="fixImage(this)">
-                    <img class="bar-img" src="https://lh3.googleusercontent.com/u/0/d/1yQ12nEX6p0D_GzhrV_XEO1rDh9pFlMMh" onerror="fixImage(this)">
+                    <img class="bar-img" src="https://lh3.googleusercontent.com/u/0/d/1Kiix_IgzBHFrL7EeLHjZLqL8V4uT1beD" onload="fixImage(this)">
+                    <img class="bar-img" src="https://lh3.googleusercontent.com/u/0/d/1yQ12nEX6p0D_GzhrV_XEO1rDh9pFlMMh" onload="fixImage(this)">
                 </div>
                 <div class="social-row">
-                    <a href="https://x.com/domi_nic_yn?s=11" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xCdSND3K6s2xk9u7rrCctjyBx-rdZmHd" onerror="fixImage(this)"></a>
-                    <a href="https://www.facebook.com/profile.php?id=61580195536012" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1PmSfbZDawN7PRJOOwMCX0DX6l4DlXO5T" onerror="fixImage(this)"></a>
-                    <a href="https://www.instagram.com/_dominic_yn?igsh=MTBkN3VucXVkNDAwZQ%3D%3D&utm_source=qr" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1mhNFjn3Qy5YC3DLUvQWGUkez43DOvneQ" onerror="fixImage(this)"></a>
-                    <a href="https://www.tiktok.com/@dominic_yn?_r=1&_t=ZS-9730o90ehkb" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1i4IFdXQEAhaX15F5IUbsbJjFO2GC6RWa" onerror="fixImage(this)"></a>
-                    <a href="https://vgen.co/DominicYn" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xEQbYxXsu7SYvBbn66JpjhtqL3JHqoMB" onerror="fixImage(this)"></a>
+                    <a href="https://x.com/domi_nic_yn?s=11" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xCdSND3K6s2xk9u7rrCctjyBx-rdZmHd" onload="fixImage(this)"></a>
+                    <a href="https://www.facebook.com/profile.php?id=61580195536012" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1PmSfbZDawN7PRJOOwMCX0DX6l4DlXO5T" onload="fixImage(this)"></a>
+                    <a href="https://www.instagram.com/_dominic_yn?igsh=MTBkN3VucXVkNDAwZQ%3D%3D&utm_source=qr" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1mhNFjn3Qy5YC3DLUvQWGUkez43DOvneQ" onload="fixImage(this)"></a>
+                    <a href="https://www.tiktok.com/@dominic_yn?_r=1&_t=ZS-9730o90ehkb" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1i4IFdXQEAhaX15F5IUbsbJjFO2GC6RWa" onload="fixImage(this)"></a>
+                    <a href="https://vgen.co/DominicYn" target="_blank" class="social-link"><img class="social-img" src="https://lh3.googleusercontent.com/u/0/d/1xEQbYxXsu7SYvBbn66JpjhtqL3JHqoMB" onload="fixImage(this)"></a>
                 </div>
             </div>
             <div class="col-right">
                 <div class="box-template right-large">
-                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
+                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onload="fixImage(this)">
                     <div class="box-title">Welcome to my website!</div>
                     <div class="inner-white"><div>Feel free to explore my artwork, characters, and other little things I enjoy.</div><div style="margin-top: 20px;">I hope you have a lovely day. ♡</div></div>
                 </div>
-                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
+                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onload="fixImage(this)"></div>
                 <div class="box-template right-medium">
-                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14S7hZwuiR3ap3NNkbBwkdNfkH18xsomQ" onerror="fixImage(this)">
+                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14S7hZwuiR3ap3NNkbBwkdNfkH18xsomQ" onload="fixImage(this)">
                     <div class="box-title">little things about me</div>
                     <div class="inner-white">
-                        <div class="image-placeholder"><img src="https://lh3.googleusercontent.com/u/0/d/14S7hZwuiR3ap3NNkbBwkdNfkH18xsomQ" onerror="fixImage(this)"></div>
+                        <div class="image-placeholder"><img src="https://lh3.googleusercontent.com/u/0/d/14S7hZwuiR3ap3NNkbBwkdNfkH18xsomQ" onload="fixImage(this)"></div>
                         <div class="text-content">
-                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> <span>Low social battery.</span></div>
-                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> <span>Drawing is what I love most. It's my whole life.</span></div>
-                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> <span>Love sweets, can't eat much.</span></div>
-                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onerror="fixImage(this)"> <span>A chuunibyou at heart.</span></div>
+                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onload="fixImage(this)"> <span>Low social battery.</span></div>
+                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onload="fixImage(this)"> <span>Drawing is what I love most. It's my whole life.</span></div>
+                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onload="fixImage(this)"> <span>Love sweets, can't eat much.</span></div>
+                            <div class="list-item"><img class="about-icon" src="https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP" onload="fixImage(this)"> <span>A chuunibyou at heart.</span></div>
                         </div>
                     </div>
                 </div>
-                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
+                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onload="fixImage(this)"></div>
                 <div class="box-template right-small">
-                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onerror="fixImage(this)">
+                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onload="fixImage(this)">
                     <div class="box-title">my favorite thing</div>
                     <div class="inner-white">
-                        <div class="fav-item"><img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/1-FC3qEExhJC77hp1HH440U9yuMPvweCl" onerror="fixImage(this)"><span>Sweets</span></div>
-                        <div class="fav-item"><img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/1D4KnlxHNjZv5BF77rBaLJ2HEFmUNg5LK" onerror="fixImage(this)"><span>Drawing</span></div>
-                        <div class="fav-item"><img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/11Ymi1RyrIo4VY90Wo-vzNlU3eyEX4HiW" onerror="fixImage(this)"><span>Chick</span></div>
+                        <div class="fav-item"><img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/1-FC3qEExhJC77hp1HH440U9yuMPvweCl" onload="fixImage(this)"><span>Sweets</span></div>
+                        <div class="fav-item"><img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/1D4KnlxHNjZv5BF77rBaLJ2HEFmUNg5LK" onload="fixImage(this)"><span>Drawing</span></div>
+                        <div class="fav-item"><img class="fav-img" src="https://lh3.googleusercontent.com/u/0/d/11Ymi1RyrIo4VY90Wo-vzNlU3eyEX4HiW" onload="fixImage(this)"><span>Chick</span></div>
                     </div>
                 </div>
-                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
+                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onload="fixImage(this)"></div>
                 <div class="box-template fandom-box">
                     <div class="box-title">fandom</div>
                     <div class="inner-white">twisted wonderland<br>gachiakuta<br>madoka<br>bleach<br>mashle</div>
-                    <img class="fandom-flowers-bottom" src="https://lh3.googleusercontent.com/u/0/d/1F5fZbquDhMCzC2trOv1VljVdty94N_uR" onerror="fixImage(this)">
+                    <img class="fandom-flowers-bottom" src="https://lh3.googleusercontent.com/u/0/d/1F5fZbquDhMCzC2trOv1VljVdty94N_uR" onload="fixImage(this)">
                 </div>
             </div>
         </div>
@@ -318,7 +324,7 @@
         <!-- หน้า Character -->
         <div id="page-character" class="page-container">
             <div id="page-char-terms">
-                <img class="warn-big-bow" src="https://lh3.googleusercontent.com/u/0/d/1rEkHzbbxsnfzxGYLdz0kFQx1eD7EoIka" onerror="fixImage(this)">
+                <img class="warn-big-bow" src="https://lh3.googleusercontent.com/u/0/d/1rEkHzbbxsnfzxGYLdz0kFQx1eD7EoIka" onload="fixImage(this)">
                 <div class="warn-title-box">! warning !</div>
                 <div class="warn-main-box">
                     <span class="warn-header">ข้อตกลงการรับชมเด็ก ๆ ในบ้าน</span>
@@ -396,7 +402,7 @@
             <div class="modal-menu-bar" style="display:none;"><button class="modal-menu-btn" id="pop-btn-about" onclick="switchPopTab('about')">about</button><button class="modal-menu-btn" id="pop-btn-gallery" onclick="switchPopTab('gallery')">gallery</button></div>
             <div id="pop-content-about" class="modal-about-area" style="display:none;">
                 <div class="box-template"><div class="box-title">About this character</div><div class="inner-white"><p id="pop-desc-text">Character details...</p></div></div>
-                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onerror="fixImage(this)"></div>
+                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onload="fixImage(this)"></div>
                 <div class="box-template"><div class="box-title">Notes / Personality</div><div class="inner-white"><p>Personality notes go here.</p></div></div>
             </div>
             <!-- Dynamic Gallery Area -->
@@ -407,6 +413,20 @@
                 </div>
                 <div id="dynamic-gallery-container"></div>
             </div>
+        </div>
+    </div>
+
+    <!-- จัดการ Gallery Modal (หน้าดำเป๊ะๆ ตามรูป) -->
+    <div id="mgmt-image-modal" class="modal-overlay" onclick="closeMgmtModal()">
+        <div class="modal-content" style="background: black; width: 620px;" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeMgmtModal()">&times;</span>
+            <div style="font-size: 26px; font-weight: bold; margin-bottom: 25px; text-align: left; color: white;">จัดการ Gallery</div>
+            <div class="mgmt-dashed-box">
+                <span class="mgmt-label">รูปภาพ (Google Drive ID)</span>
+                <div id="mgmt-lines-target"></div>
+                <button class="mgmt-pink-plus" onclick="mgmtAddLine()">+</button>
+            </div>
+            <button class="mgmt-save-big" onclick="mgmtSave()">บันทึก</button>
         </div>
     </div>
 
@@ -451,7 +471,7 @@
     </div>
 
     <div id="pop-rules-modal" class="modal-overlay" onclick="closePopRules()">
-        <div class="modal-content" onclick="event.stopPropagation()"><span class="modal-close" onclick="closePopRules()">&times;</span><div class="modal-header-section"><span class="modal-char-name-big">กฎการใช้งานดีไซน์</span></div><img id="rules-img-view" src="" class="modal-img-full" onerror="fixImage(this)"></div>
+        <div class="modal-content" onclick="event.stopPropagation()"><span class="modal-close" onclick="closePopRules()">&times;</span><div class="modal-header-section"><span class="modal-char-name-big">กฎการใช้งานดีไซน์</span></div><img id="rules-img-view" src="" class="modal-img-full" onload="fixImage(this)"></div>
     </div>
 
     <div id="comm-gallery-modal" class="modal-overlay" onclick="closeCommGallery()">
@@ -460,13 +480,12 @@
 
     <div class="footer-section">
         <div class="bow-row">
-            <script>for(let i=0; i<7; i++) document.write('<img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onerror="fixImage(this)">');</script>
+            <script>for(let i=0; i<7; i++) document.write('<img class="bow-img" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onload="fixImage(this)">');</script>
         </div>
     </div>
 </div>
 
 <script>
-    // Updated charList to support dynamic folders
     let charList = [
         { 
             name: 'Dominic V', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'ota', artist: 'Dominic', owner: 'Dominic', value: '0',
@@ -495,6 +514,15 @@
     let isAdmin = false;
     let currentEditIndex = -1;
     let currentViewingCharIndex = -1;
+    let activeFolderIdx = -1;
+    let tempImages = [];
+
+    // ฟังก์ชันช่วยดึง ID จากลิงก์ Google Drive
+    function extractId(input) {
+        if (!input) return "";
+        const match = input.match(/(?:id=|\/d\/|u\/0\/d\/)([\w-]+)/);
+        return match ? match[1] : input.trim();
+    }
 
     function triggerAdminLogin() {
         if(isAdmin) return;
@@ -556,7 +584,7 @@
         const filtered = filterTag === 'all' ? commissionItems : commissionItems.filter(i => i.status === filterTag);
         filtered.forEach(item => {
             const card = document.createElement('div'); card.className = 'char-card';
-            card.innerHTML = `<img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onerror="fixImage(this)">
+            card.innerHTML = `<img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onload="fixImage(this)">
                 <div class="char-details" style="display:block;"><p><strong>${item.title}</strong></p><p>ราคา : ${item.price}</p><p>ระยะเวลา : ${item.time}</p><p>รายละเอียด : ${item.detail}</p>
                 <div class="char-btn-ui" onclick="openCommGallery('${item.img}')">ดูรูปภาพเพิ่มเติม</div>
                 <div class="tag-center-wrap"><div class="char-tag-ui">${item.status}</div></div></div>`;
@@ -576,7 +604,7 @@
         const filtered = tag === 'All' ? shopList : shopList.filter(s => s.tag === tag);
         filtered.forEach(item => {
             const card = document.createElement('div'); card.className = 'char-card';
-            card.innerHTML = `<img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onerror="fixImage(this)">
+            card.innerHTML = `<img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onload="fixImage(this)">
                 <div class="char-details" style="display:block;"><p><strong>${item.name}</strong></p><p>Artist : Dominic</p>
                 <div class="char-btn-ui" onclick="openCommGallery('${item.img}')">ดูรูปภาพเพิ่มเติม</div>
                 <div class="tag-center-wrap"><div class="char-tag-ui">${item.status}</div></div></div>`;
@@ -595,7 +623,7 @@
             adminHtml = `<div class="admin-controls"><div class="admin-btn" onclick="openEditModal(${realIndex})">Edit</div><div class="admin-btn del" onclick="deleteCharacter(${realIndex})">Delete</div></div>`;
         }
 
-        card.innerHTML = `<img class="char-thumb" src="${imgPath}" onclick="toggleChar(this)" onerror="fixImage(this)">
+        card.innerHTML = `<img class="char-thumb" src="${imgPath}" onclick="toggleChar(this)" onload="fixImage(this)">
             <div class="char-details" style="display:none;"><p><strong>${obj.name}</strong></p><p>Artist : ${obj.artist || 'Dominic'}</p><p>Owner : ${obj.owner || 'Dominic'}</p><p>Value : ${obj.value || '0'}</p>
             <div class="char-btn-ui" onclick="openPopDetails(${realIndex})">gallery</div>
             <div class="tag-center-wrap"><div class="char-tag-ui">${obj.tag}</div></div>${adminHtml}</div>`;
@@ -640,7 +668,6 @@
         
         char.folders.forEach((folder, fIndex) => {
             const folderWrap = document.createElement('div');
-            
             let adminFolderBtns = "";
             if(isAdmin) {
                 adminFolderBtns = `<div class="folder-admin-btns">
@@ -648,14 +675,13 @@
                     <button class="f-btn" onclick="adminAddImage(${fIndex})">+ Add Image</button>
                 </div>`;
             }
-
             folderWrap.innerHTML = `
                 <div class="folder-row-header">
                     <h3 class="folder-title">${folder.name}</h3>
                     ${adminFolderBtns}
                 </div>
                 <div class="gallery-grid-inner">
-                    ${folder.images.map(imgId => `<img class="gallery-img-item" src="https://lh3.googleusercontent.com/u/0/d/${imgId}" onerror="fixImage(this)">`).join('')}
+                    ${folder.images.map(imgId => `<img class="gallery-img-item" src="https://lh3.googleusercontent.com/u/0/d/${imgId}" onload="fixImage(this)">`).join('')}
                 </div>
             `;
             container.appendChild(folderWrap);
@@ -669,12 +695,12 @@
     }
     function openCommGallery(imgId) {
         const target = document.getElementById('comm-gal-target'); target.innerHTML = '';
-        for(let i=0; i<4; i++) { const img = document.createElement('img'); img.className = 'gal-img-item'; img.src = `https://lh3.googleusercontent.com/u/0/d/${imgId}`; img.onerror = function(){ fixImage(this); }; target.appendChild(img); }
+        for(let i=0; i<4; i++) { const img = document.createElement('img'); img.className = 'gal-img-item'; img.src = `https://lh3.googleusercontent.com/u/0/d/${imgId}`; img.onload = function(){ fixImage(this); }; target.appendChild(img); }
         document.getElementById('comm-gallery-modal').style.display = 'flex';
     }
     function closeCommGallery() { document.getElementById('comm-gallery-modal').style.display = 'none'; }
 
-    /* --- Admin Gallery Functions --- */
+    /* --- Folder Functions --- */
     function adminCreateFolder() {
         const folderName = prompt("ใส่ชื่อโฟลเดอร์ใหม่:");
         if (folderName) {
@@ -691,15 +717,45 @@
         }
     }
 
+    /* --- ระบบจัดการ Gallery Modal (ตามรูป) --- */
     function adminAddImage(fIndex) {
-        const imgId = prompt("ใส่ Image ID (Google Drive) สำหรับรูปภาพใหม่:");
-        if (imgId) {
-            charList[currentViewingCharIndex].folders[fIndex].images.push(imgId);
-            renderDynamicGallery();
-        }
+        activeFolderIdx = fIndex;
+        const currentFolder = charList[currentViewingCharIndex].folders[fIndex];
+        tempImages = currentFolder.images && currentFolder.images.length > 0 ? [...currentFolder.images] : [""];
+        renderMgmtLines();
+        document.getElementById('mgmt-image-modal').style.display = 'flex';
     }
 
-    /* --- Add/Edit/Delete Functions --- */
+    function closeMgmtModal() { document.getElementById('mgmt-image-modal').style.display = 'none'; }
+
+    function renderMgmtLines() {
+        const target = document.getElementById('mgmt-lines-target');
+        target.innerHTML = '';
+        tempImages.forEach((id, idx) => {
+            const row = document.createElement('div');
+            row.className = 'mgmt-row';
+            row.innerHTML = `
+                <input type="text" class="mgmt-input" value="${id}" onchange="updateTempImg(${idx}, this.value)" placeholder="วาง ID หรือลิงก์รูป...">
+                <button class="mgmt-del-line" onclick="mgmtRemoveLine(${idx})">x</button>
+            `;
+            target.appendChild(row);
+        });
+    }
+
+    function mgmtAddLine() { tempImages.push(""); renderMgmtLines(); }
+    function mgmtRemoveLine(idx) { tempImages.splice(idx, 1); if(tempImages.length === 0) tempImages.push(""); renderMgmtLines(); }
+    function updateTempImg(idx, val) { tempImages[idx] = val.trim(); }
+
+    function mgmtSave() {
+        // คลีนค่า ดึงเฉพาะ ID มาบันทึก
+        const cleaned = tempImages.map(id => extractId(id)).filter(id => id !== "");
+        charList[currentViewingCharIndex].folders[activeFolderIdx].images = cleaned;
+        renderDynamicGallery();
+        closeMgmtModal();
+        alert("บันทึกรูปภาพเรียบร้อยแล้ว");
+    }
+
+    /* --- General Form Functions --- */
     function openAddModal() { 
         currentEditIndex = -1;
         document.getElementById('modal-form-title').innerText = "เพิ่มตัวละครใหม่";
@@ -732,45 +788,39 @@
         const artist = document.getElementById('add-artist').value || 'Dominic';
         const owner = document.getElementById('add-owner').value || 'Dominic';
         const value = document.getElementById('add-value').value || '0';
-        const img = document.getElementById('add-img-id').value;
+        const imgInput = document.getElementById('add-img-id').value;
+        const img = extractId(imgInput);
         const selectedTags = [];
         document.querySelectorAll('input[name="tag-multi"]:checked').forEach(cb => selectedTags.push(cb.value));
         const tagString = selectedTags.length > 0 ? selectedTags.join(', ') : 'ota';
 
-        if (!name || !img) { alert("กรุณากรอกชื่อและ Image ID"); return; }
+        if (!name || !img) { alert("กรุณากรอกชื่อและรูปภาพ"); return; }
 
         if(currentEditIndex === -1) {
             charList.push({ name, img, tag: tagString, artist, owner, value, folders: [{ name: 'Original design', images: [img] }] });
-            alert("เพิ่มข้อมูลสำเร็จ");
         } else {
             const oldFolders = charList[currentEditIndex].folders;
             charList[currentEditIndex] = { name, img, tag: tagString, artist, owner, value, folders: oldFolders };
-            alert("แก้ไขข้อมูลสำเร็จ");
         }
         filterChars('All');
         closeAddModal();
     }
 
     function deleteCharacter(index) {
-        if(confirm("คุณต้องการลบตัวละครนี้ใช่หรือไม่?")) {
-            charList.splice(index, 1);
-            filterChars('All');
-        }
+        if(confirm("คุณต้องการลบตัวละครนี้ใช่หรือไม่?")) { charList.splice(index, 1); filterChars('All'); }
     }
     
     function fixImage(img) { 
         const originalSrc = img.src; 
-        if (!originalSrc.includes('googleusercontent.com')) return; 
-        if (originalSrc.includes('/d/') || originalSrc.includes('id=')) { 
-            let id = "";
-            if(originalSrc.includes('/d/')) id = originalSrc.split('/d/')[1].split(/[/?]/)[0];
-            else id = originalSrc.split('id=')[1].split(/[&]/)[0];
+        if (!originalSrc.includes('googleusercontent.com') && !originalSrc.includes('drive.google.com')) return; 
+        const id = extractId(originalSrc);
+        if(id) {
             const fixedUrl = `https://lh3.googleusercontent.com/u/0/d/${id}`; 
-            if (img.getAttribute('data-retry') !== 'true') { 
+            if (img.getAttribute('data-retry') !== 'true' || img.src !== fixedUrl) { 
                 img.setAttribute('data-retry', 'true'); 
                 img.src = fixedUrl; 
             } 
-        } 
+        }
     }
     window.onload = () => navigate('home');
 </script>
