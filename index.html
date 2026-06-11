@@ -77,7 +77,7 @@
             padding-top: 6px;
             font-weight: 500;
             box-shadow: 0 0 15px rgba(211, 188, 230, 0.4);
-            cursor: default;
+            cursor: pointer;
         }
 
         .black-bar { background: #000; height: 38px; border-radius: 2px; border: 1.5px solid #333; margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 25px; }
@@ -129,6 +129,9 @@
         .copy-link-btn:hover { background: var(--header-pink); }
         .copy-link-btn img { width: 100%; height: 100%; object-fit: contain; }
 
+        .toast-msg { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: white; padding: 10px 25px; border-radius: 25px; font-size: 14px; z-index: 6000; opacity: 0; transition: opacity 0.4s; pointer-events: none; border: 1px solid var(--box-border); }
+        .toast-msg.show { opacity: 1; }
+
         /* --- Commission Layout --- */
         .sub-nav-row { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; margin-bottom: 25px; }
         .sub-nav-btns { display: flex; gap: 10px; }
@@ -164,18 +167,8 @@
 
         /* --- Modals --- */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; display: none; justify-content: center; align-items: center; padding: 20px; }
-        .modal-content { background: #000; border: 2px solid var(--box-border); border-radius: 4px; width: 620px; max-height: 90vh; position: relative; overflow-y: auto; padding: 40px; color: white; box-shadow: 0 0 20px rgba(211, 188, 230, 0.4); }
+        .modal-content { background: #000; border: 2px solid var(--box-border); border-radius: 4px; width: 620px; min-height: 200px; max-height: 90vh; position: relative; overflow-y: auto; padding: 40px; color: white; box-shadow: 0 0 20px rgba(211, 188, 230, 0.4); }
         .modal-close { position: absolute; top: 10px; right: 15px; font-size: 28px; cursor: pointer; color: white; }
-        .modal-header-section { margin-bottom: 30px; text-align: center; }
-        .modal-char-name-big { font-size: 28px; font-weight: bold; margin-bottom: 25px; display: block; }
-        .modal-top-row { display: grid; grid-template-columns: 210px 1fr; gap: 30px; text-align: left; margin-bottom: 30px; }
-        .modal-pfp-box { width: 210px; height: 210px; border: 1.5px solid var(--box-border); background: linear-gradient(180deg, #35233D, #000); overflow: hidden; }
-        .modal-pfp-box img { width: 100%; height: 100%; object-fit: cover; }
-        .modal-stats { font-size: 16px; line-height: 1.8; }
-        .modal-menu-bar { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
-        .modal-menu-btn { width: 170px; height: 38px; border: 2.5px solid var(--box-border); border-radius: 2px; background: linear-gradient(180deg, #35233D, #000); color: white; cursor: pointer; font-size: 15px; transition: 0.3s; text-transform: lowercase; }
-        .modal-menu-btn.active { background: #fff; color: #000; border-color: #fff; }
-        .modal-gallery-area { display: none; }
         
         /* Dynamic Gallery Styles */
         .folder-row-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid white; margin: 25px 0 15px 0; padding-bottom: 3px; }
@@ -185,16 +178,30 @@
         .f-btn.del { color: #ff9d9d; border-color: #ff9d9d; }
         
         .gallery-grid-inner { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-        .gallery-img-item { width: 100%; height: 210px; border: 1.5px solid var(--box-border); background: #111; object-fit: cover; }
-        .modal-about-area { display: flex; flex-direction: column; width: 100%; }
-        .modal-about-area .box-template { min-height: 120px; }
-        .modal-about-area .inner-white { font-size: 13px; line-height: 1.6; min-height: 80px; }
+        .gallery-img-item { width: 100%; height: 210px; border: 1.5px solid var(--box-border); background: #111; object-fit: cover; cursor: pointer; }
 
         .gallery-2cols { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .gal-img-item { width: 100%; height: auto; border: 1.5px solid var(--box-border); object-fit: cover; }
-        .modal-img-full { width: 100%; height: auto; display: block; border: 1.5px solid #fff; border-radius: 2px; margin: 0 auto; }
+        .gal-img-item { width: 100%; height: auto; border: 1.5px solid var(--box-border); object-fit: cover; cursor: pointer; }
 
-        .footer-section { width: 100%; padding-bottom: 60px; }
+        /* --- Management Gallery Modal --- */
+        #mgmt-image-modal { z-index: 3000 !important; }
+        .mgmt-dashed-box { border: 1.5px dashed #555; padding: 25px; border-radius: 4px; margin: 20px 0; }
+        .mgmt-label { display: block; font-size: 20px; margin-bottom: 15px; color: white; font-weight: 500; text-align: left; }
+        .mgmt-row { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; }
+        .mgmt-input { flex-grow: 1; padding: 12px; background: #111; border: 1.5px solid #333; color: white; border-radius: 4px; font-size: 14px; }
+        .mgmt-del-line { width: 35px; height: 35px; border: 1.5px solid #555; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 4px; font-size: 14px; }
+        .mgmt-pink-plus { width: 45px; height: 38px; background: #D8A7C9; border: none; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: bold; color: black; margin-top: 5px; }
+        .mgmt-save-big { width: 100%; height: 55px; background: #FFFFFF; color: #000; border: none; border-radius: 0; font-size: 24px; font-weight: bold; cursor: pointer; margin-top: 20px; }
+
+        /* --- Lightbox / Full Image Viewer --- */
+        #lightbox-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 4000; display: none; justify-content: center; align-items: center; user-select: none; }
+        .lb-container { position: relative; width: 90%; height: 90%; display: flex; justify-content: center; align-items: center; }
+        .lb-img { max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 0 20px rgba(211,188,230,0.2); }
+        .lb-close { position: absolute; top: -30px; right: -10px; color: white; font-size: 40px; cursor: pointer; }
+        .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); color: white; font-size: 50px; cursor: pointer; padding: 20px; transition: 0.3s; opacity: 0.6; }
+        .lb-nav:hover { opacity: 1; color: var(--header-pink); }
+        .lb-prev { left: -60px; }
+        .lb-next { right: -60px; }
 
         /* --- Admin Specific Style --- */
         #admin-add-area, #admin-comm-area, #admin-shop-area { width: 100%; display: flex; justify-content: flex-end; margin: -15px 0 15px 0; }
@@ -212,16 +219,6 @@
         .admin-controls { display: flex; gap: 5px; margin-top: 10px; }
         .admin-btn { flex: 1; font-size: 9px; padding: 4px; border: 1px solid #fff; border-radius: 4px; cursor: pointer; background: rgba(255,255,255,0.1); color: #fff; text-align: center; }
         .admin-btn.del { color: #ff9d9d; border-color: #ff9d9d; }
-
-        /* --- Management Gallery Modal (Z-index high) --- */
-        #mgmt-image-modal { z-index: 3000 !important; }
-        .mgmt-dashed-box { border: 1.5px dashed #555; padding: 25px; border-radius: 4px; margin: 20px 0; }
-        .mgmt-label { display: block; font-size: 20px; margin-bottom: 15px; color: white; font-weight: 500; text-align: left; }
-        .mgmt-row { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; }
-        .mgmt-input { flex-grow: 1; padding: 12px; background: #111; border: 1.5px solid #333; color: white; border-radius: 4px; font-size: 14px; }
-        .mgmt-del-line { width: 35px; height: 35px; border: 1.5px solid #555; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 4px; font-size: 14px; }
-        .mgmt-pink-plus { width: 45px; height: 38px; background: #D8A7C9; border: none; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: bold; color: black; margin-top: 5px; }
-        .mgmt-save-big { width: 100%; height: 55px; background: #FFFFFF; color: #000; border: none; border-radius: 0; font-size: 24px; font-weight: bold; cursor: pointer; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -413,25 +410,10 @@
     <div id="char-detail-modal" class="modal-overlay" onclick="closeDetails()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="closeDetails()">&times;</span>
-            <div class="modal-header-section" style="display:none;"><span class="modal-char-name-big" id="pop-title-name">-</span><div class="modal-top-row"><div class="modal-pfp-box"><img id="pop-main-pfp" src=""></div><div class="modal-stats">name : <span id="pop-stat-name">-</span><br>birthday : april 24th<br>age : Unknown<br>height : -<br>weight : -<br>species : -</div></div></div>
-            <div class="modal-menu-bar" style="display:none;"><button class="modal-menu-btn" id="pop-btn-about" onclick="switchPopTab('about')">about</button><button class="modal-menu-btn" id="pop-btn-gallery" onclick="switchPopTab('gallery')">gallery</button></div>
-            <div id="pop-content-about" class="modal-about-area" style="display:none;">
-                <div class="box-template"><div class="box-title">About this character</div><div class="inner-white"><p id="pop-desc-text">Character details...</p></div></div>
-                <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onload="fixImage(this)"></div>
-                <div class="box-template"><div class="box-title">Notes / Personality</div><div class="inner-white"><p>Personality notes go here.</p></div></div>
-            </div>
-            <!-- Dynamic Gallery Area -->
-            <div id="pop-content-gallery" class="modal-gallery-area" style="display:block; padding-top:20px;">
-                <div class="gallery-main-header">GALLERY</div>
-                <div id="admin-gallery-ctrl" class="admin-gallery-tools" style="display:none;">
-                    <button class="add-char-btn" onclick="adminCreateFolder()">+ Create Folder</button>
-                </div>
-                <div id="dynamic-gallery-container"></div>
-            </div>
+            <div id="dynamic-gallery-container"></div>
         </div>
     </div>
 
-    <!-- จัดการ Gallery Modal (Z-index high) -->
     <div id="mgmt-image-modal" class="modal-overlay" onclick="closeMgmtModal()">
         <div class="modal-content" style="background: black; width: 620px;" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="closeMgmtModal()">&times;</span>
@@ -445,7 +427,7 @@
         </div>
     </div>
 
-    <!-- Add/Edit Character Modal (กู้คืนฟิลด์ที่หายไป) -->
+    <!-- Add/Edit Character Modal -->
     <div id="add-char-modal" class="modal-overlay" onclick="closeAddModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="closeAddModal()">&times;</span>
@@ -518,7 +500,19 @@
     </div>
 
     <div id="comm-gallery-modal" class="modal-overlay" onclick="closeCommGallery()">
-        <div class="modal-content" onclick="event.stopPropagation()"><span class="modal-close" onclick="closeCommGallery()">&times;</span><div style="text-align:center; font-size:24px; margin-bottom:20px;">ดูรูปภาพเพิ่มเติม</div><div id="comm-admin-btn-wrap"></div><div class="gallery-2cols" id="comm-gal-target"></div></div>
+        <div class="modal-content" onclick="event.stopPropagation()"><span class="modal-close" onclick="closeCommGallery()">&times;</span><div id="comm-admin-btn-wrap"></div><div class="gallery-2cols" id="comm-gal-target"></div></div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <!-- Lightbox Viewer -->
+    <div id="lightbox-overlay" onclick="closeLightbox()">
+        <div class="lb-container" onclick="event.stopPropagation()">
+            <span class="lb-close" onclick="closeLightbox()">&times;</span>
+            <span class="lb-nav lb-prev" onclick="changeLightbox(-1)">&#10094;</span>
+            <img class="lb-img" id="lb-image-src" src="">
+            <span class="lb-nav lb-next" onclick="changeLightbox(1)">&#10095;</span>
+        </div>
     </div>
 
     <div class="footer-section">
@@ -552,22 +546,69 @@
     let tempImages = [];
     let activeMgmtType = ""; 
 
+    let lbList = [];
+    let lbIdx = 0;
+
     function extractId(input) {
         if (!input) return "";
         const match = input.match(/(?:id=|\/d\/|u\/0\/d\/)([\w-]+)/);
         return match ? match[1] : input.trim();
     }
 
+    function showToast(msg) {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = 'toast-msg';
+        toast.innerText = msg;
+        container.appendChild(toast);
+        setTimeout(() => toast.classList.add('show'), 100);
+        setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 2000);
+    }
+
+    // --- Lightbox Functions ---
+    function openLightbox(list, index) {
+        lbList = list;
+        lbIdx = index;
+        updateLightboxImg();
+        document.getElementById('lightbox-overlay').style.display = 'flex';
+    }
+    function updateLightboxImg() {
+        const id = lbList[lbIdx];
+        document.getElementById('lb-image-src').src = `https://lh3.googleusercontent.com/u/0/d/${id}`;
+        document.querySelector('.lb-prev').style.display = lbList.length > 1 ? 'block' : 'none';
+        document.querySelector('.lb-next').style.display = lbList.length > 1 ? 'block' : 'none';
+    }
+    function changeLightbox(delta) {
+        lbIdx += delta;
+        if (lbIdx < 0) lbIdx = lbList.length - 1;
+        if (lbIdx >= lbList.length) lbIdx = 0;
+        updateLightboxImg();
+    }
+    function closeLightbox() { document.getElementById('lightbox-overlay').style.display = 'none'; }
+
+    // --- Admin Login / Logout Logic ---
     function triggerAdminLogin() {
-        if(isAdmin) return;
+        if (isAdmin) {
+            if (confirm("ต้องการออกจากระบบแอดมินใช่หรือไม่?")) {
+                isAdmin = false;
+                const loginBtn = document.querySelector('.login-btn');
+                loginBtn.innerText = "Log in";
+                loginBtn.classList.remove('is-admin');
+                alert("ออกจากระบบแอดมินแล้ว");
+                const currentTabId = document.querySelector('.nav-item.active').id;
+                navigate(currentTabId.replace('btn-', ''));
+            }
+            return;
+        }
         const pass = prompt("กรุณาใส่รหัสผ่านแอดมิน:");
         if (pass === "1234") {
             isAdmin = true;
-            document.querySelector('.login-btn').innerText = "Admin Active";
-            document.querySelector('.login-btn').classList.add('is-admin');
+            const loginBtn = document.querySelector('.login-btn');
+            loginBtn.innerText = "Admin Active (Logout)";
+            loginBtn.classList.add('is-admin');
             alert("เข้าสู่ระบบแอดมินสำเร็จ");
-            const currentTab = document.querySelector('.nav-item.active').innerText.toLowerCase();
-            navigate(currentTab);
+            const currentTabId = document.querySelector('.nav-item.active').id;
+            navigate(currentTabId.replace('btn-', ''));
         } else { alert("รหัสผ่านไม่ถูกต้อง"); }
     }
 
@@ -655,7 +696,7 @@
     
     function copyCharLink(idx) {
         const url = window.location.origin + window.location.pathname + '?char=' + idx;
-        navigator.clipboard.writeText(url).then(() => { alert("คัดลอกลิงก์ตัวละครเรียบร้อยแล้ว!"); });
+        navigator.clipboard.writeText(url).then(() => { showToast("คัดลอกลิงก์สำเร็จ"); });
     }
 
     function createCard(obj, realIndex) {
@@ -692,23 +733,51 @@
     
     function openPopDetails(index) { 
         currentViewingCharIndex = index;
-        const char = charList[index];
-        document.getElementById('pop-title-name').innerText = char.name; 
-        document.getElementById('pop-stat-name').innerText = char.name; 
-        document.getElementById('pop-main-pfp').src = `https://lh3.googleusercontent.com/u/0/d/${char.img}`;
         document.getElementById('char-detail-modal').style.display = 'flex'; 
-        document.getElementById('admin-gallery-ctrl').style.display = isAdmin ? 'block' : 'none';
         renderDynamicGallery();
     }
 
+    function adminEditMainImg() {
+        const newIdInput = prompt("ใส่ ID หรือลิงก์รูปภาพหลักใหม่:");
+        if (newIdInput) {
+            const newId = extractId(newIdInput);
+            charList[currentViewingCharIndex].img = newId;
+            renderDynamicGallery();
+            filterChars('All'); 
+            alert("แก้ไขรูปภาพหลักสำเร็จ");
+        }
+    }
+
     function renderDynamicGallery() {
-        const container = document.getElementById('dynamic-gallery-container'); container.innerHTML = '';
+        const container = document.getElementById('dynamic-gallery-container'); 
+        container.innerHTML = '';
         const char = charList[currentViewingCharIndex];
+
+        // Header with underline
+        const headerWrap = document.createElement('div');
+        headerWrap.className = 'folder-row-header';
+        headerWrap.style.justifyContent = 'center';
+        headerWrap.innerHTML = `<h2 style="margin:0; font-size: 24px;">GALLERY</h2>`;
+        container.appendChild(headerWrap);
+
+        // Main image
+        const mainImgWrap = document.createElement('div');
+        mainImgWrap.style.textAlign = 'center';
+        mainImgWrap.style.margin = '20px 0 35px 0';
+        let editBtn = isAdmin ? `<div class="char-btn-ui" style="width:120px; margin: 10px auto;" onclick="adminEditMainImg()">แก้ไขรูปหลัก</div>` : "";
+        mainImgWrap.innerHTML = `
+            <img src="https://lh3.googleusercontent.com/u/0/d/${char.img}" style="width: 250px; border: 2.5px solid var(--box-border); border-radius: 4px; box-shadow: var(--glow-soft);" onload="fixImage(this)">
+            ${editBtn}
+        `;
+        container.appendChild(mainImgWrap);
+
+        // Folders
         if (!char.folders) char.folders = [];
         char.folders.forEach((folder, fIndex) => {
             const wrap = document.createElement('div');
             let adminBtn = isAdmin ? `<div class="folder-admin-btns"><button class="f-btn del" onclick="adminDeleteFolder(${fIndex})">Del Folder</button><button class="f-btn" onclick="openMgmtModal('char', ${fIndex})">+ Add Image</button></div>` : "";
-            wrap.innerHTML = `<div class="folder-row-header"><h3 class="folder-title">${folder.name}</h3>${adminBtn}</div><div class="gallery-grid-inner">${folder.images.map(id => `<img class="gallery-img-item" src="https://lh3.googleusercontent.com/u/0/d/${id}" onload="fixImage(this)">`).join('')}</div>`;
+            const imgHtml = folder.images.map((id, iIdx) => `<img class="gallery-img-item" src="https://lh3.googleusercontent.com/u/0/d/${id}" onclick="openLightbox(${JSON.stringify(folder.images)}, ${iIdx})" onload="fixImage(this)">`).join('');
+            wrap.innerHTML = `<div class="folder-row-header"><h3 class="folder-title">${folder.name}</h3>${adminBtn}</div><div class="gallery-grid-inner">${imgHtml}</div>`;
             container.appendChild(wrap);
         });
     }
@@ -726,8 +795,10 @@
         }
         const target = document.getElementById('comm-gal-target'); target.innerHTML = '';
         const images = (item.gallery && item.gallery.length > 0) ? item.gallery : [item.img];
-        images.forEach(id => {
-            const img = document.createElement('img'); img.className = 'gal-img-item'; img.src = `https://lh3.googleusercontent.com/u/0/d/${id}`; img.onload = function(){ fixImage(this); };
+        images.forEach((id, iIdx) => {
+            const img = document.createElement('img'); img.className = 'gal-img-item'; img.src = `https://lh3.googleusercontent.com/u/0/d/${id}`; 
+            img.onclick = () => openLightbox(images, iIdx);
+            img.onload = function(){ fixImage(this); };
             target.appendChild(img);
         });
         document.getElementById('comm-gallery-modal').style.display = 'flex';
@@ -745,6 +816,7 @@
         renderMgmtLines();
         document.getElementById('mgmt-image-modal').style.display = 'flex';
     }
+
     function closeMgmtModal() { document.getElementById('mgmt-image-modal').style.display = 'none'; }
     function renderMgmtLines() {
         const target = document.getElementById('mgmt-lines-target'); target.innerHTML = '';
@@ -755,29 +827,26 @@
         });
     }
     function mgmtAddLine() { tempImages.push(""); renderMgmtLines(); }
+
     function mgmtSave() {
         const cleaned = tempImages.map(id => extractId(id)).filter(id => id !== "");
-        if (activeMgmtType === 'char') charList[currentViewingCharIndex].folders[activeFolderIdx].images = cleaned;
-        else if (activeMgmtType === 'comm') commissionItems[activeFolderIdx].gallery = cleaned;
-        else if (activeMgmtType === 'shop') shopList[activeFolderIdx].gallery = cleaned;
-        alert("บันทึกสำเร็จ"); closeMgmtModal();
-        if (activeMgmtType === 'char') renderDynamicGallery();
-        else { closeCommGallery(); navigate(activeMgmtType === 'comm' ? 'commission' : 'shop'); }
+        if (activeMgmtType === 'char') {
+            charList[currentViewingCharIndex].folders[activeFolderIdx].images = cleaned;
+            renderDynamicGallery();
+        } else if (activeMgmtType === 'comm') {
+            commissionItems[activeFolderIdx].gallery = cleaned;
+            openSubGallery('comm', activeFolderIdx);
+        } else if (activeMgmtType === 'shop') {
+            shopList[activeFolderIdx].gallery = cleaned;
+            openSubGallery('shop', activeFolderIdx);
+        }
+        alert("บันทึกสำเร็จ");
+        closeMgmtModal();
     }
 
     // --- CRUD Functions ---
     function openAddCommModal() { currentEditIndex = -1; document.getElementById('comm-form-title').innerText = "เพิ่มคอมมิชชั่น"; document.getElementById('comm-name-input').value = ""; document.getElementById('comm-price-input').value = ""; document.getElementById('comm-time-input').value = ""; document.getElementById('comm-detail-input').value = ""; document.getElementById('comm-img-input').value = ""; document.getElementById('add-comm-modal').style.display = 'flex'; }
-    function openEditComm(index) { 
-        currentEditIndex = index; const i = commissionItems[index]; 
-        document.getElementById('comm-form-title').innerText = "แก้ไขคอมมิชชั่น"; 
-        document.getElementById('comm-name-input').value = i.title; 
-        document.getElementById('comm-price-input').value = i.price; 
-        document.getElementById('comm-time-input').value = i.time; 
-        document.getElementById('comm-detail-input').value = i.detail; 
-        document.getElementById('comm-img-input').value = i.img; 
-        document.getElementById('comm-status-input').value = i.status; 
-        document.getElementById('add-comm-modal').style.display = 'flex'; 
-    }
+    function openEditComm(index) { currentEditIndex = index; const i = commissionItems[index]; document.getElementById('comm-form-title').innerText = "แก้ไขคอมมิชชั่น"; document.getElementById('comm-name-input').value = i.title; document.getElementById('comm-price-input').value = i.price; document.getElementById('comm-time-input').value = i.time; document.getElementById('comm-detail-input').value = i.detail; document.getElementById('comm-img-input').value = i.img; document.getElementById('comm-status-input').value = i.status; document.getElementById('add-comm-modal').style.display = 'flex'; }
     function closeAddCommModal() { document.getElementById('add-comm-modal').style.display = 'none'; }
     function saveComm() {
         const data = { title: document.getElementById('comm-name-input').value, price: document.getElementById('comm-price-input').value, time: document.getElementById('comm-time-input').value, detail: document.getElementById('comm-detail-input').value, img: extractId(document.getElementById('comm-img-input').value), status: document.getElementById('comm-status-input').value, gallery: [] };
@@ -787,15 +856,7 @@
     function deleteComm(idx) { if(confirm("ลบ?")) { commissionItems.splice(idx,1); navigateCommSub('main'); } }
 
     function openAddShopModal() { currentEditIndex = -1; document.getElementById('shop-form-title').innerText = "เพิ่มสินค้า"; document.getElementById('shop-name-input').value = ""; document.getElementById('shop-img-input').value = ""; document.getElementById('add-shop-modal').style.display = 'flex'; }
-    function openEditShop(index) { 
-        currentEditIndex = index; const i = shopList[index]; 
-        document.getElementById('shop-form-title').innerText = "แก้ไขสินค้า"; 
-        document.getElementById('shop-name-input').value = i.name; 
-        document.getElementById('shop-tag-input').value = i.tag; 
-        document.getElementById('shop-img-input').value = i.img; 
-        document.getElementById('shop-status-input').value = i.status; 
-        document.getElementById('add-shop-modal').style.display = 'flex'; 
-    }
+    function openEditShop(index) { currentEditIndex = index; const i = shopList[index]; document.getElementById('shop-form-title').innerText = "แก้ไขสินค้า"; document.getElementById('shop-name-input').value = i.name; document.getElementById('shop-tag-input').value = i.tag; document.getElementById('shop-img-input').value = i.img; document.getElementById('shop-status-input').value = i.status; document.getElementById('add-shop-modal').style.display = 'flex'; }
     function closeAddShopModal() { document.getElementById('add-shop-modal').style.display = 'none'; }
     function saveShop() {
         const data = { name: document.getElementById('shop-name-input').value, tag: document.getElementById('shop-tag-input').value, img: extractId(document.getElementById('shop-img-input').value), status: document.getElementById('shop-status-input').value, gallery: [] };
@@ -804,38 +865,13 @@
     }
     function deleteShop(idx) { if(confirm("ลบ?")) { shopList.splice(idx,1); filterShop('All'); } }
 
-    function openAddModal() { 
-        currentEditIndex = -1; 
-        document.getElementById('modal-form-title').innerText = "เพิ่มตัวละครใหม่"; 
-        document.getElementById('add-name').value = ''; 
-        document.getElementById('add-artist').value = ''; 
-        document.getElementById('add-owner').value = ''; 
-        document.getElementById('add-value').value = '0'; 
-        document.getElementById('add-img-id').value = ''; 
-        document.querySelectorAll('input[name="tag-multi"]').forEach(cb => cb.checked = false);
-        document.getElementById('add-char-modal').style.display = 'flex'; 
-    }
-    function openEditModal(index) { 
-        currentEditIndex = index; const char = charList[index]; 
-        document.getElementById('modal-form-title').innerText = "แก้ไขข้อมูลตัวละคร"; 
-        document.getElementById('add-name').value = char.name; 
-        document.getElementById('add-artist').value = char.artist || ''; 
-        document.getElementById('add-owner').value = char.owner || ''; 
-        document.getElementById('add-value').value = char.value || '0'; 
-        document.getElementById('add-img-id').value = char.img; 
-        document.querySelectorAll('input[name="tag-multi"]').forEach(cb => cb.checked = char.tag.includes(cb.value));
-        document.getElementById('add-char-modal').style.display = 'flex'; 
-    }
+    function openAddModal() { currentEditIndex = -1; document.getElementById('modal-form-title').innerText = "เพิ่มตัวละครใหม่"; document.getElementById('add-name').value = ''; document.getElementById('add-artist').value = ''; document.getElementById('add-owner').value = ''; document.getElementById('add-value').value = '0'; document.getElementById('add-img-id').value = ''; document.querySelectorAll('input[name="tag-multi"]').forEach(cb => cb.checked = false); document.getElementById('add-char-modal').style.display = 'flex'; }
+    function openEditModal(index) { currentEditIndex = index; const char = charList[index]; document.getElementById('modal-form-title').innerText = "แก้ไขข้อมูลตัวละคร"; document.getElementById('add-name').value = char.name; document.getElementById('add-artist').value = char.artist || ''; document.getElementById('add-owner').value = char.owner || ''; document.getElementById('add-value').value = char.value || '0'; document.getElementById('add-img-id').value = char.img; document.querySelectorAll('input[name="tag-multi"]').forEach(cb => cb.checked = char.tag.includes(cb.value)); document.getElementById('add-char-modal').style.display = 'flex'; }
     function closeAddModal() { document.getElementById('add-char-modal').style.display = 'none'; }
     function saveCharacter() {
-        const n = document.getElementById('add-name').value, 
-              art = document.getElementById('add-artist').value || 'Dominic',
-              own = document.getElementById('add-owner').value || 'Dominic',
-              val = document.getElementById('add-value').value || '0',
-              img = extractId(document.getElementById('add-img-id').value);
+        const n = document.getElementById('add-name').value, art = document.getElementById('add-artist').value || 'Dominic', own = document.getElementById('add-owner').value || 'Dominic', val = document.getElementById('add-value').value || '0', img = extractId(document.getElementById('add-img-id').value);
         const selTags = []; document.querySelectorAll('input[name="tag-multi"]:checked').forEach(cb => selTags.push(cb.value));
         const tagS = selTags.length > 0 ? selTags.join(', ') : 'ota';
-
         if(!n || !img) { alert("ข้อมูลไม่ครบ"); return; }
         if(currentEditIndex === -1) charList.push({ name: n, img, tag: tagS, artist: art, owner: own, value: val, folders: [{ name: 'Original design', images: [img] }] });
         else charList[currentEditIndex] = { ...charList[currentEditIndex], name: n, img, tag: tagS, artist: art, owner: own, value: val };
@@ -859,10 +895,7 @@
     function checkDeepLink() {
         const urlParams = new URLSearchParams(window.location.search);
         const charIdx = urlParams.get('char');
-        if (charIdx !== null) {
-            navigate('character'); acceptTerms(); 
-            setTimeout(() => { if(charList[charIdx]) openPopDetails(parseInt(charIdx)); }, 500);
-        }
+        if (charIdx !== null) { navigate('character'); acceptTerms(); setTimeout(() => { if(charList[charIdx]) openPopDetails(parseInt(charIdx)); }, 500); }
     }
 
     window.onload = () => { navigate('home'); checkDeepLink(); };
