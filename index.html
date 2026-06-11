@@ -42,11 +42,11 @@
         }
         .nav-item.active { font-weight: bold; }
 
-        /* --- Menu Indicator Style (Right-aligned and Moved Up) --- */
         .nav-indicator {
             position: absolute;
-            top: -30px;   /* ขยับขึ้นจาก -25px เล็กน้อย */
-            right: 0;    /* ชิดขอบด้านขวาของปุ่มเมนูเมื่อหันหน้าเข้าจอ */
+            top: -30px; 
+            right: -50px; 
+            left: auto;   
             width: 175px; 
             height: auto;
             z-index: 110;
@@ -150,16 +150,37 @@
         .sub-nav-btn { width: 120px; height: 32px; font-size: 11px; padding-top: 8px; }
         .sub-nav-btn.active { font-weight: bold; }
 
-        #page-char-terms { display: flex; flex-direction: column; align-items: center; width: 100%; opacity: 1; transition: opacity 0.8s ease; }
+        /* --- Warning Page Section --- */
+        #page-char-terms { display: flex; flex-direction: column; align-items: center; width: 100%; opacity: 1; transition: opacity 0.8s ease; position: relative; }
         .warn-big-bow { width: 620px; height: auto; margin-bottom: -15px; position: relative; z-index: 2; }
         .warn-title-box { background: linear-gradient(180deg, #62486E, #251B2B); border: 2px solid #FFFFFF; border-radius: 2px; padding: 8px 60px; color: white; font-size: 24px; box-shadow: 0 0 15px rgba(211, 188, 230, 0.8); margin-bottom: 30px; position: relative; z-index: 1; }
         .warn-main-box { width: 530px; background: var(--box-grad); border: 2px dashed #FFFFFF; border-radius: 4px; padding: 25px; color: white; position: relative; box-shadow: 0 0 15px rgba(255,255,255,0.2); }
-        .warn-header { font-size: 15px; margin-bottom: 15px; display: block; font-weight: bold; text-align: left; }
+        .warn-header { font-size: 18px; margin-bottom: 15px; display: block; font-weight: bold; text-align: left; }
         .warn-list { font-size: 13px; line-height: 1.8; list-style: none; padding: 0; margin: 0; text-align: left; }
-        .warn-list li { margin-bottom: 5px; display: flex; align-items: flex-start; gap: 8px; }
-        .warn-list li::before { content: "❃"; font-size: 10px; margin-top: 2px; }
+        .warn-list li { margin-bottom: 10px; display: flex; align-items: flex-start; gap: 12px; }
+        /* White Heart Bullet Icon */
+        .warn-list li::before { 
+            content: ""; 
+            width: 18px; height: 18px; 
+            background: url('https://lh3.googleusercontent.com/u/0/d/1av8K5MBB7zfLZOS8BdISs15H24K6xsvD') no-repeat center; 
+            background-size: contain;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        /* Fixed Black Hearts at corners */
+        .fixed-heart { position: absolute; pointer-events: none; z-index: 50; width: auto; }
+        .h-left-1 { bottom: -15px; left: -35px; height: 40px; }
+        .h-left-2 { bottom: -5px; left: -10px; height: 25px; }
+        .h-left-3 { bottom: 15px; left: -30px; height: 30px; }
+        .h-right-1 { bottom: -15px; right: -35px; height: 40px; }
+        .h-right-2 { bottom: -5px; right: -10px; height: 25px; }
+        .h-right-3 { bottom: 15px; right: -30px; height: 30px; }
+
         .accept-btn-wrap { margin-top: 100px; display: flex; justify-content: center; width: 100%; }
+        /* Larger Tick Icon (40px) */
         .accept-btn { width: 520px; height: 50px; background: #FFFFFF; border-radius: 4px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; color: #666; font-size: 22px; font-weight: 500; position: relative; }
+        .accept-btn img { width: 40px; height: auto; }
         .accept-btn::after { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 4px; border: 2px solid #FFFFFF; animation: ripple-wave 2s infinite; pointer-events: none; }
         @keyframes ripple-wave { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.1, 1.4); opacity: 0; } }
 
@@ -344,14 +365,23 @@
                 <img class="warn-big-bow" src="https://lh3.googleusercontent.com/u/0/d/1rEkHzbbxsnfzxGYLdz0kFQx1eD7EoIka" onload="fixImage(this)">
                 <div class="warn-title-box">! warning !</div>
                 <div class="warn-main-box">
-                    <span class="warn-header">ข้อตกลงการรับชมเด็ก ๆ ในบ้าน</span>
+                    <!-- 6 Static Hearts at corners as requested -->
+                    <img class="fixed-heart h-left-1" src="https://lh3.googleusercontent.com/u/0/d/15TJ4rlN1pwI8ifG9DN_xGDFIP98xcH_f" onload="fixImage(this)">
+                    <img class="fixed-heart h-left-2" src="https://lh3.googleusercontent.com/u/0/d/15TJ4rlN1pwI8ifG9DN_xGDFIP98xcH_f" onload="fixImage(this)">
+                    <img class="fixed-heart h-left-3" src="https://lh3.googleusercontent.com/u/0/d/15TJ4rlN1pwI8ifG9DN_xGDFIP98xcH_f" onload="fixImage(this)">
+                    <img class="fixed-heart h-right-1" src="https://lh3.googleusercontent.com/u/0/d/15TJ4rlN1pwI8ifG9DN_xGDFIP98xcH_f" onload="fixImage(this)">
+                    <img class="fixed-heart h-right-2" src="https://lh3.googleusercontent.com/u/0/d/15TJ4rlN1pwI8ifG9DN_xGDFIP98xcH_f" onload="fixImage(this)">
+                    <img class="fixed-heart h-right-3" src="https://lh3.googleusercontent.com/u/0/d/15TJ4rlN1pwI8ifG9DN_xGDFIP98xcH_f" onload="fixImage(this)">
+                    
+                    <span class="warn-header">ข้อตกลงในการรับชมเด็ก ๆ</span>
                     <ul class="warn-list">
-                        <li>ห้ามเซฟรูปภาพในเว็บไซต์นี้เป็นอันขาดกรณีสอบถามความสนใจให้แคปรูปเอาเท่านั้น</li>
+                        <li>ห้ามเซฟรูปภาพจากเว็บไซต์นี้เป็นอันขาด</li>
+                        <li>หากสอบถามรบกวนแคบเป็นรูปภาพ หรือคัดลอกลิงก์จากโปรไฟล์ตัวละครโดยตรง</li>
                         <li>ห้ามคัดลอกดัดแปลงดีไซน์เด็ก ๆ</li>
                         <li>ห้ามแอบอ้างว่าเป็นของตัวเอง</li>
                     </ul>
                 </div>
-                <div class="accept-btn-wrap"><button class="accept-btn" onclick="acceptTerms()"><img src="https://lh3.googleusercontent.com/u/0/d/1ORMlNWzSCWAQSh6oRx_8yxbNE0UjEWQb" style="width: 30px; height: auto;" onload="fixImage(this)"> ยอมรับข้อตกลง</button></div>
+                <div class="accept-btn-wrap"><button class="accept-btn" onclick="acceptTerms()"><img src="https://lh3.googleusercontent.com/u/0/d/1ORMlNWzSCWAQSh6oRx_8yxbNE0UjEWQb" onload="fixImage(this)"> ยอมรับข้อตกลง</button></div>
             </div>
             <div id="char-main-list" style="display:none; opacity:0; transition:0.8s;">
                 <div class="char-info-container">
@@ -434,6 +464,14 @@
             <div class="form-row"><label>ผู้วาด (Artist)</label><input type="text" id="add-artist" placeholder="Dominic"></div>
             <div class="form-row"><label>เจ้าของ (Owner)</label><input type="text" id="add-owner" placeholder="Dominic"></div>
             <div class="form-row"><label>ราคา/มูลค่า (Value)</label><input type="text" id="add-value" placeholder="0"></div>
+            <!-- Added Usage Dropdown in Admin Edit Modal -->
+            <div class="form-row">
+                <label>สิทธิการใช้งาน (Usage)</label>
+                <select id="add-usage">
+                    <option value="Personal Use">Personal Use</option>
+                    <option value="Commercial">Commercial</option>
+                </select>
+            </div>
             <div class="form-row"><label>Image ID (Google Drive)</label><input type="text" id="add-img-id" placeholder="รหัสรูปภาพ"></div>
             <div class="form-row">
                 <label>แท็กหมวดหมู่ (Tags)</label>
@@ -501,7 +539,7 @@
 </div>
 
 <script>
-    let charList = [{ name: 'Dominic V', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'ota', artist: 'Dominic', owner: 'Dominic', value: '0', folders: [{ name: 'Original design', images: ['1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ'] }] }];
+    let charList = [{ name: 'Dominic V', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'ota', artist: 'Dominic', owner: 'Dominic', value: '0', usage: 'Personal Use', folders: [{ name: 'Original design', images: ['1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ'] }] }];
     let shopList = [{ name: 'YCH Base 01', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'base', status: 'open', gallery: [] }];
     let commissionItems = [{ title: 'สเกล หัว-ไหล่', price: '150', time: '1-3 วัน', detail: '-', status: 'open', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', gallery: [] }];
     let characterTermsAccepted = false, isAdmin = false, currentEditIndex = -1, currentViewingCharIndex = -1, activeFolderIdx = -1, tempImages = [], activeMgmtType = "", lbList = [], lbIdx = 0;
@@ -520,7 +558,7 @@
     function filterShop(tag, btn) { if (btn) { document.querySelectorAll('#page-shop .filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); } const target = document.getElementById('shop-list-target'); target.innerHTML = ''; shopList.forEach((item, index) => { if (tag === 'All' || item.tag === tag) { const card = document.createElement('div'); card.className = 'char-card'; let adminHtml = isAdmin ? `<div class="admin-controls"><div class="admin-btn" onclick="openEditShop(${index})">Edit</div><div class="admin-btn del" onclick="deleteShop(${index})">Delete</div></div>` : ""; card.innerHTML = `<img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onload="fixImage(this)"><div class="char-details" style="display:block;"><p><strong>${item.name}</strong></p><p>Artist : Dominic</p><div class="char-btn-ui" onclick="openSubGallery('shop', ${index})">ดูรูปภาพเพิ่มเติม</div><div class="tag-center-wrap"><div class="char-tag-ui">${item.status}</div></div>${adminHtml}</div>`; target.appendChild(card); } }); }
     function acceptTerms() { document.getElementById('page-char-terms').style.display = 'none'; characterTermsAccepted = true; const m = document.getElementById('char-main-list'); m.style.display = 'block'; if(isAdmin) document.getElementById('admin-add-area').style.display = 'flex'; setTimeout(() => m.style.opacity = '1', 50); filterChars('All'); }
     function copyCharLink(idx) { const url = window.location.origin + window.location.pathname + '?char=' + idx; navigator.clipboard.writeText(url).then(() => { showToast("Success"); }); }
-    function createCard(obj, realIndex) { const card = document.createElement('div'); card.className = 'char-card'; let adminHtml = isAdmin ? `<div class="admin-controls"><div class="admin-btn" onclick="openEditModal(${realIndex})">Edit</div><div class="admin-btn del" onclick="deleteCharacter(${realIndex})">Delete</div></div>` : ""; card.innerHTML = `<div class="copy-link-btn" onclick="copyCharLink(${realIndex})"><img src="https://lh3.googleusercontent.com/u/0/d/1YuawN-quG1Nq1AvRr8O1VjTnfihirqQw" onload="fixImage(this)"></div><img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${obj.img}" onclick="toggleChar(this)" onload="fixImage(this)"><div class="char-details" style="display:none;"><p><strong>${obj.name}</strong></p><p>Artist : ${obj.artist || 'Dominic'}</p><p>Owner : ${obj.owner || 'Dominic'}</p><p>Value : ${obj.value || '0'}</p><div class="char-btn-ui" onclick="openPopDetails(${realIndex})">gallery</div><div class="tag-center-wrap"><div class="char-tag-ui">${obj.tag}</div></div>${adminHtml}</div>`; return card; }
+    function createCard(obj, realIndex) { const card = document.createElement('div'); card.className = 'char-card'; let adminHtml = isAdmin ? `<div class="admin-controls"><div class="admin-btn" onclick="openEditModal(${realIndex})">Edit</div><div class="admin-btn del" onclick="deleteCharacter(${realIndex})">Delete</div></div>` : ""; card.innerHTML = `<div class="copy-link-btn" onclick="copyCharLink(${realIndex})"><img src="https://lh3.googleusercontent.com/u/0/d/1YuawN-quG1Nq1AvRr8O1VjTnfihirqQw" onload="fixImage(this)"></div><img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${obj.img}" onclick="toggleChar(this)" onload="fixImage(this)"><div class="char-details" style="display:none;"><p><strong>${obj.name}</strong></p><p>Artist : ${obj.artist || 'Dominic'}</p><p>Owner : ${obj.owner || 'Dominic'}</p><p>Value : ${obj.value || '0'}</p><p>Usage : ${obj.usage || 'Personal Use'}</p><div class="char-btn-ui" onclick="openPopDetails(${realIndex})">gallery</div><div class="tag-center-wrap"><div class="char-tag-ui">${obj.tag}</div></div>${adminHtml}</div>`; return card; }
     function filterChars(tag, btn) { if (btn) { document.querySelectorAll('#page-character .filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); } const cols = [document.getElementById('char-col-1'), document.getElementById('char-col-2'), document.getElementById('char-col-3')]; cols.forEach(c => c.innerHTML = ''); charList.forEach((item, index) => { if (tag === 'All' || item.tag.includes(tag)) { const cardCount = cols[0].childElementCount + cols[1].childElementCount + cols[2].childElementCount; cols[cardCount % 3].appendChild(createCard(item, index)); } }); }
     function toggleChar(img) { const details = img.nextElementSibling; details.style.display = (details.style.display === 'block' ? 'none' : 'block'); }
     function openPopDetails(index) { currentViewingCharIndex = index; document.getElementById('char-detail-modal').style.display = 'flex'; renderDynamicGallery(); }
@@ -544,10 +582,10 @@
     function closeAddShopModal() { document.getElementById('add-shop-modal').style.display = 'none'; }
     function saveShop() { const data = { name: document.getElementById('shop-name-input').value, tag: document.getElementById('shop-tag-input').value, img: extractId(document.getElementById('shop-img-input').value), status: document.getElementById('shop-status-input').value, gallery: [] }; if(currentEditIndex === -1) shopList.push(data); else { data.gallery = shopList[currentEditIndex].gallery; shopList[currentEditIndex] = data; } filterShop('All'); closeAddShopModal(); }
     function deleteShop(idx) { if(confirm("ลบ?")) { shopList.splice(idx,1); filterShop('All'); } }
-    function openAddModal() { currentEditIndex = -1; document.getElementById('modal-form-title').innerText = "เพิ่มตัวละครใหม่"; document.getElementById('add-name').value = ''; document.getElementById('add-artist').value = ''; document.getElementById('add-owner').value = ''; document.getElementById('add-value').value = '0'; document.getElementById('add-img-id').value = ''; document.querySelectorAll('input[name="tag-multi"]').forEach(cb => cb.checked = false); document.getElementById('add-char-modal').style.display = 'flex'; }
-    function openEditModal(index) { currentEditIndex = index; const char = charList[index]; document.getElementById('modal-form-title').innerText = "แก้ไขข้อมูลตัวละคร"; document.getElementById('add-name').value = char.name; document.getElementById('add-artist').value = char.artist || ''; document.getElementById('add-owner').value = char.owner || ''; document.getElementById('add-value').value = char.value || '0'; document.getElementById('add-img-id').value = char.img; document.querySelectorAll('input[name="tag-multi"]').forEach(cb => cb.checked = char.tag.includes(cb.value)); document.getElementById('add-char-modal').style.display = 'flex'; }
+    function openAddModal() { currentEditIndex = -1; document.getElementById('modal-form-title').innerText = "เพิ่มตัวละครใหม่"; document.getElementById('add-name').value = ''; document.getElementById('add-artist').value = ''; document.getElementById('add-owner').value = ''; document.getElementById('add-value').value = '0'; document.getElementById('add-usage').value = 'Personal Use'; document.getElementById('add-img-id').value = ''; document.querySelectorAll('input[name="tag-multi"]').forEach(cb => cb.checked = false); document.getElementById('add-char-modal').style.display = 'flex'; }
+    function openEditModal(index) { currentEditIndex = index; const char = charList[index]; document.getElementById('modal-form-title').innerText = "แก้ไขข้อมูลตัวละคร"; document.getElementById('add-name').value = char.name; document.getElementById('add-artist').value = char.artist || ''; document.getElementById('add-owner').value = char.owner || ''; document.getElementById('add-value').value = char.value || '0'; document.getElementById('add-usage').value = char.usage || 'Personal Use'; document.getElementById('add-img-id').value = char.img; document.querySelectorAll('input[name="tag-multi"]').forEach(cb => cb.checked = char.tag.includes(cb.value)); document.getElementById('add-char-modal').style.display = 'flex'; }
     function closeAddModal() { document.getElementById('add-char-modal').style.display = 'none'; }
-    function saveCharacter() { const n = document.getElementById('add-name').value, art = document.getElementById('add-artist').value || 'Dominic', own = document.getElementById('add-owner').value || 'Dominic', val = document.getElementById('add-value').value || '0', img = extractId(document.getElementById('add-img-id').value); const selTags = []; document.querySelectorAll('input[name="tag-multi"]:checked').forEach(cb => selTags.push(cb.value)); const tagS = selTags.length > 0 ? selTags.join(', ') : 'ota'; if(!n || !img) { alert("ข้อมูลไม่ครบ"); return; } if(currentEditIndex === -1) charList.push({ name: n, img, tag: tagS, artist: art, owner: own, value: val, folders: [{ name: 'Original design', images: [img] }] }); else charList[currentEditIndex] = { ...charList[currentEditIndex], name: n, img, tag: tagS, artist: art, owner: own, value: val }; filterChars('All'); closeAddModal(); }
+    function saveCharacter() { const n = document.getElementById('add-name').value, art = document.getElementById('add-artist').value || 'Dominic', own = document.getElementById('add-owner').value || 'Dominic', val = document.getElementById('add-value').value || '0', usg = document.getElementById('add-usage').value, img = extractId(document.getElementById('add-img-id').value); const selTags = []; document.querySelectorAll('input[name="tag-multi"]:checked').forEach(cb => selTags.push(cb.value)); const tagS = selTags.length > 0 ? selTags.join(', ') : 'ota'; if(!n || !img) { alert("ข้อมูลไม่ครบ"); return; } if(currentEditIndex === -1) charList.push({ name: n, img, tag: tagS, artist: art, owner: own, value: val, usage: usg, folders: [{ name: 'Original design', images: [img] }] }); else charList[currentEditIndex] = { ...charList[currentEditIndex], name: n, img, tag: tagS, artist: art, owner: own, value: val, usage: usg }; filterChars('All'); closeAddModal(); }
     function deleteCharacter(idx) { if(confirm("ลบ?")) { charList.splice(idx, 1); filterChars('All'); } }
     function adminDeleteFolder(idx) { if (confirm("ลบโฟลเดอร์?")) { charList[currentViewingCharIndex].folders.splice(idx, 1); renderDynamicGallery(); } }
     function fixImage(img) { const originalSrc = img.src; if (!originalSrc.includes('googleusercontent.com') && !originalSrc.includes('drive.google.com')) return; const id = extractId(originalSrc); if(id) { const fixedUrl = `https://lh3.googleusercontent.com/u/0/d/${id}`; if (img.getAttribute('data-retry') !== 'true' || img.src !== fixedUrl) { img.setAttribute('data-retry', 'true'); img.src = fixedUrl; } } }
