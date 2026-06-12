@@ -21,6 +21,8 @@
             margin: 0; padding: 0;
             background: linear-gradient(180deg, #000000 0%, #000000 50%, var(--bg-bottom) 100%) fixed;
             display: flex; justify-content: center; min-height: 100vh; overflow-x: hidden;
+            user-select: none;
+            touch-action: manipulation; 
         }
 
         .ipad-layout { width: 768px; position: relative; display: flex; flex-direction: column; }
@@ -138,11 +140,7 @@
         .tag-center-wrap { width: 100%; text-align: center; margin-top: 10px; }
         .char-tag-ui { display: inline-block; border: 1px dashed #FFFFFF; padding: 2px 15px; border-radius: 15px; color: #FFFFFF; font-size: 10px; }
         
-        .copy-link-btn { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; background: rgba(0,0,0,0.5); border-radius: 4px; border: 1px solid var(--box-border); padding: 5px; cursor: pointer; z-index: 5; transition: 0.3s; }
-        .copy-link-btn:hover { background: var(--header-pink); }
-        .copy-link-btn img { width: 100%; height: 100%; object-fit: contain; }
-
-        .toast-msg { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: white; padding: 10px 25px; border-radius: 25px; font-size: 14px; z-index: 6000; opacity: 0; transition: opacity 0.4s; pointer-events: none; border: 1px solid var(--box-border); }
+        .toast-msg { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.9); color: white; padding: 12px 30px; border-radius: 30px; font-size: 14px; z-index: 9000; opacity: 0; transition: opacity 0.4s; pointer-events: none; border: 1.5px solid var(--box-border); }
         .toast-msg.show { opacity: 1; }
 
         .sub-nav-row { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; margin-bottom: 25px; }
@@ -150,66 +148,40 @@
         .sub-nav-btn { width: 120px; height: 32px; font-size: 11px; padding-top: 8px; }
         .sub-nav-btn.active { font-weight: bold; }
 
-        /* --- Warning Page Section --- */
         #page-char-terms { display: flex; flex-direction: column; align-items: center; width: 100%; opacity: 1; transition: opacity 0.8s ease; position: relative; }
-        .warn-big-bow { width: 620px; height: auto; margin-bottom: -15px; position: relative; z-index: 2; }
-        .warn-title-box { background: linear-gradient(180deg, #62486E, #251B2B); border: 2px solid #FFFFFF; border-radius: 2px; padding: 8px 60px; color: white; font-size: 24px; box-shadow: 0 0 15px rgba(211, 188, 230, 0.8); margin-bottom: 30px; position: relative; z-index: 1; }
-        .warn-main-box { width: 530px; background: var(--box-grad); border: 2px dashed #FFFFFF; border-radius: 4px; padding: 25px; color: white; position: relative; box-shadow: 0 0 15px rgba(255,255,255,0.2); }
-        .warn-header { font-size: 18px; margin-bottom: 15px; display: block; font-weight: bold; text-align: left; }
-        .warn-list { font-size: 13px; line-height: 1.8; list-style: none; padding: 0; margin: 0; text-align: left; }
-        .warn-list li { margin-bottom: 10px; display: flex; align-items: flex-start; gap: 12px; }
-        /* White Heart Bullet Icon */
-        .warn-list li::before { 
-            content: ""; 
-            width: 18px; height: 18px; 
-            background: url('https://lh3.googleusercontent.com/u/0/d/1av8K5MBB7zfLZOS8BdISs15H24K6xsvD') no-repeat center; 
-            background-size: contain;
-            flex-shrink: 0;
-            margin-top: 3px;
-        }
-
-        /* Fixed Black Hearts at corners */
-        .fixed-heart { position: absolute; pointer-events: none; z-index: 50; width: auto; }
-        .h-left-1 { bottom: -15px; left: -35px; height: 40px; }
-        .h-left-2 { bottom: -5px; left: -10px; height: 25px; }
-        .h-left-3 { bottom: 15px; left: -30px; height: 30px; }
-        .h-right-1 { bottom: -15px; right: -35px; height: 40px; }
-        .h-right-2 { bottom: -5px; right: -10px; height: 25px; }
-        .h-right-3 { bottom: 15px; right: -30px; height: 30px; }
-
+        
         .accept-btn-wrap { margin-top: 100px; display: flex; justify-content: center; width: 100%; }
-        /* Larger Tick Icon (40px) */
         .accept-btn { width: 520px; height: 50px; background: #FFFFFF; border-radius: 4px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; color: #666; font-size: 22px; font-weight: 500; position: relative; }
         .accept-btn img { width: 40px; height: auto; }
         .accept-btn::after { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 4px; border: 2px solid #FFFFFF; animation: ripple-wave 2s infinite; pointer-events: none; }
         @keyframes ripple-wave { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.1, 1.4); opacity: 0; } }
 
-        .char-info-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; margin-bottom: 30px; }
-        .char-info-box { background: var(--box-grad); border: 1.5px solid var(--box-border); border-radius: 5px; padding: 8px 20px; color: white; font-size: 13px; line-height: 1.6; box-shadow: var(--glow-soft); }
-        .char-info-title { font-size: 15px; margin-bottom: 5px; font-weight: bold; display: block; }
-
-        .terms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
-        .terms-box { background: var(--box-grad); border: 1.5px solid var(--box-border); border-radius: 2px; padding: 20px; color: white; min-height: 220px; }
-        .terms-title { font-size: 20px; font-weight: bold; border-bottom: 1px solid white; padding-bottom: 8px; margin-bottom: 12px; display: block; }
-        .terms-long-list { color: white; font-size: 13.5px; line-height: 1.9; padding: 0 10px; }
-        .terms-long-list div { position: relative; padding-left: 15px; margin-bottom: 8px; }
-        .terms-long-list div::before { content: "-"; position: absolute; left: 0; }
+        .click-sparkle-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000000;
+            width: auto;
+            height: auto;
+            animation: sparkleTwinkleFade 0.8s ease-out forwards;
+        }
+        @keyframes sparkleTwinkleFade {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            30% { opacity: 1; }
+            100% { transform: translate(calc(-50% + var(--mx)), calc(-50% + var(--my))) scale(var(--s)) rotate(var(--r)); opacity: 0; }
+        }
 
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; display: none; justify-content: center; align-items: center; padding: 20px; }
-        .modal-content { background: #000; border: 2px solid var(--box-border); border-radius: 4px; width: 620px; min-height: 200px; max-height: 90vh; position: relative; overflow-y: auto; padding: 40px; color: white; box-shadow: 0 0 20px rgba(211, 188, 230, 0.4); }
-        .modal-close { position: absolute; top: 10px; right: 15px; font-size: 28px; cursor: pointer; color: white; }
+        .modal-content { background: var(--box-grad); border: 2px solid var(--box-border); border-radius: 4px; width: 620px; min-height: 200px; max-height: 90vh; position: relative; overflow-y: auto; padding: 40px; color: white; box-shadow: var(--glow-soft); }
+        .modal-close { position: absolute; top: 10px; right: 15px; font-size: 28px; cursor: pointer; color: white; z-index: 10; }
         
-        .folder-row-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid white; margin: 25px 0 15px 0; padding-bottom: 3px; }
-        .folder-title { font-size: 16px; font-weight: 500; margin: 0; }
-        .folder-admin-btns { display: flex; gap: 10px; }
+        .folder-row-header { display: flex; justify-content: flex-start; align-items: center; position: relative; margin: 35px 0 15px 0; border-bottom: 1.5px solid rgba(255,255,255,0.4); padding-bottom: 8px;}
+        .folder-title { font-size: 20px; font-weight: 500; margin: 0; text-align: left; }
+        .folder-admin-btns { position: absolute; right: 0; top: -5px; display: flex; gap: 8px; }
         .f-btn { font-size: 10px; padding: 2px 8px; border: 1px solid white; cursor: pointer; background: transparent; color: white; border-radius: 4px; }
         .f-btn.del { color: #ff9d9d; border-color: #ff9d9d; }
         
-        .gallery-grid-inner { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-        .gallery-img-item { width: 100%; height: 210px; border: 1.5px solid var(--box-border); background: #111; object-fit: cover; cursor: pointer; }
-
-        .gallery-2cols { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .gal-img-item { width: 100%; height: auto; border: 1.5px solid var(--box-border); object-fit: cover; cursor: pointer; }
+        .gallery-grid-inner { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .gallery-img-item { width: 100%; height: 260px; border: 1.5px solid var(--box-border); background: #111; object-fit: cover; cursor: pointer; }
 
         #mgmt-image-modal { z-index: 3000 !important; }
         .mgmt-dashed-box { border: 1.5px dashed #555; padding: 25px; border-radius: 4px; margin: 20px 0; }
@@ -220,7 +192,7 @@
         .mgmt-pink-plus { width: 45px; height: 38px; background: #D8A7C9; border: none; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: bold; color: black; margin-top: 5px; }
         .mgmt-save-big { width: 100%; height: 55px; background: #FFFFFF; color: #000; border: none; border-radius: 0; font-size: 24px; font-weight: bold; cursor: pointer; margin-top: 20px; }
 
-        #lightbox-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 4000; display: none; justify-content: center; align-items: center; user-select: none; }
+        #lightbox-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 8000; display: none; justify-content: center; align-items: center; user-select: none; }
         .lb-container { position: relative; width: 90%; height: 90%; display: flex; justify-content: center; align-items: center; }
         .lb-img { max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 0 20px rgba(211,188,230,0.2); }
         .lb-close { position: absolute; top: -30px; right: -10px; color: white; font-size: 40px; cursor: pointer; }
@@ -244,6 +216,28 @@
         .admin-controls { display: flex; gap: 5px; margin-top: 10px; }
         .admin-btn { flex: 1; font-size: 9px; padding: 4px; border: 1px solid #fff; border-radius: 4px; cursor: pointer; background: rgba(255,255,255,0.1); color: #fff; text-align: center; }
         .admin-btn.del { color: #ff9d9d; border-color: #ff9d9d; }
+
+        .char-modal-top-bar { background: var(--box-grad); border: 1.5px solid var(--box-border); height: 38px; border-radius: 2px; margin-bottom: 30px; }
+        .char-modal-header { display: flex; gap: 30px; margin-bottom: 40px; position: relative; align-items: flex-start; }
+        .char-modal-pfp { width: 230px; height: 230px; border: 1.5px solid var(--box-border); background: #111; object-fit: cover; flex-shrink: 0; cursor: pointer; }
+        .char-modal-title-area { flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; padding-top: 5px; }
+        .char-modal-name { font-size: 32px; font-weight: bold; margin-bottom: 12px; }
+        .char-rule-btn { display: inline-block; background: rgba(255,255,255,0.1); border: 1.5px solid white; border-radius: 20px; padding: 4px 18px; font-size: 13px; width: fit-content; cursor: pointer; }
+        .char-link-icon-wrap { position: absolute; top: 0; right: 0; width: 45px; height: 45px; background: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: black; font-size: 22px; cursor: pointer; transition: 0.2s; }
+        .char-link-icon-wrap:hover { background: #eee; transform: scale(1.1); }
+        .char-link-icon-wrap img { width: 24px; height: auto; }
+
+        .char-info-split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 20px; }
+        .info-split-title { font-size: 22px; border-bottom: 1.5px solid rgba(255,255,255,0.4); padding-bottom: 8px; margin-bottom: 20px; font-weight: 500; text-align: left; }
+        .info-split-list { display: flex; flex-direction: column; gap: 12px; }
+        .info-split-item { display: flex; align-items: center; gap: 10px; font-size: 15px; color: #fff; }
+        .info-pink-heart { width: 18px; height: auto; flex-shrink: 0; }
+        
+        .modal-section-divider { width: 100%; border-top: 1.5px solid rgba(255,255,255,0.4); margin: 35px 0; }
+        .modal-gallery-title { font-size: 24px; margin-bottom: 25px; font-weight: 500; text-align: left; border-bottom: 1.5px solid rgba(255,255,255,0.4); padding-bottom: 10px; }
+
+        #comm-gallery-modal { z-index: 5000 !important; }
+        .gal-img-item { width: 100%; height: 260px; border: 1.5px solid var(--box-border); object-fit: cover; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -275,8 +269,6 @@
     </div>
 
     <div id="content-wrapper" class="page-content-wrapper">
-        
-        <!-- หน้า Home -->
         <div id="page-home" class="main-content">
             <div class="col-left">
                 <div class="profile-wrapper">
@@ -362,34 +354,17 @@
 
         <div id="page-character" class="page-container">
             <div id="page-char-terms">
-                <img class="warn-big-bow" src="https://lh3.googleusercontent.com/u/0/d/1rEkHzbbxsnfzxGYLdz0kFQx1eD7EoIka" onload="fixImage(this)">
-                <div class="warn-title-box">! warning !</div>
-                <div class="warn-main-box">
-                    <!-- 6 Static Hearts at corners as requested -->
-                    <img class="fixed-heart h-left-1" src="https://lh3.googleusercontent.com/u/0/d/15TJ4rlN1pwI8ifG9DN_xGDFIP98xcH_f" onload="fixImage(this)">
-                    <img class="fixed-heart h-left-2" src="https://lh3.googleusercontent.com/u/0/d/15TJ4rlN1pwI8ifG9DN_xGDFIP98xcH_f" onload="fixImage(this)">
-                    <img class="fixed-heart h-left-3" src="https://lh3.googleusercontent.com/u/0/d/15TJ4rlN1pwI8ifG9DN_xGDFIP98xcH_f" onload="fixImage(this)">
-                    <img class="fixed-heart h-right-1" src="https://lh3.googleusercontent.com/u/0/d/15TJ4rlN1pwI8ifG9DN_xGDFIP98xcH_f" onload="fixImage(this)">
-                    <img class="fixed-heart h-right-2" src="https://lh3.googleusercontent.com/u/0/d/15TJ4rlN1pwI8ifG9DN_xGDFIP98xcH_f" onload="fixImage(this)">
-                    <img class="fixed-heart h-right-3" src="https://lh3.googleusercontent.com/u/0/d/15TJ4rlN1pwI8ifG9DN_xGDFIP98xcH_f" onload="fixImage(this)">
-                    
-                    <span class="warn-header">ข้อตกลงในการรับชมเด็ก ๆ</span>
-                    <ul class="warn-list">
-                        <li>ห้ามเซฟรูปภาพจากเว็บไซต์นี้เป็นอันขาด</li>
-                        <li>หากสอบถามรบกวนแคบเป็นรูปภาพ หรือคัดลอกลิงก์จากโปรไฟล์ตัวละครโดยตรง</li>
-                        <li>ห้ามคัดลอกดัดแปลงดีไซน์เด็ก ๆ</li>
-                        <li>ห้ามแอบอ้างว่าเป็นของตัวเอง</li>
-                    </ul>
-                </div>
+                <!-- Enlarge Warning Image and remove surrounding black hearts -->
+                <img src="https://lh3.googleusercontent.com/u/0/d/1O5Q2VdTozcIu1kHxwPYRRUbKJg09IJk_" style="width: 120%; height: auto; display: block;" onload="fixImage(this)">
                 <div class="accept-btn-wrap"><button class="accept-btn" onclick="acceptTerms()"><img src="https://lh3.googleusercontent.com/u/0/d/1ORMlNWzSCWAQSh6oRx_8yxbNE0UjEWQb" onload="fixImage(this)"> ยอมรับข้อตกลง</button></div>
             </div>
+            
             <div id="char-main-list" style="display:none; opacity:0; transition:0.8s;">
-                <div class="char-info-container">
-                    <div class="char-info-box"><span class="char-info-title">ความออกยากง่าย</span>- forever home : ไม่ปล่อยอย่างแน่นอน<br>- eo : ยังหวงรับข้อเสนอค่อนข้างยาก<br>- sp : เสนอเงินเพดาน รับทันที<br>- ota : รับข้อเสนอค่อนข้างง่าย</div>
-                    <div class="char-info-box"><span class="char-info-title">ความสนใจเรียง</span>- เงิน / สิ่งที่สนใจควบเงิน (เฉพาะเด็กที่รับเงินได้)<br>- Commission ทุกสเกล<br>- คัสต้อมอดอป<br>- อดอป เปคงง่ายมาก</div>
-                </div>
+                <img src="https://lh3.googleusercontent.com/u/0/d/1IRyYNQzFIGjAJn3pwKfJfAC0JmmrmajL" style="width: 100%; height: auto; display: block; margin-bottom: 30px;" onload="fixImage(this)">
                 <div class="filter-bar">
                     <div class="filter-btn active" onclick="filterChars('All', this)">All</div>
+                    <!-- Added mascot before forever home -->
+                    <div class="filter-btn" onclick="filterChars('mascot', this)">mascot</div>
                     <div class="filter-btn" onclick="filterChars('forever home', this)">forever home</div>
                     <div class="filter-btn" onclick="filterChars('eo', this)">eo</div>
                     <div class="filter-btn" onclick="filterChars('sp', this)">sp</div>
@@ -415,11 +390,7 @@
             <div id="admin-comm-area" style="display: none;"><button class="add-char-btn" onclick="openAddCommModal()">+ Add Commission</button></div>
             <div class="two-col-grid" id="comm-list-target" style="display: grid;"></div>
             <div id="comm-terms-view" style="display: none;">
-                <div class="terms-grid">
-                    <div class="terms-box"><span class="terms-title">สิ่งที่ไมรับวาด</span><div class="terms-list-box"><div>ไม่รับงาน คัตต้อม / ออกแบบทุกประเภท</div><div>รบกวนนำตัวละครที่ชัดเจนมาให้ครบตั้งแต่ขั้นตอนบรีฟนะคะ</div><div>ไม่รับดัดแปลงภาพคนจริงให้เป็นการ์ตูน</div><div>ไม่รับงาน NSFW</div><div>ไม่รับวาดฉากหลัง</div><div>ไม่รับงานเร่งทุกชนิด</div></div></div>
-                    <div class="terms-box"><span class="terms-title">การบรีฟ</span><div class="terms-list-box"><div>- บรีฟ ท่าทาง สีหน้า ตัวละคร ชุด พร็อพเล็ก ๆ น้อย ๆ สามารถเพิ่มได้ตามความเหมาะสม ไม่มีบวกเพิ่ม</div><div>- ของานแบบ โอมากาเสะได้ค่ะ บอกนิสัยตัวละครเฉย ๆ ได้ค่ะ</div></div></div>
-                </div>
-                <div class="terms-long-list"><div>ลำดับคิวตามการบรีฟ หากไม่มีการบรีฟภายใน 2 วันหลังจอง จะนับว่าเป็น การจองเล่น และติด bl ส่วนตัวทันที</div><div>เมื่อถึงคิว จ่ายมัดจำ 50% หรือจ่ายเต็มก่อนเริ่มงาน หากหายไม่มีการตอบกลับภายใน 24 ชั่วโมง ก็นับว่าเป็นการจองเล่น และติด bl ส่วนตัวทันทีเช่นกัน</div><div>หากยกเลิกจะไม่มีการคืนเงินทุกกรณี หากนักวาเป็นฝ่ายยกเลิกเองจะคืนเงินเต็มจำนวน</div><div>หากวางมัดจำ 50% เมื่อนักวาดวาดเสร็จแต่ยังไม่มีการชำระในส่วน 50% ที่เหลือจะไม่มีการส่งงานไฟล์งานดิบใด ๆ จนกว่าจะจ่ายครบ การอัพเดทงานจะเป็นการแคปหน้าจอจากแอพวาดภาพเท่านั้นไม่มีการบันทึกเป็นภาพเต็ม</div><div>การใช้งานเชิงพาณิชย์จะ x2 จากราคาเดิม</div><div>1 คน สั่งได้ไม่เกิน 2 งาน</div><div>งาน vtuber แม้จะเป็นแฟนอาร์ตก็จ่ะนับเป็นงานเชิงพาณิชย์ จะต้องจ่าย x2 จากราคาปกติ</div><div>สามารถแก้งานได้เรื่อย ๆ เช่น สีผิด นักวาดไม่ได้ทำตามบรีฟ ลืมใส่เครื่องประดับตัวละคร หรืออะไรก็ตามที่นักวาดทำผิดพลาดไปเอง นอกเหนือจากนี้จะไม่รับแก้ใด ๆ ทั้งสิ้น</div><div>สามารถเปลี่ยนบรีฟได้เฉพาะตอนที่นักวาดยังไม่เริ่มงานเท่านั้น หากได้เริ่มเส้นร่างแล้วจะไม่รับเปลี่ยนใด ๆ</div><div>หากไม่ใช่สเกลปกติ จะมีการลดทอนรายละเอียดตัวละคร หากรายละเอียดเยอะเกินไป</div><div>ทางนักวาดขออนุญาตนำผลงานไปเป็นตัวอย่างคอมมิชชั่น หากไม่สะดวกกวนแจ้งก่อน</div></div>
+                <img src="https://lh3.googleusercontent.com/u/0/d/1Hbrx2JDadyVBbV07aHRkxv1w8tR6-_J2" style="width: 100%; height: auto; display: block;" onload="fixImage(this)">
             </div>
         </div>
 
@@ -464,7 +435,6 @@
             <div class="form-row"><label>ผู้วาด (Artist)</label><input type="text" id="add-artist" placeholder="Dominic"></div>
             <div class="form-row"><label>เจ้าของ (Owner)</label><input type="text" id="add-owner" placeholder="Dominic"></div>
             <div class="form-row"><label>ราคา/มูลค่า (Value)</label><input type="text" id="add-value" placeholder="0"></div>
-            <!-- Added Usage Dropdown in Admin Edit Modal -->
             <div class="form-row">
                 <label>สิทธิการใช้งาน (Usage)</label>
                 <select id="add-usage">
@@ -476,6 +446,8 @@
             <div class="form-row">
                 <label>แท็กหมวดหมู่ (Tags)</label>
                 <div class="tag-selection">
+                    <!-- Added mascot to checkbox list -->
+                    <label><input type="checkbox" name="tag-multi" value="mascot"> mascot</label>
                     <label><input type="checkbox" name="tag-multi" value="forever home"> forever home</label>
                     <label><input type="checkbox" name="tag-multi" value="eo"> eo</label>
                     <label><input type="checkbox" name="tag-multi" value="sp"> sp</label>
@@ -512,12 +484,8 @@
         </div>
     </div>
 
-    <div id="pop-rules-modal" class="modal-overlay" onclick="closePopRules()">
-        <div class="modal-content" onclick="event.stopPropagation()"><span class="modal-close" onclick="closePopRules()">&times;</span><div class="modal-header-section"><span class="modal-char-name-big">กฎการใช้งานดีไซน์</span></div><img id="rules-img-view" src="" class="modal-img-full" onload="fixImage(this)"></div>
-    </div>
-
     <div id="comm-gallery-modal" class="modal-overlay" onclick="closeCommGallery()">
-        <div class="modal-content" onclick="event.stopPropagation()"><span class="modal-close" onclick="closeCommGallery()">&times;</span><div id="comm-admin-btn-wrap"></div><div class="gallery-2cols" id="comm-gal-target"></div></div>
+        <div class="modal-content" onclick="event.stopPropagation()"><span class="modal-close" onclick="closeCommGallery()">&times;</span><div id="comm-admin-btn-wrap"></div><div class="gallery-grid-inner" id="comm-gal-target"></div></div>
     </div>
 
     <div id="toast-container"></div>
@@ -539,17 +507,38 @@
 </div>
 
 <script>
-    let charList = [{ name: 'Dominic V', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'ota', artist: 'Dominic', owner: 'Dominic', value: '0', usage: 'Personal Use', folders: [{ name: 'Original design', images: ['1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ'] }] }];
+    let charList = [{ name: 'Dominic V', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'ota', artist: 'Dominic', owner: 'Dominic', value: '0', usage: 'Personal Use', birthday: '24/04', age: '?', height: '160', species: '?', folders: [{ name: 'Original design', images: ['1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ'] }] }];
     let shopList = [{ name: 'YCH Base 01', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'base', status: 'open', gallery: [] }];
     let commissionItems = [{ title: 'สเกล หัว-ไหล่', price: '150', time: '1-3 วัน', detail: '-', status: 'open', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', gallery: [] }];
     let characterTermsAccepted = false, isAdmin = false, currentEditIndex = -1, currentViewingCharIndex = -1, activeFolderIdx = -1, tempImages = [], activeMgmtType = "", lbList = [], lbIdx = 0;
 
     function extractId(input) { if (!input) return ""; const match = input.match(/(?:id=|\/d\/|u\/0\/d\/)([\w-]+)/); return match ? match[1] : input.trim(); }
-    function showToast(msg) { const container = document.getElementById('toast-container'); const toast = document.createElement('div'); toast.className = 'toast-msg'; toast.innerText = msg; container.appendChild(toast); setTimeout(() => toast.classList.add('show'), 100); setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 2000); }
-    function openLightbox(list, index) { lbList = list; lbIdx = index; updateLightboxImg(); document.getElementById('lightbox-overlay').style.display = 'flex'; }
+    function showToast(msg) { const container = document.getElementById('toast-container'); container.innerHTML = ''; const toast = document.createElement('div'); toast.className = 'toast-msg'; toast.innerText = msg; container.appendChild(toast); setTimeout(() => toast.classList.add('show'), 100); setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 2000); }
+    function openLightbox(list, index) { if(!list || list.length === 0) return; lbList = list; lbIdx = index; updateLightboxImg(); document.getElementById('lightbox-overlay').style.display = 'flex'; }
     function updateLightboxImg() { const id = lbList[lbIdx]; document.getElementById('lb-image-src').src = `https://lh3.googleusercontent.com/u/0/d/${id}`; document.querySelector('.lb-prev').style.display = lbList.length > 1 ? 'block' : 'none'; document.querySelector('.lb-next').style.display = lbList.length > 1 ? 'block' : 'none'; }
     function changeLightbox(delta) { lbIdx += delta; if (lbIdx < 0) lbIdx = lbList.length - 1; if (lbIdx >= lbList.length) lbIdx = 0; updateLightboxImg(); }
     function closeLightbox() { document.getElementById('lightbox-overlay').style.display = 'none'; }
+
+    window.addEventListener('pointerdown', (e) => {
+        const sparkleIds = ['11kmEPZPJbNSDk8xifHK0YqpyYl1LatLJ', '1sJ50AMg1WiJjz4zqX3Rv6w5Co96Jv8rf'];
+        for(let i=0; i<8; i++) {
+            const sp = document.createElement('img');
+            const id = sparkleIds[Math.floor(Math.random() * sparkleIds.length)];
+            sp.src = `https://lh3.googleusercontent.com/u/0/d/${id}`;
+            sp.className = 'click-sparkle-particle';
+            const size = Math.random() * 25 + 10; 
+            const offsetX = (Math.random() - 0.5) * 150;
+            const offsetY = (Math.random() - 0.5) * 150;
+            const rotate = Math.random() * 360;
+            const scale = Math.random() * 0.7 + 0.3;
+            sp.style.left = e.clientX + 'px'; sp.style.top = e.clientY + 'px'; sp.style.width = size + 'px';
+            sp.style.setProperty('--mx', offsetX + 'px'); sp.style.setProperty('--my', offsetY + 'px');
+            sp.style.setProperty('--r', rotate + 'deg'); sp.style.setProperty('--s', scale);
+            document.body.appendChild(sp);
+            setTimeout(() => sp.remove(), 800);
+        }
+    }, { capture: true, passive: true });
+
     function triggerAdminLogin() { if (isAdmin) { if (confirm("ต้องการออกจากระบบแอดมินใช่หรือไม่?")) { isAdmin = false; const loginBtn = document.querySelector('.login-btn'); loginBtn.innerText = "Log in"; loginBtn.classList.remove('is-admin'); navigate(document.querySelector('.nav-item.active').id.replace('btn-', '')); } return; } const pass = prompt("กรุณาใส่รหัสผ่านแอดมิน:"); if (pass === "1234") { isAdmin = true; const loginBtn = document.querySelector('.login-btn'); loginBtn.innerText = "Admin Active (Logout)"; loginBtn.classList.add('is-admin'); navigate(document.querySelector('.nav-item.active').id.replace('btn-', '')); } else { alert("รหัสผ่านไม่ถูกต้อง"); } }
     function navigate(pageId) { const wrapper = document.getElementById('content-wrapper'); wrapper.style.opacity = '0'; setTimeout(() => { document.querySelectorAll('.main-content, .page-container').forEach(p => p.style.display = 'none'); const activePage = document.getElementById('page-' + pageId); if (activePage) activePage.style.display = (pageId === 'home' ? 'grid' : 'flex'); document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active')); const btn = document.getElementById('btn-' + pageId); if(btn) btn.classList.add('active'); document.getElementById('admin-add-area').style.display = (isAdmin && pageId === 'character') ? 'flex' : 'none'; document.getElementById('admin-comm-area').style.display = (isAdmin && pageId === 'commission') ? 'flex' : 'none'; document.getElementById('admin-shop-area').style.display = (isAdmin && pageId === 'shop') ? 'flex' : 'none'; if (pageId === 'character') { if (!characterTermsAccepted) { document.getElementById('page-char-terms').style.display = 'flex'; document.getElementById('char-main-list').style.display = 'none'; } else { document.getElementById('page-char-terms').style.display = 'none'; document.getElementById('char-main-list').style.display = 'block'; filterChars('All'); } } if (pageId === 'commission') navigateCommSub('main'); if (pageId === 'shop') filterShop('All'); wrapper.style.opacity = '1'; }, 300); }
     function navigateCommSub(subId) { document.getElementById('comm-list-target').style.display = subId === 'main' ? 'grid' : 'none'; document.getElementById('comm-filter-area').style.display = subId === 'main' ? 'flex' : 'none'; document.getElementById('comm-terms-view').style.display = subId === 'terms' ? 'block' : 'none'; if (isAdmin) document.getElementById('admin-comm-area').style.display = subId === 'main' ? 'flex' : 'none'; document.querySelectorAll('.sub-nav-btn').forEach(b => b.classList.remove('active')); document.getElementById('btn-comm-' + subId).classList.add('active'); if(subId === 'main') renderCommission('all'); }
@@ -557,38 +546,137 @@
     function filterComm(tag, btn) { document.querySelectorAll('#comm-filter-area .filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderCommission(tag); }
     function filterShop(tag, btn) { if (btn) { document.querySelectorAll('#page-shop .filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); } const target = document.getElementById('shop-list-target'); target.innerHTML = ''; shopList.forEach((item, index) => { if (tag === 'All' || item.tag === tag) { const card = document.createElement('div'); card.className = 'char-card'; let adminHtml = isAdmin ? `<div class="admin-controls"><div class="admin-btn" onclick="openEditShop(${index})">Edit</div><div class="admin-btn del" onclick="deleteShop(${index})">Delete</div></div>` : ""; card.innerHTML = `<img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onload="fixImage(this)"><div class="char-details" style="display:block;"><p><strong>${item.name}</strong></p><p>Artist : Dominic</p><div class="char-btn-ui" onclick="openSubGallery('shop', ${index})">ดูรูปภาพเพิ่มเติม</div><div class="tag-center-wrap"><div class="char-tag-ui">${item.status}</div></div>${adminHtml}</div>`; target.appendChild(card); } }); }
     function acceptTerms() { document.getElementById('page-char-terms').style.display = 'none'; characterTermsAccepted = true; const m = document.getElementById('char-main-list'); m.style.display = 'block'; if(isAdmin) document.getElementById('admin-add-area').style.display = 'flex'; setTimeout(() => m.style.opacity = '1', 50); filterChars('All'); }
-    function copyCharLink(idx) { const url = window.location.origin + window.location.pathname + '?char=' + idx; navigator.clipboard.writeText(url).then(() => { showToast("Success"); }); }
-    function createCard(obj, realIndex) { const card = document.createElement('div'); card.className = 'char-card'; let adminHtml = isAdmin ? `<div class="admin-controls"><div class="admin-btn" onclick="openEditModal(${realIndex})">Edit</div><div class="admin-btn del" onclick="deleteCharacter(${realIndex})">Delete</div></div>` : ""; card.innerHTML = `<div class="copy-link-btn" onclick="copyCharLink(${realIndex})"><img src="https://lh3.googleusercontent.com/u/0/d/1YuawN-quG1Nq1AvRr8O1VjTnfihirqQw" onload="fixImage(this)"></div><img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${obj.img}" onclick="toggleChar(this)" onload="fixImage(this)"><div class="char-details" style="display:none;"><p><strong>${obj.name}</strong></p><p>Artist : ${obj.artist || 'Dominic'}</p><p>Owner : ${obj.owner || 'Dominic'}</p><p>Value : ${obj.value || '0'}</p><p>Usage : ${obj.usage || 'Personal Use'}</p><div class="char-btn-ui" onclick="openPopDetails(${realIndex})">gallery</div><div class="tag-center-wrap"><div class="char-tag-ui">${obj.tag}</div></div>${adminHtml}</div>`; return card; }
+    
+    function copyCharLink(idx) { 
+        const url = window.location.href.split('?')[0] + '?char=' + idx; 
+        navigator.clipboard.writeText(url).then(() => { showToast("คัดลอกลิงก์สำเร็จ!"); }).catch(() => {
+            const temp = document.createElement('input'); document.body.appendChild(temp); temp.value = url; temp.select(); document.execCommand('copy'); document.body.removeChild(temp); showToast("คัดลอกลิงก์สำเร็จ!");
+        });
+    }
+    
+    function createCard(obj, realIndex) { 
+        const card = document.createElement('div'); 
+        card.className = 'char-card'; 
+        let adminHtml = isAdmin ? `<div class="admin-controls"><div class="admin-btn" onclick="openEditModal(${realIndex})">Edit</div><div class="admin-btn del" onclick="deleteCharacter(${realIndex})">Delete</div></div>` : ""; 
+        card.innerHTML = `<img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${obj.img}" onclick="toggleChar(this)" onload="fixImage(this)"><div class="char-details" style="display:none;"><p><strong>${obj.name}</strong></p><div class="char-btn-ui" onclick="openPopDetails(${realIndex})">รายละเอียดเพิ่มเติม</div><div class="tag-center-wrap"><div class="char-tag-ui">${obj.tag}</div></div>${adminHtml}</div>`; 
+        return card; 
+    }
+
     function filterChars(tag, btn) { if (btn) { document.querySelectorAll('#page-character .filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); } const cols = [document.getElementById('char-col-1'), document.getElementById('char-col-2'), document.getElementById('char-col-3')]; cols.forEach(c => c.innerHTML = ''); charList.forEach((item, index) => { if (tag === 'All' || item.tag.includes(tag)) { const cardCount = cols[0].childElementCount + cols[1].childElementCount + cols[2].childElementCount; cols[cardCount % 3].appendChild(createCard(item, index)); } }); }
     function toggleChar(img) { const details = img.nextElementSibling; details.style.display = (details.style.display === 'block' ? 'none' : 'block'); }
-    function openPopDetails(index) { currentViewingCharIndex = index; document.getElementById('char-detail-modal').style.display = 'flex'; renderDynamicGallery(); }
-    function adminEditMainImg() { const newIdInput = prompt("ใส่ ID หรือลิงก์รูปภาพหลักใหม่:"); if (newIdInput) { charList[currentViewingCharIndex].img = extractId(newIdInput); renderDynamicGallery(); filterChars('All'); alert("แก้ไขรูปภาพหลักสำเร็จ"); } }
-    function renderDynamicGallery() { const container = document.getElementById('dynamic-gallery-container'); container.innerHTML = ''; const char = charList[currentViewingCharIndex]; const headerWrap = document.createElement('div'); headerWrap.className = 'folder-row-header'; headerWrap.style.justifyContent = 'center'; headerWrap.innerHTML = `<h2 style="margin:0; font-size: 24px;">GALLERY</h2>`; container.appendChild(headerWrap); const mainImgWrap = document.createElement('div'); mainImgWrap.style.textAlign = 'center'; mainImgWrap.style.margin = '20px 0 35px 0'; let editBtn = isAdmin ? `<div class="char-btn-ui" style="width:120px; margin: 10px auto;" onclick="adminEditMainImg()">แก้ไขรูปหลัก</div>` : ""; mainImgWrap.innerHTML = `<img src="https://lh3.googleusercontent.com/u/0/d/${char.img}" style="width: 250px; border: 2.5px solid var(--box-border); border-radius: 4px; box-shadow: var(--glow-soft);" onload="fixImage(this)">${editBtn}`; container.appendChild(mainImgWrap); if (!char.folders) char.folders = []; char.folders.forEach((folder, fIndex) => { const wrap = document.createElement('div'); let adminBtn = isAdmin ? `<div class="folder-admin-btns"><button class="f-btn del" onclick="adminDeleteFolder(${fIndex})">Del Folder</button><button class="f-btn" onclick="openMgmtModal('char', ${fIndex})">+ Add Image</button></div>` : ""; const imgHtml = folder.images.map((id, iIdx) => `<img class="gallery-img-item" src="https://lh3.googleusercontent.com/u/0/d/${id}" onclick="openLightbox(${JSON.stringify(folder.images)}, ${iIdx})" onload="fixImage(this)">`).join(''); wrap.innerHTML = `<div class="folder-row-header"><h3 class="folder-title">${folder.name}</h3>${adminBtn}</div><div class="gallery-grid-inner">${imgHtml}</div>`; container.appendChild(wrap); }); }
+    
+    function openPopDetails(index) { 
+        currentViewingCharIndex = index; 
+        document.getElementById('char-detail-modal').style.display = 'flex'; 
+        renderDynamicGallery(); 
+    }
+
+    function renderDynamicGallery() { 
+        const container = document.getElementById('dynamic-gallery-container'); 
+        container.innerHTML = ''; 
+        const char = charList[currentViewingCharIndex]; 
+        let pinkHeart = 'https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP';
+
+        let html = `
+            <div class="char-modal-top-bar"></div>
+            <div class="char-modal-header">
+                <img class="char-modal-pfp" src="https://lh3.googleusercontent.com/u/0/d/${char.img}" onclick="openLightbox(['${char.img}'], 0)" onload="fixImage(this)">
+                <div class="char-modal-title-area">
+                    <span class="char-modal-name">${char.name}</span>
+                    <div class="char-rule-btn">กฎการใช้งานดีไซน์</div>
+                </div>
+                <div class="char-link-icon-wrap" onclick="copyCharLink(${currentViewingCharIndex})">
+                    <img src="https://lh3.googleusercontent.com/u/0/d/1YuawN-quG1Nq1AvRr8O1VjTnfihirqQw" onload="fixImage(this)">
+                </div>
+            </div>
+
+            <div class="char-info-split">
+                <div class="info-split-col">
+                    <div class="info-split-title">Basic Info</div>
+                    <div class="info-split-list">
+                        <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}" onload="fixImage(this)"> name: ${char.name}</div>
+                        <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}" onload="fixImage(this)"> birthday: ${char.birthday || '24/04'}</div>
+                        <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}" onload="fixImage(this)"> age: ${char.age || '?'}</div>
+                        <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}" onload="fixImage(this)"> Height: ${char.height || '160'}</div>
+                        <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}" onload="fixImage(this)"> Species: ${char.species || '?'}</div>
+                    </div>
+                </div>
+                <div class="info-split-col">
+                    <div class="info-split-title">Design Info</div>
+                    <div class="info-split-list">
+                        <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}" onload="fixImage(this)"> Owner :: ${char.owner || 'Dominic'}</div>
+                        <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}" onload="fixImage(this)"> Artist :: ${char.artist || 'Dominic'}</div>
+                        <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}" onload="fixImage(this)"> Value :: ${char.value || '0'}</div>
+                        <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}" onload="fixImage(this)"> Usage : ${char.usage || 'Personal Use'}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-gallery-title">Gallery</div>
+        `;
+        const topSection = document.createElement('div'); topSection.innerHTML = html; container.appendChild(topSection);
+
+        if (!char.folders) char.folders = []; 
+        char.folders.forEach((folder, fIndex) => { 
+            const wrap = document.createElement('div'); 
+            let adminBtn = isAdmin ? `<div class="folder-admin-btns"><button class="f-btn del" onclick="adminDeleteFolder(${fIndex})">Del Folder</button><button class="f-btn" onclick="openMgmtModal('char', ${fIndex})">+ Add</button></div>` : ""; 
+            const imgHtml = folder.images.map((id, iIdx) => `<img class="gallery-img-item" src="https://lh3.googleusercontent.com/u/0/d/${id}" onclick='openLightbox(${JSON.stringify(folder.images)}, ${iIdx})' onload="fixImage(this)">`).join(''); 
+            wrap.innerHTML = `<div class="folder-row-header"><h3 class="folder-title">${folder.name}</h3>${adminBtn}</div><div class="gallery-grid-inner">${imgHtml}</div>`; 
+            container.appendChild(wrap); 
+        }); 
+    }
+
     function closeDetails() { document.getElementById('char-detail-modal').style.display = 'none'; }
-    function openSubGallery(type, index) { currentViewingCharIndex = index; activeMgmtType = type; const item = (type === 'comm' ? commissionItems : shopList)[index]; const btnWrap = document.getElementById('comm-admin-btn-wrap'); btnWrap.innerHTML = ''; if(isAdmin) { const btn = document.createElement('div'); btn.className = 'char-btn-ui'; btn.style.marginBottom = "15px"; btn.innerText = "จัดการรูปภาพ"; btn.onclick = () => openMgmtModal(type, index); btnWrap.appendChild(btn); } const target = document.getElementById('comm-gal-target'); target.innerHTML = ''; const images = (item.gallery && item.gallery.length > 0) ? item.gallery : [item.img]; images.forEach((id, iIdx) => { const img = document.createElement('img'); img.className = 'gal-img-item'; img.src = `https://lh3.googleusercontent.com/u/0/d/${id}`; img.onclick = () => openLightbox(images, iIdx); img.onload = function(){ fixImage(this); }; target.appendChild(img); }); document.getElementById('comm-gallery-modal').style.display = 'flex'; }
+    
+    function openSubGallery(type, index) { 
+        currentViewingCharIndex = index; 
+        activeMgmtType = type; 
+        const item = (type === 'comm' ? commissionItems : shopList)[index]; 
+        const btnWrap = document.getElementById('comm-admin-btn-wrap'); 
+        btnWrap.innerHTML = ''; 
+        if(isAdmin) { 
+            const btn = document.createElement('div'); btn.className = 'char-btn-ui'; btn.style.marginBottom = "15px"; btn.innerText = "จัดการรูปภาพ"; btn.onclick = () => openMgmtModal(type, index); btnWrap.appendChild(btn); 
+        } 
+        const target = document.getElementById('comm-gal-target'); 
+        target.innerHTML = ''; 
+        const images = (item.gallery && item.gallery.length > 0) ? item.gallery : [item.img]; 
+        images.forEach((id, iIdx) => { 
+            const img = document.createElement('img'); 
+            img.className = 'gal-img-item'; 
+            img.src = `https://lh3.googleusercontent.com/u/0/d/${id}`; 
+            img.onclick = () => openLightbox(images, iIdx); 
+            img.onload = function(){ fixImage(this); }; 
+            target.appendChild(img); 
+        }); 
+        document.getElementById('comm-gallery-modal').style.display = 'flex'; 
+    }
+    
     function closeCommGallery() { document.getElementById('comm-gallery-modal').style.display = 'none'; }
     function openMgmtModal(type, index) { activeMgmtType = type; activeFolderIdx = index; let images = []; if (type === 'char') images = charList[currentViewingCharIndex].folders[index].images; else if (type === 'comm') images = commissionItems[index].gallery || []; else if (type === 'shop') images = shopList[index].gallery || []; tempImages = images.length > 0 ? [...images] : [""]; renderMgmtLines(); document.getElementById('mgmt-image-modal').style.display = 'flex'; }
     function closeMgmtModal() { document.getElementById('mgmt-image-modal').style.display = 'none'; }
     function renderMgmtLines() { const target = document.getElementById('mgmt-lines-target'); target.innerHTML = ''; tempImages.forEach((id, idx) => { const row = document.createElement('div'); row.className = 'mgmt-row'; row.innerHTML = `<input type="text" class="mgmt-input" value="${id}" onchange="tempImages[${idx}]=this.value" placeholder="ID หรือลิงก์รูป..."><button class="mgmt-del-line" onclick="tempImages.splice(${idx},1); renderMgmtLines();">x</button>`; target.appendChild(row); }); }
     function mgmtAddLine() { tempImages.push(""); renderMgmtLines(); }
     function mgmtSave() { const cleaned = tempImages.map(id => extractId(id)).filter(id => id !== ""); if (activeMgmtType === 'char') { charList[currentViewingCharIndex].folders[activeFolderIdx].images = cleaned; renderDynamicGallery(); } else if (activeMgmtType === 'comm') { commissionItems[activeFolderIdx].gallery = cleaned; openSubGallery('comm', activeFolderIdx); } else if (activeMgmtType === 'shop') { shopList[activeFolderIdx].gallery = cleaned; openSubGallery('shop', activeFolderIdx); } alert("บันทึกสำเร็จ"); closeMgmtModal(); }
-    function openAddCommModal() { currentEditIndex = -1; document.getElementById('comm-form-title').innerText = "เพิ่มคอมมิชชั่น"; document.getElementById('comm-name-input').value = ""; document.getElementById('comm-price-input').value = ""; document.getElementById('comm-time-input').value = ""; document.getElementById('comm-detail-input').value = ""; document.getElementById('comm-img-input').value = ""; document.getElementById('add-comm-modal').style.display = 'flex'; }
-    function openEditComm(index) { currentEditIndex = index; const i = commissionItems[index]; document.getElementById('comm-form-title').innerText = "แก้ไขคอมมิชชั่น"; document.getElementById('comm-name-input').value = i.title; document.getElementById('comm-price-input').value = i.price; document.getElementById('comm-time-input').value = i.time; document.getElementById('comm-detail-input').value = i.detail; document.getElementById('comm-img-input').value = i.img; document.getElementById('comm-status-input').value = i.status; document.getElementById('add-comm-modal').style.display = 'flex'; }
+    function openAddCommModal() { currentEditIndex = -1; document.getElementById('add-comm-modal').style.display = 'flex'; }
+    function openEditComm(index) { currentEditIndex = index; const i = commissionItems[index]; document.getElementById('comm-name-input').value = i.title; document.getElementById('comm-price-input').value = i.price; document.getElementById('comm-time-input').value = i.time; document.getElementById('comm-detail-input').value = i.detail; document.getElementById('comm-img-input').value = i.img; document.getElementById('comm-status-input').value = i.status; document.getElementById('add-comm-modal').style.display = 'flex'; }
     function closeAddCommModal() { document.getElementById('add-comm-modal').style.display = 'none'; }
     function saveComm() { const data = { title: document.getElementById('comm-name-input').value, price: document.getElementById('comm-price-input').value, time: document.getElementById('comm-time-input').value, detail: document.getElementById('comm-detail-input').value, img: extractId(document.getElementById('comm-img-input').value), status: document.getElementById('comm-status-input').value, gallery: [] }; if(currentEditIndex === -1) commissionItems.push(data); else { data.gallery = commissionItems[currentEditIndex].gallery; commissionItems[currentEditIndex] = data; } navigateCommSub('main'); closeAddCommModal(); }
     function deleteComm(idx) { if(confirm("ลบ?")) { commissionItems.splice(idx,1); navigateCommSub('main'); } }
-    function openAddShopModal() { currentEditIndex = -1; document.getElementById('shop-form-title').innerText = "เพิ่มสินค้า"; document.getElementById('shop-name-input').value = ""; document.getElementById('shop-img-input').value = ""; document.getElementById('add-shop-modal').style.display = 'flex'; }
-    function openEditShop(index) { currentEditIndex = index; const i = shopList[index]; document.getElementById('shop-form-title').innerText = "แก้ไขสินค้า"; document.getElementById('shop-name-input').value = i.name; document.getElementById('shop-tag-input').value = i.tag; document.getElementById('shop-img-input').value = i.img; document.getElementById('shop-status-input').value = i.status; document.getElementById('add-shop-modal').style.display = 'flex'; }
+    function openAddShopModal() { currentEditIndex = -1; document.getElementById('add-shop-modal').style.display = 'flex'; }
+    function openEditShop(index) { currentEditIndex = index; const i = shopList[index]; document.getElementById('shop-name-input').value = i.name; document.getElementById('shop-tag-input').value = i.tag; document.getElementById('shop-img-input').value = i.img; document.getElementById('shop-status-input').value = i.status; document.getElementById('add-shop-modal').style.display = 'flex'; }
     function closeAddShopModal() { document.getElementById('add-shop-modal').style.display = 'none'; }
     function saveShop() { const data = { name: document.getElementById('shop-name-input').value, tag: document.getElementById('shop-tag-input').value, img: extractId(document.getElementById('shop-img-input').value), status: document.getElementById('shop-status-input').value, gallery: [] }; if(currentEditIndex === -1) shopList.push(data); else { data.gallery = shopList[currentEditIndex].gallery; shopList[currentEditIndex] = data; } filterShop('All'); closeAddShopModal(); }
     function deleteShop(idx) { if(confirm("ลบ?")) { shopList.splice(idx,1); filterShop('All'); } }
-    function openAddModal() { currentEditIndex = -1; document.getElementById('modal-form-title').innerText = "เพิ่มตัวละครใหม่"; document.getElementById('add-name').value = ''; document.getElementById('add-artist').value = ''; document.getElementById('add-owner').value = ''; document.getElementById('add-value').value = '0'; document.getElementById('add-usage').value = 'Personal Use'; document.getElementById('add-img-id').value = ''; document.querySelectorAll('input[name="tag-multi"]').forEach(cb => cb.checked = false); document.getElementById('add-char-modal').style.display = 'flex'; }
-    function openEditModal(index) { currentEditIndex = index; const char = charList[index]; document.getElementById('modal-form-title').innerText = "แก้ไขข้อมูลตัวละคร"; document.getElementById('add-name').value = char.name; document.getElementById('add-artist').value = char.artist || ''; document.getElementById('add-owner').value = char.owner || ''; document.getElementById('add-value').value = char.value || '0'; document.getElementById('add-usage').value = char.usage || 'Personal Use'; document.getElementById('add-img-id').value = char.img; document.querySelectorAll('input[name="tag-multi"]').forEach(cb => cb.checked = char.tag.includes(cb.value)); document.getElementById('add-char-modal').style.display = 'flex'; }
+    function openAddModal() { currentEditIndex = -1; document.getElementById('add-char-modal').style.display = 'flex'; }
+    function openEditModal(index) { currentEditIndex = index; const char = charList[index]; document.getElementById('add-name').value = char.name; document.getElementById('add-artist').value = char.artist || ''; document.getElementById('add-owner').value = char.owner || ''; document.getElementById('add-value').value = char.value || '0'; document.getElementById('add-usage').value = char.usage || 'Personal Use'; document.getElementById('add-img-id').value = char.img; document.querySelectorAll('input[name="tag-multi"]').forEach(cb => char.tag.includes(cb.value) ? cb.checked = true : cb.checked = false); document.getElementById('add-char-modal').style.display = 'flex'; }
     function closeAddModal() { document.getElementById('add-char-modal').style.display = 'none'; }
-    function saveCharacter() { const n = document.getElementById('add-name').value, art = document.getElementById('add-artist').value || 'Dominic', own = document.getElementById('add-owner').value || 'Dominic', val = document.getElementById('add-value').value || '0', usg = document.getElementById('add-usage').value, img = extractId(document.getElementById('add-img-id').value); const selTags = []; document.querySelectorAll('input[name="tag-multi"]:checked').forEach(cb => selTags.push(cb.value)); const tagS = selTags.length > 0 ? selTags.join(', ') : 'ota'; if(!n || !img) { alert("ข้อมูลไม่ครบ"); return; } if(currentEditIndex === -1) charList.push({ name: n, img, tag: tagS, artist: art, owner: own, value: val, usage: usg, folders: [{ name: 'Original design', images: [img] }] }); else charList[currentEditIndex] = { ...charList[currentEditIndex], name: n, img, tag: tagS, artist: art, owner: own, value: val, usage: usg }; filterChars('All'); closeAddModal(); }
+    function saveCharacter() { const n = document.getElementById('add-name').value, art = document.getElementById('add-artist').value || 'Dominic', own = document.getElementById('add-owner').value || 'Dominic', val = document.getElementById('add-value').value || '0', usg = document.getElementById('add-usage').value, img = extractId(document.getElementById('add-img-id').value); const selTags = []; document.querySelectorAll('input[name="tag-multi"]:checked').forEach(cb => selTags.push(cb.value)); const tagS = selTags.length > 0 ? selTags.join(', ') : 'ota'; if(!n || !img) { alert("ข้อมูลไม่ครบ"); return; } if(currentEditIndex === -1) charList.push({ name: n, img, tag: tagS, artist: art, owner: own, value: val, usage: usg, birthday: '24/04', age: '?', height: '160', species: '?', folders: [{ name: 'Original design', images: [img] }] }); else charList[currentEditIndex] = { ...charList[currentEditIndex], name: n, img, tag: tagS, artist: art, owner: own, value: val, usage: usg }; filterChars('All'); closeAddModal(); }
     function deleteCharacter(idx) { if(confirm("ลบ?")) { charList.splice(idx, 1); filterChars('All'); } }
     function adminDeleteFolder(idx) { if (confirm("ลบโฟลเดอร์?")) { charList[currentViewingCharIndex].folders.splice(idx, 1); renderDynamicGallery(); } }
-    function fixImage(img) { const originalSrc = img.src; if (!originalSrc.includes('googleusercontent.com') && !originalSrc.includes('drive.google.com')) return; const id = extractId(originalSrc); if(id) { const fixedUrl = `https://lh3.googleusercontent.com/u/0/d/${id}`; if (img.getAttribute('data-retry') !== 'true' || img.src !== fixedUrl) { img.setAttribute('data-retry', 'true'); img.src = fixedUrl; } } }
+    
+    function fixImage(img) { 
+        const originalSrc = img.src; if (!originalSrc.includes('googleusercontent.com') && !originalSrc.includes('drive.google.com')) return; const id = extractId(originalSrc); if(id) { const fixedUrl = `https://lh3.googleusercontent.com/u/0/d/${id}`; if (img.getAttribute('data-retry') !== 'true' || img.src !== fixedUrl) { img.setAttribute('data-retry', 'true'); img.src = fixedUrl; } } 
+    }
     window.onload = () => { navigate('home'); };
 </script>
 </body>
