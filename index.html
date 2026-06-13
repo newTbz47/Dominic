@@ -26,6 +26,11 @@
             text-transform: lowercase;
         }
 
+        /* อนุญาตให้พิมพ์ตัวใหญ่ตัวเล็กได้ในส่วนเนื้อหา */
+        .char-modal-name, .info-split-item, .char-details, .name-tag, .text-content, .inner-white, .folder-title, .mgmt-input, input, textarea, .box-title {
+            text-transform: none !important;
+        }
+
         .ipad-layout { width: 768px; position: relative; display: flex; flex-direction: column; }
         .top-banner { width: 100%; display: block; z-index: 100; }
 
@@ -223,7 +228,7 @@
         .char-link-icon-wrap img { width: 100%; height: auto; }
 
         .char-info-split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 20px; }
-        .info-split-title { font-size: 22px; border-bottom: 1.5px solid rgba(255,255,255,0.4); padding-bottom: 8px; margin-bottom: 20px; font-weight: 500; text-align: left; }
+        .info-split-title { font-size: 22px; border-bottom: 1.5px solid rgba(255,255,255,0.4); padding-bottom: 8px; margin-bottom: 20px; font-weight: 500; text-align: left; display: flex; align-items: center; justify-content: space-between; }
         .info-split-list { display: flex; flex-direction: column; gap: 12px; }
         .info-split-item { display: flex; align-items: center; gap: 10px; font-size: 15px; color: #fff; }
         .info-pink-heart { width: 18px; height: auto; flex-shrink: 0; }
@@ -236,6 +241,9 @@
 
         #pop-rules-modal .modal-content { padding: 0; border: none; background: transparent; display: flex; align-items: center; justify-content: center; width: auto; max-width: 90vw; }
         .rules-img-full { max-width: 100%; max-height: 85vh; object-fit: contain; border: 3px solid var(--box-border); border-radius: 4px; box-shadow: var(--glow-soft); }
+
+        /* ปุ่มจิ๋วสำหรับ Admin */
+        .admin-mini-btn { font-size: 10px; padding: 2px 8px; background: var(--box-border); color: black; border-radius: 4px; cursor: pointer; border: none; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -394,6 +402,7 @@
         </div>
     </div>
 
+    <!-- Modals ต่างๆ -->
     <div id="char-detail-modal" class="modal-overlay" onclick="closeDetails()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="closeDetails()">&times;</span>
@@ -401,10 +410,47 @@
         </div>
     </div>
 
+    <!-- Modal แก้ไข Basic Info -->
+    <div id="edit-basic-modal" class="modal-overlay" onclick="this.style.display='none'">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="document.getElementById('edit-basic-modal').style.display='none'">&times;</span>
+            <div class="modal-header-section"><span class="modal-char-name-big" style="color:white; font-size:24px;">แก้ไข Basic Info</span></div>
+            <div class="form-row"><label>ชื่อตัวละคร (name)</label><input type="text" id="eb-name"></div>
+            <div class="form-row"><label>วันเกิด (birthday)</label><input type="text" id="eb-bday"></div>
+            <div class="form-row"><label>อายุ (age)</label><input type="text" id="eb-age"></div>
+            <div class="form-row"><label>ส่วนสูง (height)</label><input type="text" id="eb-height"></div>
+            <div class="form-row"><label>เผ่าพันธุ์ (species)</label><input type="text" id="eb-species"></div>
+            <button class="save-btn" onclick="saveBasicInfo()">บันทึกข้อมูล</button>
+        </div>
+    </div>
+
+    <!-- Modal แก้ไข Design Info -->
+    <div id="edit-design-modal" class="modal-overlay" onclick="this.style.display='none'">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="document.getElementById('edit-design-modal').style.display='none'">&times;</span>
+            <div class="modal-header-section"><span class="modal-char-name-big" style="color:white; font-size:24px;">แก้ไข Design Info</span></div>
+            <div class="form-row"><label>เจ้าของ (owner)</label><input type="text" id="ed-owner"></div>
+            <div class="form-row"><label>ผู้วาด (artist)</label><input type="text" id="ed-artist"></div>
+            <div class="form-row"><label>ราคา/มูลค่า (value)</label><input type="text" id="ed-value"></div>
+            <div class="form-row"><label>สิทธิการใช้งาน (usage)</label><input type="text" id="ed-usage"></div>
+            <button class="save-btn" onclick="saveDesignInfo()">บันทึกข้อมูล</button>
+        </div>
+    </div>
+
+    <!-- Modal แก้ไขรูปกฎการใช้งาน -->
+    <div id="edit-rules-img-modal" class="modal-overlay" onclick="this.style.display='none'">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="document.getElementById('edit-rules-img-modal').style.display='none'">&times;</span>
+            <div class="modal-header-section"><span class="modal-char-name-big" style="color:white; font-size:24px;">แก้ไขรูปภาพกฎการใช้งาน</span></div>
+            <div class="form-row"><label> image id (กฎการใช้งาน)</label><input type="text" id="er-img-id"></div>
+            <button class="save-btn" onclick="saveRulesImg()">บันทึกข้อมูล</button>
+        </div>
+    </div>
+
     <div id="pop-rules-modal" class="modal-overlay" onclick="closePopRules()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="closePopRules()">&times;</span>
-            <img src="https://lh3.googleusercontent.com/u/0/d/1O5Q2VdTozcIu1kHxwPYRRUbKJg09IJk_" class="rules-img-full" onload="fixImage(this)">
+            <img id="rules-img-viewer" src="https://lh3.googleusercontent.com/u/0/d/1O5Q2VdTozcIu1kHxwPYRRUbKJg09IJk_" class="rules-img-full" onload="fixImage(this)">
         </div>
     </div>
 
@@ -424,7 +470,7 @@
     <div id="add-char-modal" class="modal-overlay" onclick="closeAddModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="closeAddModal()">&times;</span>
-            <div class="modal-header-section"><span class="modal-char-name-big" id="modal-form-title">เพิ่มตัวละครใหม่</span></div>
+            <div class="modal-header-section"><span class="modal-char-name-big" id="modal-form-title" style="color:white; font-size:24px;">เพิ่มตัวละครใหม่</span></div>
             <div class="form-row"><label>ชื่อตัวละคร (name)</label><input type="text" id="add-name" placeholder="ใส่ชื่อ..."></div>
             <div class="form-row"><label>ผู้วาด (artist)</label><input type="text" id="add-artist" placeholder="dominic"></div>
             <div class="form-row"><label>เจ้าของ (owner)</label><input type="text" id="add-owner" placeholder="dominic"></div>
@@ -504,6 +550,7 @@
         name: 'dominic v', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'mascot', 
         artist: 'dominic', owner: 'dominic', value: '0', usage: 'personal use', 
         birthday: '24/04', age: '?', height: '160', species: '?', 
+        rulesImg: '1O5Q2VdTozcIu1kHxwPYRRUbKJg09IJk_',
         folders: [{ name: 'original design', images: ['1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ'] }] 
     }];
     let shopList = [{ name: 'ych base 01', img: '1SuwqVv1aEXGDvSmESqPYSAlihq74IvNQ', tag: 'base', status: 'open', gallery: [] }];
@@ -566,26 +613,62 @@
     function toggleChar(img) { const details = img.nextElementSibling; details.style.display = (details.style.display === 'block' ? 'none' : 'block'); }
     
     function openPopDetails(index) { currentViewingCharIndex = index; document.getElementById('char-detail-modal').style.display = 'flex'; renderDynamicGallery(); }
-    function openPopRules() { document.getElementById('pop-rules-modal').style.display = 'flex'; }
+    
+    function openPopRules() { 
+        const char = charList[currentViewingCharIndex];
+        const rulesImg = char.rulesImg || '1O5Q2VdTozcIu1kHxwPYRRUbKJg09IJk_';
+        document.getElementById('rules-img-viewer').src = `https://lh3.googleusercontent.com/u/0/d/${rulesImg}`;
+        document.getElementById('pop-rules-modal').style.display = 'flex'; 
+    }
     function closePopRules() { document.getElementById('pop-rules-modal').style.display = 'none'; }
 
-    function adminEditInfo() {
+    /* ฟังก์ชัน Admin ใหม่ */
+    function openEditBasicInfo() {
         const char = charList[currentViewingCharIndex];
-        const newName = prompt("ชื่อตัวละคร:", char.name);
-        const newBday = prompt("วันเกิด:", char.birthday);
-        const newAge = prompt("อายุ:", char.age);
-        const newHeight = prompt("ส่วนสูง:", char.height);
-        const newSpec = prompt("เผ่าพันธุ์:", char.species);
-        const newOwner = prompt("เจ้าของ:", char.owner);
-        const newArt = prompt("ผู้วาด:", char.artist);
-        const newVal = prompt("ราคา:", char.value);
-        const newUsage = prompt("สิทธิการใช้งาน:", char.usage);
-        if (newName !== null) {
-            char.name = newName; char.birthday = newBday; char.age = newAge;
-            char.height = newHeight; char.species = newSpec; char.owner = newOwner;
-            char.artist = newArt; char.value = newVal; char.usage = newUsage;
-            renderDynamicGallery(); filterChars('All');
-        }
+        document.getElementById('eb-name').value = char.name;
+        document.getElementById('eb-bday').value = char.birthday || '24/04';
+        document.getElementById('eb-age').value = char.age || '?';
+        document.getElementById('eb-height').value = char.height || '160';
+        document.getElementById('eb-species').value = char.species || '?';
+        document.getElementById('edit-basic-modal').style.display = 'flex';
+    }
+    function saveBasicInfo() {
+        const char = charList[currentViewingCharIndex];
+        char.name = document.getElementById('eb-name').value;
+        char.birthday = document.getElementById('eb-bday').value;
+        char.age = document.getElementById('eb-age').value;
+        char.height = document.getElementById('eb-height').value;
+        char.species = document.getElementById('eb-species').value;
+        document.getElementById('edit-basic-modal').style.display = 'none';
+        renderDynamicGallery(); filterChars('All');
+    }
+    function openEditDesignInfo() {
+        const char = charList[currentViewingCharIndex];
+        document.getElementById('ed-owner').value = char.owner || 'dominic';
+        document.getElementById('ed-artist').value = char.artist || 'dominic';
+        document.getElementById('ed-value').value = char.value || '0';
+        document.getElementById('ed-usage').value = char.usage || 'personal use';
+        document.getElementById('edit-design-modal').style.display = 'flex';
+    }
+    function saveDesignInfo() {
+        const char = charList[currentViewingCharIndex];
+        char.owner = document.getElementById('ed-owner').value;
+        char.artist = document.getElementById('ed-artist').value;
+        char.value = document.getElementById('ed-value').value;
+        char.usage = document.getElementById('ed-usage').value;
+        document.getElementById('edit-design-modal').style.display = 'none';
+        renderDynamicGallery(); filterChars('All');
+    }
+    function openEditRulesImg() {
+        const char = charList[currentViewingCharIndex];
+        document.getElementById('er-img-id').value = char.rulesImg || '1O5Q2VdTozcIu1kHxwPYRRUbKJg09IJk_';
+        document.getElementById('edit-rules-img-modal').style.display = 'flex';
+    }
+    function saveRulesImg() {
+        const char = charList[currentViewingCharIndex];
+        char.rulesImg = extractId(document.getElementById('er-img-id').value);
+        document.getElementById('edit-rules-img-modal').style.display = 'none';
+        alert("บันทึกรูปภาพกฎการใช้งานแล้ว");
     }
 
     function adminAddFolder() {
@@ -608,7 +691,10 @@
         container.innerHTML = ''; 
         const char = charList[currentViewingCharIndex]; 
         let pinkHeart = 'https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP';
-        let adminInfoBtn = isAdmin ? `<button class="char-btn-ui" style="width:140px; margin: 10px 0" onclick="adminEditInfo()">แก้ไขข้อมูล info</button>` : "";
+        
+        let editRulesBtn = isAdmin ? `<button class="admin-mini-btn" style="margin-left:10px;" onclick="openEditRulesImg()">แก้ไขรูปภาพ</button>` : "";
+        let editBasicBtn = isAdmin ? `<button class="admin-mini-btn" onclick="openEditBasicInfo()">แก้ไข</button>` : "";
+        let editDesignBtn = isAdmin ? `<button class="admin-mini-btn" onclick="openEditDesignInfo()">แก้ไข</button>` : "";
         let adminAddFolderBtn = isAdmin ? `<button class="char-btn-ui" style="width:140px; margin-bottom: 20px" onclick="adminAddFolder()">+ เพิ่มโฟลเดอร์</button>` : "";
 
         let html = `
@@ -617,8 +703,10 @@
                 <img class="char-modal-pfp" src="https://lh3.googleusercontent.com/u/0/d/${char.img}" onclick="openLightbox(['${char.img}'], 0)" onload="fixImage(this)">
                 <div class="char-modal-title-area">
                     <span class="char-modal-name">${char.name}</span>
-                    <div class="char-rule-btn" onclick="openPopRules()">กฎการใช้งานดีไซน์</div>
-                    ${adminInfoBtn}
+                    <div style="display:flex; align-items:center;">
+                        <div class="char-rule-btn" onclick="openPopRules()">กฎการใช้งานดีไซน์</div>
+                        ${editRulesBtn}
+                    </div>
                 </div>
                 <div class="char-link-icon-wrap" onclick="copyCharLink(${currentViewingCharIndex})">
                     <img src="https://lh3.googleusercontent.com/u/0/d/1YuawN-quG1Nq1AvRr8O1VjTnfihirqQw" onload="fixImage(this)">
@@ -627,7 +715,7 @@
 
             <div class="char-info-split">
                 <div class="info-split-col">
-                    <div class="info-split-title">basic info</div>
+                    <div class="info-split-title">basic info ${editBasicBtn}</div>
                     <div class="info-split-list">
                         <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}" onload="fixImage(this)"> name: ${char.name}</div>
                         <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}" onload="fixImage(this)"> birthday: ${char.birthday || '24/04'}</div>
@@ -637,7 +725,7 @@
                     </div>
                 </div>
                 <div class="info-split-col">
-                    <div class="info-split-title">design info</div>
+                    <div class="info-split-title">design info ${editDesignBtn}</div>
                     <div class="info-split-list">
                         <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}" onload="fixImage(this)"> owner : ${char.owner || 'dominic'}</div>
                         <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}" onload="fixImage(this)"> artist : ${char.artist || 'dominic'}</div>
@@ -714,7 +802,7 @@
     function openAddModal() { currentEditIndex = -1; document.getElementById('add-char-modal').style.display = 'flex'; }
     function openEditModal(index) { currentEditIndex = index; const char = charList[index]; document.getElementById('add-name').value = char.name; document.getElementById('add-artist').value = char.artist || ''; document.getElementById('add-owner').value = char.owner || ''; document.getElementById('add-value').value = char.value || '0'; document.getElementById('add-usage').value = char.usage || 'personal use'; document.getElementById('add-img-id').value = char.img; document.querySelectorAll('input[name="tag-multi"]').forEach(cb => char.tag.includes(cb.value) ? cb.checked = true : cb.checked = false); document.getElementById('add-char-modal').style.display = 'flex'; }
     function closeAddModal() { document.getElementById('add-char-modal').style.display = 'none'; }
-    function saveCharacter() { const n = document.getElementById('add-name').value, art = document.getElementById('add-artist').value || 'dominic', own = document.getElementById('add-owner').value || 'dominic', val = document.getElementById('add-value').value || '0', usg = document.getElementById('add-usage').value, img = extractId(document.getElementById('add-img-id').value); const selTags = []; document.querySelectorAll('input[name="tag-multi"]:checked').forEach(cb => selTags.push(cb.value)); const tagS = selTags.length > 0 ? selTags.join(', ') : 'ota'; if(!n || !img) { alert("ข้อมูลไม่ครบ"); return; } if(currentEditIndex === -1) charList.push({ name: n, img, tag: tagS, artist: art, owner: own, value: val, usage: usg, birthday: '24/04', age: '?', height: '160', species: '?', folders: [{ name: 'original design', images: [img] }] }); else charList[currentEditIndex] = { ...charList[currentEditIndex], name: n, img, tag: tagS, artist: art, owner: own, value: val, usage: usg }; filterChars('All'); closeAddModal(); }
+    function saveCharacter() { const n = document.getElementById('add-name').value, art = document.getElementById('add-artist').value || 'dominic', own = document.getElementById('add-owner').value || 'dominic', val = document.getElementById('add-value').value || '0', usg = document.getElementById('add-usage').value, img = extractId(document.getElementById('add-img-id').value); const selTags = []; document.querySelectorAll('input[name="tag-multi"]:checked').forEach(cb => selTags.push(cb.value)); const tagS = selTags.length > 0 ? selTags.join(', ') : 'ota'; if(!n || !img) { alert("ข้อมูลไม่ครบ"); return; } if(currentEditIndex === -1) charList.push({ name: n, img, tag: tagS, artist: art, owner: own, value: val, usage: usg, birthday: '24/04', age: '?', height: '160', species: '?', rulesImg: '1O5Q2VdTozcIu1kHxwPYRRUbKJg09IJk_', folders: [{ name: 'original design', images: [img] }] }); else charList[currentEditIndex] = { ...charList[currentEditIndex], name: n, img, tag: tagS, artist: art, owner: own, value: val, usage: usg }; filterChars('All'); closeAddModal(); }
     function deleteCharacter(idx) { if(confirm("ลบ?")) { charList.splice(idx, 1); filterChars('All'); } }
     function adminDeleteFolder(idx) { if (confirm("ลบโฟลเดอร์?")) { charList[currentViewingCharIndex].folders.splice(idx, 1); renderDynamicGallery(); } }
     function fixImage(img) { const originalSrc = img.src; if (!originalSrc.includes('googleusercontent.com') && !originalSrc.includes('drive.google.com')) return; const id = extractId(originalSrc); if(id) { const fixedUrl = `https://lh3.googleusercontent.com/u/0/d/${id}`; if (img.getAttribute('data-retry') !== 'true' || img.src !== fixedUrl) { img.setAttribute('data-retry', 'true'); img.src = fixedUrl; } } }
