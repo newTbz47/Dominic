@@ -26,7 +26,16 @@
             text-transform: lowercase;
         }
 
-        /* อนุญาตให้พิมพ์ตัวใหญ่ตัวเล็กได้ในจุดที่สั่ง */
+        /* หน้าโหลด */
+        #loading-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 9999999; display: flex;
+            justify-content: center; align-items: center; color: white;
+            flex-direction: column; cursor: pointer;
+        }
+        .loader-bow { width: 80px; height: auto; animation: bounce 1.5s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
         .char-modal-name, .info-split-item, .char-details, .name-tag, .text-content, .inner-white, .folder-title, .mgmt-input, input, textarea, .box-title {
             text-transform: none !important;
         }
@@ -120,7 +129,8 @@
         .fandom-box .inner-white { margin: 30px 10px 10px 10px; min-height: 105px; text-align: center; font-size: 13px; line-height: 1.8; }
         .fandom-flowers-bottom { position: absolute; width: 180px; bottom: -20px; left: -30px; z-index: 4; pointer-events: none; }
 
-        .page-container { padding: 40px 60px 100px 60px; display: none; flex-direction: column; width: 100%; }
+        /* ปรับ Padding เพจให้ขยับขึ้น */
+        .page-container { padding: 20px 60px 100px 60px; display: none; flex-direction: column; width: 100%; }
         .filter-bar { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; position: relative; }
         .filter-btn { background: rgba(0,0,0,0.5); border: 1.5px dashed var(--box-border); color: white; padding: 5px 20px; border-radius: 20px; cursor: pointer; font-size: 13px; transition: 0.3s; }
         .filter-btn.active { background: var(--box-border); color: #000; border-style: solid; box-shadow: 0 0 10px var(--box-border); }
@@ -152,7 +162,8 @@
 
         #page-char-terms { display: flex; flex-direction: column; align-items: center; width: 100%; opacity: 1; transition: opacity 0.8s ease; position: relative; }
         
-        .accept-btn-wrap { margin-top: 100px; display: flex; justify-content: center; width: 100%; }
+        /* ปรับปุ่มยอมรับให้ขึ้นมานิดหน่อย */
+        .accept-btn-wrap { margin-top: 40px; display: flex; justify-content: center; width: 100%; }
         .accept-btn { width: 520px; height: 50px; background: #FFFFFF; border-radius: 4px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; color: #666; font-size: 22px; font-weight: 500; position: relative; }
         .accept-btn img { width: 40px; height: auto; }
         .accept-btn::after { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 4px; border: 2px solid #FFFFFF; animation: ripple-wave 2s infinite; pointer-events: none; }
@@ -215,10 +226,8 @@
         .admin-btn { flex: 1; font-size: 9px; padding: 4px; border: 1px solid #fff; border-radius: 4px; cursor: pointer; background: rgba(255,255,255,0.1); color: #fff; text-align: center; }
         .admin-btn.del { color: #ff9d9d; border-color: #ff9d9d; }
 
-        .char-modal-top-bar { background: var(--box-grad); border: 1.5px solid var(--box-border); height: 38px; border-radius: 2px; margin-bottom: 30px; }
         .char-modal-header { display: flex; gap: 30px; margin-bottom: 40px; position: relative; align-items: flex-start; }
         
-        /* สไตล์กรอบใน Modal */
         .modal-pfp-frame { width: 230px; height: 230px; position: relative; flex-shrink: 0; cursor: pointer; }
         .modal-pfp-frame .char-frame-img { z-index: 2; }
         .modal-pfp-frame .char-thumb { z-index: 1; width: 88%; height: 88%; top: 6%; left: 6%; border-radius: 2px; }
@@ -252,11 +261,20 @@
         #pop-rules-modal .modal-content { padding: 0; border: none; background: transparent; display: flex; align-items: center; justify-content: center; width: auto; max-width: 90vw; }
         .rules-img-full { max-width: 100%; max-height: 85vh; object-fit: contain; border: 3px solid var(--box-border); border-radius: 4px; box-shadow: var(--glow-soft); }
 
-        /* ปุ่มจิ๋วแอดมิน */
         .admin-mini-btn { font-size: 10px; padding: 2px 8px; background: var(--box-border); color: black; border-radius: 4px; cursor: pointer; border: none; font-weight: bold; }
+        
+        .img-edit-btn { width: 25px; height: auto; cursor: pointer; vertical-align: middle; transition: 0.2s; }
+        .img-edit-btn:hover { transform: scale(1.1); }
     </style>
 </head>
 <body>
+
+<!-- หน้าโหลด -->
+<div id="loading-screen" onclick="this.style.display='none'">
+    <img class="loader-bow" src="https://lh3.googleusercontent.com/u/0/d/1ftT6WkGEnnE-TeHuopJuqS-FCD8LK7OJ" onload="fixImage(this)">
+    <div style="margin-top: 20px; font-size: 18px; letter-spacing: 2px;">WELCOME</div>
+    <div style="margin-top: 5px; font-size: 12px; opacity: 0.7;">click to enter</div>
+</div>
 
 <div class="ipad-layout">
     <img class="top-banner" src="https://lh3.googleusercontent.com/u/0/d/1Zj_iLv5BO0JR95PricGgqIMXu1-TBRw0" onload="fixImage(this)">
@@ -364,8 +382,8 @@
             </div>
             
             <div id="char-main-list" style="display:none; opacity:0; transition:0.8s;">
-                <img src="https://lh3.googleusercontent.com/u/0/d/1IRyYNQzFIGjAJn3pwKfJfAC0JmmrmajL" style="width: 100%; height: auto; display: block; margin-bottom: 30px;" onload="fixImage(this)">
-                <div class="filter-bar">
+                <!-- ลบ margin-top: 50px ออก เพื่อให้หมวดหมู่ขยับขึ้น -->
+                <div class="filter-bar" style="margin-top: 0px;">
                     <div class="filter-btn active" onclick="filterChars('All', this)">all</div>
                     <div class="filter-btn" onclick="filterChars('mascot', this)">mascot</div>
                     <div class="filter-btn" onclick="filterChars('forever home', this)">forever home</div>
@@ -391,7 +409,6 @@
                 </div>
             </div>
 
-            <!-- Admin Buttons Section Commission -->
             <div id="admin-comm-btn-main" style="display: none; justify-content: flex-end; margin: -15px 0 15px 0;">
                 <button class="add-char-btn" onclick="openAddCommModal()">+ add commission</button>
             </div>
@@ -418,7 +435,7 @@
         </div>
     </div>
 
-    <!-- ล็อกอิน Modal ไล่สี -->
+    <!-- Modal ต่างๆ (คงเดิม) -->
     <div id="login-modal" class="modal-overlay" onclick="closeLoginModal()">
         <div class="modal-content" style="width: 400px; min-height: auto;" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="closeLoginModal()">&times;</span>
@@ -431,7 +448,6 @@
         </div>
     </div>
 
-    <!-- MODALS พื้นฐาน -->
     <div id="char-detail-modal" class="modal-overlay" onclick="closeDetails()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="closeDetails()">&times;</span>
@@ -569,7 +585,6 @@
 </div>
 
 <script>
-    // ** อัปเดตลิงก์ Web App ล่าสุด **
     const API_URL = "https://script.google.com/macros/s/AKfycbzmW5IbeNzrtSzhV4othYX9ZrdCykMMcCcpI23oQYWw9yqOIoLl5RitMR2UHm0YHiJsfA/exec";
 
     let charList = [];
@@ -605,7 +620,6 @@
         } catch(e) { console.error("Load failed", e); }
     }
 
-    // ล็อกอิน
     function triggerAdminLogin() { 
         if (isAdmin) { 
             if (confirm("ต้องการ Logout?")) { 
@@ -760,11 +774,7 @@
         if (btn) { document.querySelectorAll('#page-character .filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); } 
         const cols = [document.getElementById('char-col-1'), document.getElementById('char-col-2'), document.getElementById('char-col-3')]; 
         cols.forEach(c => c.innerHTML = ''); 
-
-        // เรียงลำดับตัวอักษร A-Z
-        const sortedList = charList.map((item, index) => ({...item, originalIdx: index}))
-                                   .sort((a, b) => a.name.localeCompare(b.name));
-
+        const sortedList = charList.map((item, index) => ({...item, originalIdx: index})).sort((a, b) => a.name.localeCompare(b.name));
         sortedList.forEach((item, index) => { 
             if (tag === 'All' || item.tag.includes(tag)) { 
                 const cardCount = cols[0].childElementCount + cols[1].childElementCount + cols[2].childElementCount; 
@@ -773,7 +783,6 @@
         }); 
     }
 
-    function toggleChar(img) { const details = img.nextElementSibling; details.style.display = (details.style.display === 'block' ? 'none' : 'block'); }
     function openPopDetails(index) { currentViewingCharIndex = index; document.getElementById('char-detail-modal').style.display = 'flex'; renderDynamicGallery(); }
     function closeDetails() { document.getElementById('char-detail-modal').style.display = 'none'; }
     function openPopRules() { 
@@ -783,7 +792,6 @@
     }
     function closePopRules() { document.getElementById('pop-rules-modal').style.display = 'none'; }
 
-    // แอดมินแก้ไขข้อมูลตัวละครแยกส่วน
     function openEditBasicInfo() {
         const char = charList[currentViewingCharIndex];
         document.getElementById('eb-name').value = char.name || '';
@@ -831,14 +839,10 @@
         document.getElementById('edit-rules-img-modal').style.display = 'none';
         await syncToSheets();
     }
-
-    // ฟังก์ชันจัดการ Tag ในหน้าดีเทล
     function openEditTags() {
         const char = charList[currentViewingCharIndex];
         const tags = char.tag.split(', ').map(t => t.trim());
-        document.querySelectorAll('input[name="tag-edit"]').forEach(cb => {
-            cb.checked = tags.includes(cb.value);
-        });
+        document.querySelectorAll('input[name="tag-edit"]').forEach(cb => { cb.checked = tags.includes(cb.value); });
         document.getElementById('edit-tags-modal').style.display = 'flex';
     }
     async function saveTagsEdit() {
@@ -853,37 +857,19 @@
     async function saveCharacter() {
         const n = document.getElementById('add-name').value, img = extractId(document.getElementById('add-img-id').value);
         if(!n || !img) return alert("ข้อมูลไม่ครบ");
-        
-        const data = {
-            name: n, img, tag: '', 
-            artist: 'dominic', 
-            owner: 'dominic', 
-            value: '0', 
-            usage: 'personal use',
-            birthday: '?', age: '?', height: '?', species: '?', rulesImg: '1O5Q2VdTozcIu1kHxwPYRRUbKJg09IJk_',
-            folders: [{ name: 'original design', images: [img] }]
-        };
-        if(currentEditIndex === -1) {
-            charList.push(data); 
-        } else {
-            charList[currentEditIndex].name = n;
-            charList[currentEditIndex].img = img;
-        }
+        const data = { name: n, img, tag: '', artist: 'dominic', owner: 'dominic', value: '0', usage: 'personal use', birthday: '?', age: '?', height: '?', species: '?', rulesImg: '1O5Q2VdTozcIu1kHxwPYRRUbKJg09IJk_', folders: [{ name: 'original design', images: [img] }] };
+        if(currentEditIndex === -1) charList.push(data); else { charList[currentEditIndex].name = n; charList[currentEditIndex].img = img; }
         await syncToSheets(); filterChars('All'); closeAddModal();
     }
 
-    async function deleteCharacter(idx) {
-        if(confirm("ลบตัวละครนี้ใช่ไหม?")) {
-            charList.splice(idx, 1);
-            await syncToSheets(); filterChars('All');
-        }
-    }
+    async function deleteCharacter(idx) { if(confirm("ลบตัวละครนี้ใช่ไหม?")) { charList.splice(idx, 1); await syncToSheets(); filterChars('All'); } }
 
     function renderDynamicGallery() { 
         const container = document.getElementById('dynamic-gallery-container'); 
         container.innerHTML = ''; const char = charList[currentViewingCharIndex]; 
         let pinkHeart = 'https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP';
         let frameImg = "https://lh3.googleusercontent.com/u/0/d/1_Vlkh3IL6qO2XRVpu0BcHXhA1nBLvskC";
+        let editIcon = "https://lh3.googleusercontent.com/u/0/d/1bRGjySibD4cY42VKpwIwDnvTaQzi0J5w";
         
         let tagHtml = "";
         if(char.tag) {
@@ -892,8 +878,7 @@
         }
 
         let html = `
-            <div class="char-modal-top-bar"></div>
-            <div class="char-modal-header">
+            <div class="char-modal-header" style="margin-top: 20px;">
                 <div class="modal-pfp-frame" onclick="openLightbox(['${char.img}'], 0)">
                     <img class="char-frame-img" src="${frameImg}" onload="fixImage(this)">
                     <img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${char.img}" onload="fixImage(this)">
@@ -902,11 +887,11 @@
                     <span class="char-modal-name">${char.name}</span>
                     <div style="display:flex; align-items:center; flex-wrap:wrap; gap:5px;">
                         <div class="char-rule-btn" onclick="openPopRules()">กฎการใช้งานดีไซน์</div>
-                        ${isAdmin ? `<button class="admin-mini-btn" onclick="openEditRulesImg()">แก้ไขรูปภาพ</button>` : ''}
+                        ${isAdmin ? `<img class="img-edit-btn" src="${editIcon}" onclick="openEditRulesImg()" onload="fixImage(this)">` : ''}
                     </div>
                     <div style="display:flex; align-items:center; flex-wrap:wrap; margin-top:5px;">
                         ${tagHtml}
-                        ${isAdmin ? `<button class="admin-mini-btn" style="margin-top:10px; margin-left:5px;" onclick="openEditTags()">แก้ไข Tags</button>` : ''}
+                        ${isAdmin ? `<img class="img-edit-btn" style="margin-top:10px; margin-left:5px;" src="${editIcon}" onclick="openEditTags()" onload="fixImage(this)">` : ''}
                     </div>
                 </div>
                 <div class="char-link-icon-wrap" onclick="copyCharLink(${currentViewingCharIndex})">
@@ -915,7 +900,7 @@
             </div>
             <div class="char-info-split">
                 <div class="info-split-col">
-                    <div class="info-split-title">basic info ${isAdmin ? `<button class="admin-mini-btn" onclick="openEditBasicInfo()">แก้ไข</button>` : ''}</div>
+                    <div class="info-split-title">basic info ${isAdmin ? `<img class="img-edit-btn" src="${editIcon}" onclick="openEditBasicInfo()" onload="fixImage(this)">` : ''}</div>
                     <div class="info-split-list">
                         <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}"> name: ${char.name}</div>
                         <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}"> birthday: ${char.birthday || '?'}</div>
@@ -925,7 +910,7 @@
                     </div>
                 </div>
                 <div class="info-split-col">
-                    <div class="info-split-title">design info ${isAdmin ? `<button class="admin-mini-btn" onclick="openEditDesignInfo()">แก้ไข</button>` : ''}</div>
+                    <div class="info-split-title">design info ${isAdmin ? `<img class="img-edit-btn" src="${editIcon}" onclick="openEditDesignInfo()" onload="fixImage(this)">` : ''}</div>
                     <div class="info-split-list">
                         <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}"> owner : ${char.owner || 'dominic'}</div>
                         <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}"> artist : ${char.artist || 'dominic'}</div>
@@ -949,25 +934,17 @@
         }
     }
 
-    // แกลลอรี่รูปย่อย (คอมมิชชั่น และ ช้อป) - รวมรูปหลักอัตโนมัติ
     function openSubGallery(type, index) { 
         currentViewingCharIndex = index; activeMgmtType = type; 
         const item = (type === 'comm' ? commissionItems : shopList)[index]; 
         const btnWrap = document.getElementById('comm-admin-btn-wrap'); btnWrap.innerHTML = ''; 
         if(isAdmin) { const b = document.createElement('div'); b.className = 'char-btn-ui'; b.innerText = "จัดการรูปภาพเพิ่มเติม"; b.onclick = () => openMgmtModal(type, index); btnWrap.appendChild(b); } 
         const target = document.getElementById('comm-gal-target'); target.innerHTML = ''; 
-        
-        // ** ระบบรูปหลักเป็นรูปแรกอัตโนมัติ **
         const mainImg = item.img;
         const subGallery = item.gallery || [];
-        const allImages = [mainImg, ...subGallery.filter(id => id !== mainImg)]; // รวมและป้องกันซ้ำ
-        
+        const allImages = [mainImg, ...subGallery.filter(id => id !== mainImg)];
         allImages.forEach((id, i) => { 
-            const img = document.createElement('img'); 
-            img.className = 'gal-img-item'; 
-            img.src = `https://lh3.googleusercontent.com/u/0/d/${id}`; 
-            img.onclick = () => openLightbox(allImages, i); 
-            target.appendChild(img); 
+            const img = document.createElement('img'); img.className = 'gal-img-item'; img.src = `https://lh3.googleusercontent.com/u/0/d/${id}`; img.onclick = () => openLightbox(allImages, i); target.appendChild(img); 
         }); 
         document.getElementById('comm-gallery-modal').style.display = 'flex'; 
     }
@@ -996,36 +973,20 @@
         if (activeMgmtType === 'char') charList[currentViewingCharIndex].folders[activeFolderIdx].images = cleaned; 
         else if (activeMgmtType === 'comm') commissionItems[activeFolderIdx].gallery = cleaned; 
         else if (activeMgmtType === 'shop') shopList[activeFolderIdx].gallery = cleaned; 
-        await syncToSheets(); 
-        closeMgmtModal(); 
-        if(activeMgmtType === 'char') renderDynamicGallery();
-        else openSubGallery(activeMgmtType, activeFolderIdx);
+        await syncToSheets(); closeMgmtModal(); 
+        if(activeMgmtType === 'char') renderDynamicGallery(); else openSubGallery(activeMgmtType, activeFolderIdx);
     }
     function closeMgmtModal() { document.getElementById('mgmt-image-modal').style.display = 'none'; }
 
     async function saveComm() {
-        const data = { 
-            title: document.getElementById('comm-name-input').value, 
-            price: document.getElementById('comm-price-input').value, 
-            time: document.getElementById('comm-time-input').value, 
-            detail: document.getElementById('comm-detail-input').value, 
-            img: extractId(document.getElementById('comm-img-input').value), 
-            status: document.getElementById('comm-status-input').value, 
-            gallery: (currentEditIndex !== -1) ? commissionItems[currentEditIndex].gallery : []
-        }; 
+        const data = { title: document.getElementById('comm-name-input').value, price: document.getElementById('comm-price-input').value, time: document.getElementById('comm-time-input').value, detail: document.getElementById('comm-detail-input').value, img: extractId(document.getElementById('comm-img-input').value), status: document.getElementById('comm-status-input').value, gallery: (currentEditIndex !== -1) ? commissionItems[currentEditIndex].gallery : [] }; 
         if(currentEditIndex === -1) commissionItems.push(data); else commissionItems[currentEditIndex] = data; 
         await syncToSheets(); navigateCommSub('main'); closeAddCommModal();
     }
     async function deleteComm(idx) { if(confirm("ลบคอมมิชชั่นนี้?")) { commissionItems.splice(idx,1); await syncToSheets(); navigateCommSub('main'); } }
 
     async function saveShop() {
-        const data = { 
-            name: document.getElementById('shop-name-input').value, 
-            tag: document.getElementById('shop-tag-input').value, 
-            img: extractId(document.getElementById('shop-img-input').value), 
-            status: document.getElementById('shop-status-input').value, 
-            gallery: (currentEditIndex !== -1) ? shopList[currentEditIndex].gallery : []
-        }; 
+        const data = { name: document.getElementById('shop-name-input').value, tag: document.getElementById('shop-tag-input').value, img: extractId(document.getElementById('shop-img-input').value), status: document.getElementById('shop-status-input').value, gallery: (currentEditIndex !== -1) ? shopList[currentEditIndex].gallery : [] }; 
         if(currentEditIndex === -1) shopList.push(data); else shopList[currentEditIndex] = data; 
         await syncToSheets(); filterShop('All'); closeAddShopModal();
     }
@@ -1033,11 +994,7 @@
 
     function adminAddFolder() {
         const n = prompt("ชื่อโฟลเดอร์ใหม่:");
-        if (n) {
-            if (!charList[currentViewingCharIndex].folders) charList[currentViewingCharIndex].folders = [];
-            charList[currentViewingCharIndex].folders.push({ name: n, images: [] });
-            renderDynamicGallery();
-        }
+        if (n) { if (!charList[currentViewingCharIndex].folders) charList[currentViewingCharIndex].folders = []; charList[currentViewingCharIndex].folders.push({ name: n, images: [] }); renderDynamicGallery(); }
     }
     function adminEditFolder(idx) {
         const n = prompt("แก้ไขชื่อโฟลเดอร์:", charList[currentViewingCharIndex].folders[idx].name);
@@ -1051,10 +1008,7 @@
     }
 
     function openAddModal() { currentEditIndex = -1; document.getElementById('add-name').value=''; document.getElementById('add-img-id').value=''; document.getElementById('add-char-modal').style.display='flex'; }
-    function openEditModal(idx) { 
-        currentEditIndex = idx; const c = charList[idx];
-        document.getElementById('add-name').value = c.name; document.getElementById('add-img-id').value = c.img; document.getElementById('add-char-modal').style.display='flex';
-    }
+    function openEditModal(idx) { currentEditIndex = idx; const c = charList[idx]; document.getElementById('add-name').value = c.name; document.getElementById('add-img-id').value = c.img; document.getElementById('add-char-modal').style.display='flex'; }
     function closeAddModal() { document.getElementById('add-char-modal').style.display='none'; }
     function openAddCommModal() { currentEditIndex = -1; document.getElementById('comm-name-input').value=''; document.getElementById('comm-img-input').value=''; document.getElementById('add-comm-modal').style.display='flex'; }
     function openEditComm(idx) { currentEditIndex = idx; const i = commissionItems[idx]; document.getElementById('comm-name-input').value=i.title; document.getElementById('comm-img-input').value=i.img; document.getElementById('add-comm-modal').style.display='flex'; }
