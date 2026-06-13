@@ -129,8 +129,13 @@
         .two-col-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: start; }
         .display-col { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
 
-        .char-card { width: 100%; background: var(--box-grad); border: 1.5px solid var(--box-border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--glow-soft); position: relative; }
-        .char-thumb { width: 100%; display: block; cursor: pointer; transition: 0.2s; border-bottom: none; background: #111; min-height: 100px; }
+        .char-card { width: 100%; position: relative; display: flex; flex-direction: column; align-items: center; }
+        .char-frame-wrap { position: relative; width: 100%; aspect-ratio: 1/1; cursor: pointer; transition: 0.2s; }
+        .char-frame-wrap:hover { transform: scale(1.02); }
+        .char-frame-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+        .char-thumb { width: 88%; height: 88%; position: absolute; top: 6%; left: 6%; object-fit: cover; z-index: 1; border-radius: 2px; }
+        .char-name-label { margin-top: 5px; color: white; font-size: 16px; font-weight: 500; text-align: center; text-transform: none !important; }
+
         .char-details { padding: 15px 15px; font-size: 11px; color: #FFFFFF; text-align: left; line-height: 1.5; overflow: hidden; border-top: 1.5px solid var(--box-border); }
         .char-details p { margin: 4px 0; color: #FFFFFF; word-break: break-all; }
         .char-btn-ui { display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid #FFFFFF; padding: 4px 10px; border-radius: 4px; margin: 4px 0; color: #FFFFFF; font-size: 10px; cursor: pointer; text-align: center; width: 100%; }
@@ -206,13 +211,18 @@
 
         .save-btn { width: 100%; padding: 12px; background: #fff; color: #000; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px; }
 
-        .admin-controls { display: flex; gap: 5px; margin-top: 10px; }
+        .admin-controls { display: flex; gap: 5px; margin-top: 10px; width: 100%; }
         .admin-btn { flex: 1; font-size: 9px; padding: 4px; border: 1px solid #fff; border-radius: 4px; cursor: pointer; background: rgba(255,255,255,0.1); color: #fff; text-align: center; }
         .admin-btn.del { color: #ff9d9d; border-color: #ff9d9d; }
 
         .char-modal-top-bar { background: var(--box-grad); border: 1.5px solid var(--box-border); height: 38px; border-radius: 2px; margin-bottom: 30px; }
         .char-modal-header { display: flex; gap: 30px; margin-bottom: 40px; position: relative; align-items: flex-start; }
-        .char-modal-pfp { width: 230px; height: 230px; border: 1.5px solid var(--box-border); background: #111; object-fit: cover; flex-shrink: 0; cursor: pointer; }
+        
+        /* สไตล์กรอบใน Modal */
+        .modal-pfp-frame { width: 230px; height: 230px; position: relative; flex-shrink: 0; cursor: pointer; }
+        .modal-pfp-frame .char-frame-img { z-index: 2; }
+        .modal-pfp-frame .char-thumb { z-index: 1; width: 88%; height: 88%; top: 6%; left: 6%; border-radius: 2px; }
+
         .char-modal-title-area { flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; padding-top: 5px; }
         .char-modal-name { font-size: 32px; font-weight: bold; margin-bottom: 12px; }
         .char-rule-btn { display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid white; border-radius: 20px; padding: 4px 18px; font-size: 13px; width: fit-content; cursor: pointer; }
@@ -454,6 +464,23 @@
         </div>
     </div>
 
+    <div id="edit-tags-modal" class="modal-overlay" onclick="this.style.display='none'">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="document.getElementById('edit-tags-modal').style.display='none'">&times;</span>
+            <div class="modal-header-section"><span class="modal-char-name-big" style="color:white; font-size:24px;">แก้ไขหมวดหมู่ (Tags)</span></div>
+            <div class="form-row">
+                <div class="tag-selection">
+                    <label><input type="checkbox" name="tag-edit" value="mascot"> mascot</label>
+                    <label><input type="checkbox" name="tag-edit" value="forever home"> forever home</label>
+                    <label><input type="checkbox" name="tag-edit" value="eo"> eo</label>
+                    <label><input type="checkbox" name="tag-edit" value="sp"> sp</label>
+                    <label><input type="checkbox" name="tag-edit" value="ota"> ota</label>
+                </div>
+            </div>
+            <button class="save-btn" onclick="saveTagsEdit()">บันทึกข้อมูล</button>
+        </div>
+    </div>
+
     <div id="edit-rules-img-modal" class="modal-overlay" onclick="this.style.display='none'">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="document.getElementById('edit-rules-img-modal').style.display='none'">&times;</span>
@@ -488,27 +515,7 @@
             <span class="modal-close" onclick="closeAddModal()">&times;</span>
             <div class="modal-header-section"><span class="modal-char-name-big" id="modal-form-title" style="color:white; font-size:24px;">เพิ่มตัวละครใหม่</span></div>
             <div class="form-row"><label>ชื่อตัวละคร (name)</label><input type="text" id="add-name" placeholder="ใส่ชื่อ..."></div>
-            <div class="form-row"><label>ผู้วาด (artist)</label><input type="text" id="add-artist" placeholder="dominic"></div>
-            <div class="form-row"><label>เจ้าของ (owner)</label><input type="text" id="add-owner" placeholder="dominic"></div>
-            <div class="form-row"><label>ราคา/มูลค่า (value)</label><input type="text" id="add-value" placeholder="0"></div>
-            <div class="form-row">
-                <label>สิทธิการใช้งาน (usage)</label>
-                <select id="add-usage">
-                    <option value="personal use">personal use</option>
-                    <option value="commercial">commercial</option>
-                </select>
-            </div>
             <div class="form-row"><label>image id (google drive)</label><input type="text" id="add-img-id" placeholder="รหัสรูปภาพ"></div>
-            <div class="form-row">
-                <label>แท็กหมวดหมู่ (tags)</label>
-                <div class="tag-selection">
-                    <label><input type="checkbox" name="tag-multi" value="mascot"> mascot</label>
-                    <label><input type="checkbox" name="tag-multi" value="forever home"> forever home</label>
-                    <label><input type="checkbox" name="tag-multi" value="eo"> eo</label>
-                    <label><input type="checkbox" name="tag-multi" value="sp"> sp</label>
-                    <label><input type="checkbox" name="tag-multi" value="ota"> ota</label>
-                </div>
-            </div>
             <button class="save-btn" id="save-form-btn" onclick="saveCharacter()">บันทึกข้อมูล</button>
         </div>
     </div>
@@ -704,7 +711,7 @@
             if (filterTag === 'all' || item.status === filterTag) { 
                 const card = document.createElement('div'); card.className = 'char-card'; 
                 let adminHtml = isAdmin ? `<div class="admin-controls"><div class="admin-btn" onclick="openEditComm(${index})">edit</div><div class="admin-btn del" onclick="deleteComm(${index})">delete</div></div>` : ""; 
-                card.innerHTML = `<img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onload="fixImage(this)"><div class="char-details" style="display:block;"><p><strong>${item.title}</strong></p><p>ราคา : ${item.price}</p><p>ระยะเวลา : ${item.time}</p><p>รายละเอียด : ${item.detail}</p><div class="char-btn-ui" onclick="openSubGallery('comm', ${index})">ดูรูปภาพเพิ่มเติม</div><div class="tag-center-wrap"><div class="char-tag-ui">${item.status}</div></div>${adminHtml}</div>`; 
+                card.innerHTML = `<img class="char-thumb" style="width:100%; height:auto; position:static; border-radius:4px; border:1.5px solid var(--box-border);" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onload="fixImage(this)"><div class="char-details" style="display:block; border-top:none;"><p><strong>${item.title}</strong></p><p>ราคา : ${item.price}</p><p>ระยะเวลา : ${item.time}</p><p>รายละเอียด : ${item.detail}</p><div class="char-btn-ui" onclick="openSubGallery('comm', ${index})">ดูรูปภาพเพิ่มเติม</div><div class="tag-center-wrap"><div class="char-tag-ui">${item.status}</div></div>${adminHtml}</div>`; 
                 target.appendChild(card); 
             } 
         }); 
@@ -719,7 +726,7 @@
             if (tag === 'All' || item.tag === tag) { 
                 const card = document.createElement('div'); card.className = 'char-card'; 
                 let adminHtml = isAdmin ? `<div class="admin-controls"><div class="admin-btn" onclick="openEditShop(${index})">edit</div><div class="admin-btn del" onclick="deleteShop(${index})">delete</div></div>` : ""; 
-                card.innerHTML = `<img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onload="fixImage(this)"><div class="char-details" style="display:block;"><p><strong>${item.name}</strong></p><p>artist : dominic</p><div class="char-btn-ui" onclick="openSubGallery('shop', ${index})">ดูรูปภาพเพิ่มเติม</div><div class="tag-center-wrap"><div class="char-tag-ui">${item.status}</div></div>${adminHtml}</div>`; 
+                card.innerHTML = `<img class="char-thumb" style="width:100%; height:auto; position:static; border-radius:4px; border:1.5px solid var(--box-border);" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onload="fixImage(this)"><div class="char-details" style="display:block; border-top:none;"><p><strong>${item.name}</strong></p><p>artist : dominic</p><div class="char-btn-ui" onclick="openSubGallery('shop', ${index})">ดูรูปภาพเพิ่มเติม</div><div class="tag-center-wrap"><div class="char-tag-ui">${item.status}</div></div>${adminHtml}</div>`; 
                 target.appendChild(card); 
             } 
         }); 
@@ -736,8 +743,16 @@
 
     function createCard(obj, realIndex) { 
         const card = document.createElement('div'); card.className = 'char-card'; 
+        const frameImg = "https://lh3.googleusercontent.com/u/0/d/1_Vlkh3IL6qO2XRVpu0BcHXhA1nBLvskC";
         let adminHtml = isAdmin ? `<div class="admin-controls"><div class="admin-btn" onclick="openEditModal(${realIndex})">edit</div><div class="admin-btn del" onclick="deleteCharacter(${realIndex})">delete</div></div>` : ""; 
-        card.innerHTML = `<img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${obj.img}" onclick="toggleChar(this)" onload="fixImage(this)"><div class="char-details" style="display:none;"><p><strong>${obj.name}</strong></p><div class="char-btn-ui" onclick="openPopDetails(${realIndex})">รายละเอียดเพิ่มเติม</div><div class="tag-center-wrap"><div class="char-tag-ui">${obj.tag}</div></div>${adminHtml}</div>`; 
+        card.innerHTML = `
+            <div class="char-frame-wrap" onclick="openPopDetails(${realIndex})">
+                <img class="char-frame-img" src="${frameImg}" onload="fixImage(this)">
+                <img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${obj.img}" onload="fixImage(this)">
+            </div>
+            <div class="char-name-label">${obj.name}</div>
+            ${adminHtml}
+        `; 
         return card; 
     }
 
@@ -745,10 +760,15 @@
         if (btn) { document.querySelectorAll('#page-character .filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); } 
         const cols = [document.getElementById('char-col-1'), document.getElementById('char-col-2'), document.getElementById('char-col-3')]; 
         cols.forEach(c => c.innerHTML = ''); 
-        charList.forEach((item, index) => { 
+
+        // เรียงลำดับตัวอักษร A-Z
+        const sortedList = charList.map((item, index) => ({...item, originalIdx: index}))
+                                   .sort((a, b) => a.name.localeCompare(b.name));
+
+        sortedList.forEach((item, index) => { 
             if (tag === 'All' || item.tag.includes(tag)) { 
                 const cardCount = cols[0].childElementCount + cols[1].childElementCount + cols[2].childElementCount; 
-                cols[cardCount % 3].appendChild(createCard(item, index)); 
+                cols[cardCount % 3].appendChild(createCard(item, item.originalIdx)); 
             } 
         }); 
     }
@@ -812,20 +832,43 @@
         await syncToSheets();
     }
 
+    // ฟังก์ชันจัดการ Tag ในหน้าดีเทล
+    function openEditTags() {
+        const char = charList[currentViewingCharIndex];
+        const tags = char.tag.split(', ').map(t => t.trim());
+        document.querySelectorAll('input[name="tag-edit"]').forEach(cb => {
+            cb.checked = tags.includes(cb.value);
+        });
+        document.getElementById('edit-tags-modal').style.display = 'flex';
+    }
+    async function saveTagsEdit() {
+        const char = charList[currentViewingCharIndex];
+        const selTags = [];
+        document.querySelectorAll('input[name="tag-edit"]:checked').forEach(cb => selTags.push(cb.value));
+        char.tag = selTags.join(', ');
+        document.getElementById('edit-tags-modal').style.display = 'none';
+        await syncToSheets(); renderDynamicGallery(); filterChars('All');
+    }
+
     async function saveCharacter() {
         const n = document.getElementById('add-name').value, img = extractId(document.getElementById('add-img-id').value);
         if(!n || !img) return alert("ข้อมูลไม่ครบ");
-        const selTags = []; document.querySelectorAll('input[name="tag-multi"]:checked').forEach(cb => selTags.push(cb.value));
+        
         const data = {
-            name: n, img, tag: selTags.join(', '), 
-            artist: document.getElementById('add-artist').value || 'dominic', 
-            owner: document.getElementById('add-owner').value || 'dominic', 
-            value: document.getElementById('add-value').value || '0', 
-            usage: document.getElementById('add-usage').value,
+            name: n, img, tag: '', 
+            artist: 'dominic', 
+            owner: 'dominic', 
+            value: '0', 
+            usage: 'personal use',
             birthday: '?', age: '?', height: '?', species: '?', rulesImg: '1O5Q2VdTozcIu1kHxwPYRRUbKJg09IJk_',
             folders: [{ name: 'original design', images: [img] }]
         };
-        if(currentEditIndex === -1) charList.push(data); else charList[currentEditIndex] = {...charList[currentEditIndex], ...data};
+        if(currentEditIndex === -1) {
+            charList.push(data); 
+        } else {
+            charList[currentEditIndex].name = n;
+            charList[currentEditIndex].img = img;
+        }
         await syncToSheets(); filterChars('All'); closeAddModal();
     }
 
@@ -840,18 +883,32 @@
         const container = document.getElementById('dynamic-gallery-container'); 
         container.innerHTML = ''; const char = charList[currentViewingCharIndex]; 
         let pinkHeart = 'https://lh3.googleusercontent.com/u/0/d/1_OaDJNzTN7q9NKmHZSrlGoGrUsMVJIoP';
+        let frameImg = "https://lh3.googleusercontent.com/u/0/d/1_Vlkh3IL6qO2XRVpu0BcHXhA1nBLvskC";
+        
+        let tagHtml = "";
+        if(char.tag) {
+            const tags = char.tag.split(', ');
+            tagHtml = tags.map(t => `<div class="char-tag-ui" style="margin-right:5px; margin-top:10px;">${t}</div>`).join('');
+        }
+
         let html = `
             <div class="char-modal-top-bar"></div>
             <div class="char-modal-header">
-                <img class="char-modal-pfp" src="https://lh3.googleusercontent.com/u/0/d/${char.img}" onclick="openLightbox(['${char.img}'], 0)" onload="fixImage(this)">
+                <div class="modal-pfp-frame" onclick="openLightbox(['${char.img}'], 0)">
+                    <img class="char-frame-img" src="${frameImg}" onload="fixImage(this)">
+                    <img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${char.img}" onload="fixImage(this)">
+                </div>
                 <div class="char-modal-title-area">
                     <span class="char-modal-name">${char.name}</span>
-                    <div style="display:flex; align-items:center;">
+                    <div style="display:flex; align-items:center; flex-wrap:wrap; gap:5px;">
                         <div class="char-rule-btn" onclick="openPopRules()">กฎการใช้งานดีไซน์</div>
-                        ${isAdmin ? `<button class="admin-mini-btn" style="margin-left:10px" onclick="openEditRulesImg()">แก้ไขรูปภาพ</button>` : ''}
+                        ${isAdmin ? `<button class="admin-mini-btn" onclick="openEditRulesImg()">แก้ไขรูปภาพ</button>` : ''}
+                    </div>
+                    <div style="display:flex; align-items:center; flex-wrap:wrap; margin-top:5px;">
+                        ${tagHtml}
+                        ${isAdmin ? `<button class="admin-mini-btn" style="margin-top:10px; margin-left:5px;" onclick="openEditTags()">แก้ไข Tags</button>` : ''}
                     </div>
                 </div>
-                <!-- ปุ่มคัดลอกลิงก์กลับมาแล้ว -->
                 <div class="char-link-icon-wrap" onclick="copyCharLink(${currentViewingCharIndex})">
                     <img src="https://lh3.googleusercontent.com/u/0/d/1YuawN-quG1Nq1AvRr8O1VjTnfihirqQw" onload="fixImage(this)">
                 </div>
@@ -996,7 +1053,7 @@
     function openAddModal() { currentEditIndex = -1; document.getElementById('add-name').value=''; document.getElementById('add-img-id').value=''; document.getElementById('add-char-modal').style.display='flex'; }
     function openEditModal(idx) { 
         currentEditIndex = idx; const c = charList[idx];
-        document.getElementById('add-name').value = c.name; document.getElementById('add-artist').value = c.artist; document.getElementById('add-owner').value = c.owner; document.getElementById('add-value').value = c.value; document.getElementById('add-usage').value = c.usage; document.getElementById('add-img-id').value = c.img; document.getElementById('add-char-modal').style.display='flex';
+        document.getElementById('add-name').value = c.name; document.getElementById('add-img-id').value = c.img; document.getElementById('add-char-modal').style.display='flex';
     }
     function closeAddModal() { document.getElementById('add-char-modal').style.display='none'; }
     function openAddCommModal() { currentEditIndex = -1; document.getElementById('comm-name-input').value=''; document.getElementById('comm-img-input').value=''; document.getElementById('add-comm-modal').style.display='flex'; }
