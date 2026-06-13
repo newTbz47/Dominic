@@ -26,7 +26,7 @@
             text-transform: lowercase;
         }
 
-        /* อนุญาตให้พิมพ์ตัวเล็กตัวใหญ่ได้ในจุดที่สั่ง */
+        /* อนุญาตให้พิมพ์ตัวใหญ่ตัวเล็กได้ในจุดที่สั่ง */
         .char-modal-name, .info-split-item, .char-details, .name-tag, .text-content, .inner-white, .folder-title, .mgmt-input, input, textarea, .box-title {
             text-transform: none !important;
         }
@@ -194,7 +194,7 @@
         .lb-prev { left: -60px; }
         .lb-next { right: -60px; }
 
-        #admin-add-area, #admin-comm-area, #admin-shop-area { width: 100%; display: flex; justify-content: flex-end; margin: -15px 0 15px 0; }
+        #admin-add-area, #admin-shop-area { width: 100%; display: flex; justify-content: flex-end; margin: -15px 0 15px 0; }
         .add-char-btn { font-size: 10px; padding: 4px 12px; background: var(--box-border); color: black; border-radius: 15px; cursor: pointer; border: none; font-weight: bold; }
         .form-row { margin-bottom: 15px; }
         .form-row label { display: block; font-size: 14px; margin-bottom: 5px; color: var(--box-border); }
@@ -242,7 +242,7 @@
         #pop-rules-modal .modal-content { padding: 0; border: none; background: transparent; display: flex; align-items: center; justify-content: center; width: auto; max-width: 90vw; }
         .rules-img-full { max-width: 100%; max-height: 85vh; object-fit: contain; border: 3px solid var(--box-border); border-radius: 4px; box-shadow: var(--glow-soft); }
 
-        /* ปุ่มจิ๋วสำหรับ Admin */
+        /* ปุ่มจิ๋วแอดมิน */
         .admin-mini-btn { font-size: 10px; padding: 2px 8px; background: var(--box-border); color: black; border-radius: 4px; cursor: pointer; border: none; font-weight: bold; }
     </style>
 </head>
@@ -380,13 +380,18 @@
                     <div class="filter-btn" onclick="filterComm('closed', this)">closed</div>
                 </div>
             </div>
-            <div id="admin-comm-area" style="display: none;">
-                <button class="add-char-btn" style="margin-left:10px" onclick="editTOSImage()">edit tos image</button>
+
+            <!-- Admin Buttons Section Commission -->
+            <div id="admin-comm-btn-main" style="display: none; justify-content: flex-end; margin: -15px 0 15px 0;">
                 <button class="add-char-btn" onclick="openAddCommModal()">+ add commission</button>
             </div>
+            <div id="admin-comm-btn-terms" style="display: none; justify-content: flex-end; margin: -15px 0 15px 0;">
+                <button class="add-char-btn" onclick="editTOSImage()">edit tos image</button>
+            </div>
+
             <div class="two-col-grid" id="comm-list-target" style="display: grid;"></div>
             <div id="comm-terms-view" style="display: none;">
-                <img id="tos-img-display" src="https://lh3.googleusercontent.com/u/0/d/1Hbrx2JDadyVBbV07aHRkxv1w8tR6-_J2" style="width: 100%; height: auto; display: block;" onload="fixImage(this)">
+                <img id="tos-img-display" src="" style="width: 100%; height: auto; display: block;" onload="fixImage(this)">
             </div>
         </div>
 
@@ -403,7 +408,20 @@
         </div>
     </div>
 
-    <!-- Modals -->
+    <!-- ล็อกอิน Modal ไล่สี -->
+    <div id="login-modal" class="modal-overlay" onclick="closeLoginModal()">
+        <div class="modal-content" style="width: 400px; min-height: auto;" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeLoginModal()">&times;</span>
+            <div style="font-size: 20px; font-weight: bold; margin-bottom: 20px; text-align: center; color: white;">admin login</div>
+            <div class="form-row">
+                <label>password</label>
+                <input type="password" id="admin-password-input" placeholder="ใส่รหัสผ่าน...">
+            </div>
+            <button class="save-btn" onclick="verifyAdminPass()">เข้าสู่ระบบ</button>
+        </div>
+    </div>
+
+    <!-- MODALS พื้นฐาน -->
     <div id="char-detail-modal" class="modal-overlay" onclick="closeDetails()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="closeDetails()">&times;</span>
@@ -411,11 +429,10 @@
         </div>
     </div>
 
-    <!-- Modal แก้ไข Basic Info -->
     <div id="edit-basic-modal" class="modal-overlay" onclick="this.style.display='none'">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="document.getElementById('edit-basic-modal').style.display='none'">&times;</span>
-            <div class="modal-header-section"><span class="modal-char-name-big" style="color:white; font-size:24px;">แก้ไข Basic Info</span></div>
+            <div class="modal-header-section"><span class="modal-char-name-big" style="color:white; font-size:24px;">แก้ไข basic info</span></div>
             <div class="form-row"><label>ชื่อตัวละคร (name)</label><input type="text" id="eb-name"></div>
             <div class="form-row"><label>วันเกิด (birthday)</label><input type="text" id="eb-bday"></div>
             <div class="form-row"><label>อายุ (age)</label><input type="text" id="eb-age"></div>
@@ -425,11 +442,10 @@
         </div>
     </div>
 
-    <!-- Modal แก้ไข Design Info -->
     <div id="edit-design-modal" class="modal-overlay" onclick="this.style.display='none'">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="document.getElementById('edit-design-modal').style.display='none'">&times;</span>
-            <div class="modal-header-section"><span class="modal-char-name-big" style="color:white; font-size:24px;">แก้ไข Design Info</span></div>
+            <div class="modal-header-section"><span class="modal-char-name-big" style="color:white; font-size:24px;">แก้ไข design info</span></div>
             <div class="form-row"><label>เจ้าของ (owner)</label><input type="text" id="ed-owner"></div>
             <div class="form-row"><label>ผู้วาด (artist)</label><input type="text" id="ed-artist"></div>
             <div class="form-row"><label>ราคา/มูลค่า (value)</label><input type="text" id="ed-value"></div>
@@ -438,7 +454,6 @@
         </div>
     </div>
 
-    <!-- Modal แก้ไขรูปกฎการใช้งาน -->
     <div id="edit-rules-img-modal" class="modal-overlay" onclick="this.style.display='none'">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="document.getElementById('edit-rules-img-modal').style.display='none'">&times;</span>
@@ -451,7 +466,7 @@
     <div id="pop-rules-modal" class="modal-overlay" onclick="closePopRules()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="closePopRules()">&times;</span>
-            <img id="rules-img-viewer" src="https://lh3.googleusercontent.com/u/0/d/1O5Q2VdTozcIu1kHxwPYRRUbKJg09IJk_" class="rules-img-full" onload="fixImage(this)">
+            <img id="rules-img-viewer" src="" class="rules-img-full" onload="fixImage(this)">
         </div>
     </div>
 
@@ -547,8 +562,8 @@
 </div>
 
 <script>
-    // ** Web App URL ล่าสุดที่คุณส่งมา **
-    const API_URL = "https://script.google.com/macros/s/AKfycbzHkHyHzeiUpNkHoYIbZnVSHBxHISuP4rSLxYGboJ_BhTugdFehjoPeawBEVZnXi1WG6w/exec";
+    // ** อัปเดตลิงก์ Web App ล่าสุด **
+    const API_URL = "https://script.google.com/macros/s/AKfycbzmW5IbeNzrtSzhV4othYX9ZrdCykMMcCcpI23oQYWw9yqOIoLl5RitMR2UHm0YHiJsfA/exec";
 
     let charList = [];
     let shopList = [];
@@ -558,13 +573,9 @@
     
     let characterTermsAccepted = false, isAdmin = false, currentEditIndex = -1, currentViewingCharIndex = -1, activeFolderIdx = -1, tempImages = [], activeMgmtType = "", lbList = [], lbIdx = 0;
 
-    // ฟังก์ชันซิงค์ข้อมูลลงซีต
     async function syncToSheets() {
         showToast("กำลังซิงค์ข้อมูลกับเบส...");
-        const payload = {
-            action: "saveAll",
-            charList, commissionItems, shopList, tosImgID, adminPass: adminPassInBase
-        };
+        const payload = { action: "saveAll", charList, commissionItems, shopList, tosImgID, adminPass: adminPassInBase };
         try {
             const resp = await fetch(API_URL, { method: "POST", body: JSON.stringify(payload) });
             const result = await resp.text();
@@ -572,7 +583,6 @@
         } catch(e) { showToast("เกิดข้อผิดพลาดในการเชื่อมต่อ"); }
     }
 
-    // โหลดข้อมูลเริ่มต้น
     async function loadData() {
         try {
             const resp = await fetch(API_URL);
@@ -582,14 +592,13 @@
             commissionItems = d.commissionItems || [];
             tosImgID = d.tosImgID || "";
             adminPassInBase = d.adminPass || "1234";
-            
             const tosDisp = document.getElementById('tos-img-display');
             if(tosDisp && tosImgID) tosDisp.src = `https://lh3.googleusercontent.com/u/0/d/${tosImgID}`;
-            
             filterChars('All');
         } catch(e) { console.error("Load failed", e); }
     }
 
+    // ล็อกอิน
     function triggerAdminLogin() { 
         if (isAdmin) { 
             if (confirm("ต้องการ Logout?")) { 
@@ -599,18 +608,23 @@
                 navigate('home'); 
             } return; 
         } 
-        const p = prompt("Password:"); 
-        if (p && p.trim() === adminPassInBase.toString().trim()) { 
-            isAdmin = true; 
+        document.getElementById('login-modal').style.display = 'flex';
+    }
+    function closeLoginModal() { document.getElementById('login-modal').style.display = 'none'; }
+    function verifyAdminPass() {
+        const passInput = document.getElementById('admin-password-input');
+        if (passInput.value.trim() === adminPassInBase.toString().trim()) {
+            isAdmin = true;
             const loginBtn = document.querySelector('.login-btn');
-            loginBtn.classList.add('is-admin'); 
+            loginBtn.classList.add('is-admin');
             loginBtn.innerText = "admin active (logout)";
-            navigate('home'); 
+            closeLoginModal();
+            navigate('home');
             showToast("ยินดีต้อนรับแอดมิน!");
         } else alert("รหัสผ่านไม่ถูกต้อง");
+        passInput.value = "";
     }
 
-    // UI & Sparkle Helpers
     function extractId(input) { if (!input) return ""; const match = input.match(/(?:id=|\/d\/|u\/0\/d\/)([\w-]+)/); return match ? match[1] : input.trim(); }
     function showToast(msg) { const container = document.getElementById('toast-container'); container.innerHTML = ''; const toast = document.createElement('div'); toast.className = 'toast-msg'; toast.innerText = msg; container.appendChild(toast); setTimeout(() => toast.classList.add('show'), 100); setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 2000); }
     function openLightbox(list, index) { if(!list || list.length === 0) return; lbList = list; lbIdx = index; updateLightboxImg(); document.getElementById('lightbox-overlay').style.display = 'flex'; }
@@ -662,7 +676,6 @@
             if (pageId === 'shop') filterShop('All');
             if (isAdmin) {
                 document.getElementById('admin-add-area').style.display = (pageId === 'character') ? 'flex' : 'none';
-                document.getElementById('admin-comm-area').style.display = (pageId === 'commission') ? 'flex' : 'none';
                 document.getElementById('admin-shop-area').style.display = (pageId === 'shop') ? 'flex' : 'none';
             }
             wrapper.style.opacity = '1'; 
@@ -675,6 +688,13 @@
         document.getElementById('comm-terms-view').style.display = subId === 'terms' ? 'block' : 'none'; 
         document.querySelectorAll('.sub-nav-btn').forEach(b => b.classList.remove('active')); 
         document.getElementById('btn-comm-' + subId).classList.add('active'); 
+        
+        const adminBtnMain = document.getElementById('admin-comm-btn-main');
+        const adminBtnTerms = document.getElementById('admin-comm-btn-terms');
+        if(isAdmin) {
+            adminBtnMain.style.display = subId === 'main' ? 'flex' : 'none';
+            adminBtnTerms.style.display = subId === 'terms' ? 'flex' : 'none';
+        }
         if(subId === 'main') renderCommission('all'); 
     }
 
@@ -707,6 +727,13 @@
 
     function acceptTerms() { document.getElementById('page-char-terms').style.display = 'none'; characterTermsAccepted = true; const m = document.getElementById('char-main-list'); m.style.display = 'block'; setTimeout(() => m.style.opacity = '1', 50); filterChars('All'); }
 
+    function copyCharLink(idx) { 
+        const url = window.location.href.split('?')[0] + '?char=' + idx; 
+        navigator.clipboard.writeText(url).then(() => { showToast("คัดลอกลิงก์สำเร็จ!"); }).catch(() => {
+            const temp = document.createElement('input'); document.body.appendChild(temp); temp.value = url; temp.select(); document.execCommand('copy'); document.body.removeChild(temp); showToast("คัดลอกลิงก์สำเร็จ!");
+        });
+    }
+
     function createCard(obj, realIndex) { 
         const card = document.createElement('div'); card.className = 'char-card'; 
         let adminHtml = isAdmin ? `<div class="admin-controls"><div class="admin-btn" onclick="openEditModal(${realIndex})">edit</div><div class="admin-btn del" onclick="deleteCharacter(${realIndex})">delete</div></div>` : ""; 
@@ -736,14 +763,14 @@
     }
     function closePopRules() { document.getElementById('pop-rules-modal').style.display = 'none'; }
 
-    // Admin Functions (Character)
+    // แอดมินแก้ไขข้อมูลตัวละครแยกส่วน
     function openEditBasicInfo() {
         const char = charList[currentViewingCharIndex];
-        document.getElementById('eb-name').value = char.name;
-        document.getElementById('eb-bday').value = char.birthday;
-        document.getElementById('eb-age').value = char.age;
-        document.getElementById('eb-height').value = char.height;
-        document.getElementById('eb-species').value = char.species;
+        document.getElementById('eb-name').value = char.name || '';
+        document.getElementById('eb-bday').value = char.birthday || '';
+        document.getElementById('eb-age').value = char.age || '';
+        document.getElementById('eb-height').value = char.height || '';
+        document.getElementById('eb-species').value = char.species || '';
         document.getElementById('edit-basic-modal').style.display = 'flex';
     }
     async function saveBasicInfo() {
@@ -758,10 +785,10 @@
     }
     function openEditDesignInfo() {
         const char = charList[currentViewingCharIndex];
-        document.getElementById('ed-owner').value = char.owner;
-        document.getElementById('ed-artist').value = char.artist;
-        document.getElementById('ed-value').value = char.value;
-        document.getElementById('ed-usage').value = char.usage;
+        document.getElementById('ed-owner').value = char.owner || '';
+        document.getElementById('ed-artist').value = char.artist || '';
+        document.getElementById('ed-value').value = char.value || '';
+        document.getElementById('ed-usage').value = char.usage || '';
         document.getElementById('edit-design-modal').style.display = 'flex';
     }
     async function saveDesignInfo() {
@@ -775,7 +802,7 @@
     }
     function openEditRulesImg() {
         const char = charList[currentViewingCharIndex];
-        document.getElementById('er-img-id').value = char.rulesImg;
+        document.getElementById('er-img-id').value = char.rulesImg || '';
         document.getElementById('edit-rules-img-modal').style.display = 'flex';
     }
     async function saveRulesImg() {
@@ -824,6 +851,10 @@
                         ${isAdmin ? `<button class="admin-mini-btn" style="margin-left:10px" onclick="openEditRulesImg()">แก้ไขรูปภาพ</button>` : ''}
                     </div>
                 </div>
+                <!-- ปุ่มคัดลอกลิงก์กลับมาแล้ว -->
+                <div class="char-link-icon-wrap" onclick="copyCharLink(${currentViewingCharIndex})">
+                    <img src="https://lh3.googleusercontent.com/u/0/d/1YuawN-quG1Nq1AvRr8O1VjTnfihirqQw" onload="fixImage(this)">
+                </div>
             </div>
             <div class="char-info-split">
                 <div class="info-split-col">
@@ -839,10 +870,10 @@
                 <div class="info-split-col">
                     <div class="info-split-title">design info ${isAdmin ? `<button class="admin-mini-btn" onclick="openEditDesignInfo()">แก้ไข</button>` : ''}</div>
                     <div class="info-split-list">
-                        <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}"> owner : ${char.owner}</div>
-                        <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}"> artist : ${char.artist}</div>
-                        <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}"> value : ${char.value}</div>
-                        <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}"> usage : ${char.usage}</div>
+                        <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}"> owner : ${char.owner || 'dominic'}</div>
+                        <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}"> artist : ${char.artist || 'dominic'}</div>
+                        <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}"> value : ${char.value || '0'}</div>
+                        <div class="info-split-item"><img class="info-pink-heart" src="${pinkHeart}"> usage : ${char.usage || 'personal use'}</div>
                     </div>
                 </div>
             </div>
@@ -861,7 +892,29 @@
         }
     }
 
-    // Gallery Management (Shared)
+    // แกลลอรี่รูปย่อย (คอมมิชชั่น และ ช้อป) - รวมรูปหลักอัตโนมัติ
+    function openSubGallery(type, index) { 
+        currentViewingCharIndex = index; activeMgmtType = type; 
+        const item = (type === 'comm' ? commissionItems : shopList)[index]; 
+        const btnWrap = document.getElementById('comm-admin-btn-wrap'); btnWrap.innerHTML = ''; 
+        if(isAdmin) { const b = document.createElement('div'); b.className = 'char-btn-ui'; b.innerText = "จัดการรูปภาพเพิ่มเติม"; b.onclick = () => openMgmtModal(type, index); btnWrap.appendChild(b); } 
+        const target = document.getElementById('comm-gal-target'); target.innerHTML = ''; 
+        
+        // ** ระบบรูปหลักเป็นรูปแรกอัตโนมัติ **
+        const mainImg = item.img;
+        const subGallery = item.gallery || [];
+        const allImages = [mainImg, ...subGallery.filter(id => id !== mainImg)]; // รวมและป้องกันซ้ำ
+        
+        allImages.forEach((id, i) => { 
+            const img = document.createElement('img'); 
+            img.className = 'gal-img-item'; 
+            img.src = `https://lh3.googleusercontent.com/u/0/d/${id}`; 
+            img.onclick = () => openLightbox(allImages, i); 
+            target.appendChild(img); 
+        }); 
+        document.getElementById('comm-gallery-modal').style.display = 'flex'; 
+    }
+
     function openMgmtModal(type, index) { 
         activeMgmtType = type; activeFolderIdx = index; 
         let images = []; 
@@ -893,7 +946,6 @@
     }
     function closeMgmtModal() { document.getElementById('mgmt-image-modal').style.display = 'none'; }
 
-    // Commission & Shop Save
     async function saveComm() {
         const data = { 
             title: document.getElementById('comm-name-input').value, 
@@ -922,7 +974,6 @@
     }
     async function deleteShop(idx) { if(confirm("ลบสินค้านี้?")) { shopList.splice(idx,1); await syncToSheets(); filterShop('All'); } }
 
-    // Folders
     function adminAddFolder() {
         const n = prompt("ชื่อโฟลเดอร์ใหม่:");
         if (n) {
@@ -937,37 +988,25 @@
     }
     async function adminDeleteFolder(idx) { if(confirm("ลบโฟลเดอร์?")) { charList[currentViewingCharIndex].folders.splice(idx, 1); await syncToSheets(); renderDynamicGallery(); } }
 
+    async function editTOSImage() {
+        const newID = prompt("ใส่ ID รูป Terms of Service ใหม่:", tosImgID);
+        if (newID) { tosImgID = extractId(newID); document.getElementById('tos-img-display').src = `https://lh3.googleusercontent.com/u/0/d/${tosImgID}`; await syncToSheets(); }
+    }
+
     function openAddModal() { currentEditIndex = -1; document.getElementById('add-name').value=''; document.getElementById('add-img-id').value=''; document.getElementById('add-char-modal').style.display='flex'; }
     function openEditModal(idx) { 
         currentEditIndex = idx; const c = charList[idx];
-        document.getElementById('add-name').value = c.name;
-        document.getElementById('add-artist').value = c.artist;
-        document.getElementById('add-owner').value = c.owner;
-        document.getElementById('add-value').value = c.value;
-        document.getElementById('add-usage').value = c.usage;
-        document.getElementById('add-img-id').value = c.img;
-        document.getElementById('add-char-modal').style.display='flex';
+        document.getElementById('add-name').value = c.name; document.getElementById('add-artist').value = c.artist; document.getElementById('add-owner').value = c.owner; document.getElementById('add-value').value = c.value; document.getElementById('add-usage').value = c.usage; document.getElementById('add-img-id').value = c.img; document.getElementById('add-char-modal').style.display='flex';
     }
     function closeAddModal() { document.getElementById('add-char-modal').style.display='none'; }
-    function openAddCommModal() { currentEditIndex = -1; document.getElementById('add-comm-modal').style.display='flex'; }
+    function openAddCommModal() { currentEditIndex = -1; document.getElementById('comm-name-input').value=''; document.getElementById('comm-img-input').value=''; document.getElementById('add-comm-modal').style.display='flex'; }
     function openEditComm(idx) { currentEditIndex = idx; const i = commissionItems[idx]; document.getElementById('comm-name-input').value=i.title; document.getElementById('comm-img-input').value=i.img; document.getElementById('add-comm-modal').style.display='flex'; }
     function closeAddCommModal() { document.getElementById('add-comm-modal').style.display='none'; }
-    function openAddShopModal() { currentEditIndex = -1; document.getElementById('add-shop-modal').style.display='flex'; }
+    function openAddShopModal() { currentEditIndex = -1; document.getElementById('shop-name-input').value=''; document.getElementById('shop-img-input').value=''; document.getElementById('add-shop-modal').style.display='flex'; }
     function openEditShop(idx) { currentEditIndex = idx; const i = shopList[idx]; document.getElementById('shop-name-input').value=i.name; document.getElementById('shop-img-input').value=i.img; document.getElementById('add-shop-modal').style.display='flex'; }
     function closeAddShopModal() { document.getElementById('add-shop-modal').style.display='none'; }
     function closePopRules() { document.getElementById('pop-rules-modal').style.display='none'; }
     function closeCommGallery() { document.getElementById('comm-gallery-modal').style.display='none'; }
-
-    function openSubGallery(type, index) { 
-        currentViewingCharIndex = index; activeMgmtType = type; 
-        const item = (type === 'comm' ? commissionItems : shopList)[index]; 
-        const btnWrap = document.getElementById('comm-admin-btn-wrap'); btnWrap.innerHTML = ''; 
-        if(isAdmin) { const b = document.createElement('div'); b.className = 'char-btn-ui'; b.innerText = "จัดการรูปภาพ"; b.onclick = () => openMgmtModal(type, index); btnWrap.appendChild(b); } 
-        const target = document.getElementById('comm-gal-target'); target.innerHTML = ''; 
-        const imgs = (item.gallery && item.gallery.length > 0) ? item.gallery : [item.img]; 
-        imgs.forEach((id, i) => { const img = document.createElement('img'); img.className = 'gal-img-item'; img.src = `https://lh3.googleusercontent.com/u/0/d/${id}`; img.onclick = () => openLightbox(imgs, i); target.appendChild(img); }); 
-        document.getElementById('comm-gallery-modal').style.display = 'flex'; 
-    }
 
     function fixImage(img) { const src = img.src; if(!src) return; const id = extractId(src); if(id) { const f = `https://lh3.googleusercontent.com/u/0/d/${id}`; if(img.src !== f) img.src = f; } }
 
