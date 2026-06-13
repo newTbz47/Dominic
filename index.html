@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
@@ -26,10 +26,10 @@
             text-transform: lowercase;
         }
 
-        /* หน้าโหลด - ปรับพื้นหลังเป็นไล่สี */
+        /* หน้าโหลด - ปรับพื้นหลังให้ไล่สีเห็นชัดขึ้น */
         #loading-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, #000000 0%, #35233D 100%); 
+            background: linear-gradient(180deg, #1A0D1F 0%, #35233D 45%, #9073A0 100%); 
             z-index: 9999999; display: flex;
             justify-content: center; align-items: center; color: white;
             flex-direction: column; cursor: default;
@@ -146,7 +146,6 @@
         .fandom-box .inner-white { margin: 30px 10px 10px 10px; min-height: 105px; text-align: center; font-size: 13px; line-height: 1.8; }
         .fandom-flowers-bottom { position: absolute; width: 180px; bottom: -20px; left: -30px; z-index: 4; pointer-events: none; }
 
-        /* ปรับตำแหน่งหมวดหมู่ตัวละครให้สูงขึ้น */
         .page-container { padding: 20px 60px 100px 60px; display: none; flex-direction: column; width: 100%; }
         .filter-bar { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; position: relative; }
         .filter-btn { background: rgba(0,0,0,0.5); border: 1.5px dashed var(--box-border); color: white; padding: 5px 20px; border-radius: 20px; cursor: pointer; font-size: 13px; transition: 0.3s; }
@@ -163,7 +162,6 @@
         .char-thumb { width: 88%; height: 88%; position: absolute; top: 6%; left: 6%; object-fit: cover; z-index: 1; border-radius: 2px; }
         .char-name-label { margin-top: 5px; color: white; font-size: 16px; font-weight: 500; text-align: center; text-transform: none !important; }
 
-        /* ปรับกรอบแสดงข้อความ Commission/Shop ให้ติดรูปและชิดซ้าย */
         .char-details-container {
             background: var(--box-grad); border: 1.5px solid var(--box-border); border-radius: 2px;
             width: 100%; margin-top: 0px; display: flex; flex-direction: column;
@@ -252,7 +250,6 @@
 
         .char-modal-header { display: flex; gap: 30px; margin-bottom: 40px; position: relative; align-items: flex-start; }
         
-        /* สไตล์กรอบใน Modal */
         .modal-pfp-frame { width: 230px; height: 230px; position: relative; flex-shrink: 0; cursor: pointer; }
         .modal-pfp-frame .char-frame-img { z-index: 2; }
         .modal-pfp-frame .char-thumb { z-index: 1; width: 88%; height: 88%; top: 6%; left: 6%; border-radius: 2px; }
@@ -286,10 +283,8 @@
         #pop-rules-modal .modal-content { padding: 0; border: none; background: transparent; display: flex; align-items: center; justify-content: center; width: auto; max-width: 90vw; }
         .rules-img-full { max-width: 100%; max-height: 85vh; object-fit: contain; border: 3px solid var(--box-border); border-radius: 4px; box-shadow: var(--glow-soft); }
 
-        /* ปุ่มจิ๋วแอดมิน */
         .admin-mini-btn { font-size: 10px; padding: 2px 8px; background: var(--box-border); color: black; border-radius: 4px; cursor: pointer; border: none; font-weight: bold; }
         
-        /* ปุ่มรูปภาพสั่งใหม่ */
         .img-edit-btn { width: 25px; height: auto; cursor: pointer; vertical-align: middle; transition: 0.2s; }
         .img-edit-btn:hover { transform: scale(1.1); }
     </style>
@@ -582,6 +577,7 @@
             <div class="modal-header-section"><span class="modal-char-name-big" id="shop-form-title">เพิ่มสินค้า</span></div>
             <div class="form-row"><label>ชื่อสินค้า (name)</label><input type="text" id="shop-name-input"></div>
             <div class="form-row"><label>หมวดหมู่ (tag)</label><select id="shop-tag-input"><option value="base">base</option><option value="brush">brush</option><option value="template">template</option><option value="toon">toon</option></select></div>
+            <div class="form-row"><label>ราคา/มูลค่า (value)</label><input type="text" id="shop-value-input"></div>
             <div class="form-row"><label>image id</label><input type="text" id="shop-img-input"></div>
             <div class="form-row"><label>สถานะ (status)</label><select id="shop-status-input"><option value="open">open</option><option value="closed">closed</option></select></div>
             <button class="save-btn" onclick="saveShop()">บันทึกข้อมูล</button>
@@ -644,24 +640,21 @@
             if(tosDisp && tosImgID) tosDisp.src = `https://lh3.googleusercontent.com/u/0/d/${tosImgID}`;
             filterChars('All');
             
-            // ตรวจสอบ Deep Link
             const urlParams = new URLSearchParams(window.location.search);
             const charId = urlParams.get('char');
             if (charId !== null) {
-                // ข้ามหน้าโหลดทันที
                 document.getElementById('loading-screen').style.display = 'none';
                 characterTermsAccepted = true;
                 navigate('character');
                 setTimeout(() => openPopDetails(parseInt(charId)), 600);
             } else {
-                // ถ้าไม่มี Deep Link ให้เริ่ม Timer หน้าโหลดปกติ
                 startLoadingTimer();
                 navigate('home');
             }
         } catch(e) { console.error("Load failed", e); }
     }
 
-    // ระบบหน้าโหลดอัตโนมัติ 4 วินาที
+    // หน้าโหลด 3 วินาที
     function startLoadingTimer() {
         const screen = document.getElementById('loading-screen');
         const sparkleIds = ['11kmEPZPJbNSDk8xifHK0YqpyYl1LatLJ', '1sJ50AMg1WiJjz4zqX3Rv6w5Co96Jv8rf'];
@@ -683,10 +676,9 @@
         setTimeout(() => {
             clearInterval(interval);
             screen.style.display = 'none';
-        }, 4000);
+        }, 3000);
     }
 
-    // ระบบเอฟเฟกต์วิบวับสุ่มเกิดทั่วหน้าเว็บ (ความถี่มากขึ้น)
     function startGlobalSparkles() {
         const sparkleIds = ['11kmEPZPJbNSDk8xifHK0YqpyYl1LatLJ', '1sJ50AMg1WiJjz4zqX3Rv6w5Co96Jv8rf'];
         setInterval(() => {
@@ -697,7 +689,7 @@
             s.style.top = Math.random() * 100 + 'vh';
             document.body.appendChild(s);
             setTimeout(() => s.remove(), 2000);
-        }, 400); // เพิ่มความถี่เป็นทุกๆ 0.4 วินาที
+        }, 400); 
     }
 
     function triggerAdminLogin() { 
@@ -805,7 +797,6 @@
             if (filterTag === 'all' || item.status === filterTag) { 
                 const card = document.createElement('div'); card.className = 'char-card'; 
                 let adminHtml = isAdmin ? `<div class="admin-controls"><div class="admin-btn" onclick="openEditComm(${index})">edit</div><div class="admin-btn del" onclick="deleteComm(${index})">delete</div></div>` : ""; 
-                // ใช้หัวข้อภาษาอังกฤษ Price, Time, Detail
                 card.innerHTML = `
                     <div class="char-details-container">
                         <img class="char-details-img" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onload="fixImage(this)">
@@ -834,13 +825,13 @@
             if (tag === 'All' || item.tag === tag) { 
                 const card = document.createElement('div'); card.className = 'char-card'; 
                 let adminHtml = isAdmin ? `<div class="admin-controls"><div class="admin-btn" onclick="openEditShop(${index})">edit</div><div class="admin-btn del" onclick="deleteShop(${index})">delete</div></div>` : ""; 
-                // แสดงทั้งแท็ก status และ tag ในหน้า Shop
+                // ดึงค่า value มาแสดงจริง
                 card.innerHTML = `
                     <div class="char-details-container">
                         <img class="char-details-img" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onload="fixImage(this)">
                         <div class="char-details">
                             <p><strong>${item.name}</strong></p>
-                            <p>value : dominic</p>
+                            <p>Value : ${item.value || '0'}</p>
                             <div class="char-btn-ui" onclick="openSubGallery('shop', ${index})">ดูรูปภาพเพิ่มเติม</div>
                             <div class="tag-center-wrap">
                                 <div class="char-tag-ui">${item.status}</div>
@@ -1110,13 +1101,15 @@
     async function saveShop() {
         const nameVal = document.getElementById('shop-name-input').value;
         const imgVal = extractId(document.getElementById('shop-img-input').value);
+        const valueVal = document.getElementById('shop-value-input').value; // รับค่า Value ใหม่
         if(currentEditIndex === -1) {
-            const data = { name: nameVal, tag: document.getElementById('shop-tag-input').value, img: imgVal, status: document.getElementById('shop-status-input').value, gallery: [] }; 
+            const data = { name: nameVal, tag: document.getElementById('shop-tag-input').value, value: valueVal, img: imgVal, status: document.getElementById('shop-status-input').value, gallery: [] }; 
             shopList.push(data);
         } else {
             const i = shopList[currentEditIndex];
             i.name = nameVal;
             i.tag = document.getElementById('shop-tag-input').value;
+            i.value = valueVal; // อัปเดตค่า Value
             i.status = document.getElementById('shop-status-input').value;
             if(imgVal) i.img = imgVal;
         }
@@ -1145,8 +1138,21 @@
     function openAddCommModal() { currentEditIndex = -1; document.getElementById('comm-name-input').value=''; document.getElementById('comm-img-input').value=''; document.getElementById('add-comm-modal').style.display='flex'; }
     function openEditComm(idx) { currentEditIndex = idx; const i = commissionItems[idx]; document.getElementById('comm-name-input').value=i.title; document.getElementById('comm-img-input').value=''; document.getElementById('add-comm-modal').style.display='flex'; }
     function closeAddCommModal() { document.getElementById('add-comm-modal').style.display='none'; }
-    function openAddShopModal() { currentEditIndex = -1; document.getElementById('shop-name-input').value=''; document.getElementById('shop-img-input').value=''; document.getElementById('add-shop-modal').style.display='flex'; }
-    function openEditShop(idx) { currentEditIndex = idx; const i = shopList[idx]; document.getElementById('shop-name-input').value=i.name; document.getElementById('shop-img-input').value=''; document.getElementById('add-shop-modal').style.display='flex'; }
+    function openAddShopModal() { 
+        currentEditIndex = -1; 
+        document.getElementById('shop-name-input').value=''; 
+        document.getElementById('shop-img-input').value=''; 
+        document.getElementById('shop-value-input').value=''; 
+        document.getElementById('add-shop-modal').style.display='flex'; 
+    }
+    function openEditShop(idx) { 
+        currentEditIndex = idx; 
+        const i = shopList[idx]; 
+        document.getElementById('shop-name-input').value=i.name; 
+        document.getElementById('shop-img-input').value=''; 
+        document.getElementById('shop-value-input').value=i.value || ''; 
+        document.getElementById('add-shop-modal').style.display='flex'; 
+    }
     function closeAddShopModal() { document.getElementById('add-shop-modal').style.display='none'; }
     function closePopRules() { document.getElementById('pop-rules-modal').style.display='none'; }
     function closeCommGallery() { document.getElementById('comm-gallery-modal').style.display='none'; }
