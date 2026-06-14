@@ -288,25 +288,25 @@
         }
         .lb-img { max-width: 100%; max-height: 70vh; object-fit: contain; display: block; }
         
-        /* --- UI ส่วน Credit ใต้รูปใน Lightbox (สไตล์เดียวกับคอมมิชชั่น) --- */
+        /* --- UI ส่วน Credit ใต้รูปใน Lightbox (สไตล์ประหยัดพื้นที่) --- */
         #lb-credit-box {
             width: 100%; 
             background: linear-gradient(180deg, #35233D 0%, #1A0D1F 100%); 
             border: 1.5px solid var(--box-border); 
             border-top: none;
-            padding: 18px 20px; 
+            padding: 10px 20px; 
             color: white; 
             display: none; 
             flex-direction: column; 
-            gap: 6px;
+            gap: 2px;
             max-width: 90vw; 
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             border-radius: 0 0 4px 4px;
             text-align: left;
         }
         #lb-credit-title { 
-            font-size: 20px; font-weight: bold; color: #FFFFFF; text-decoration: none; display: block;
-            border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 6px; margin-bottom: 4px;
+            font-size: 14px; font-weight: bold; color: #FFFFFF; text-decoration: underline; display: inline-block;
+            margin-bottom: 2px;
         }
         #lb-credit-usage { font-size: 14px; color: #D3BCE6; }
 
@@ -508,28 +508,19 @@
 
         <div id="page-commission" class="page-container">
             <div class="sub-nav-row">
-                <div class="sub-nav-btns">
-                    <div class="nav-item sub-nav-btn" id="btn-comm-main" onclick="navigateCommSub('main')">commission</div>
-                    <div class="nav-item sub-nav-btn" id="btn-comm-terms" onclick="navigateCommSub('terms')">terms of service</div>
-                </div>
                 <div class="filter-bar" id="comm-filter-area" style="width: 100%; margin-top: 15px;">
                     <div class="filter-btn active" onclick="filterComm('all', this)">all</div>
                     <div class="filter-btn" onclick="filterComm('open', this)">open</div>
                     <div class="filter-btn" onclick="filterComm('closed', this)">closed</div>
+                    <div class="filter-btn" onclick="filterComm('terms', this)">terms of service</div>
                 </div>
             </div>
 
             <div id="admin-comm-btn-main" style="display: none; justify-content: flex-end; margin: -15px 0 15px 0;">
                 <button class="add-char-btn" onclick="openAddCommModal()">+ add commission</button>
             </div>
-            <div id="admin-comm-btn-terms" style="display: none; justify-content: flex-end; margin: -15px 0 15px 0;">
-                <button class="add-char-btn" onclick="editTOSImage()">edit tos image</button>
-            </div>
 
             <div class="two-col-grid" id="comm-list-target" style="display: grid;"></div>
-            <div id="comm-terms-view" style="display: none;">
-                <img id="tos-img-display" src="" style="width: 100%; height: auto; display: block;" onload="fixImage(this)">
-            </div>
         </div>
 
         <div id="page-shop" class="page-container">
@@ -667,7 +658,7 @@
             <div class="form-row"><label>ระยะเวลา (time)</label><input type="text" id="comm-time-input"></div>
             <div class="form-row"><label>รายละเอียด (detail)</label><textarea id="comm-detail-input"></textarea></div>
             <div class="form-row"><label>image id</label><input type="text" id="comm-img-input"></div>
-            <div class="form-row"><label>สถานะ (status)</label><select id="comm-status-input"><option value="open">open</option><option value="closed">closed</option></select></div>
+            <div class="form-row"><label>สถานะ (status)</label><select id="comm-status-input"><option value="open">open</option><option value="closed">closed</option><option value="terms">terms of service</option></select></div>
             <button class="save-btn" onclick="saveComm()">บันทึกข้อมูล</button>
         </div>
     </div>
@@ -705,7 +696,7 @@
                     <img class="lb-img" id="lb-image-src" src="">
                     <div class="watermark-tile"></div>
                 </div>
-                <!-- กล่อง Credit ยื่นออกมา (เหมือนกล่องคอมมิชชั่น) -->
+                <!-- กล่อง Credit ยื่นออกมา (ประหยัดพื้นที่ ขีดเส้นใต้ชื่อ) -->
                 <div id="lb-credit-box" onclick="event.stopPropagation()">
                     <a id="lb-credit-title" href="#" target="_blank">Artist Name</a>
                     <div id="lb-credit-usage">Usage : personal use</div>
@@ -775,9 +766,9 @@
             shopList = d.shopList || [];
             commissionItems = d.commissionItems || [];
             tosImgID = d.tosImgID || "";
-            adminPassInBase = d.adminPass || "1234";
-            const tosDisp = document.getElementById('tos-img-display');
-            if(tosDisp && tosImgID) tosDisp.src = `https://lh3.googleusercontent.com/u/0/d/${tosImgID}`;
+            // ดึงรหัสผ่านและแปลงเป็น String เสมอเพื่อป้องกันข้อผิดพลาด
+            adminPassInBase = (d.adminPass || "1234").toString();
+            
             filterChars('All');
             
             const urlParams = new URLSearchParams(window.location.search);
@@ -844,19 +835,27 @@
         } 
         document.getElementById('login-modal').style.display = 'flex';
     }
+    
     function closeLoginModal() { document.getElementById('login-modal').style.display = 'none'; }
+    
+    // ฟังก์ชันตรวจสอบรหัสผ่าน
     function verifyAdminPass() {
         const passInput = document.getElementById('admin-password-input');
-        if (passInput.value.trim() === adminPassInBase.toString().trim()) {
+        const inputVal = passInput.value.trim();
+        const correctVal = adminPassInBase.trim();
+
+        if (inputVal === correctVal && correctVal !== "") {
             isAdmin = true;
-            document.getElementById('main-body').classList.add('is-admin-active');
+            document.body.classList.add('is-admin-active');
             const loginBtn = document.querySelector('.login-btn');
             loginBtn.classList.add('is-admin');
             loginBtn.innerText = "admin active (logout)";
             closeLoginModal();
             navigate('home');
             showToast("ยินดีต้อนรับแอดมิน!");
-        } else alert("รหัสผ่านไม่ถูกต้อง");
+        } else {
+            alert("รหัสผ่านไม่ถูกต้อง");
+        }
         passInput.value = "";
     }
 
@@ -931,7 +930,9 @@
                     filterChars('All'); 
                 } 
             }
-            if (pageId === 'commission') navigateCommSub('main');
+            if (pageId === 'commission') {
+                filterComm('all', document.querySelector('#comm-filter-area .filter-btn.active'));
+            }
             if (pageId === 'shop') filterShop('All');
             if (isAdmin) {
                 document.getElementById('admin-add-area').style.display = (pageId === 'character') ? 'flex' : 'none';
@@ -939,22 +940,6 @@
             }
             wrapper.style.opacity = '1'; 
         }, 300); 
-    }
-
-    function navigateCommSub(subId) { 
-        document.getElementById('comm-list-target').style.display = subId === 'main' ? 'grid' : 'none'; 
-        document.getElementById('comm-filter-area').style.display = subId === 'main' ? 'flex' : 'none'; 
-        document.getElementById('comm-terms-view').style.display = subId === 'terms' ? 'block' : 'none'; 
-        document.querySelectorAll('.sub-nav-btn').forEach(b => b.classList.remove('active')); 
-        document.getElementById('btn-comm-' + subId).classList.add('active'); 
-        
-        const adminBtnMain = document.getElementById('admin-comm-btn-main');
-        const adminBtnTerms = document.getElementById('admin-comm-btn-terms');
-        if(isAdmin) {
-            adminBtnMain.style.display = subId === 'main' ? 'flex' : 'none';
-            adminBtnTerms.style.display = subId === 'terms' ? 'flex' : 'none';
-        }
-        if(subId === 'main') renderCommission('all'); 
     }
 
     function renderCommission(filterTag) { 
@@ -985,7 +970,17 @@
         }); 
     }
 
-    function filterComm(tag, btn) { document.querySelectorAll('#comm-filter-area .filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderCommission(tag); }
+    function filterComm(tag, btn) { 
+        document.querySelectorAll('#comm-filter-area .filter-btn').forEach(b => b.classList.remove('active')); 
+        if(btn) btn.classList.add('active'); 
+
+        const gridTarget = document.getElementById('comm-list-target');
+        const adminBtnMain = document.getElementById('admin-comm-btn-main');
+
+        gridTarget.style.display = 'grid';
+        if(isAdmin) adminBtnMain.style.display = 'flex';
+        renderCommission(tag); 
+    }
 
     function filterShop(tag, btn) { 
         if (btn) { document.querySelectorAll('#page-shop .filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); } 
@@ -1296,9 +1291,9 @@
         } else {
              const i = commissionItems[currentEditIndex]; i.title = titleVal; i.price = document.getElementById('comm-price-input').value; i.time = document.getElementById('comm-time-input').value; i.detail = document.getElementById('comm-detail-input').value; i.status = document.getElementById('comm-status-input').value; if(imgVal) i.img = imgVal;
         }
-        await syncToSheets(); navigateCommSub('main'); closeAddCommModal();
+        await syncToSheets(); filterComm('all', document.querySelector('#comm-filter-area .filter-btn.active')); closeAddCommModal();
     }
-    async function deleteComm(idx) { if(confirm("ลบคอมมิชชั่นนี้?")) { commissionItems.splice(idx,1); await syncToSheets(); navigateCommSub('main'); } }
+    async function deleteComm(idx) { if(confirm("ลบคอมมิชชั่นนี้?")) { commissionItems.splice(idx,1); await syncToSheets(); filterComm('all', document.querySelector('#comm-filter-area .filter-btn.active')); } }
 
     async function saveShop() {
         const nameVal = document.getElementById('shop-name-input').value, imgVal = extractId(document.getElementById('shop-img-input').value), valueVal = document.getElementById('shop-value-input').value;
@@ -1322,11 +1317,6 @@
     }
     async function adminDeleteFolder(idx) { if(confirm("ลบโฟลเดอร์?")) { charList[currentViewingCharIndex].folders.splice(idx, 1); await syncToSheets(); renderDynamicGallery(); } }
 
-    async function editTOSImage() {
-        const newID = prompt("ใส่ ID รูป Terms of Service ใหม่:", "");
-        if (newID) { tosImgID = extractId(newID); document.getElementById('tos-img-display').src = `https://lh3.googleusercontent.com/u/0/d/${tosImgID}`; await syncToSheets(); }
-    }
-
     function openAddModal() { currentEditIndex = -1; document.getElementById('add-name').value=''; document.getElementById('add-img-id').value=''; document.getElementById('add-char-modal').style.display='flex'; }
     function openEditModal(idx) { currentEditIndex = idx; const c = charList[idx]; document.getElementById('add-name').value = c.name; document.getElementById('add-img-id').value = c.img; document.getElementById('add-char-modal').style.display='flex'; }
     function closeAddModal() { document.getElementById('add-char-modal').style.display='none'; }
@@ -1345,22 +1335,6 @@
         loadData(); 
         startGlobalSparkles();
     };
-
-    const originalVerify = verifyAdminPass;
-    verifyAdminPass = function() {
-        const passInput = document.getElementById('admin-password-input');
-        if (passInput.value.trim() === adminPassInBase.toString().trim()) {
-            document.body.classList.add('is-admin-active');
-        }
-        originalVerify();
-    }
-    const originalLogout = triggerAdminLogin;
-    triggerAdminLogin = function() {
-        if(isAdmin && confirm("ต้องการ Logout?")) {
-            document.body.classList.remove('is-admin-active');
-        }
-        originalLogout();
-    }
 </script>
 </body>
 </html>
