@@ -25,11 +25,19 @@
             text-transform: lowercase;
         }
 
-        /* --- ระบบป้องกันรูปภาพ --- */
+        /* --- ระบบป้องกันรูปภาพ (สำหรับ User ปกติ) --- */
         img {
             -webkit-touch-callout: none !important;
             -webkit-user-drag: none !important;
             user-drag: none !important;
+        }
+
+        /* --- ปลดล็อกระบบป้องกันรูปภาพ (สำหรับ แอดมิน) --- */
+        body.is-admin-active * { -webkit-user-select: auto !important; user-select: auto !important; }
+        body.is-admin-active img {
+            -webkit-touch-callout: default !important;
+            -webkit-user-drag: auto !important;
+            user-drag: auto !important;
         }
 
         /* --- ระบบลายน้ำและพื้นหลังขาว --- */
@@ -41,7 +49,6 @@
             background-color: #FFFFFF; /* พื้นหลังขาวสำหรับ PNG ใส */
         }
         
-        /* ยกเว้นโปรไฟล์ตัวละคร ไม่ต้องมีพื้นหลังขาว */
         .profile-wrapper .character-img,
         .modal-pfp-frame .char-thumb {
             background-color: transparent !important;
@@ -49,8 +56,8 @@
 
         .watermark-tile {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background-image: url('https://lh3.googleusercontent.com/u/0/d/1PcnYxI3YhnNas1S93YeBhQR-9mLr7XIX');
-            background-repeat: repeat; background-size: 70px;
+            background-image: url('https://lh3.googleusercontent.com/u/0/d/1Koo8GIQC3JVk-xgUJFtwkxtd0fpxz3qQ');
+            background-repeat: repeat; background-size: 80px;
             pointer-events: none; z-index: 10; opacity: 0.5; display: block;
         }
         body.is-admin-active .watermark-tile { display: none !important; }
@@ -240,7 +247,7 @@
         .f-btn.del { color: #ff9d9d; border-color: #ff9d9d; }
         
         .gallery-grid-inner { column-count: 2; column-gap: 15px; display: block; }
-        .gallery-img-item { width: 100%; height: auto; border: 1.5px solid var(--box-border); margin-bottom: 15px; cursor: pointer; display: block; break-inside: avoid; }
+        .gallery-img-item { width: 100%; height: auto; border: 1.5px solid var(--box-border); background: #111; margin-bottom: 15px; cursor: pointer; display: block; break-inside: avoid; }
 
         #mgmt-image-modal { z-index: 10000 !important; }
         .mgmt-dashed-box { border: 1.5px dashed #555; padding: 25px; border-radius: 4px; margin: 20px 0; }
@@ -351,7 +358,6 @@
     </div>
 
     <div id="content-wrapper" class="page-content-wrapper">
-        <!-- หน้าแรก -->
         <div id="page-home" class="main-content">
             <div class="col-left">
                 <div class="profile-wrapper">
@@ -658,8 +664,10 @@
     
     let characterTermsAccepted = false, isAdmin = false, currentEditIndex = -1, currentViewingCharIndex = -1, activeFolderIdx = -1, tempImages = [], activeMgmtType = "", lbList = [], lbIdx = 0;
 
-    // บล็อกการคลิกขวาป้องกันการบันทึกภาพ
-    document.addEventListener('contextmenu', event => event.preventDefault());
+    // ระบบบล็อกการบันทึกภาพสำหรับคนทั่วไป
+    document.addEventListener('contextmenu', event => {
+        if (!isAdmin) event.preventDefault();
+    });
 
     async function syncToSheets() {
         showToast("กำลังซิงค์ข้อมูลกับเบส...");
@@ -884,7 +892,6 @@
             if (tag === 'All' || item.tag === tag) { 
                 const card = document.createElement('div'); card.className = 'char-card'; 
                 let adminHtml = isAdmin ? `<div class="admin-controls"><div class="admin-btn" onclick="openEditShop(${index})">edit</div><div class="admin-btn del" onclick="deleteShop(${index})">delete</div></div>` : ""; 
-                // ดึงค่า value มาแสดงจริง
                 card.innerHTML = `
                     <div class="char-details-container">
                         <div class="img-w-wrap">
@@ -1034,11 +1041,7 @@
         let frameImg = "https://lh3.googleusercontent.com/u/0/d/1_Vlkh3IL6qO2XRVpu0BcHXhA1nBLvskC";
         let editIcon = "https://lh3.googleusercontent.com/u/0/d/1bRGjySibD4cY42VKpwIwDnvTaQzi0J5w";
         
-        let tagHtml = "";
-        if(char.tag) {
-            const tags = char.tag.split(', ');
-            tagHtml = tags.map(t => `<div class="char-tag-ui" style="margin-right:5px; margin-top:10px;">${t}</div>`).join('');
-        }
+        let tagHtml = char.tag ? char.tag.split(', ').map(t => `<div class="char-tag-ui" style="margin-right:5px; margin-top:10px;">${t}</div>`).join('') : "";
 
         let html = `
             <div class="char-modal-header" style="margin-top: 20px;">
@@ -1090,7 +1093,6 @@
             char.folders.forEach((folder, fIndex) => { 
                 const wrap = document.createElement('div'); 
                 let adminBtn = isAdmin ? `<div class="folder-admin-btns"><button class="f-btn" onclick="adminEditFolder(${fIndex})">edit name</button><button class="f-btn del" onclick="adminDeleteFolder(${fIndex})">del</button><button class="f-btn" onclick="openMgmtModal('char', ${fIndex})">+ image</button></div>` : ""; 
-                // เพิ่มลายน้ำในหน้า Thumbnail
                 const imgHtml = folder.images.map((id, iIdx) => `
                     <div class="img-w-wrap gallery-img-item" onclick='openLightbox(${JSON.stringify(folder.images)}, ${iIdx})'>
                         <img src="https://lh3.googleusercontent.com/u/0/d/${id}" style="width:100%;height:auto;display:block;" onload="fixImage(this)">
@@ -1108,17 +1110,12 @@
         const btnWrap = document.getElementById('comm-admin-btn-wrap'); btnWrap.innerHTML = ''; 
         if(isAdmin) { const b = document.createElement('div'); b.className = 'char-btn-ui'; b.innerText = "จัดการรูปภาพเพิ่มเติม"; b.onclick = () => openMgmtModal(type, index); btnWrap.appendChild(b); } 
         const target = document.getElementById('comm-gal-target'); target.innerHTML = ''; 
-        const mainImg = item.img;
-        const subGallery = item.gallery || [];
-        const allImages = [mainImg, ...subGallery.filter(id => id !== mainImg)];
+        const mainImg = item.img, subGallery = item.gallery || [], allImages = [mainImg, ...subGallery.filter(id => id !== mainImg)];
         allImages.forEach((id, i) => { 
             const wrap = document.createElement('div'); 
             wrap.className = 'img-w-wrap gal-img-item'; 
             wrap.onclick = () => openLightbox(allImages, i);
-            wrap.innerHTML = `
-                <img src="https://lh3.googleusercontent.com/u/0/d/${id}" style="width:100%;height:auto;display:block;" onload="fixImage(this)">
-                <div class="watermark-tile"></div>
-            `;
+            wrap.innerHTML = `<img src="https://lh3.googleusercontent.com/u/0/d/${id}" style="width:100%;height:auto;display:block;" onload="fixImage(this)"><div class="watermark-tile"></div>`;
             target.appendChild(wrap); 
         }); 
         document.getElementById('comm-gallery-modal').style.display = 'flex'; 
@@ -1201,8 +1198,6 @@
     function openAddShopModal() { currentEditIndex = -1; document.getElementById('shop-name-input').value=''; document.getElementById('shop-img-input').value=''; document.getElementById('shop-value-input').value=''; document.getElementById('add-shop-modal').style.display='flex'; }
     function openEditShop(idx) { currentEditIndex = idx; const i = shopList[idx]; document.getElementById('shop-name-input').value=i.name; document.getElementById('shop-img-input').value=i.img; document.getElementById('shop-value-input').value=i.value || ''; document.getElementById('add-shop-modal').style.display='flex'; }
     function closeAddShopModal() { document.getElementById('add-shop-modal').style.display='none'; }
-    function closePopRules() { document.getElementById('pop-rules-modal').style.display='none'; }
-    function closeCommGallery() { document.getElementById('comm-gallery-modal').style.display='none'; }
 
     function fixImage(img) { const src = img.src; if(!src) return; const id = extractId(src); if(id) { const f = `https://lh3.googleusercontent.com/u/0/d/${id}`; if(img.src !== f) img.src = f; } }
 
