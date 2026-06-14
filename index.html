@@ -272,22 +272,54 @@
         .mgmt-save-big { width: 100%; height: 55px; background: #FFFFFF; color: #000; border: none; border-radius: 0; font-size: 24px; font-weight: bold; cursor: pointer; margin-top: 20px; }
 
         #lightbox-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 80000; display: none; justify-content: center; align-items: center; user-select: none; }
-        .lb-container { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+        .lb-container { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         
         /* Wrapper ขังลายน้ำใน Lightbox พร้อมพื้นหลังขาว */
         #lb-img-wrapper { 
             position: relative; 
             display: inline-block; 
             max-width: 90vw; 
-            max-height: 85vh; 
+            max-height: 70vh; 
             overflow: hidden; 
             background-color: #FFFFFF; 
             box-shadow: 0 0 20px rgba(211,188,230,0.2); 
+            border: 1.5px solid var(--box-border);
+            border-bottom: none;
         }
-        .lb-img { max-width: 100%; max-height: 85vh; object-fit: contain; display: block; }
+        .lb-img { max-width: 100%; max-height: 70vh; object-fit: contain; display: block; }
         
+        /* --- UI ส่วน Credit ใต้รูปใน Lightbox (สไตล์เดียวกับคอมมิชชั่น) --- */
+        #lb-credit-box {
+            width: 100%; 
+            background: linear-gradient(180deg, #35233D 0%, #1A0D1F 100%); 
+            border: 1.5px solid var(--box-border); 
+            border-top: none;
+            padding: 18px 20px; 
+            color: white; 
+            display: none; 
+            flex-direction: column; 
+            gap: 6px;
+            max-width: 90vw; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            border-radius: 0 0 4px 4px;
+            text-align: left;
+        }
+        #lb-credit-title { 
+            font-size: 20px; font-weight: bold; color: #FFFFFF; text-decoration: none; display: block;
+            border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 6px; margin-bottom: 4px;
+        }
+        #lb-credit-usage { font-size: 14px; color: #D3BCE6; }
+
+        /* ปุ่มลอยสำหรับแอดมินแก้ไขเครดิต */
+        .credit-edit-btn-float {
+            position: absolute; top: 8px; right: 8px;
+            background: rgba(255,255,255,0.9); border-radius: 4px;
+            padding: 4px; cursor: pointer; z-index: 12; width: 25px; height: auto;
+            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        }
+
         .lb-close { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; z-index: 80010; }
-        .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); color: white; font-size: 50px; cursor: pointer; padding: 20px; transition: 0.3s; opacity: 0.6; z-index: 80010; }
+        .lb-nav { position: absolute; top: 40%; transform: translateY(-50%); color: white; font-size: 50px; cursor: pointer; padding: 20px; transition: 0.3s; opacity: 0.6; z-index: 80010; }
         .lb-nav:hover { opacity: 1; color: var(--header-pink); }
         .lb-prev { left: 10px; }
         .lb-next { right: 10px; }
@@ -584,6 +616,18 @@
         </div>
     </div>
 
+    <!-- แก้ไขเครดิตรูปภาพ (เพิ่ม Usage) -->
+    <div id="edit-img-credit-modal" class="modal-overlay" onclick="this.style.display='none'">
+        <div class="modal-content" onclick="event.stopPropagation()" style="width: 450px;">
+            <span class="modal-close" onclick="document.getElementById('edit-img-credit-modal').style.display='none'">&times;</span>
+            <div class="modal-header-section"><span class="modal-char-name-big" style="color:white; font-size:24px;">แก้ไขเครดิตนักวาด</span></div>
+            <div class="form-row"><label>ชื่อนักวาด/แอคเค้าท์</label><input type="text" id="ec-name" placeholder="ระบุชื่อ..."></div>
+            <div class="form-row"><label>ลิงก์แอคนักวาด (URL)</label><input type="text" id="ec-link" placeholder="ใส่ลิงก์ลิงก์ไปเว็บนอก..."></div>
+            <div class="form-row"><label>สิทธิการใช้งาน (Usage)</label><input type="text" id="ec-usage" placeholder="เช่น Personal use เท่านั้น..."></div>
+            <button class="save-btn" onclick="saveImgCredit()">บันทึกเครดิต</button>
+        </div>
+    </div>
+
     <div id="pop-rules-modal" class="modal-overlay" onclick="closePopRules()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="closePopRules()">&times;</span>
@@ -655,10 +699,19 @@
         <div class="lb-container">
             <span class="lb-close" onclick="closeLightbox()">&times;</span>
             <span class="lb-nav lb-prev" onclick="event.stopPropagation(); changeLightbox(-1)">&#10094;</span>
-            <div id="lb-img-wrapper" onclick="event.stopPropagation()">
-                <img class="lb-img" id="lb-image-src" src="">
-                <div class="watermark-tile"></div>
+            
+            <div id="lb-main-area" style="display: flex; flex-direction: column; align-items: center;">
+                <div id="lb-img-wrapper" onclick="event.stopPropagation()">
+                    <img class="lb-img" id="lb-image-src" src="">
+                    <div class="watermark-tile"></div>
+                </div>
+                <!-- กล่อง Credit ยื่นออกมา (เหมือนกล่องคอมมิชชั่น) -->
+                <div id="lb-credit-box" onclick="event.stopPropagation()">
+                    <a id="lb-credit-title" href="#" target="_blank">Artist Name</a>
+                    <div id="lb-credit-usage">Usage : personal use</div>
+                </div>
             </div>
+
             <span class="lb-nav lb-next" onclick="event.stopPropagation(); changeLightbox(1)">&#10095;</span>
         </div>
     </div>
@@ -671,7 +724,7 @@
 </div>
 
 <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbzmW5IbeNzrtSzhV4othYX9ZrdCykMMcCcpI23oQYWw9yqOIoLl5RitMR2UHm0YHiJsfA/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbw5_x8k5MncGFXpn6qJg86pIqQS6WXeljiwadEJZMgZYI_zNPRabpADh-_teiPT9A/exec";
 
     let charList = [];
     let shopList = [];
@@ -680,6 +733,9 @@
     let adminPassInBase = "";
     
     let characterTermsAccepted = false, isAdmin = false, currentEditIndex = -1, currentViewingCharIndex = -1, activeFolderIdx = -1, tempImages = [], activeMgmtType = "", lbList = [], lbIdx = 0;
+    
+    // สำหรับจัดการ Credit รูป
+    let editCreditTarget = { folderIdx: -1, imgIdx: -1 };
 
     // ระบบบล็อกการบันทึกภาพสำหรับคนทั่วไป (จะถูกปลดล็อกหากเป็นแอดมิน)
     document.addEventListener('contextmenu', event => {
@@ -701,6 +757,21 @@
             const resp = await fetch(API_URL);
             const d = await resp.json();
             charList = d.charList || [];
+
+            // ตรวจสอบโครงสร้าง folder.images ให้เป็น Object เพื่อเก็บ Credit
+            charList.forEach(char => {
+                if(char.folders) {
+                    char.folders.forEach(folder => {
+                        if(folder.images) {
+                            folder.images = folder.images.map(img => {
+                                if(typeof img === 'string') return { id: img, creditName: '', creditLink: '', usage: 'personal use' };
+                                return img;
+                            });
+                        }
+                    });
+                }
+            });
+
             shopList = d.shopList || [];
             commissionItems = d.commissionItems || [];
             tosImgID = d.tosImgID || "";
@@ -799,9 +870,23 @@
         document.getElementById('lightbox-overlay').style.display = 'flex'; 
     }
     function updateLightboxImg() { 
-        const id = lbList[lbIdx]; 
+        const item = lbList[lbIdx];
+        const id = (typeof item === 'object') ? item.id : item;
         const img = document.getElementById('lb-image-src');
         if(img) img.src = `https://lh3.googleusercontent.com/u/0/d/${id}`; 
+        
+        // จัดการส่วนเครดิต (เฉพาะหน้า Character Detail Gallery)
+        const creditBox = document.getElementById('lb-credit-box');
+        if (typeof item === 'object' && (item.creditName || item.creditLink || item.usage)) {
+            creditBox.style.display = 'flex';
+            const title = document.getElementById('lb-credit-title');
+            title.innerText = item.creditName || (item.creditLink ? "คลิกดูโปรไฟล์นักวาด" : "ไม่ระบุชื่อนักวาด");
+            title.href = item.creditLink || "#";
+            title.style.pointerEvents = item.creditLink ? "auto" : "none";
+            document.getElementById('lb-credit-usage').innerText = `Usage : ${item.usage || 'personal use'}`;
+        } else {
+            creditBox.style.display = 'none';
+        }
     }
     function changeLightbox(delta) { lbIdx += delta; if (lbIdx < 0) lbIdx = lbList.length - 1; if (lbIdx >= lbList.length) lbIdx = 0; updateLightboxImg(); }
     function closeLightbox() { document.getElementById('lightbox-overlay').style.display = 'none'; }
@@ -1110,15 +1195,42 @@
             char.folders.forEach((folder, fIndex) => { 
                 const wrap = document.createElement('div'); 
                 let adminBtn = isAdmin ? `<div class="folder-admin-btns"><button class="f-btn" onclick="adminEditFolder(${fIndex})">edit name</button><button class="f-btn del" onclick="adminDeleteFolder(${fIndex})">del</button><button class="f-btn" onclick="openMgmtModal('char', ${fIndex})">+ image</button></div>` : ""; 
-                const imgHtml = folder.images.map((id, iIdx) => `
-                    <div class="img-w-wrap gallery-img-item" onclick='openLightbox(${JSON.stringify(folder.images)}, ${iIdx})'>
+                const imgHtml = folder.images.map((imgObj, iIdx) => {
+                    const id = (typeof imgObj === 'object') ? imgObj.id : imgObj;
+                    return `<div class="img-w-wrap gallery-img-item" onclick='openLightbox(${JSON.stringify(folder.images)}, ${iIdx})'>
                         <img src="https://lh3.googleusercontent.com/u/0/d/${id}" style="width:100%;height:auto;display:block;" onload="fixImage(this)">
                         <div class="watermark-tile"></div>
-                    </div>`).join(''); 
+                        ${isAdmin ? `<img src="${editIcon}" class="credit-edit-btn-float" onclick="event.stopPropagation(); openEditImgCredit(${fIndex}, ${iIdx})">` : ''}
+                    </div>`;
+                }).join(''); 
                 wrap.innerHTML = `<div class="folder-row-header"><h3 class="folder-title">${folder.name}</h3>${adminBtn}</div><div class="gallery-grid-inner">${imgHtml}</div>`; 
                 container.appendChild(wrap); 
             });
         }
+    }
+
+    // ฟังก์ชันจัดการเครดิตรูปภาพ
+    function openEditImgCredit(fIdx, iIdx) {
+        editCreditTarget = { folderIdx: fIdx, imgIdx: iIdx };
+        const imgObj = charList[currentViewingCharIndex].folders[fIdx].images[iIdx];
+        document.getElementById('ec-name').value = imgObj.creditName || '';
+        document.getElementById('ec-link').value = imgObj.creditLink || '';
+        document.getElementById('ec-usage').value = imgObj.usage || 'personal use';
+        document.getElementById('edit-img-credit-modal').style.display = 'flex';
+    }
+
+    async function saveImgCredit() {
+        const char = charList[currentViewingCharIndex];
+        const { folderIdx, imgIdx } = editCreditTarget;
+        const imgObj = char.folders[folderIdx].images[imgIdx];
+        
+        imgObj.creditName = document.getElementById('ec-name').value;
+        imgObj.creditLink = document.getElementById('ec-link').value;
+        imgObj.usage = document.getElementById('ec-usage').value;
+        
+        document.getElementById('edit-img-credit-modal').style.display = 'none';
+        await syncToSheets();
+        renderDynamicGallery();
     }
 
     function openSubGallery(type, index) { 
@@ -1141,7 +1253,9 @@
     function openMgmtModal(type, index) { 
         activeMgmtType = type; activeFolderIdx = index; 
         let images = []; 
-        if (type === 'char') images = charList[currentViewingCharIndex].folders[index].images; 
+        if (type === 'char') {
+            images = charList[currentViewingCharIndex].folders[index].images.map(img => (typeof img === 'object') ? img.id : img); 
+        }
         else if (type === 'comm') images = commissionItems[index].gallery || []; 
         else if (type === 'shop') images = shopList[index].gallery || []; 
         tempImages = images.length > 0 ? [...images] : [""]; 
@@ -1159,7 +1273,14 @@
     function mgmtAddLine() { tempImages.push(""); renderMgmtLines(); }
     async function mgmtSave() { 
         const cleaned = tempImages.map(id => extractId(id)).filter(id => id !== ""); 
-        if (activeMgmtType === 'char') charList[currentViewingCharIndex].folders[activeFolderIdx].images = cleaned; 
+        if (activeMgmtType === 'char') {
+            const folder = charList[currentViewingCharIndex].folders[activeFolderIdx];
+            // คงข้อมูล Credit เดิมไว้ถ้า ID ไม่เปลี่ยน
+            folder.images = cleaned.map(newId => {
+                const existing = folder.images.find(old => old.id === newId);
+                return existing ? existing : { id: newId, creditName: '', creditLink: '', usage: 'personal use' };
+            });
+        } 
         else if (activeMgmtType === 'comm') commissionItems[activeFolderIdx].gallery = cleaned; 
         else if (activeMgmtType === 'shop') shopList[activeFolderIdx].gallery = cleaned; 
         await syncToSheets(); closeMgmtModal(); 
@@ -1224,20 +1345,6 @@
         loadData(); 
         startGlobalSparkles();
     };
-
-    function openLightbox(list, index) { 
-        if(!list || list.length === 0) return; 
-        lbList = list; lbIdx = index; 
-        updateLightboxImg(); 
-        document.getElementById('lightbox-overlay').style.display = 'flex'; 
-    }
-    function updateLightboxImg() { 
-        const id = lbList[lbIdx]; 
-        const img = document.getElementById('lb-image-src');
-        if(img) img.src = `https://lh3.googleusercontent.com/u/0/d/${id}`; 
-    }
-    function changeLightbox(delta) { lbIdx += delta; if (lbIdx < 0) lbIdx = lbList.length - 1; if (lbIdx >= lbList.length) lbIdx = 0; updateLightboxImg(); }
-    function closeLightbox() { document.getElementById('lightbox-overlay').style.display = 'none'; }
 
     const originalVerify = verifyAdminPass;
     verifyAdminPass = function() {
