@@ -46,9 +46,11 @@
             display: block; 
             width: 100%; 
             overflow: hidden; 
-            background-color: #FFFFFF; /* พื้นหลังขาวสำหรับ PNG ใส */
+            background-color: #FFFFFF; /* พื้นหลังขาวสำหรับรูป Thumbnail */
+            break-inside: avoid;
         }
         
+        /* ข้อยกเว้น: โปรไฟล์ตัวละคร ไม่ต้องมีพื้นหลังขาว */
         .profile-wrapper .character-img,
         .modal-pfp-frame .char-thumb {
             background-color: transparent !important;
@@ -247,7 +249,7 @@
         .f-btn.del { color: #ff9d9d; border-color: #ff9d9d; }
         
         .gallery-grid-inner { column-count: 2; column-gap: 15px; display: block; }
-        .gallery-img-item { width: 100%; height: auto; border: 1.5px solid var(--box-border); background: #111; margin-bottom: 15px; cursor: pointer; display: block; break-inside: avoid; }
+        .gallery-img-item { width: 100%; height: auto; border: 1.5px solid var(--box-border); background: #111; margin-bottom: 15px; cursor: pointer; display: block; }
 
         #mgmt-image-modal { z-index: 10000 !important; }
         .mgmt-dashed-box { border: 1.5px dashed #555; padding: 25px; border-radius: 4px; margin: 20px 0; }
@@ -312,6 +314,7 @@
             display: flex; justify-content: center; align-items: center; 
             cursor: pointer; transition: 0.2s; 
         }
+        .char-link-icon-wrap:hover { transform: scale(1.15); }
         .char-link-icon-wrap img { width: 100%; height: auto; }
 
         .char-info-split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 20px; }
@@ -337,6 +340,7 @@
 </head>
 <body id="main-body">
 
+<!-- หน้าโหลด -->
 <div id="loading-screen">
     <div style="position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
         <img class="loader-moon" src="https://lh3.googleusercontent.com/u/0/d/1TpV9e_8laxaXPFxhol7zyqd-GwG3ja1g" onload="fixImage(this)">
@@ -358,6 +362,7 @@
     </div>
 
     <div id="content-wrapper" class="page-content-wrapper">
+        <!-- หน้าแรก -->
         <div id="page-home" class="main-content">
             <div class="col-left">
                 <div class="profile-wrapper">
@@ -629,7 +634,11 @@
     </div>
 
     <div id="comm-gallery-modal" class="modal-overlay" onclick="closeCommGallery()">
-        <div class="modal-content" onclick="event.stopPropagation()"><span class="modal-close" onclick="closeCommGallery()">&times;</span><div id="comm-admin-btn-wrap"></div><div class="gallery-grid-inner" id="comm-gal-target"></div></div>
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeCommGallery()">&times;</span>
+            <div id="comm-admin-btn-wrap"></div>
+            <div class="gallery-grid-inner" id="comm-gal-target"></div>
+        </div>
     </div>
 
     <div id="toast-container"></div>
@@ -664,7 +673,7 @@
     
     let characterTermsAccepted = false, isAdmin = false, currentEditIndex = -1, currentViewingCharIndex = -1, activeFolderIdx = -1, tempImages = [], activeMgmtType = "", lbList = [], lbIdx = 0;
 
-    // ระบบบล็อกการบันทึกภาพสำหรับคนทั่วไป
+    // ระบบบล็อกการบันทึกภาพสำหรับคนทั่วไป (จะถูกปลดล็อกหากเป็นแอดมิน)
     document.addEventListener('contextmenu', event => {
         if (!isAdmin) event.preventDefault();
     });
@@ -1198,6 +1207,8 @@
     function openAddShopModal() { currentEditIndex = -1; document.getElementById('shop-name-input').value=''; document.getElementById('shop-img-input').value=''; document.getElementById('shop-value-input').value=''; document.getElementById('add-shop-modal').style.display='flex'; }
     function openEditShop(idx) { currentEditIndex = idx; const i = shopList[idx]; document.getElementById('shop-name-input').value=i.name; document.getElementById('shop-img-input').value=i.img; document.getElementById('shop-value-input').value=i.value || ''; document.getElementById('add-shop-modal').style.display='flex'; }
     function closeAddShopModal() { document.getElementById('add-shop-modal').style.display='none'; }
+    function closePopRules() { document.getElementById('pop-rules-modal').style.display='none'; }
+    function closeCommGallery() { document.getElementById('comm-gallery-modal').style.display='none'; }
 
     function fixImage(img) { const src = img.src; if(!src) return; const id = extractId(src); if(id) { const f = `https://lh3.googleusercontent.com/u/0/d/${id}`; if(img.src !== f) img.src = f; } }
 
