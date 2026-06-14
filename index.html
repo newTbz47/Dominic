@@ -15,18 +15,47 @@
             --accent-pink: #D182B5;
         }
 
-        * { box-sizing: border-box; font-family: 'Mali', sans-serif; }
+        * { box-sizing: border-box; font-family: 'Mali', sans-serif; -webkit-user-select: none; user-select: none; }
 
         body {
             margin: 0; padding: 0;
             background: linear-gradient(180deg, #000000 0%, #000000 50%, var(--bg-bottom) 100%) fixed;
             display: flex; justify-content: center; min-height: 100vh; overflow-x: hidden;
-            user-select: none;
             touch-action: manipulation;
             text-transform: lowercase;
         }
 
-        /* หน้าโหลด - ปรับพื้นหลังให้ไล่สีเห็นชัดขึ้น */
+        /* --- ระบบป้องกันรูปภาพ --- */
+        img {
+            -webkit-touch-callout: none !important;
+            -webkit-user-drag: none !important;
+            user-drag: none !important;
+        }
+
+        /* --- ระบบลายน้ำและพื้นหลังขาว --- */
+        .img-w-wrap { 
+            position: relative; 
+            display: block; 
+            width: 100%; 
+            overflow: hidden; 
+            background-color: #FFFFFF; /* พื้นหลังขาวสำหรับ PNG ใส */
+        }
+        
+        /* ยกเว้นโปรไฟล์ตัวละคร ไม่ต้องมีพื้นหลังขาว */
+        .profile-wrapper .character-img,
+        .modal-pfp-frame .char-thumb {
+            background-color: transparent !important;
+        }
+
+        .watermark-tile {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('https://lh3.googleusercontent.com/u/0/d/1PcnYxI3YhnNas1S93YeBhQR-9mLr7XIX');
+            background-repeat: repeat; background-size: 70px;
+            pointer-events: none; z-index: 10; opacity: 0.5; display: block;
+        }
+        body.is-admin-active .watermark-tile { display: none !important; }
+
+        /* หน้าโหลด */
         #loading-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(180deg, #1A0D1F 0%, #35233D 45%, #9073A0 100%); 
@@ -45,7 +74,6 @@
             100% { transform: scale(0); opacity: 0; }
         }
         
-        /* เอฟเฟกต์วิบวับพื้นหลังทั่วเว็บ */
         .global-sparkle {
             position: fixed; width: 20px; height: auto; pointer-events: none; z-index: -1;
             animation: sparkleFadeScale 2s ease-in-out forwards;
@@ -212,7 +240,7 @@
         .f-btn.del { color: #ff9d9d; border-color: #ff9d9d; }
         
         .gallery-grid-inner { column-count: 2; column-gap: 15px; display: block; }
-        .gallery-img-item { width: 100%; height: auto; border: 1.5px solid var(--box-border); background: #111; margin-bottom: 15px; cursor: pointer; display: block; }
+        .gallery-img-item { width: 100%; height: auto; border: 1.5px solid var(--box-border); margin-bottom: 15px; cursor: pointer; display: block; break-inside: avoid; }
 
         #mgmt-image-modal { z-index: 10000 !important; }
         .mgmt-dashed-box { border: 1.5px dashed #555; padding: 25px; border-radius: 4px; margin: 20px 0; }
@@ -224,13 +252,25 @@
         .mgmt-save-big { width: 100%; height: 55px; background: #FFFFFF; color: #000; border: none; border-radius: 0; font-size: 24px; font-weight: bold; cursor: pointer; margin-top: 20px; }
 
         #lightbox-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 80000; display: none; justify-content: center; align-items: center; user-select: none; }
-        .lb-container { position: relative; width: 90%; height: 90%; display: flex; justify-content: center; align-items: center; }
-        .lb-img { max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 0 20px rgba(211,188,230,0.2); }
-        .lb-close { position: absolute; top: -30px; right: -10px; color: white; font-size: 40px; cursor: pointer; }
-        .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); color: white; font-size: 50px; cursor: pointer; padding: 20px; transition: 0.3s; opacity: 0.6; }
+        .lb-container { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+        
+        /* Wrapper ขังลายน้ำใน Lightbox พร้อมพื้นหลังขาว */
+        #lb-img-wrapper { 
+            position: relative; 
+            display: inline-block; 
+            max-width: 90vw; 
+            max-height: 85vh; 
+            overflow: hidden; 
+            background-color: #FFFFFF; 
+            box-shadow: 0 0 20px rgba(211,188,230,0.2); 
+        }
+        .lb-img { max-width: 100%; max-height: 85vh; object-fit: contain; display: block; }
+        
+        .lb-close { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; z-index: 80010; }
+        .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); color: white; font-size: 50px; cursor: pointer; padding: 20px; transition: 0.3s; opacity: 0.6; z-index: 80010; }
         .lb-nav:hover { opacity: 1; color: var(--header-pink); }
-        .lb-prev { left: -60px; }
-        .lb-next { right: -60px; }
+        .lb-prev { left: 10px; }
+        .lb-next { right: 10px; }
 
         #admin-add-area, #admin-shop-area { width: 100%; display: flex; justify-content: flex-end; margin: -15px 0 15px 0; }
         .add-char-btn { font-size: 10px; padding: 4px 12px; background: var(--box-border); color: black; border-radius: 15px; cursor: pointer; border: none; font-weight: bold; }
@@ -265,7 +305,6 @@
             display: flex; justify-content: center; align-items: center; 
             cursor: pointer; transition: 0.2s; 
         }
-        .char-link-icon-wrap:hover { transform: scale(1.15); }
         .char-link-icon-wrap img { width: 100%; height: auto; }
 
         .char-info-split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 20px; }
@@ -278,7 +317,7 @@
         .modal-gallery-title { font-size: 24px; margin-bottom: 25px; font-weight: 500; text-align: left; border-bottom: 1.5px solid rgba(255,255,255,0.4); padding-bottom: 10px; }
 
         #comm-gallery-modal { z-index: 5000 !important; }
-        .gal-img-item { width: 100%; height: auto; border: 1.5px solid var(--box-border); margin-bottom: 15px; cursor: pointer; display: block; }
+        .gal-img-item { width: 100%; height: auto; border: 1.5px solid var(--box-border); margin-bottom: 15px; cursor: pointer; display: block; break-inside: avoid; }
 
         #pop-rules-modal .modal-content { padding: 0; border: none; background: transparent; display: flex; align-items: center; justify-content: center; width: auto; max-width: 90vw; }
         .rules-img-full { max-width: 100%; max-height: 85vh; object-fit: contain; border: 3px solid var(--box-border); border-radius: 4px; box-shadow: var(--glow-soft); }
@@ -289,9 +328,8 @@
         .img-edit-btn:hover { transform: scale(1.1); }
     </style>
 </head>
-<body>
+<body id="main-body">
 
-<!-- หน้าโหลด -->
 <div id="loading-screen">
     <div style="position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
         <img class="loader-moon" src="https://lh3.googleusercontent.com/u/0/d/1TpV9e_8laxaXPFxhol7zyqd-GwG3ja1g" onload="fixImage(this)">
@@ -594,7 +632,10 @@
         <div class="lb-container">
             <span class="lb-close" onclick="closeLightbox()">&times;</span>
             <span class="lb-nav lb-prev" onclick="event.stopPropagation(); changeLightbox(-1)">&#10094;</span>
-            <img class="lb-img" id="lb-image-src" src="" onclick="event.stopPropagation()">
+            <div id="lb-img-wrapper" onclick="event.stopPropagation()">
+                <img class="lb-img" id="lb-image-src" src="">
+                <div class="watermark-tile"></div>
+            </div>
             <span class="lb-nav lb-next" onclick="event.stopPropagation(); changeLightbox(1)">&#10095;</span>
         </div>
     </div>
@@ -616,6 +657,9 @@
     let adminPassInBase = "";
     
     let characterTermsAccepted = false, isAdmin = false, currentEditIndex = -1, currentViewingCharIndex = -1, activeFolderIdx = -1, tempImages = [], activeMgmtType = "", lbList = [], lbIdx = 0;
+
+    // บล็อกการคลิกขวาป้องกันการบันทึกภาพ
+    document.addEventListener('contextmenu', event => event.preventDefault());
 
     async function syncToSheets() {
         showToast("กำลังซิงค์ข้อมูลกับเบส...");
@@ -696,6 +740,7 @@
         if (isAdmin) { 
             if (confirm("ต้องการ Logout?")) { 
                 isAdmin = false; 
+                document.getElementById('main-body').classList.remove('is-admin-active');
                 document.querySelector('.login-btn').classList.remove('is-admin'); 
                 document.querySelector('.login-btn').innerText = "log in";
                 navigate('home'); 
@@ -708,6 +753,7 @@
         const passInput = document.getElementById('admin-password-input');
         if (passInput.value.trim() === adminPassInBase.toString().trim()) {
             isAdmin = true;
+            document.getElementById('main-body').classList.add('is-admin-active');
             const loginBtn = document.querySelector('.login-btn');
             loginBtn.classList.add('is-admin');
             loginBtn.innerText = "admin active (logout)";
@@ -720,8 +766,18 @@
 
     function extractId(input) { if (!input) return ""; const match = input.match(/(?:id=|\/d\/|u\/0\/d\/)([\w-]+)/); return match ? match[1] : input.trim(); }
     function showToast(msg) { const container = document.getElementById('toast-container'); container.innerHTML = ''; const toast = document.createElement('div'); toast.className = 'toast-msg'; toast.innerText = msg; container.appendChild(toast); setTimeout(() => toast.classList.add('show'), 100); setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 2000); }
-    function openLightbox(list, index) { if(!list || list.length === 0) return; lbList = list; lbIdx = index; updateLightboxImg(); document.getElementById('lightbox-overlay').style.display = 'flex'; }
-    function updateLightboxImg() { const id = lbList[lbIdx]; document.getElementById('lb-image-src').src = `https://lh3.googleusercontent.com/u/0/d/${id}`; }
+    
+    function openLightbox(list, index) { 
+        if(!list || list.length === 0) return; 
+        lbList = list; lbIdx = index; 
+        updateLightboxImg(); 
+        document.getElementById('lightbox-overlay').style.display = 'flex'; 
+    }
+    function updateLightboxImg() { 
+        const id = lbList[lbIdx]; 
+        const img = document.getElementById('lb-image-src');
+        if(img) img.src = `https://lh3.googleusercontent.com/u/0/d/${id}`; 
+    }
     function changeLightbox(delta) { lbIdx += delta; if (lbIdx < 0) lbIdx = lbList.length - 1; if (lbIdx >= lbList.length) lbIdx = 0; updateLightboxImg(); }
     function closeLightbox() { document.getElementById('lightbox-overlay').style.display = 'none'; }
 
@@ -799,7 +855,10 @@
                 let adminHtml = isAdmin ? `<div class="admin-controls"><div class="admin-btn" onclick="openEditComm(${index})">edit</div><div class="admin-btn del" onclick="deleteComm(${index})">delete</div></div>` : ""; 
                 card.innerHTML = `
                     <div class="char-details-container">
-                        <img class="char-details-img" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onload="fixImage(this)">
+                        <div class="img-w-wrap">
+                            <img class="char-details-img" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onload="fixImage(this)">
+                            <div class="watermark-tile"></div>
+                        </div>
                         <div class="char-details">
                             <p><strong>${item.title}</strong></p>
                             <p>Price : ${item.price}</p>
@@ -828,7 +887,10 @@
                 // ดึงค่า value มาแสดงจริง
                 card.innerHTML = `
                     <div class="char-details-container">
-                        <img class="char-details-img" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onload="fixImage(this)">
+                        <div class="img-w-wrap">
+                            <img class="char-details-img" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onload="fixImage(this)">
+                            <div class="watermark-tile"></div>
+                        </div>
                         <div class="char-details">
                             <p><strong>${item.name}</strong></p>
                             <p>Value : ${item.value || '0'}</p>
@@ -1028,7 +1090,12 @@
             char.folders.forEach((folder, fIndex) => { 
                 const wrap = document.createElement('div'); 
                 let adminBtn = isAdmin ? `<div class="folder-admin-btns"><button class="f-btn" onclick="adminEditFolder(${fIndex})">edit name</button><button class="f-btn del" onclick="adminDeleteFolder(${fIndex})">del</button><button class="f-btn" onclick="openMgmtModal('char', ${fIndex})">+ image</button></div>` : ""; 
-                const imgHtml = folder.images.map((id, iIdx) => `<img class="gallery-img-item" src="https://lh3.googleusercontent.com/u/0/d/${id}" onclick='openLightbox(${JSON.stringify(folder.images)}, ${iIdx})' onload="fixImage(this)">`).join(''); 
+                // เพิ่มลายน้ำในหน้า Thumbnail
+                const imgHtml = folder.images.map((id, iIdx) => `
+                    <div class="img-w-wrap gallery-img-item" onclick='openLightbox(${JSON.stringify(folder.images)}, ${iIdx})'>
+                        <img src="https://lh3.googleusercontent.com/u/0/d/${id}" style="width:100%;height:auto;display:block;" onload="fixImage(this)">
+                        <div class="watermark-tile"></div>
+                    </div>`).join(''); 
                 wrap.innerHTML = `<div class="folder-row-header"><h3 class="folder-title">${folder.name}</h3>${adminBtn}</div><div class="gallery-grid-inner">${imgHtml}</div>`; 
                 container.appendChild(wrap); 
             });
@@ -1045,7 +1112,14 @@
         const subGallery = item.gallery || [];
         const allImages = [mainImg, ...subGallery.filter(id => id !== mainImg)];
         allImages.forEach((id, i) => { 
-            const img = document.createElement('img'); img.className = 'gal-img-item'; img.src = `https://lh3.googleusercontent.com/u/0/d/${id}`; img.onclick = () => openLightbox(allImages, i); target.appendChild(img); 
+            const wrap = document.createElement('div'); 
+            wrap.className = 'img-w-wrap gal-img-item'; 
+            wrap.onclick = () => openLightbox(allImages, i);
+            wrap.innerHTML = `
+                <img src="https://lh3.googleusercontent.com/u/0/d/${id}" style="width:100%;height:auto;display:block;" onload="fixImage(this)">
+                <div class="watermark-tile"></div>
+            `;
+            target.appendChild(wrap); 
         }); 
         document.getElementById('comm-gallery-modal').style.display = 'flex'; 
     }
@@ -1080,38 +1154,24 @@
     function closeMgmtModal() { document.getElementById('mgmt-image-modal').style.display = 'none'; }
 
     async function saveComm() {
-        const titleVal = document.getElementById('comm-name-input').value;
-        const imgVal = extractId(document.getElementById('comm-img-input').value);
+        const titleVal = document.getElementById('comm-name-input').value, imgVal = extractId(document.getElementById('comm-img-input').value);
         if(currentEditIndex === -1) {
              const data = { title: titleVal, price: document.getElementById('comm-price-input').value, time: document.getElementById('comm-time-input').value, detail: document.getElementById('comm-detail-input').value, img: imgVal, status: document.getElementById('comm-status-input').value, gallery: [] }; 
              commissionItems.push(data);
         } else {
-             const i = commissionItems[currentEditIndex];
-             i.title = titleVal;
-             i.price = document.getElementById('comm-price-input').value;
-             i.time = document.getElementById('comm-time-input').value;
-             i.detail = document.getElementById('comm-detail-input').value;
-             i.status = document.getElementById('comm-status-input').value;
-             if(imgVal) i.img = imgVal;
+             const i = commissionItems[currentEditIndex]; i.title = titleVal; i.price = document.getElementById('comm-price-input').value; i.time = document.getElementById('comm-time-input').value; i.detail = document.getElementById('comm-detail-input').value; i.status = document.getElementById('comm-status-input').value; if(imgVal) i.img = imgVal;
         }
         await syncToSheets(); navigateCommSub('main'); closeAddCommModal();
     }
     async function deleteComm(idx) { if(confirm("ลบคอมมิชชั่นนี้?")) { commissionItems.splice(idx,1); await syncToSheets(); navigateCommSub('main'); } }
 
     async function saveShop() {
-        const nameVal = document.getElementById('shop-name-input').value;
-        const imgVal = extractId(document.getElementById('shop-img-input').value);
-        const valueVal = document.getElementById('shop-value-input').value; // รับค่า Value ใหม่
+        const nameVal = document.getElementById('shop-name-input').value, imgVal = extractId(document.getElementById('shop-img-input').value), valueVal = document.getElementById('shop-value-input').value;
         if(currentEditIndex === -1) {
             const data = { name: nameVal, tag: document.getElementById('shop-tag-input').value, value: valueVal, img: imgVal, status: document.getElementById('shop-status-input').value, gallery: [] }; 
             shopList.push(data);
         } else {
-            const i = shopList[currentEditIndex];
-            i.name = nameVal;
-            i.tag = document.getElementById('shop-tag-input').value;
-            i.value = valueVal; // อัปเดตค่า Value
-            i.status = document.getElementById('shop-status-input').value;
-            if(imgVal) i.img = imgVal;
+            const i = shopList[currentEditIndex]; i.name = nameVal; i.tag = document.getElementById('shop-tag-input').value; i.value = valueVal; i.status = document.getElementById('shop-status-input').value; if(imgVal) i.img = imgVal;
         }
         await syncToSheets(); filterShop('All'); closeAddShopModal();
     }
@@ -1133,26 +1193,13 @@
     }
 
     function openAddModal() { currentEditIndex = -1; document.getElementById('add-name').value=''; document.getElementById('add-img-id').value=''; document.getElementById('add-char-modal').style.display='flex'; }
-    function openEditModal(idx) { currentEditIndex = idx; const c = charList[idx]; document.getElementById('add-name').value = c.name; document.getElementById('add-img-id').value = ''; document.getElementById('add-char-modal').style.display='flex'; }
+    function openEditModal(idx) { currentEditIndex = idx; const c = charList[idx]; document.getElementById('add-name').value = c.name; document.getElementById('add-img-id').value = c.img; document.getElementById('add-char-modal').style.display='flex'; }
     function closeAddModal() { document.getElementById('add-char-modal').style.display='none'; }
     function openAddCommModal() { currentEditIndex = -1; document.getElementById('comm-name-input').value=''; document.getElementById('comm-img-input').value=''; document.getElementById('add-comm-modal').style.display='flex'; }
-    function openEditComm(idx) { currentEditIndex = idx; const i = commissionItems[idx]; document.getElementById('comm-name-input').value=i.title; document.getElementById('comm-img-input').value=''; document.getElementById('add-comm-modal').style.display='flex'; }
+    function openEditComm(idx) { currentEditIndex = idx; const i = commissionItems[idx]; document.getElementById('comm-name-input').value=i.title; document.getElementById('comm-img-input').value=i.img; document.getElementById('add-comm-modal').style.display='flex'; }
     function closeAddCommModal() { document.getElementById('add-comm-modal').style.display='none'; }
-    function openAddShopModal() { 
-        currentEditIndex = -1; 
-        document.getElementById('shop-name-input').value=''; 
-        document.getElementById('shop-img-input').value=''; 
-        document.getElementById('shop-value-input').value=''; 
-        document.getElementById('add-shop-modal').style.display='flex'; 
-    }
-    function openEditShop(idx) { 
-        currentEditIndex = idx; 
-        const i = shopList[idx]; 
-        document.getElementById('shop-name-input').value=i.name; 
-        document.getElementById('shop-img-input').value=''; 
-        document.getElementById('shop-value-input').value=i.value || ''; 
-        document.getElementById('add-shop-modal').style.display='flex'; 
-    }
+    function openAddShopModal() { currentEditIndex = -1; document.getElementById('shop-name-input').value=''; document.getElementById('shop-img-input').value=''; document.getElementById('shop-value-input').value=''; document.getElementById('add-shop-modal').style.display='flex'; }
+    function openEditShop(idx) { currentEditIndex = idx; const i = shopList[idx]; document.getElementById('shop-name-input').value=i.name; document.getElementById('shop-img-input').value=i.img; document.getElementById('shop-value-input').value=i.value || ''; document.getElementById('add-shop-modal').style.display='flex'; }
     function closeAddShopModal() { document.getElementById('add-shop-modal').style.display='none'; }
     function closePopRules() { document.getElementById('pop-rules-modal').style.display='none'; }
     function closeCommGallery() { document.getElementById('comm-gallery-modal').style.display='none'; }
@@ -1163,6 +1210,36 @@
         loadData(); 
         startGlobalSparkles();
     };
+
+    function openLightbox(list, index) { 
+        if(!list || list.length === 0) return; 
+        lbList = list; lbIdx = index; 
+        updateLightboxImg(); 
+        document.getElementById('lightbox-overlay').style.display = 'flex'; 
+    }
+    function updateLightboxImg() { 
+        const id = lbList[lbIdx]; 
+        const img = document.getElementById('lb-image-src');
+        if(img) img.src = `https://lh3.googleusercontent.com/u/0/d/${id}`; 
+    }
+    function changeLightbox(delta) { lbIdx += delta; if (lbIdx < 0) lbIdx = lbList.length - 1; if (lbIdx >= lbList.length) lbIdx = 0; updateLightboxImg(); }
+    function closeLightbox() { document.getElementById('lightbox-overlay').style.display = 'none'; }
+
+    const originalVerify = verifyAdminPass;
+    verifyAdminPass = function() {
+        const passInput = document.getElementById('admin-password-input');
+        if (passInput.value.trim() === adminPassInBase.toString().trim()) {
+            document.body.classList.add('is-admin-active');
+        }
+        originalVerify();
+    }
+    const originalLogout = triggerAdminLogin;
+    triggerAdminLogin = function() {
+        if(isAdmin && confirm("ต้องการ Logout?")) {
+            document.body.classList.remove('is-admin-active');
+        }
+        originalLogout();
+    }
 </script>
 </body>
 </html>
