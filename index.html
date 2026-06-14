@@ -48,6 +48,7 @@
             overflow: hidden; 
             background-color: #FFFFFF; /* พื้นหลังขาวสำหรับพรีวิว */
             break-inside: avoid;
+            margin-bottom: 15px; /* เว้นระยะห่างด้านล่างระหว่างรูป */
         }
         
         /* ข้อยกเว้น: โปรไฟล์ตัวละคร ไม่ต้องมีพื้นหลังขาว */
@@ -235,7 +236,7 @@
         #page-char-terms { display: flex; flex-direction: column; align-items: center; width: 100%; opacity: 1; transition: opacity 0.8s ease; position: relative; }
         
         .accept-btn-wrap { margin-top: 40px; display: flex; justify-content: center; width: 100%; }
-        .accept-btn { width: 520px; height: 50px; background: #FFFFFF; border-radius: 4px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; color: #666; font-size: 22px; font-weight: 500; position: relative; }
+        .accept-btn { width: 520px; height: 50px; background: #FFFFFF; border-radius: 4px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; color: #666; font-size: 22px; font-weight: bold; position: relative; }
         .accept-btn img { width: 40px; height: auto; }
         .accept-btn::after { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 4px; border: 2px solid #FFFFFF; animation: ripple-wave 2s infinite; pointer-events: none; }
         @keyframes ripple-wave { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.1, 1.4); opacity: 0; } }
@@ -260,7 +261,13 @@
         .f-btn { font-size: 10px; padding: 2px 8px; border: 1px solid white; cursor: pointer; background: transparent; color: white; border-radius: 4px; }
         .f-btn.del { color: #ff9d9d; border-color: #ff9d9d; }
         
-        .gallery-grid-inner { column-count: 2; column-gap: 15px; display: block; }
+        /* แก้ไข Grid ให้ภาพชิดด้านบนเท่ากันและกระจายตัวแบบ Masonry (ฟันปลา) */
+        .gallery-grid-inner { 
+            column-count: 3; /* ปรับเป็น 3 คอลัมน์ */
+            column-gap: 15px; 
+            display: block; 
+            width: 100%;
+        }
 
         #mgmt-image-modal { z-index: 10000 !important; }
         .mgmt-dashed-box { border: 1.5px dashed #555; padding: 25px; border-radius: 4px; margin: 20px 0; }
@@ -317,6 +324,16 @@
             padding: 4px; cursor: pointer; z-index: 12; width: 25px; height: auto;
             box-shadow: 0 0 5px rgba(0,0,0,0.3);
         }
+
+        /* ปุ่มลอยลบรูปภาพสำหรับแอดมิน (แทรกใหม่ตามสั่ง) */
+        .img-del-btn-float {
+            position: absolute; top: 8px; left: 8px;
+            background: rgba(255,100,100,0.9); border-radius: 4px;
+            padding: 4px; cursor: pointer; z-index: 15; width: 25px; height: auto;
+            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+            display: none;
+        }
+        body.is-admin-active .img-del-btn-float { display: block; }
 
         .lb-close { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; z-index: 80010; }
         .lb-nav { position: absolute; top: 40%; transform: translateY(-50%); color: white; font-size: 50px; cursor: pointer; padding: 20px; transition: 0.3s; opacity: 0.6; z-index: 80010; }
@@ -456,7 +473,7 @@
                 </div>
                 <div class="heart-divider-wrap"><img class="heart-divider-img" src="https://lh3.googleusercontent.com/u/0/d/1ab93BEibrLoMCVGtnlq4wBiXNAJnICY7" onload="fixImage(this)"></div>
                 <div class="box-template right-medium">
-                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14yJTerTbmgqUe9uQRzvY6szSd69uksnT" onload="fixImage(this)">
+                    <img class="box-deco-corner" src="https://lh3.googleusercontent.com/u/0/d/14S7hZwuiR3ap3NNkbBwkdNfkH18xsomQ" onload="fixImage(this)">
                     <div class="box-title">little things about me</div>
                     <div class="inner-white">
                         <div class="image-placeholder"><img src="https://lh3.googleusercontent.com/u/0/d/14S7hZwuiR3ap3NNkbBwkdNfkH18xsomQ" onload="fixImage(this)"></div>
@@ -732,7 +749,7 @@
     let tosImgID = '';
     let adminPassInBase = "";
     
-    let characterTermsAccepted = false, isAdmin = false, currentEditIndex = -1, currentViewingCharIndex = -1, activeFolderIdx = -1, tempImages = [], activeMgmtType = "", lbList = [], lbIdx = 0;
+    let characterTermsAccepted = false, isAdmin = false, currentEditIndex = -1, currentViewingCharIndex = -1, activeFolderIdx = -1, tempImages = [], activeMgmtType = "", lbList = [], lbIdx = 0, currentLightboxShowCredit = true;
     
     // สำหรับจัดการ Credit รูป
     let editCreditTarget = { folderIdx: -1, imgIdx: -1 };
@@ -885,18 +902,18 @@
     
     function openLightbox(list, index, showCredit = true) { 
         if(!list || list.length === 0) return; 
-        lbList = list; lbIdx = index; 
-        updateLightboxImg(showCredit); 
+        lbList = list; lbIdx = index; currentLightboxShowCredit = showCredit;
+        updateLightboxImg(); 
         document.getElementById('lightbox-overlay').style.display = 'flex'; 
     }
-    function updateLightboxImg(showCredit = true) { 
+    function updateLightboxImg() { 
         const item = lbList[lbIdx];
         const id = (typeof item === 'object') ? item.id : item;
         const img = document.getElementById('lb-image-src');
         if(img) img.src = `https://lh3.googleusercontent.com/u/0/d/${id}`; 
         
         const creditBox = document.getElementById('lb-credit-box');
-        if (showCredit && typeof item === 'object' && (item.creditName || item.creditLink || item.usage)) {
+        if (currentLightboxShowCredit && typeof item === 'object' && (item.creditName || item.creditLink || item.usage)) {
             creditBox.style.display = 'flex';
             const title = document.getElementById('lb-credit-title');
             title.innerText = item.creditName || (item.creditLink ? "คลิกดูโปรไฟล์นักวาด" : "ไม่ระบุชื่อนักวาด");
@@ -962,6 +979,25 @@
         }, 300); 
     }
 
+    /* ฟังก์ชันลบรูปภาพโดยตรง (แทรกใหม่ตามสั่ง) */
+    async function deleteImageDirect(type, folderIdx, imgIdx) {
+        if(!confirm("ต้องการลบรูปภาพนี้ใช่หรือไม่?")) return;
+        if(type === 'artwork') {
+            artworkList[folderIdx].images.splice(imgIdx, 1);
+            renderArtwork();
+        } else if(type === 'char') {
+            charList[currentViewingCharIndex].folders[folderIdx].images.splice(imgIdx, 1);
+            renderDynamicGallery();
+        } else if(type === 'comm') {
+            commissionItems[currentViewingCharIndex].gallery.splice(imgIdx - 1, 1);
+            openSubGallery('comm', currentViewingCharIndex);
+        } else if(type === 'shop') {
+            shopList[currentViewingCharIndex].gallery.splice(imgIdx - 1, 1);
+            openSubGallery('shop', currentViewingCharIndex);
+        }
+        await syncToSheets();
+    }
+
     function renderArtwork() {
         const target = document.getElementById('artwork-list-target');
         target.innerHTML = '';
@@ -971,13 +1007,22 @@
             
             const imgHtml = folder.images.map((imgObj, iIdx) => {
                 const id = (typeof imgObj === 'object') ? imgObj.id : imgObj;
-                return `<div class="img-w-wrap gallery-img-item" onclick='openLightbox(${JSON.stringify(folder.images)}, ${iIdx}, false)'>
+                let delIcon = isAdmin ? `<img src="https://lh3.googleusercontent.com/u/0/d/1v9_W_F5p95Z6Xq-UeB9-R4Jz1pG7N1W_" class="img-del-btn-float" onclick="event.stopPropagation(); deleteImageDirect('artwork', ${fIndex}, ${iIdx})">` : "";
+                return `<div class="img-w-wrap" style="cursor:pointer;" onclick='openLightbox(artworkList[${fIndex}].images, ${iIdx}, false)'>
                     <img src="https://lh3.googleusercontent.com/u/0/d/${id}" style="width:100%;height:auto;display:block;" onload="fixImage(this)">
                     <div class="watermark-tile"></div>
+                    ${delIcon}
                 </div>`;
             }).join('');
 
-            wrap.innerHTML = `<div class="folder-row-header"><h3 class="folder-title">${folder.name}</h3>${adminBtn}</div><div class="gallery-grid-inner">${imgHtml}</div>`;
+            wrap.innerHTML = `
+                <div class="folder-row-header">
+                    <h3 class="folder-title" style="color: white !important;">${folder.name}</h3>
+                    ${adminBtn}
+                </div>
+                <div class="gallery-grid-inner">
+                    ${imgHtml}
+                </div>`;
             target.appendChild(wrap);
         });
     }
@@ -1135,7 +1180,9 @@
             const wrap = document.createElement('div'); 
             wrap.className = 'img-w-wrap gal-img-item'; 
             wrap.onclick = () => openLightbox(allImages, i, false);
-            wrap.innerHTML = `<img src="https://lh3.googleusercontent.com/u/0/d/${id}" style="width:100%;height:auto;display:block;" onload="fixImage(this)"><div class="watermark-tile"></div>`;
+            /* ลบเฉพาะรูปภาพย่อย (i > 0) */
+            let delIcon = (isAdmin && i > 0) ? `<img src="https://lh3.googleusercontent.com/u/0/d/1v9_W_F5p95Z6Xq-UeB9-R4Jz1pG7N1W_" class="img-del-btn-float" onclick="event.stopPropagation(); deleteImageDirect('${type}', -1, ${i})">` : "";
+            wrap.innerHTML = `<img src="https://lh3.googleusercontent.com/u/0/d/${id}" style="width:100%;height:auto;display:block;" onload="fixImage(this)"><div class="watermark-tile"></div>${delIcon}`;
             target.appendChild(wrap); 
         }); 
         document.getElementById('comm-gallery-modal').style.display = 'flex'; 
@@ -1259,7 +1306,7 @@
         let tagHtml = char.tag ? char.tag.split(', ').map(t => `<div class="char-tag-ui" style="margin-right:5px; margin-top:10px;">${t}</div>`).join('') : "";
         let html = `
             <div class="char-modal-header" style="margin-top: 20px;">
-                <div class="modal-pfp-frame" onclick="openLightbox(['${char.img}'], 0)">
+                <div class="modal-pfp-frame" onclick="openLightbox(['${char.img}'], 0, true)">
                     <img class="char-frame-img" src="${frameImg}" onload="fixImage(this)">
                     <img class="char-thumb" src="https://lh3.googleusercontent.com/u/0/d/${char.img}" onload="fixImage(this)">
                 </div>
@@ -1309,10 +1356,12 @@
                 let adminBtn = isAdmin ? `<div class="folder-admin-btns"><button class="f-btn" onclick="adminEditFolder(${fIndex})">edit name</button><button class="f-btn del" onclick="adminDeleteFolder(${fIndex})">del</button><button class="f-btn" onclick="openMgmtModal('char', ${fIndex})">+ image</button></div>` : ""; 
                 const imgHtml = folder.images.map((imgObj, iIdx) => {
                     const id = (typeof imgObj === 'object') ? imgObj.id : imgObj;
-                    return `<div class="img-w-wrap gallery-img-item" onclick='openLightbox(${JSON.stringify(folder.images)}, ${iIdx}, true)'>
+                    let delIcon = isAdmin ? `<img src="https://lh3.googleusercontent.com/u/0/d/1v9_W_F5p95Z6Xq-UeB9-R4Jz1pG7N1W_" class="img-del-btn-float" onclick="event.stopPropagation(); deleteImageDirect('char', ${fIndex}, ${iIdx})">` : "";
+                    return `<div class="img-w-wrap gallery-img-item" onclick='openLightbox(charList[${currentViewingCharIndex}].folders[${fIndex}].images, ${iIdx}, true)'>
                         <img src="https://lh3.googleusercontent.com/u/0/d/${id}" style="width:100%;height:auto;display:block;" onload="fixImage(this)">
                         <div class="watermark-tile"></div>
                         ${isAdmin ? `<img src="${editIcon}" class="credit-edit-btn-float" onclick="event.stopPropagation(); openEditImgCredit(${fIndex}, ${iIdx})">` : ''}
+                        ${delIcon}
                     </div>`;
                 }).join(''); 
                 wrap.innerHTML = `<div class="folder-row-header"><h3 class="folder-title">${folder.name}</h3>${adminBtn}</div><div class="gallery-grid-inner">${imgHtml}</div>`; 
