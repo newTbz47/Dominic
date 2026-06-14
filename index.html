@@ -46,14 +46,26 @@
             display: block; 
             width: 100%; 
             overflow: hidden; 
-            background-color: #FFFFFF; /* พื้นหลังขาวสำหรับรูป Thumbnail */
+            background-color: #FFFFFF; /* พื้นหลังขาวสำหรับพรีวิว */
             break-inside: avoid;
         }
         
         /* ข้อยกเว้น: โปรไฟล์ตัวละคร ไม่ต้องมีพื้นหลังขาว */
         .profile-wrapper .character-img,
-        .modal-pfp-frame .char-thumb {
+        .modal-pfp-frame .char-thumb,
+        .profile-bg-box {
             background-color: transparent !important;
+        }
+
+        /* ปรับแต่งพื้นหลังแกลเลอรีใน Modal ให้เป็นสีขาว */
+        .gallery-img-item, .gal-img-item {
+            width: 100%;
+            height: auto;
+            border: 1.5px solid var(--box-border);
+            background: #FFFFFF !important; /* เปลี่ยนจาก #111 เป็นสีขาว */
+            margin-bottom: 15px;
+            cursor: pointer;
+            display: block;
         }
 
         .watermark-tile {
@@ -249,7 +261,6 @@
         .f-btn.del { color: #ff9d9d; border-color: #ff9d9d; }
         
         .gallery-grid-inner { column-count: 2; column-gap: 15px; display: block; }
-        .gallery-img-item { width: 100%; height: auto; border: 1.5px solid var(--box-border); background: #111; margin-bottom: 15px; cursor: pointer; display: block; }
 
         #mgmt-image-modal { z-index: 10000 !important; }
         .mgmt-dashed-box { border: 1.5px dashed #555; padding: 25px; border-radius: 4px; margin: 20px 0; }
@@ -314,7 +325,6 @@
             display: flex; justify-content: center; align-items: center; 
             cursor: pointer; transition: 0.2s; 
         }
-        .char-link-icon-wrap:hover { transform: scale(1.15); }
         .char-link-icon-wrap img { width: 100%; height: auto; }
 
         .char-info-split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 20px; }
@@ -327,7 +337,6 @@
         .modal-gallery-title { font-size: 24px; margin-bottom: 25px; font-weight: 500; text-align: left; border-bottom: 1.5px solid rgba(255,255,255,0.4); padding-bottom: 10px; }
 
         #comm-gallery-modal { z-index: 5000 !important; }
-        .gal-img-item { width: 100%; height: auto; border: 1.5px solid var(--box-border); margin-bottom: 15px; cursor: pointer; display: block; break-inside: avoid; }
 
         #pop-rules-modal .modal-content { padding: 0; border: none; background: transparent; display: flex; align-items: center; justify-content: center; width: auto; max-width: 90vw; }
         .rules-img-full { max-width: 100%; max-height: 85vh; object-fit: contain; border: 3px solid var(--box-border); border-radius: 4px; box-shadow: var(--glow-soft); }
@@ -362,7 +371,6 @@
     </div>
 
     <div id="content-wrapper" class="page-content-wrapper">
-        <!-- หน้าแรก -->
         <div id="page-home" class="main-content">
             <div class="col-left">
                 <div class="profile-wrapper">
