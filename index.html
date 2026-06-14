@@ -26,7 +26,7 @@
             text-transform: lowercase;
         }
 
-        /* หน้าโหลด - ไล่สีพื้นหลัง */
+        /* หน้าโหลด - ปรับพื้นหลังให้ไล่สีเห็นชัดขึ้น */
         #loading-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(180deg, #1A0D1F 0%, #35233D 45%, #9073A0 100%); 
@@ -211,8 +211,8 @@
         .f-btn { font-size: 10px; padding: 2px 8px; border: 1px solid white; cursor: pointer; background: transparent; color: white; border-radius: 4px; }
         .f-btn.del { color: #ff9d9d; border-color: #ff9d9d; }
         
-        .gallery-grid-inner { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-        .gallery-img-item { width: 100%; height: 260px; border: 1.5px solid var(--box-border); background: #111; object-fit: cover; cursor: pointer; }
+        .gallery-grid-inner { column-count: 2; column-gap: 15px; display: block; }
+        .gallery-img-item { width: 100%; height: auto; border: 1.5px solid var(--box-border); background: #111; margin-bottom: 15px; cursor: pointer; display: block; }
 
         #mgmt-image-modal { z-index: 10000 !important; }
         .mgmt-dashed-box { border: 1.5px dashed #555; padding: 25px; border-radius: 4px; margin: 20px 0; }
@@ -223,10 +223,9 @@
         .mgmt-pink-plus { width: 45px; height: 38px; background: #D8A7C9; border: none; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: bold; color: black; margin-top: 5px; }
         .mgmt-save-big { width: 100%; height: 55px; background: #FFFFFF; color: #000; border: none; border-radius: 0; font-size: 24px; font-weight: bold; cursor: pointer; margin-top: 20px; }
 
-        /* แก้ไข Lightbox Overlay */
         #lightbox-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 80000; display: none; justify-content: center; align-items: center; user-select: none; }
         .lb-container { position: relative; width: 90%; height: 90%; display: flex; justify-content: center; align-items: center; }
-        .lb-img { max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 0 20px rgba(211,188,230,0.2); cursor: default; }
+        .lb-img { max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 0 20px rgba(211,188,230,0.2); }
         .lb-close { position: absolute; top: -30px; right: -10px; color: white; font-size: 40px; cursor: pointer; }
         .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); color: white; font-size: 50px; cursor: pointer; padding: 20px; transition: 0.3s; opacity: 0.6; }
         .lb-nav:hover { opacity: 1; color: var(--header-pink); }
@@ -251,7 +250,6 @@
 
         .char-modal-header { display: flex; gap: 30px; margin-bottom: 40px; position: relative; align-items: flex-start; }
         
-        /* สไตล์กรอบใน Modal */
         .modal-pfp-frame { width: 230px; height: 230px; position: relative; flex-shrink: 0; cursor: pointer; }
         .modal-pfp-frame .char-frame-img { z-index: 2; }
         .modal-pfp-frame .char-thumb { z-index: 1; width: 88%; height: 88%; top: 6%; left: 6%; border-radius: 2px; }
@@ -280,12 +278,13 @@
         .modal-gallery-title { font-size: 24px; margin-bottom: 25px; font-weight: 500; text-align: left; border-bottom: 1.5px solid rgba(255,255,255,0.4); padding-bottom: 10px; }
 
         #comm-gallery-modal { z-index: 5000 !important; }
-        .gal-img-item { width: 100%; height: 260px; border: 1.5px solid var(--box-border); object-fit: cover; cursor: pointer; }
+        .gal-img-item { width: 100%; height: auto; border: 1.5px solid var(--box-border); margin-bottom: 15px; cursor: pointer; display: block; }
 
-        /* ปุ่มจิ๋วแอดมิน */
+        #pop-rules-modal .modal-content { padding: 0; border: none; background: transparent; display: flex; align-items: center; justify-content: center; width: auto; max-width: 90vw; }
+        .rules-img-full { max-width: 100%; max-height: 85vh; object-fit: contain; border: 3px solid var(--box-border); border-radius: 4px; box-shadow: var(--glow-soft); }
+
         .admin-mini-btn { font-size: 10px; padding: 2px 8px; background: var(--box-border); color: black; border-radius: 4px; cursor: pointer; border: none; font-weight: bold; }
         
-        /* ปุ่มรูปภาพสั่งใหม่ */
         .img-edit-btn { width: 25px; height: auto; cursor: pointer; vertical-align: middle; transition: 0.2s; }
         .img-edit-btn:hover { transform: scale(1.1); }
     </style>
@@ -826,6 +825,7 @@
             if (tag === 'All' || item.tag === tag) { 
                 const card = document.createElement('div'); card.className = 'char-card'; 
                 let adminHtml = isAdmin ? `<div class="admin-controls"><div class="admin-btn" onclick="openEditShop(${index})">edit</div><div class="admin-btn del" onclick="deleteShop(${index})">delete</div></div>` : ""; 
+                // ดึงค่า value มาแสดงจริง
                 card.innerHTML = `
                     <div class="char-details-container">
                         <img class="char-details-img" src="https://lh3.googleusercontent.com/u/0/d/${item.img}" onload="fixImage(this)">
@@ -1101,7 +1101,7 @@
     async function saveShop() {
         const nameVal = document.getElementById('shop-name-input').value;
         const imgVal = extractId(document.getElementById('shop-img-input').value);
-        const valueVal = document.getElementById('shop-value-input').value; 
+        const valueVal = document.getElementById('shop-value-input').value; // รับค่า Value ใหม่
         if(currentEditIndex === -1) {
             const data = { name: nameVal, tag: document.getElementById('shop-tag-input').value, value: valueVal, img: imgVal, status: document.getElementById('shop-status-input').value, gallery: [] }; 
             shopList.push(data);
@@ -1109,7 +1109,7 @@
             const i = shopList[currentEditIndex];
             i.name = nameVal;
             i.tag = document.getElementById('shop-tag-input').value;
-            i.value = valueVal; 
+            i.value = valueVal; // อัปเดตค่า Value
             i.status = document.getElementById('shop-status-input').value;
             if(imgVal) i.img = imgVal;
         }
